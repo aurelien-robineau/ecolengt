@@ -1,11 +1,14 @@
-import { landingContent } from '@/content/landing'
 import { Button } from '@/components/ui/Button'
 import { Container } from '@/components/ui/Container'
 import { Reveal } from '@/components/ui/Reveal'
 import { SectionHeader } from '@/components/ui/SectionHeader'
+import type { LandingPageData } from '@/lib/cms/types'
 
-export function PedagogySection() {
-  const { pedagogy } = landingContent
+type PedagogySectionProps = {
+  pedagogy: LandingPageData['pedagogy']
+}
+
+export function PedagogySection({ pedagogy }: PedagogySectionProps) {
   const { courseOrganization, practice } = pedagogy.features
 
   return (

@@ -3,7 +3,7 @@ import React from 'react'
 
 import { Footer } from '@/components/layout/Footer'
 import { Header } from '@/components/layout/Header'
-import { siteConfig } from '@/config/site'
+import { getSiteContent } from '@/lib/cms/getSiteContent'
 
 import './globals.css'
 
@@ -20,19 +20,25 @@ const dmSans = DM_Sans({
   weight: ['300', '400', '500'],
 })
 
-export const metadata = {
-  title: `${siteConfig.name} — ${siteConfig.subtitle} · ${siteConfig.location}`,
-  description:
-    'École de batterie à Aix-en-Provence. Enseignement pour tous niveaux dès 6 ans, méthode Dante Agostini.',
+export async function generateMetadata() {
+  const { site } = await getSiteContent()
+
+  return {
+    title: `${site.name} — ${site.subtitle} · ${site.location}`,
+    description:
+      'École de batterie à Aix-en-Provence. Enseignement pour tous niveaux dès 6 ans, méthode Dante Agostini.',
+  }
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const { site } = await getSiteContent()
+
   return (
     <html lang="fr" className={`${cormorant.variable} ${dmSans.variable}`}>
       <body>
-        <Header />
+        <Header site={site} />
         <main>{children}</main>
-        <Footer />
+        <Footer site={site} />
       </body>
     </html>
   )

@@ -87,8 +87,14 @@ export interface Config {
     defaultIDType: string;
   };
   fallbackLocale: null;
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    'site-settings': SiteSetting;
+    'home-page': HomePage;
+  };
+  globalsSelect: {
+    'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
+    'home-page': HomePageSelect<false> | HomePageSelect<true>;
+  };
   locale: null;
   widgets: {
     collections: CollectionsWidget;
@@ -118,6 +124,8 @@ export interface UserAuthOperations {
   };
 }
 /**
+ * Comptes autorisés à modifier le contenu du site via cet espace d’administration.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
@@ -143,11 +151,16 @@ export interface User {
   collection: 'users';
 }
 /**
+ * Photos et images utilisées sur le site (portrait, locaux, etc.).
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media".
  */
 export interface Media {
   id: string;
+  /**
+   * Courte description du contenu de l’image (accessibilité). Ex. : Nadia et Gilles Touché devant une batterie.
+   */
   alt: string;
   updatedAt: string;
   createdAt: string;
@@ -314,6 +327,289 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * Coordonnées, réseaux sociaux et textes affichés dans l’en-tête et le pied de page.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings".
+ */
+export interface SiteSetting {
+  id: string;
+  /**
+   * Titre principal sur la bannière d’accueil (ex. École de Batterie).
+   */
+  schoolName: string;
+  /**
+   * Affiché sous le nom de l’école, en italique (ex. Nadia & Gilles Touché).
+   */
+  subtitle: string;
+  /**
+   * Courte phrase en italique au-dessus du titre, sur la bannière d’accueil (ex. Écoutez… et tu parviendras).
+   */
+  tagline: string;
+  /**
+   * Affichée sous les noms sur la bannière (ex. Aix-en-Provence).
+   */
+  location: string;
+  /**
+   * Texte optionnel à côté de la ville (ex. Depuis 2003). Laisser vide pour ne rien afficher.
+   */
+  founded?: string | null;
+  /**
+   * Affiché dans le pied de page, colonne Adresse.
+   */
+  addressStreet: string;
+  addressCity: string;
+  /**
+   * Liste des téléphones affichés dans le pied de page.
+   */
+  phones?:
+    | {
+        /**
+         * Optionnel. Ex. : Fixe, Mobile, Gilles…
+         */
+        label?: string | null;
+        /**
+         * Tel qu’affiché sur le site (ex. 04 42 63 03 74). Le lien d’appel est généré automatiquement.
+         */
+        number: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Toutes les adresses affichées dans le pied de page.
+   */
+  emails?:
+    | {
+        /**
+         * Optionnel. Ex. : Contact général, Nadia, Gilles…
+         */
+        label?: string | null;
+        address: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * URL complète de la page ou du profil (ex. https://instagram.com/…).
+   */
+  instagramUrl?: string | null;
+  /**
+   * URL complète de la page (ex. https://facebook.com/…).
+   */
+  facebookUrl?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Textes et photos des différentes sections affichées sur la page d’accueil du site.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-page".
+ */
+export interface HomePage {
+  id: string;
+  /**
+   * Libellé du bouton sous le titre (ex. Découvrir l’école). Le lien mène à la section « Pour qui ».
+   */
+  heroCta: string;
+  /**
+   * Citation entre guillemets, sans les « » (ajoutés automatiquement sur le site).
+   */
+  quoteText: string;
+  /**
+   * Nom affiché sous la citation (ex. Nadia et Gilles Touché).
+   */
+  quoteCite: string;
+  /**
+   * Portrait affiché à gauche de la citation. Créez d’abord le fichier dans Médias si besoin.
+   */
+  quotePortrait?: (string | null) | Media;
+  /**
+   * Court texte en majuscules au-dessus du titre (ex. Pour qui).
+   */
+  audienceLabel: string;
+  /**
+   * Grand titre visible sur la page d’accueil.
+   */
+  audienceTitle: string;
+  audienceParagraphs?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Ex. La pédagogie
+   */
+  pedagogyLabel: string;
+  pedagogyTitle: string;
+  /**
+   * Texte d’introduction en tête de section, avant les autres paragraphes.
+   */
+  pedagogyLead: string;
+  /**
+   * Suite du texte de présentation, affichée sous le premier paragraphe.
+   */
+  pedagogyBody?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  courseOrganizationTitle: string;
+  courseOrganizationItems?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Texte affiché sous la liste à puces.
+   */
+  courseOrganizationFooter: string;
+  practiceTitle: string;
+  practiceBody: string;
+  intensiveCoursesTitle: string;
+  intensiveCoursesParagraphs?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Bouton en bas de l’encadré (ex. En savoir plus). Mène au pied de page / contact.
+   */
+  intensiveCoursesButtonLabel: string;
+  /**
+   * Ex. Les locaux
+   */
+  facilitiesLabel: string;
+  facilitiesTitle: string;
+  /**
+   * Un ou plusieurs paragraphes au-dessus de la galerie photos.
+   */
+  facilitiesDescription?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Grille de photos en bas de section. La première peut être affichée en grand format.
+   */
+  facilitiesGallery?:
+    | {
+        image: string | Media;
+        /**
+         * Texte affiché au survol de la photo (optionnel).
+         */
+        caption?: string | null;
+        /**
+         * Cochez pour une image large sur deux colonnes (idéal pour la salle principale).
+         */
+        wide?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings_select".
+ */
+export interface SiteSettingsSelect<T extends boolean = true> {
+  schoolName?: T;
+  subtitle?: T;
+  tagline?: T;
+  location?: T;
+  founded?: T;
+  addressStreet?: T;
+  addressCity?: T;
+  phones?:
+    | T
+    | {
+        label?: T;
+        number?: T;
+        id?: T;
+      };
+  emails?:
+    | T
+    | {
+        label?: T;
+        address?: T;
+        id?: T;
+      };
+  instagramUrl?: T;
+  facebookUrl?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-page_select".
+ */
+export interface HomePageSelect<T extends boolean = true> {
+  heroCta?: T;
+  quoteText?: T;
+  quoteCite?: T;
+  quotePortrait?: T;
+  audienceLabel?: T;
+  audienceTitle?: T;
+  audienceParagraphs?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  pedagogyLabel?: T;
+  pedagogyTitle?: T;
+  pedagogyLead?: T;
+  pedagogyBody?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  courseOrganizationTitle?: T;
+  courseOrganizationItems?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  courseOrganizationFooter?: T;
+  practiceTitle?: T;
+  practiceBody?: T;
+  intensiveCoursesTitle?: T;
+  intensiveCoursesParagraphs?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  intensiveCoursesButtonLabel?: T;
+  facilitiesLabel?: T;
+  facilitiesTitle?: T;
+  facilitiesDescription?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  facilitiesGallery?:
+    | T
+    | {
+        image?: T;
+        caption?: T;
+        wide?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

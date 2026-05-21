@@ -1,10 +1,14 @@
-import { siteConfig } from '@/config/site'
-import { landingContent } from '@/content/landing'
 import { Button } from '@/components/ui/Button'
 import { Container } from '@/components/ui/Container'
 import { HeroCircles } from '@/components/landing/HeroCircles'
+import type { LandingPageData, SiteSettingsData } from '@/lib/cms/types'
 
-export function HeroSection() {
+type HeroSectionProps = {
+  hero: LandingPageData['hero']
+  site: SiteSettingsData
+}
+
+export function HeroSection({ hero, site }: HeroSectionProps) {
   return (
     <section
       id="home"
@@ -19,23 +23,23 @@ export function HeroSection() {
       <Container className="relative">
         <p className="animate-fade-up mb-6 flex items-center gap-4 font-serif text-lg text-foreground-muted italic md:text-xl">
           <span className="block h-px w-10 bg-foreground-muted" aria-hidden />
-          {siteConfig.tagline}
+          {site.tagline}
         </p>
 
         <h1 className="animate-fade-up-delay-1 mb-3 font-serif text-[clamp(3.25rem,7vw,6rem)] leading-none font-light text-foreground">
-          {siteConfig.name}
+          {site.name}
           <br />
-          <em className="text-foreground-muted">{siteConfig.subtitle}</em>
+          <em className="text-foreground-muted">{site.subtitle}</em>
         </h1>
 
         <p className="animate-fade-up-delay-2 mb-12 text-[13px] tracking-[0.2em] text-foreground-subtle uppercase">
-          {siteConfig.location}
+          {site.location}
           <span className="mx-3 opacity-50">·</span>
-          {siteConfig.founded}
+          {site.founded}
         </p>
 
         <div className="animate-fade-up-delay-3">
-          <Button href={landingContent.hero.ctaHref}>{landingContent.hero.cta}</Button>
+          <Button href={hero.ctaHref}>{hero.cta}</Button>
         </div>
       </Container>
     </section>
