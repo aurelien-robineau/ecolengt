@@ -2,6 +2,7 @@ import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload'
+import { fr } from '@payloadcms/translations/languages/fr'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 
@@ -29,4 +30,7 @@ export default buildConfig({
   }),
   sharp,
   plugins: [],
+  i18n: {
+    supportedLanguages: { fr },
+  },
 })
