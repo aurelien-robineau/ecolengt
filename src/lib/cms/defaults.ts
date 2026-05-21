@@ -29,12 +29,10 @@ export const defaultSiteSettings: SiteSettingsData = {
     facebook: '#',
   },
   navigation: [
-    { label: 'Pour qui', href: '/#audience' },
-    { label: 'La pédagogie', href: '/#pedagogy' },
-    { label: 'Les locaux', href: '/#facilities' },
-    { label: 'Livre d’or', href: routes.guestbook },
     { label: 'Actualité', href: routes.news },
+    { label: 'Livre d’or', href: routes.guestbook },
     { label: 'Anciens élèves', href: routes.alumni },
+    { label: 'Tom Tom', href: routes.tomTom },
   ],
 }
 

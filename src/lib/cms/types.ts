@@ -1,4 +1,4 @@
-import type { Article, LegalNoticePage } from '@/payload-types'
+import type { Article, LegalNoticePage, TomTomPage } from '@/payload-types'
 
 export type SiteSettingsData = {
   name: string
@@ -56,6 +56,10 @@ export type StudentProfileData = {
 export type AlumniPageData = {
   intro: string[]
   students: AlumniStudent[]
+}
+
+export type TomTomPageData = {
+  content: NonNullable<TomTomPage['content']>
 }
 
 export type LegalNoticePageData = {
@@ -150,5 +154,6 @@ export type SiteContent = {
   contact: ContactPageData
   guestbook: GuestbookPageData
   alumni: AlumniPageData
+  tomTom: TomTomPageData
   legalNotice: LegalNoticePageData
 }

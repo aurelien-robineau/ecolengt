@@ -8,13 +8,21 @@ import { mapGuestbookPage } from '@/lib/cms/mapGuestbookPage'
 import { mapHomePage } from '@/lib/cms/mapHomePage'
 import { mapLegalNoticePage } from '@/lib/cms/mapLegalNoticePage'
 import { mapSiteSettings } from '@/lib/cms/mapSiteSettings'
+import { mapTomTomPage } from '@/lib/cms/mapTomTomPage'
 import type { SiteContent } from '@/lib/cms/types'
 
 export const getSiteContent = cache(async (): Promise<SiteContent> => {
   const payload = await getPayload({ config })
 
-  const [siteSettings, homePage, contactPage, guestbookPage, alumniPage, legalNoticePage] =
-    await Promise.all([
+  const [
+    siteSettings,
+    homePage,
+    contactPage,
+    guestbookPage,
+    alumniPage,
+    tomTomPage,
+    legalNoticePage,
+  ] = await Promise.all([
       payload.findGlobal({
         slug: 'site-settings',
         depth: 2,
@@ -36,6 +44,10 @@ export const getSiteContent = cache(async (): Promise<SiteContent> => {
         depth: 2,
       }),
       payload.findGlobal({
+        slug: 'tom-tom-page',
+        depth: 2,
+      }),
+      payload.findGlobal({
         slug: 'legal-notice-page',
         depth: 2,
       }),
@@ -47,6 +59,7 @@ export const getSiteContent = cache(async (): Promise<SiteContent> => {
     contact: mapContactPage(contactPage),
     guestbook: mapGuestbookPage(guestbookPage),
     alumni: mapAlumniPage(alumniPage),
+    tomTom: mapTomTomPage(tomTomPage),
     legalNotice: mapLegalNoticePage(legalNoticePage),
   }
 })
