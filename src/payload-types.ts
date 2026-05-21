@@ -91,11 +91,13 @@ export interface Config {
     'site-settings': SiteSetting;
     'home-page': HomePage;
     'contact-page': ContactPage;
+    'guestbook-page': GuestbookPage;
   };
   globalsSelect: {
     'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
     'home-page': HomePageSelect<false> | HomePageSelect<true>;
     'contact-page': ContactPageSelect<false> | ContactPageSelect<true>;
+    'guestbook-page': GuestbookPageSelect<false> | GuestbookPageSelect<true>;
   };
   locale: null;
   widgets: {
@@ -551,6 +553,42 @@ export interface ContactPage {
   createdAt?: string | null;
 }
 /**
+ * Message des professeurs et témoignages affichés sur la page Livre d’or.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "guestbook-page".
+ */
+export interface GuestbookPage {
+  id: string;
+  /**
+   * Ex. : À Dante Agostini
+   */
+  letterTitle: string;
+  /**
+   * Saisissez un paragraphe par bloc, séparés par une ligne vide.
+   */
+  letterContent: string;
+  /**
+   * Affichée sous le message (ex. Nadia & Gilles Touché).
+   */
+  letterSignature: string;
+  testimonials?:
+    | {
+        /**
+         * Un témoignage long peut tenir sur plusieurs paragraphes : séparez-les par une ligne vide.
+         */
+        content: string;
+        /**
+         * Ex. : Marie D., parent d’élève
+         */
+        author: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "site-settings_select".
  */
@@ -661,6 +699,25 @@ export interface ContactPageSelect<T extends boolean = true> {
         id?: T;
       };
   mapsEmbed?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "guestbook-page_select".
+ */
+export interface GuestbookPageSelect<T extends boolean = true> {
+  letterTitle?: T;
+  letterContent?: T;
+  letterSignature?: T;
+  testimonials?:
+    | T
+    | {
+        content?: T;
+        author?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

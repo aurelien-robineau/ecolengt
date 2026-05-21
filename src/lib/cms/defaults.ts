@@ -1,4 +1,10 @@
-import type { ContactPageData, LandingPageData, SiteSettingsData } from '@/lib/cms/types'
+import { routes } from '@/config/routes'
+import type {
+  ContactPageData,
+  GuestbookPageData,
+  LandingPageData,
+  SiteSettingsData,
+} from '@/lib/cms/types'
 
 export const defaultMapsEmbedSrc =
   'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3608.3594002590175!2d5.4479491768275485!3d43.52915447110825!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12c98dbdcbee8bf5%3A0xbb7d75229711baa3!2s%C3%89cole%20de%20batterie%20NGT!5e1!3m2!1sfr!2sfr!4v1779380126654!5m2!1sfr!2sfr'
@@ -25,6 +31,27 @@ export const defaultSiteSettings: SiteSettingsData = {
     { label: 'Pour qui', href: '/#audience' },
     { label: 'La pédagogie', href: '/#pedagogy' },
     { label: 'Les locaux', href: '/#facilities' },
+    { label: 'Livre d’or', href: routes.guestbook },
+  ],
+}
+
+export const defaultGuestbookPage: GuestbookPageData = {
+  letter: {
+    title: 'À Dante Agostini',
+    content: [
+      'Cher Dante,',
+      'Nous gardons au cœur et à l’esprit l’exemple que vous avez été au travers de votre enseignement, de votre générosité, de votre énergie, de votre passion pour la batterie et surtout pour les jeunes musiciens en devenir qu’étaient vos élèves.',
+      'Vous nous avez tant donné qu’à notre tour nous nous devons de transmettre cette passion du travail, pour l’instrument, pour la musique, pour que chacun grandisse.',
+      'Espérant qu’à leur tour nos élèves, faisant preuve d’exigence et d’intégrité, sauront perpétuer le sens de la qualité et du travail.',
+    ],
+    signature: 'Nadia & Gilles',
+  },
+  testimonials: [
+    {
+      content:
+        'Une école où l’on apprend bien plus que la technique : le goût du travail, le respect de la musique et une vraie exigence, toujours dans la bienveillance.\n\nNotre fils y prend des cours depuis plusieurs années. Nous avons vu progresser non seulement son jeu, mais aussi sa rigueur, sa confiance et sa façon d’écouter la musique. Les professeurs savent adapter leur pédagogie à chaque élève, sans jamais perdre de vue l’exigence qui fait la qualité de l’enseignement.',
+      author: 'Parents d’élève',
+    },
   ],
 }
 
