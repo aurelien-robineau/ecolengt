@@ -1,7 +1,9 @@
-import { slugField, type SlugFieldArgs } from 'payload'
+import { slugField } from 'payload'
 
 /** Slug auto-generated from `useAsSlug`; hidden in the admin (no manual editing). */
-export function hiddenSlugField(args: SlugFieldArgs) {
+export function hiddenSlugField(
+  args: NonNullable<Parameters<typeof slugField>[0]>,
+) {
   const { overrides, ...rest } = args
 
   return slugField({
@@ -33,7 +35,7 @@ export function hiddenSlugField(args: SlugFieldArgs) {
             },
           }
         }),
-      }
+      } as typeof field
     },
   })
 }
