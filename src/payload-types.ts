@@ -90,10 +90,12 @@ export interface Config {
   globals: {
     'site-settings': SiteSetting;
     'home-page': HomePage;
+    'contact-page': ContactPage;
   };
   globalsSelect: {
     'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
     'home-page': HomePageSelect<false> | HomePageSelect<true>;
+    'contact-page': ContactPageSelect<false> | ContactPageSelect<true>;
   };
   locale: null;
   widgets: {
@@ -478,7 +480,7 @@ export interface HomePage {
       }[]
     | null;
   /**
-   * Bouton en bas de l’encadré (ex. En savoir plus). Mène au pied de page / contact.
+   * Bouton en bas de l’encadré (ex. En savoir plus). Mène à la page Contact.
    */
   intensiveCoursesButtonLabel: string;
   /**
@@ -512,6 +514,35 @@ export interface HomePage {
         id?: string | null;
       }[]
     | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Contenu affiché sur la page Contact : photos d’accès et carte Google Maps.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-page".
+ */
+export interface ContactPage {
+  id: string;
+  accessGallery?:
+    | {
+        image: string | Media;
+        /**
+         * Ex. : Accès à l’école, Rue Rifle Rafle…
+         */
+        caption?: string | null;
+        /**
+         * Occupe toute la largeur de la grille (2 colonnes).
+         */
+        wide?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Collez le code iframe fourni par Google Maps (« Partager » → « Intégrer une carte »), ou uniquement l’URL src du iframe.
+   */
+  mapsEmbed?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -607,6 +638,24 @@ export interface HomePageSelect<T extends boolean = true> {
         wide?: T;
         id?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-page_select".
+ */
+export interface ContactPageSelect<T extends boolean = true> {
+  accessGallery?:
+    | T
+    | {
+        image?: T;
+        caption?: T;
+        wide?: T;
+        id?: T;
+      };
+  mapsEmbed?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

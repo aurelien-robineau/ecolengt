@@ -10,7 +10,7 @@ export function Footer({ site }: FooterProps) {
   const year = new Date().getFullYear()
 
   return (
-    <footer id="contact" className="bg-foreground py-20 text-foreground-subtle">
+    <footer className="bg-foreground py-20 text-foreground-subtle">
       <Container>
         <div className="mb-14">
           <Logo variant="white" href={undefined} className="mb-5 max-h-11" />

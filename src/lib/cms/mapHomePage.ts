@@ -1,5 +1,6 @@
 import type { HomePage as HomePageDoc } from '@/payload-types'
 import { defaultLandingPage } from '@/lib/cms/defaults'
+import { mapGallery } from '@/lib/cms/mapGallery'
 import { mapMedia } from '@/lib/cms/mapMedia'
 import type { LandingPageData } from '@/lib/cms/types'
 
@@ -17,18 +18,10 @@ export function mapHomePage(data: HomePageDoc | null | undefined): LandingPageDa
     return defaultLandingPage
   }
 
-  const gallery =
-    data.facilitiesGallery?.length ?
-      data.facilitiesGallery.map((item, index) => {
-        const fallback = defaultLandingPage.facilities.gallery[index]
-
-        return {
-          caption: item.caption || fallback?.caption || '',
-          wide: item.wide ?? false,
-          image: mapMedia(item.image, item.caption || fallback?.caption || 'Photo des locaux'),
-        }
-      })
-    : defaultLandingPage.facilities.gallery
+  const gallery = mapGallery(
+    data.facilitiesGallery,
+    defaultLandingPage.facilities.gallery,
+  )
 
   return {
     hero: {

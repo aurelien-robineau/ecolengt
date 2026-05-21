@@ -238,7 +238,7 @@ export const HomePage: GlobalConfig = {
                   label: 'Texte du bouton',
                   required: true,
                   admin: {
-                    description: 'Bouton en bas de l’encadré (ex. En savoir plus). Mène au pied de page / contact.',
+                    description: 'Bouton en bas de l’encadré (ex. En savoir plus). Mène à la page Contact.',
                   },
                 },
               ],

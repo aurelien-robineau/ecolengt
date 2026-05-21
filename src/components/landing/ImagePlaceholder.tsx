@@ -5,19 +5,20 @@ type ImagePlaceholderProps = {
   wide?: boolean
   tone?: 0 | 1 | 2 | 3
   className?: string
+  embedded?: boolean
 }
 
 const tones = ['bg-[#e8e0d0]', 'bg-[#e2ddd4]', 'bg-[#ddd8d0]', 'bg-[#e6e0d4]']
 
-export function ImagePlaceholder({ caption, wide, tone = 0, className }: ImagePlaceholderProps) {
-  return (
-    <figure
-      className={cn(
-        'group relative overflow-hidden bg-surface-elevated',
-        wide ? 'col-span-2 aspect-2/1' : 'aspect-square',
-        className,
-      )}
-    >
+export function ImagePlaceholder({
+  caption,
+  wide,
+  tone = 0,
+  className,
+  embedded = false,
+}: ImagePlaceholderProps) {
+  const content = (
+    <>
       <div
         className={cn(
           'absolute inset-0 flex items-center justify-center transition-transform duration-500 group-hover:scale-[1.03]',
@@ -35,11 +36,27 @@ export function ImagePlaceholder({ caption, wide, tone = 0, className }: ImagePl
           <line x1="32" y1="2" x2="32" y2="16" strokeWidth="1.5" />
         </svg>
       </div>
-      {caption ? (
+      {caption ?
         <figcaption className="absolute inset-x-0 bottom-0 translate-y-1 bg-linear-to-t from-surface/95 to-transparent px-6 py-6 text-xs tracking-[0.08em] text-foreground-muted opacity-0 transition-[opacity,transform] duration-300 group-hover:translate-y-0 group-hover:opacity-100">
           {caption}
         </figcaption>
-      ) : null}
+      : null}
+    </>
+  )
+
+  if (embedded) {
+    return <div className={cn('absolute inset-0', className)}>{content}</div>
+  }
+
+  return (
+    <figure
+      className={cn(
+        'group relative overflow-hidden bg-surface-elevated',
+        wide ? 'col-span-2 aspect-2/1' : 'aspect-square',
+        className,
+      )}
+    >
+      {content}
     </figure>
   )
 }

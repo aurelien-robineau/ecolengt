@@ -26,10 +26,13 @@ export function HeroSection({ hero, site }: HeroSectionProps) {
           {site.tagline}
         </p>
 
-        <h1 className="animate-fade-up-delay-1 mb-3 font-serif text-[clamp(3.25rem,7vw,6rem)] leading-none font-light text-foreground">
-          {site.name}
-          <br />
-          <em className="text-foreground-muted">{site.subtitle}</em>
+        <h1 className="animate-fade-up-delay-1 mb-3 font-serif leading-[1.05] font-light text-foreground">
+          <span className="block max-md:whitespace-nowrap max-md:text-[clamp(2.25rem,9vw,3rem)] md:text-[clamp(3.25rem,7vw,6rem)]">
+            {site.name}
+          </span>
+          <em className="block text-foreground-muted max-md:whitespace-nowrap max-md:text-[clamp(2rem,8vw,2.625rem)] md:text-[clamp(3.25rem,7vw,6rem)]">
+            {site.subtitle}
+          </em>
         </h1>
 
         <p className="animate-fade-up-delay-2 mb-12 text-[13px] tracking-[0.2em] text-foreground-subtle uppercase">
