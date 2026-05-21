@@ -5,10 +5,10 @@ import { cn } from '@/lib/cn'
 type LogoVariant = 'default' | 'mono' | 'white' | 'black'
 
 const logoPaths: Record<LogoVariant, string> = {
-  default: '/assets/logo.svg',
-  mono: '/assets/logo_mono.svg',
-  white: '/assets/logo_white_text.svg',
-  black: '/assets/logo_black_text.svg',
+  default: '/brand/logo.svg',
+  mono: '/brand/logo_mono.svg',
+  white: '/brand/logo_white_text.svg',
+  black: '/brand/logo_black_text.svg',
 }
 
 type LogoProps = {
