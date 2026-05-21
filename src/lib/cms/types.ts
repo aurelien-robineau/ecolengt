@@ -1,9 +1,5 @@
 export type SiteSettingsData = {
   name: string
-  subtitle: string
-  tagline: string
-  location: string
-  founded: string
   address: {
     street: string
     city: string
@@ -39,6 +35,11 @@ export type GalleryItem = {
 
 export type LandingPageData = {
   hero: {
+    tagline: string
+    name: string
+    subtitle: string
+    location: string
+    founded: string
     cta: string
     ctaHref: string
   }

@@ -1,14 +1,13 @@
 import { Button } from '@/components/ui/Button'
 import { Container } from '@/components/ui/Container'
 import { HeroCircles } from '@/components/landing/HeroCircles'
-import type { LandingPageData, SiteSettingsData } from '@/lib/cms/types'
+import type { LandingPageData } from '@/lib/cms/types'
 
 type HeroSectionProps = {
   hero: LandingPageData['hero']
-  site: SiteSettingsData
 }
 
-export function HeroSection({ hero, site }: HeroSectionProps) {
+export function HeroSection({ hero }: HeroSectionProps) {
   return (
     <section
       id="home"
@@ -23,22 +22,26 @@ export function HeroSection({ hero, site }: HeroSectionProps) {
       <Container className="relative">
         <p className="animate-fade-up mb-6 flex items-center gap-4 font-serif text-lg text-foreground-muted italic md:text-xl">
           <span className="block h-px w-10 bg-foreground-muted" aria-hidden />
-          {site.tagline}
+          {hero.tagline}
         </p>
 
         <h1 className="animate-fade-up-delay-1 mb-3 font-serif leading-[1.05] font-light text-foreground">
           <span className="block max-md:whitespace-nowrap max-md:text-[clamp(2.25rem,9vw,3rem)] md:text-[clamp(3.25rem,7vw,6rem)]">
-            {site.name}
+            {hero.name}
           </span>
           <em className="block text-foreground-muted max-md:whitespace-nowrap max-md:text-[clamp(2rem,8vw,2.625rem)] md:text-[clamp(3.25rem,7vw,6rem)]">
-            {site.subtitle}
+            {hero.subtitle}
           </em>
         </h1>
 
         <p className="animate-fade-up-delay-2 mb-12 text-[13px] tracking-[0.2em] text-foreground-subtle uppercase">
-          {site.location}
-          <span className="mx-3 opacity-50">·</span>
-          {site.founded}
+          {hero.location}
+          {hero.founded ?
+            <>
+              <span className="mx-3 opacity-50">·</span>
+              {hero.founded}
+            </>
+          : null}
         </p>
 
         <div className="animate-fade-up-delay-3">

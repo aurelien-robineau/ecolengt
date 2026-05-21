@@ -339,25 +339,9 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 export interface SiteSetting {
   id: string;
   /**
-   * Titre principal sur la bannière d’accueil (ex. École de Batterie).
+   * Forme abrégée du nom (ex. École de Batterie NGT). Utilisé dans l’en-tête, le pied de page et les titres de page.
    */
-  schoolName: string;
-  /**
-   * Affiché sous le nom de l’école, en italique (ex. Nadia & Gilles Touché).
-   */
-  subtitle: string;
-  /**
-   * Courte phrase en italique au-dessus du titre, sur la bannière d’accueil (ex. Écoutez… et tu parviendras).
-   */
-  tagline: string;
-  /**
-   * Affichée sous les noms sur la bannière (ex. Aix-en-Provence).
-   */
-  location: string;
-  /**
-   * Texte optionnel à côté de la ville (ex. Depuis 2003). Laisser vide pour ne rien afficher.
-   */
-  founded?: string | null;
+  schoolNameShort: string;
   /**
    * Affiché dans le pied de page, colonne Adresse.
    */
@@ -411,6 +395,26 @@ export interface SiteSetting {
  */
 export interface HomePage {
   id: string;
+  /**
+   * Courte phrase en italique au-dessus du titre (ex. Écoute… et tu parviendras).
+   */
+  heroTagline: string;
+  /**
+   * Première ligne du titre (ex. École de Batterie).
+   */
+  heroName: string;
+  /**
+   * Deuxième ligne du titre, en italique (ex. Nadia & Gilles Touché).
+   */
+  heroSubtitle: string;
+  /**
+   * Affichée sous le titre (ex. Aix-en-Provence).
+   */
+  heroLocation: string;
+  /**
+   * Texte optionnel à côté de la ville (ex. Depuis 2003). Laisser vide pour ne rien afficher.
+   */
+  heroFounded?: string | null;
   /**
    * Libellé du bouton sous le titre (ex. Découvrir l’école). Le lien mène à la section « Pour qui ».
    */
@@ -551,11 +555,7 @@ export interface ContactPage {
  * via the `definition` "site-settings_select".
  */
 export interface SiteSettingsSelect<T extends boolean = true> {
-  schoolName?: T;
-  subtitle?: T;
-  tagline?: T;
-  location?: T;
-  founded?: T;
+  schoolNameShort?: T;
   addressStreet?: T;
   addressCity?: T;
   phones?:
@@ -583,6 +583,11 @@ export interface SiteSettingsSelect<T extends boolean = true> {
  * via the `definition` "home-page_select".
  */
 export interface HomePageSelect<T extends boolean = true> {
+  heroTagline?: T;
+  heroName?: T;
+  heroSubtitle?: T;
+  heroLocation?: T;
+  heroFounded?: T;
   heroCta?: T;
   quoteText?: T;
   quoteCite?: T;

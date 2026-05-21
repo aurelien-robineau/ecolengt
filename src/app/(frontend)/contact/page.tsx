@@ -8,11 +8,11 @@ import { SectionHeader } from '@/components/ui/SectionHeader'
 import { getSiteContent } from '@/lib/cms/getSiteContent'
 
 export async function generateMetadata(): Promise<Metadata> {
-  const { site } = await getSiteContent()
+  const { site, landing } = await getSiteContent()
 
   return {
-    title: `Contact — ${site.name} · ${site.location}`,
-    description: `Contactez ${site.name} à ${site.location}. Téléphone, e-mail et adresse.`,
+    title: `Contact — ${site.name} · ${landing.hero.location}`,
+    description: `Contactez ${site.name} à ${landing.hero.location}. Téléphone, e-mail et adresse.`,
   }
 }
 
@@ -22,7 +22,7 @@ export default async function ContactPage() {
   return (
     <section className="bg-surface py-(--spacing-section-mobile) pt-28 md:py-(--spacing-section)">
       <Container>
-        <SectionHeader title="Nous contacter" className="mb-14" />
+        <SectionHeader label={site.name} title="Nous contacter" className="mb-14" />
         <p className="mb-14 max-w-xl text-sm leading-[1.9] text-foreground-muted">
           Pour toute question sur les cours, les inscriptions ou les stages — ou pour répondre à vos
           interrogations (âge, niveau, amateur ou professionnel…) — contactez-nous par téléphone,
