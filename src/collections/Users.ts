@@ -1,5 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
+import { adminGroups } from '@/lib/cms/adminGroups'
+
 export const Users: CollectionConfig = {
   slug: 'users',
   labels: {
@@ -7,7 +9,7 @@ export const Users: CollectionConfig = {
     plural: 'Utilisateurs',
   },
   admin: {
-    group: 'Site',
+    group: adminGroups.administration,
     description: 'Comptes autorisés à modifier le contenu du site via cet espace d’administration.',
     useAsTitle: 'email',
   },

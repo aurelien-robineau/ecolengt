@@ -67,9 +67,9 @@ export interface Config {
   };
   blocks: {};
   collections: {
-    users: User;
     media: Media;
     eleves: Eleve;
+    users: User;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -77,9 +77,9 @@ export interface Config {
   };
   collectionsJoins: {};
   collectionsSelect: {
-    users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     eleves: ElevesSelect<false> | ElevesSelect<true>;
+    users: UsersSelect<false> | UsersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -90,20 +90,20 @@ export interface Config {
   };
   fallbackLocale: null;
   globals: {
-    'site-settings': SiteSetting;
     'home-page': HomePage;
-    'contact-page': ContactPage;
     'guestbook-page': GuestbookPage;
     'alumni-page': AlumniPage;
+    'contact-page': ContactPage;
     'legal-notice-page': LegalNoticePage;
+    'site-settings': SiteSetting;
   };
   globalsSelect: {
-    'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
     'home-page': HomePageSelect<false> | HomePageSelect<true>;
-    'contact-page': ContactPageSelect<false> | ContactPageSelect<true>;
     'guestbook-page': GuestbookPageSelect<false> | GuestbookPageSelect<true>;
     'alumni-page': AlumniPageSelect<false> | AlumniPageSelect<true>;
+    'contact-page': ContactPageSelect<false> | ContactPageSelect<true>;
     'legal-notice-page': LegalNoticePageSelect<false> | LegalNoticePageSelect<true>;
+    'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
   };
   locale: null;
   widgets: {
@@ -132,33 +132,6 @@ export interface UserAuthOperations {
     email: string;
     password: string;
   };
-}
-/**
- * Comptes autorisés à modifier le contenu du site via cet espace d’administration.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users".
- */
-export interface User {
-  id: string;
-  updatedAt: string;
-  createdAt: string;
-  email: string;
-  resetPasswordToken?: string | null;
-  resetPasswordExpiration?: string | null;
-  salt?: string | null;
-  hash?: string | null;
-  loginAttempts?: number | null;
-  lockUntil?: string | null;
-  sessions?:
-    | {
-        id: string;
-        createdAt?: string | null;
-        expiresAt: string;
-      }[]
-    | null;
-  password?: string | null;
-  collection: 'users';
 }
 /**
  * Photos et images utilisées sur le site (portrait, locaux, etc.).
@@ -202,6 +175,10 @@ export interface Eleve {
    */
   slug?: string | null;
   /**
+   * Ex. : Batteur — groupe XYZ, professeur de batterie…
+   */
+  jobTitle?: string | null;
+  /**
    * Courte citation affichée sous le titre (optionnel).
    */
   quote?: string | null;
@@ -212,15 +189,38 @@ export interface Eleve {
       }[]
     | null;
   /**
-   * Ex. : Batteur — groupe XYZ, professeur de batterie…
-   */
-  jobTitle?: string | null;
-  /**
    * Un paragraphe par bloc, séparés par une ligne vide.
    */
   description?: string | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * Comptes autorisés à modifier le contenu du site via cet espace d’administration.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users".
+ */
+export interface User {
+  id: string;
+  updatedAt: string;
+  createdAt: string;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  sessions?:
+    | {
+        id: string;
+        createdAt?: string | null;
+        expiresAt: string;
+      }[]
+    | null;
+  password?: string | null;
+  collection: 'users';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -247,16 +247,16 @@ export interface PayloadLockedDocument {
   id: string;
   document?:
     | ({
-        relationTo: 'users';
-        value: string | User;
-      } | null)
-    | ({
         relationTo: 'media';
         value: string | Media;
       } | null)
     | ({
         relationTo: 'eleves';
         value: string | Eleve;
+      } | null)
+    | ({
+        relationTo: 'users';
+        value: string | User;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -302,28 +302,6 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users_select".
- */
-export interface UsersSelect<T extends boolean = true> {
-  updatedAt?: T;
-  createdAt?: T;
-  email?: T;
-  resetPasswordToken?: T;
-  resetPasswordExpiration?: T;
-  salt?: T;
-  hash?: T;
-  loginAttempts?: T;
-  lockUntil?: T;
-  sessions?:
-    | T
-    | {
-        id?: T;
-        createdAt?: T;
-        expiresAt?: T;
-      };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
@@ -348,6 +326,7 @@ export interface ElevesSelect<T extends boolean = true> {
   name?: T;
   generateSlug?: T;
   slug?: T;
+  jobTitle?: T;
   quote?: T;
   photos?:
     | T
@@ -355,10 +334,31 @@ export interface ElevesSelect<T extends boolean = true> {
         image?: T;
         id?: T;
       };
-  jobTitle?: T;
   description?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users_select".
+ */
+export interface UsersSelect<T extends boolean = true> {
+  updatedAt?: T;
+  createdAt?: T;
+  email?: T;
+  resetPasswordToken?: T;
+  resetPasswordExpiration?: T;
+  salt?: T;
+  hash?: T;
+  loginAttempts?: T;
+  lockUntil?: T;
+  sessions?:
+    | T
+    | {
+        id?: T;
+        createdAt?: T;
+        expiresAt?: T;
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -399,63 +399,6 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
-}
-/**
- * Coordonnées, réseaux sociaux et textes affichés dans l’en-tête et le pied de page.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "site-settings".
- */
-export interface SiteSetting {
-  id: string;
-  /**
-   * Forme abrégée du nom (ex. École de Batterie NGT). Utilisé dans l’en-tête, le pied de page et les titres de page.
-   */
-  schoolNameShort: string;
-  /**
-   * Affiché dans le pied de page, colonne Adresse.
-   */
-  addressStreet: string;
-  addressCity: string;
-  /**
-   * Liste des téléphones affichés dans le pied de page.
-   */
-  phones?:
-    | {
-        /**
-         * Optionnel. Ex. : Fixe, Mobile, Gilles…
-         */
-        label?: string | null;
-        /**
-         * Tel qu’affiché sur le site (ex. 04 42 63 03 74). Le lien d’appel est généré automatiquement.
-         */
-        number: string;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Toutes les adresses affichées dans le pied de page.
-   */
-  emails?:
-    | {
-        /**
-         * Optionnel. Ex. : Contact général, Nadia, Gilles…
-         */
-        label?: string | null;
-        address: string;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * URL complète de la page ou du profil (ex. https://instagram.com/…).
-   */
-  instagramUrl?: string | null;
-  /**
-   * URL complète de la page (ex. https://facebook.com/…).
-   */
-  facebookUrl?: string | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
 }
 /**
  * Textes et photos des différentes sections affichées sur la page d’accueil du site.
@@ -592,35 +535,6 @@ export interface HomePage {
   createdAt?: string | null;
 }
 /**
- * Contenu affiché sur la page Contact : photos d’accès et carte Google Maps.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "contact-page".
- */
-export interface ContactPage {
-  id: string;
-  accessGallery?:
-    | {
-        image: string | Media;
-        /**
-         * Ex. : Accès à l’école, Rue Rifle Rafle…
-         */
-        caption?: string | null;
-        /**
-         * Occupe toute la largeur de la grille (2 colonnes).
-         */
-        wide?: boolean | null;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Collez le code iframe fourni par Google Maps (« Partager » → « Intégrer une carte »), ou uniquement l’URL src du iframe.
-   */
-  mapsEmbed?: string | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
  * Message des professeurs et témoignages affichés sur la page Livre d’or.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -698,6 +612,35 @@ export interface AlumniPage {
   createdAt?: string | null;
 }
 /**
+ * Contenu affiché sur la page Contact : photos d’accès et carte Google Maps.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-page".
+ */
+export interface ContactPage {
+  id: string;
+  accessGallery?:
+    | {
+        image: string | Media;
+        /**
+         * Ex. : Accès à l’école, Rue Rifle Rafle…
+         */
+        caption?: string | null;
+        /**
+         * Occupe toute la largeur de la grille (2 colonnes).
+         */
+        wide?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Collez le code iframe fourni par Google Maps (« Partager » → « Intégrer une carte »), ou uniquement l’URL src du iframe.
+   */
+  mapsEmbed?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * Texte affiché sur la page Mentions légales du site.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -727,32 +670,61 @@ export interface LegalNoticePage {
   createdAt?: string | null;
 }
 /**
+ * Coordonnées, réseaux sociaux et textes affichés dans l’en-tête et le pied de page.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "site-settings_select".
+ * via the `definition` "site-settings".
  */
-export interface SiteSettingsSelect<T extends boolean = true> {
-  schoolNameShort?: T;
-  addressStreet?: T;
-  addressCity?: T;
+export interface SiteSetting {
+  id: string;
+  /**
+   * Forme abrégée du nom (ex. École de Batterie NGT). Utilisé dans l’en-tête, le pied de page et les titres de page.
+   */
+  schoolNameShort: string;
+  /**
+   * Affiché dans le pied de page, colonne Adresse.
+   */
+  addressStreet: string;
+  addressCity: string;
+  /**
+   * Liste des téléphones affichés dans le pied de page.
+   */
   phones?:
-    | T
     | {
-        label?: T;
-        number?: T;
-        id?: T;
-      };
+        /**
+         * Optionnel. Ex. : Fixe, Mobile, Gilles…
+         */
+        label?: string | null;
+        /**
+         * Tel qu’affiché sur le site (ex. 04 42 63 03 74). Le lien d’appel est généré automatiquement.
+         */
+        number: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Toutes les adresses affichées dans le pied de page.
+   */
   emails?:
-    | T
     | {
-        label?: T;
-        address?: T;
-        id?: T;
-      };
-  instagramUrl?: T;
-  facebookUrl?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
+        /**
+         * Optionnel. Ex. : Contact général, Nadia, Gilles…
+         */
+        label?: string | null;
+        address: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * URL complète de la page ou du profil (ex. https://instagram.com/…).
+   */
+  instagramUrl?: string | null;
+  /**
+   * URL complète de la page (ex. https://facebook.com/…).
+   */
+  facebookUrl?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -825,24 +797,6 @@ export interface HomePageSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "contact-page_select".
- */
-export interface ContactPageSelect<T extends boolean = true> {
-  accessGallery?:
-    | T
-    | {
-        image?: T;
-        caption?: T;
-        wide?: T;
-        id?: T;
-      };
-  mapsEmbed?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "guestbook-page_select".
  */
 export interface GuestbookPageSelect<T extends boolean = true> {
@@ -886,10 +840,56 @@ export interface AlumniPageSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-page_select".
+ */
+export interface ContactPageSelect<T extends boolean = true> {
+  accessGallery?:
+    | T
+    | {
+        image?: T;
+        caption?: T;
+        wide?: T;
+        id?: T;
+      };
+  mapsEmbed?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "legal-notice-page_select".
  */
 export interface LegalNoticePageSelect<T extends boolean = true> {
   content?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings_select".
+ */
+export interface SiteSettingsSelect<T extends boolean = true> {
+  schoolNameShort?: T;
+  addressStreet?: T;
+  addressCity?: T;
+  phones?:
+    | T
+    | {
+        label?: T;
+        number?: T;
+        id?: T;
+      };
+  emails?:
+    | T
+    | {
+        label?: T;
+        address?: T;
+        id?: T;
+      };
+  instagramUrl?: T;
+  facebookUrl?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

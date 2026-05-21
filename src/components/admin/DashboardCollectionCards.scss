@@ -1,0 +1,68 @@
+@layer payload-default {
+  .collections {
+    display: flex;
+    width: 100%;
+    --gap: var(--base);
+    --cols: 5;
+
+    &__wrap {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: var(--base);
+    }
+
+    &__group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--gap);
+    }
+
+    &__label {
+      margin: 0;
+    }
+
+    &__card-list {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      gap: 12px;
+      display: grid;
+      grid-template-columns: repeat(var(--cols), 1fr);
+
+      .card {
+        height: 100%;
+      }
+    }
+
+    &__locked.locked {
+      align-items: unset;
+      justify-content: unset;
+    }
+
+    @media (max-width: 1440px) {
+      --cols: 4;
+    }
+
+    @media (max-width: 1024px) {
+      --gap: var(--base);
+      --cols: 2;
+    }
+
+    @media (max-width: 768px) {
+      --cols: 2;
+
+      &__wrap {
+        gap: var(--base);
+      }
+
+      &__card-list {
+        gap: calc(var(--base) * 0.4);
+      }
+    }
+
+    @media (max-width: 400px) {
+      --cols: 1;
+    }
+  }
+}

@@ -7,13 +7,14 @@ import {
 } from '@payloadcms/richtext-lexical'
 import type { GlobalConfig } from 'payload'
 
+import { adminGroups } from '@/lib/cms/adminGroups'
 import { revalidateSite } from '@/lib/cms/revalidateSite'
 
 export const LegalNoticePage: GlobalConfig = {
   slug: 'legal-notice-page',
   label: 'Mentions légales',
   admin: {
-    group: 'Site',
+    group: adminGroups.pages,
     description: 'Texte affiché sur la page Mentions légales du site.',
   },
   access: {

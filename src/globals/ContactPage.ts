@@ -1,12 +1,13 @@
 import type { GlobalConfig } from 'payload'
 
+import { adminGroups } from '@/lib/cms/adminGroups'
 import { revalidateSite } from '@/lib/cms/revalidateSite'
 
 export const ContactPage: GlobalConfig = {
   slug: 'contact-page',
   label: 'Page Contact',
   admin: {
-    group: 'Site',
+    group: adminGroups.pages,
     description: 'Contenu affiché sur la page Contact : photos d’accès et carte Google Maps.',
   },
   access: {

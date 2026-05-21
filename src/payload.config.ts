@@ -15,6 +15,8 @@ import { GuestbookPage } from './globals/GuestbookPage'
 import { HomePage } from './globals/HomePage'
 import { LegalNoticePage } from './globals/LegalNoticePage'
 import { SiteSettings } from './globals/SiteSettings'
+import { disableAdminAPIView } from './lib/cms/disableAdminAPIView'
+import { siteFaviconMetadata } from './lib/site/favicon'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -22,12 +24,30 @@ const dirname = path.dirname(filename)
 export default buildConfig({
   admin: {
     user: Users.slug,
+    meta: siteFaviconMetadata,
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    components: {
+      Nav: '@/components/admin/AdminNav#AdminNav',
+      graphics: {
+        Icon: '@/components/admin/AdminIcon#AdminIcon',
+        Logo: '@/components/admin/AdminLogo#AdminLogo',
+      },
+    },
+    dashboard: {
+      defaultLayout: [{ widgetSlug: 'collections', width: 'full' }],
+      widgets: [
+        {
+          slug: 'collections',
+          Component: '@/components/admin/DashboardCollectionCards#DashboardCollectionCards',
+          minWidth: 'full',
+        },
+      ],
+    },
   },
-  collections: [Users, Media, Students],
-  globals: [SiteSettings, HomePage, ContactPage, GuestbookPage, AlumniPage, LegalNoticePage],
+  collections: [Media, Students, Users],
+  globals: [HomePage, GuestbookPage, AlumniPage, ContactPage, LegalNoticePage, SiteSettings],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
@@ -37,7 +57,7 @@ export default buildConfig({
     url: process.env.DATABASE_URL || '',
   }),
   sharp,
-  plugins: [],
+  plugins: [disableAdminAPIView],
   i18n: {
     supportedLanguages: { fr },
   },
