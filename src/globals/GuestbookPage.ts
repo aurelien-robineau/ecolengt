@@ -1,12 +1,13 @@
 import type { GlobalConfig } from 'payload'
 
+import { adminGroups } from '@/lib/cms/adminGroups'
 import { revalidateSite } from '@/lib/cms/revalidateSite'
 
 export const GuestbookPage: GlobalConfig = {
   slug: 'guestbook-page',
   label: 'Livre d’or',
   admin: {
-    group: 'Site',
+    group: adminGroups.pages,
     description: 'Message des professeurs et témoignages affichés sur la page Livre d’or.',
   },
   access: {

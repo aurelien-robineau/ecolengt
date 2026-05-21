@@ -1,12 +1,13 @@
 import type { GlobalConfig } from 'payload'
 
+import { adminGroups } from '@/lib/cms/adminGroups'
 import { revalidateSite } from '@/lib/cms/revalidateSite'
 
 export const AlumniPage: GlobalConfig = {
   slug: 'alumni-page',
   label: 'Anciens élèves',
   admin: {
-    group: 'Site',
+    group: adminGroups.pages,
     description: 'Texte d’introduction et liste des anciens élèves affichés sur la page dédiée.',
   },
   access: {

@@ -1,5 +1,6 @@
 import type { GlobalConfig } from 'payload'
 
+import { adminGroups } from '@/lib/cms/adminGroups'
 import { revalidateSite } from '@/lib/cms/revalidateSite'
 
 const paragraphField = {
@@ -13,7 +14,7 @@ export const HomePage: GlobalConfig = {
   slug: 'home-page',
   label: 'Page d’accueil',
   admin: {
-    group: 'Site',
+    group: adminGroups.pages,
     description:
       'Textes et photos des différentes sections affichées sur la page d’accueil du site.',
   },

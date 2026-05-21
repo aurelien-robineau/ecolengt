@@ -1,5 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
+import { adminGroups } from '@/lib/cms/adminGroups'
+
 export const Media: CollectionConfig = {
   slug: 'media',
   labels: {
@@ -7,7 +9,7 @@ export const Media: CollectionConfig = {
     plural: 'Médias',
   },
   admin: {
-    group: 'Site',
+    group: adminGroups.content,
     description: 'Photos et images utilisées sur le site (portrait, locaux, etc.).',
   },
   access: {
