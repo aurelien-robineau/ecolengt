@@ -22,6 +22,7 @@ export type SiteSettingsData = {
 }
 
 export type ContactPageData = {
+  intro: CmsRichTextContent | null
   accessGallery: GalleryItem[]
   mapsEmbedSrc: string
 }

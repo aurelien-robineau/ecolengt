@@ -46,6 +46,7 @@ export const defaultAlumniPage: AlumniPageData = {
 }
 
 export const defaultContactPage: ContactPageData = {
+  intro: null,
   accessGallery: [],
   mapsEmbedSrc: defaultMapsEmbedSrc,
 }

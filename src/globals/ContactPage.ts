@@ -1,6 +1,7 @@
 import type { GlobalConfig } from 'payload'
 
 import { adminGroups } from '@/lib/cms/adminGroups'
+import { pageRichTextEditor } from '@/lib/cms/pageRichTextEditor'
 import { revalidateSite } from '@/lib/cms/revalidateSite'
 
 export const ContactPage: GlobalConfig = {
@@ -8,7 +9,7 @@ export const ContactPage: GlobalConfig = {
   label: 'Page Contact',
   admin: {
     group: adminGroups.pages,
-    description: 'Contenu affiché sur la page Contact : photos d’accès et carte Google Maps.',
+    description: 'Contenu affiché sur la page Contact : texte d’introduction, photos d’accès et carte Google Maps.',
   },
   access: {
     read: () => true,
@@ -21,6 +22,18 @@ export const ContactPage: GlobalConfig = {
     {
       type: 'tabs',
       tabs: [
+        {
+          label: 'Introduction',
+          description: 'Texte affiché sous le titre de la page Contact.',
+          fields: [
+            {
+              name: 'introContent',
+              type: 'richText',
+              label: 'Texte d’introduction',
+              editor: pageRichTextEditor,
+            },
+          ],
+        },
         {
           label: 'Photos d’accès',
           description: 'Galerie sous la carte, sur la page Contact (2 photos par ligne).',
@@ -40,23 +53,6 @@ export const ContactPage: GlobalConfig = {
                   relationTo: 'media',
                   label: 'Image',
                   required: true,
-                },
-                {
-                  name: 'caption',
-                  type: 'text',
-                  label: 'Légende',
-                  admin: {
-                    description: 'Ex. : Accès à l’école, Rue Rifle Rafle…',
-                  },
-                },
-                {
-                  name: 'wide',
-                  type: 'checkbox',
-                  label: 'Photo en grand format',
-                  defaultValue: false,
-                  admin: {
-                    description: 'Occupe toute la largeur de la grille (2 colonnes).',
-                  },
                 },
               ],
             },

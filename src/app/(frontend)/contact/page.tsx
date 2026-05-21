@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 
+import { CmsRichText } from '@/components/cms/CmsRichText'
 import { ContactAccessGallery } from '@/components/contact/ContactAccessGallery'
 import { ContactDetails } from '@/components/contact/ContactDetails'
 import { ContactLocation } from '@/components/contact/ContactLocation'
@@ -23,11 +24,9 @@ export default async function ContactPage() {
     <section className="bg-surface py-(--spacing-section-mobile) pt-28 md:py-(--spacing-section)">
       <Container>
         <SectionHeader label={site.name} title="Nous contacter" />
-        <p className="mb-12 max-w-xl text-sm leading-[1.9] text-foreground-muted">
-          Pour toute question sur les cours, les inscriptions ou les stages — ou pour répondre à vos
-          interrogations (âge, niveau, amateur ou professionnel…) — contactez-nous par téléphone,
-          par e-mail, ou venez nous rencontrer à l’école.
-        </p>
+        <div className="mb-12 max-w-xl">
+          <CmsRichText data={contact.intro} />
+        </div>
         <ContactLocation site={site} mapsEmbedSrc={contact.mapsEmbedSrc} />
         <ContactAccessGallery items={contact.accessGallery} />
         <ContactDetails site={site} />
