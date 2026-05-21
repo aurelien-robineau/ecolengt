@@ -8,7 +8,7 @@ type SectionHeaderProps = {
 
 export function SectionHeader({ label, title, className }: SectionHeaderProps) {
   return (
-    <header className={cn('mb-16', className)}>
+    <header className={cn('mb-12', className)}>
       {label ? (
         <p className="mb-3 text-xs font-medium tracking-[0.22em] text-foreground uppercase">
           {label}

@@ -14,7 +14,7 @@ export function AudienceSection({ audience }: AudienceSectionProps) {
         <Reveal>
           <SectionHeader label={audience.label} title={audience.title} />
 
-          <div className="max-w-3xl space-y-6">
+          <div className="max-w-3xl space-y-2">
             {audience.paragraphs.map((paragraph) => (
               <p key={paragraph.slice(0, 24)} className="text-sm leading-[1.95] text-foreground-muted">
                 {paragraph}

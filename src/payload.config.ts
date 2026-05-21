@@ -8,6 +8,7 @@ import sharp from 'sharp'
 
 import { Media } from './collections/Media'
 import { Users } from './collections/Users'
+import { AlumniPage } from './globals/AlumniPage'
 import { ContactPage } from './globals/ContactPage'
 import { GuestbookPage } from './globals/GuestbookPage'
 import { HomePage } from './globals/HomePage'
@@ -24,7 +25,7 @@ export default buildConfig({
     },
   },
   collections: [Users, Media],
-  globals: [SiteSettings, HomePage, ContactPage, GuestbookPage],
+  globals: [SiteSettings, HomePage, ContactPage, GuestbookPage, AlumniPage],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

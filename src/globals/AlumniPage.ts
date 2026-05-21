@@ -1,0 +1,84 @@
+import type { GlobalConfig } from 'payload'
+
+import { revalidateSite } from '@/lib/cms/revalidateSite'
+
+export const AlumniPage: GlobalConfig = {
+  slug: 'alumni-page',
+  label: 'Anciens élèves',
+  admin: {
+    group: 'Site',
+    description: 'Texte d’introduction et liste des anciens élèves affichés sur la page dédiée.',
+  },
+  access: {
+    read: () => true,
+    update: ({ req }) => Boolean(req.user),
+  },
+  hooks: {
+    afterChange: [() => revalidateSite()],
+  },
+  fields: [
+    {
+      type: 'tabs',
+      tabs: [
+        {
+          label: 'Introduction',
+          fields: [
+            {
+              name: 'introText',
+              type: 'textarea',
+              label: 'Texte d’introduction',
+              required: true,
+              admin: {
+                description:
+                  'Un paragraphe par bloc, séparés par une ligne vide (ex. La musique est au-delà des mots…).',
+              },
+            },
+          ],
+        },
+        {
+          label: 'Anciens élèves',
+          fields: [
+            {
+              name: 'students',
+              type: 'array',
+              label: 'Élèves',
+              labels: {
+                singular: 'Élève',
+                plural: 'Élèves',
+              },
+              fields: [
+                {
+                  name: 'name',
+                  type: 'text',
+                  label: 'Nom',
+                  required: true,
+                },
+                {
+                  name: 'projects',
+                  type: 'array',
+                  label: 'Projets, groupes, concerts…',
+                  labels: {
+                    singular: 'Élément',
+                    plural: 'Éléments',
+                  },
+                  admin: {
+                    description:
+                      'Chaque ligne : un projet, un groupe, un festival, une collaboration, etc.',
+                  },
+                  fields: [
+                    {
+                      name: 'label',
+                      type: 'text',
+                      label: 'Libellé',
+                      required: true,
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  ],
+}
