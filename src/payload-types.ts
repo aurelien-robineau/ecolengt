@@ -95,6 +95,7 @@ export interface Config {
     'contact-page': ContactPage;
     'guestbook-page': GuestbookPage;
     'alumni-page': AlumniPage;
+    'legal-notice-page': LegalNoticePage;
   };
   globalsSelect: {
     'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
@@ -102,6 +103,7 @@ export interface Config {
     'contact-page': ContactPageSelect<false> | ContactPageSelect<true>;
     'guestbook-page': GuestbookPageSelect<false> | GuestbookPageSelect<true>;
     'alumni-page': AlumniPageSelect<false> | AlumniPageSelect<true>;
+    'legal-notice-page': LegalNoticePageSelect<false> | LegalNoticePageSelect<true>;
   };
   locale: null;
   widgets: {
@@ -696,6 +698,35 @@ export interface AlumniPage {
   createdAt?: string | null;
 }
 /**
+ * Texte affiché sur la page Mentions légales du site.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "legal-notice-page".
+ */
+export interface LegalNoticePage {
+  id: string;
+  /**
+   * Rédigez le texte des mentions légales.
+   */
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "site-settings_select".
  */
@@ -849,6 +880,16 @@ export interface AlumniPageSelect<T extends boolean = true> {
             };
         id?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "legal-notice-page_select".
+ */
+export interface LegalNoticePageSelect<T extends boolean = true> {
+  content?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

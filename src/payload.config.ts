@@ -13,6 +13,7 @@ import { AlumniPage } from './globals/AlumniPage'
 import { ContactPage } from './globals/ContactPage'
 import { GuestbookPage } from './globals/GuestbookPage'
 import { HomePage } from './globals/HomePage'
+import { LegalNoticePage } from './globals/LegalNoticePage'
 import { SiteSettings } from './globals/SiteSettings'
 
 const filename = fileURLToPath(import.meta.url)
@@ -26,7 +27,7 @@ export default buildConfig({
     },
   },
   collections: [Users, Media, Students],
-  globals: [SiteSettings, HomePage, ContactPage, GuestbookPage, AlumniPage],
+  globals: [SiteSettings, HomePage, ContactPage, GuestbookPage, AlumniPage, LegalNoticePage],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

@@ -4,4 +4,5 @@ export const routes = {
   guestbook: '/livre-dor',
   alumni: '/anciens-eleves',
   students: '/eleves',
+  legalNotice: '/mentions-legales',
 } as const
