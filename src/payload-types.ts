@@ -792,24 +792,31 @@ export interface TomTomPage {
   createdAt?: string | null;
 }
 /**
- * Contenu affiché sur la page Contact : photos d’accès et carte Google Maps.
+ * Contenu affiché sur la page Contact : texte d’introduction, photos d’accès et carte Google Maps.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "contact-page".
  */
 export interface ContactPage {
   id: string;
+  introContent?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   accessGallery?:
     | {
         image: string | Media;
-        /**
-         * Ex. : Accès à l’école, Rue Rifle Rafle…
-         */
-        caption?: string | null;
-        /**
-         * Occupe toute la largeur de la grille (2 colonnes).
-         */
-        wide?: boolean | null;
         id?: string | null;
       }[]
     | null;
@@ -998,12 +1005,11 @@ export interface TomTomPageSelect<T extends boolean = true> {
  * via the `definition` "contact-page_select".
  */
 export interface ContactPageSelect<T extends boolean = true> {
+  introContent?: T;
   accessGallery?:
     | T
     | {
         image?: T;
-        caption?: T;
-        wide?: T;
         id?: T;
       };
   mapsEmbed?: T;
