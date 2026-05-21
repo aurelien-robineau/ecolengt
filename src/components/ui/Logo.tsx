@@ -18,7 +18,7 @@ type LogoProps = {
   priority?: boolean
 }
 
-export function Logo({ variant = 'default', className, href = '#home', priority }: LogoProps) {
+export function Logo({ variant = 'default', className, href = '/', priority }: LogoProps) {
   const image = (
     <Image
       src={logoPaths[variant]}

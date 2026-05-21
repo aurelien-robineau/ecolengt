@@ -19,12 +19,23 @@ export type SiteSettingsData = {
   navigation: Array<{ label: string; href: string }>
 }
 
+export type ContactPageData = {
+  accessGallery: GalleryItem[]
+  mapsEmbedSrc: string
+}
+
 export type CmsImageData = {
   src: string
   alt: string
   width?: number
   height?: number
 } | null
+
+export type GalleryItem = {
+  caption: string
+  wide: boolean
+  image: CmsImageData
+}
 
 export type LandingPageData = {
   hero: {
@@ -74,15 +85,12 @@ export type LandingPageData = {
     label: string
     title: string
     description: string[]
-    gallery: Array<{
-      caption: string
-      wide: boolean
-      image: CmsImageData
-    }>
+    gallery: GalleryItem[]
   }
 }
 
 export type SiteContent = {
   site: SiteSettingsData
   landing: LandingPageData
+  contact: ContactPageData
 }
