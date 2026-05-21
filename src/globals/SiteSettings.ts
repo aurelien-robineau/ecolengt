@@ -75,14 +75,6 @@ export const SiteSettings: GlobalConfig = {
               },
               fields: [
                 {
-                  name: 'label',
-                  type: 'text',
-                  label: 'Type de ligne',
-                  admin: {
-                    description: 'Optionnel. Ex. : Fixe, Mobile, Gilles…',
-                  },
-                },
-                {
                   name: 'number',
                   type: 'text',
                   label: 'Numéro à afficher',
@@ -106,14 +98,6 @@ export const SiteSettings: GlobalConfig = {
                 description: 'Toutes les adresses affichées dans le pied de page.',
               },
               fields: [
-                {
-                  name: 'label',
-                  type: 'text',
-                  label: 'Destinataire',
-                  admin: {
-                    description: 'Optionnel. Ex. : Contact général, Nadia, Gilles…',
-                  },
-                },
                 {
                   name: 'address',
                   type: 'email',

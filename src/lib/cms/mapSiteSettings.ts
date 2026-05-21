@@ -9,37 +9,34 @@ export function mapSiteSettings(data: SiteSetting | null | undefined): SiteSetti
   }
 
   const phones =
-    data.phones?.length ?
-      data.phones.map((phone) => ({
-        label: phone.label || 'Téléphone',
-        display: phone.number,
-        href: formatPhoneHref(phone.number),
-      }))
-    : defaultSiteSettings.contact.phones
+    data.phones
+      ?.filter((phone) => phone.number)
+      .map((phone) => ({
+        display: phone.number!,
+        href: formatPhoneHref(phone.number!),
+      })) ?? []
 
   const emails =
-    data.emails?.length ?
-      data.emails
-        .filter((entry) => entry.address)
-        .map((entry) => ({
-          display: entry.address!,
-          href: `mailto:${entry.address}`,
-        }))
-    : defaultSiteSettings.contact.emails
+    data.emails
+      ?.filter((entry) => entry.address)
+      .map((entry) => ({
+        display: entry.address!,
+        href: `mailto:${entry.address}`,
+      })) ?? []
 
   return {
-    name: data.schoolNameShort || defaultSiteSettings.name,
+    name: data.schoolNameShort ?? '',
     address: {
-      street: data.addressStreet || defaultSiteSettings.address.street,
-      city: data.addressCity || defaultSiteSettings.address.city,
+      street: data.addressStreet ?? '',
+      city: data.addressCity ?? '',
     },
     contact: {
       phones,
       emails,
     },
     social: {
-      instagram: data.instagramUrl || defaultSiteSettings.social.instagram,
-      facebook: data.facebookUrl || defaultSiteSettings.social.facebook,
+      instagram: data.instagramUrl ?? '',
+      facebook: data.facebookUrl ?? '',
     },
     navigation: defaultSiteSettings.navigation,
   }

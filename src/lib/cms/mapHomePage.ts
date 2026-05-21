@@ -2,15 +2,13 @@ import type { HomePage as HomePageDoc } from '@/payload-types'
 import { defaultLandingPage } from '@/lib/cms/defaults'
 import { mapGallery } from '@/lib/cms/mapGallery'
 import { mapMedia } from '@/lib/cms/mapMedia'
+import { mapRichText } from '@/lib/cms/mapRichText'
 import type { LandingPageData } from '@/lib/cms/types'
 
-function mapTextArray(
+function mapTextItems(
   items: Array<{ text?: string | null; id?: string | null }> | null | undefined,
-  fallback: string[],
 ): string[] {
-  const mapped = items?.map((item) => item.text).filter((text): text is string => Boolean(text))
-
-  return mapped?.length ? mapped : fallback
+  return items?.map((item) => item.text).filter((text): text is string => Boolean(text)) ?? []
 }
 
 export function mapHomePage(data: HomePageDoc | null | undefined): LandingPageData {
@@ -18,79 +16,60 @@ export function mapHomePage(data: HomePageDoc | null | undefined): LandingPageDa
     return defaultLandingPage
   }
 
-  const gallery = mapGallery(
-    data.facilitiesGallery,
-    defaultLandingPage.facilities.gallery,
-  )
+  const gallery = mapGallery(data.facilitiesGallery)
 
   return {
     hero: {
-      tagline: data.heroTagline || defaultLandingPage.hero.tagline,
-      name: data.heroName || defaultLandingPage.hero.name,
-      subtitle: data.heroSubtitle || defaultLandingPage.hero.subtitle,
-      location: data.heroLocation || defaultLandingPage.hero.location,
-      founded: data.heroFounded || defaultLandingPage.hero.founded,
-      cta: data.heroCta || defaultLandingPage.hero.cta,
+      tagline: data.heroTagline ?? '',
+      name: data.heroName ?? '',
+      subtitle: data.heroSubtitle ?? '',
+      location: data.heroLocation ?? '',
+      founded: data.heroFounded ?? '',
+      cta: data.heroCta ?? '',
       ctaHref: defaultLandingPage.hero.ctaHref,
     },
     quote: {
-      text: data.quoteText || defaultLandingPage.quote.text,
-      cite: data.quoteCite || defaultLandingPage.quote.cite,
-      imageAlt: data.quoteCite || defaultLandingPage.quote.imageAlt,
-      portrait: mapMedia(data.quotePortrait, data.quoteCite || defaultLandingPage.quote.imageAlt),
+      text: data.quoteText ?? '',
+      cite: data.quoteCite ?? '',
+      imageAlt: data.quoteCite ?? '',
+      portrait: mapMedia(data.quotePortrait, data.quoteCite ?? ''),
     },
     audience: {
       id: defaultLandingPage.audience.id,
-      label: data.audienceLabel || defaultLandingPage.audience.label,
-      title: data.audienceTitle || defaultLandingPage.audience.title,
-      paragraphs: mapTextArray(data.audienceParagraphs, defaultLandingPage.audience.paragraphs),
+      label: data.audienceLabel ?? '',
+      title: data.audienceTitle ?? '',
+      content: mapRichText(data.audienceContent),
     },
     pedagogy: {
       id: defaultLandingPage.pedagogy.id,
-      label: data.pedagogyLabel || defaultLandingPage.pedagogy.label,
-      title: data.pedagogyTitle || defaultLandingPage.pedagogy.title,
-      lead: data.pedagogyLead || defaultLandingPage.pedagogy.lead,
-      body: mapTextArray(data.pedagogyBody, defaultLandingPage.pedagogy.body),
+      label: data.pedagogyLabel ?? '',
+      title: data.pedagogyTitle ?? '',
+      content: mapRichText(data.pedagogyContent),
       features: {
         courseOrganization: {
-          title:
-            data.courseOrganizationTitle ||
-            defaultLandingPage.pedagogy.features.courseOrganization.title,
-          items: mapTextArray(
-            data.courseOrganizationItems,
-            defaultLandingPage.pedagogy.features.courseOrganization.items,
-          ),
-          footer:
-            data.courseOrganizationFooter ||
-            defaultLandingPage.pedagogy.features.courseOrganization.footer,
+          title: data.courseOrganizationTitle ?? '',
+          items: mapTextItems(data.courseOrganizationItems),
+          footer: mapRichText(data.courseOrganizationFooter),
         },
         practice: {
-          title: data.practiceTitle || defaultLandingPage.pedagogy.features.practice.title,
-          body: data.practiceBody || defaultLandingPage.pedagogy.features.practice.body,
+          title: data.practiceTitle ?? '',
+          body: mapRichText(data.practiceBody),
         },
       },
       intensiveCourses: {
-        title: data.intensiveCoursesTitle || defaultLandingPage.pedagogy.intensiveCourses.title,
-        paragraphs: mapTextArray(
-          data.intensiveCoursesParagraphs,
-          defaultLandingPage.pedagogy.intensiveCourses.paragraphs,
-        ),
+        title: data.intensiveCoursesTitle ?? '',
+        content: mapRichText(data.intensiveCoursesContent),
         learnMore: {
-          label:
-            data.intensiveCoursesButtonLabel ||
-            defaultLandingPage.pedagogy.intensiveCourses.learnMore.label,
+          label: data.intensiveCoursesButtonLabel ?? '',
           href: defaultLandingPage.pedagogy.intensiveCourses.learnMore.href,
         },
       },
     },
     facilities: {
       id: defaultLandingPage.facilities.id,
-      label: data.facilitiesLabel || defaultLandingPage.facilities.label,
-      title: data.facilitiesTitle || defaultLandingPage.facilities.title,
-      description: mapTextArray(
-        data.facilitiesDescription,
-        defaultLandingPage.facilities.description,
-      ),
+      label: data.facilitiesLabel ?? '',
+      title: data.facilitiesTitle ?? '',
+      description: mapRichText(data.facilitiesDescription),
       gallery,
     },
   }

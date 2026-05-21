@@ -4,9 +4,8 @@ import {
   RichText,
   UploadJSXConverter,
 } from '@payloadcms/richtext-lexical/react'
-import type { LegalNoticePage } from '@/payload-types'
 
-type RichTextData = NonNullable<LegalNoticePage['content']>
+import type { CmsRichTextContent } from '@/lib/cms/richText'
 
 const proseClassName = [
   'cms-rich-text max-w-2xl text-sm leading-[1.9] text-foreground-muted',
@@ -47,9 +46,13 @@ const converters: JSXConvertersFunction = ({ defaultConverters }) => ({
 })
 
 type CmsRichTextProps = {
-  data: RichTextData
+  data: CmsRichTextContent | null
 }
 
 export function CmsRichText({ data }: CmsRichTextProps) {
+  if (!data) {
+    return null
+  }
+
   return <RichText className={proseClassName} converters={converters} data={data} />
 }

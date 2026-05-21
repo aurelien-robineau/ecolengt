@@ -1,4 +1,4 @@
-import { FormattedParagraph } from '@/components/ui/FormattedParagraph'
+import { CmsRichText } from '@/components/cms/CmsRichText'
 import { Button } from '@/components/ui/Button'
 import { Container } from '@/components/ui/Container'
 import { Reveal } from '@/components/ui/Reveal'
@@ -21,18 +21,8 @@ export function PedagogySection({ pedagogy }: PedagogySectionProps) {
         <Reveal>
           <SectionHeader label={pedagogy.label} title={pedagogy.title} />
 
-          <div className="mb-20 max-w-3xl space-y-2">
-            <FormattedParagraph className="text-sm leading-[1.95] text-foreground-muted">
-              {pedagogy.lead}
-            </FormattedParagraph>
-            {pedagogy.body.map((paragraph) => (
-              <FormattedParagraph
-                key={paragraph.slice(0, 24)}
-                className="text-sm leading-[1.95] text-foreground-muted"
-              >
-                {paragraph}
-              </FormattedParagraph>
-            ))}
+          <div className="mb-20 max-w-3xl">
+            <CmsRichText data={pedagogy.content} />
           </div>
 
           <div className="mb-16 grid gap-px bg-border lg:grid-cols-2">
@@ -40,26 +30,24 @@ export function PedagogySection({ pedagogy }: PedagogySectionProps) {
               <h3 className="mb-4 font-serif text-xl font-normal text-foreground">
                 {courseOrganization.title}
               </h3>
-              <ul className="mb-4 space-y-2 text-sm leading-[1.85] text-foreground-muted">
-                {courseOrganization.items.map((item) => (
-                  <li key={item} className="flex gap-2">
-                    <span className="mt-2 size-1 shrink-0 rounded-full bg-brand" aria-hidden />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-              <FormattedParagraph className="text-sm leading-[1.85] text-foreground-muted">
-                {courseOrganization.footer}
-              </FormattedParagraph>
+              {courseOrganization.items.length > 0 && (
+                <ul className="mb-4 space-y-2 text-sm leading-[1.85] text-foreground-muted">
+                  {courseOrganization.items.map((item) => (
+                    <li key={item} className="flex gap-2">
+                      <span className="mt-2 size-1 shrink-0 rounded-full bg-brand" aria-hidden />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+              <CmsRichText data={courseOrganization.footer} />
             </article>
 
             <article className="bg-surface-card p-8">
               <h3 className="mb-4 font-serif text-xl font-normal text-foreground">
                 {practice.title}
               </h3>
-              <FormattedParagraph className="text-sm leading-[1.85] text-foreground-muted">
-                {practice.body}
-              </FormattedParagraph>
+              <CmsRichText data={practice.body} />
             </article>
           </div>
 
@@ -67,16 +55,14 @@ export function PedagogySection({ pedagogy }: PedagogySectionProps) {
             <h3 className="mb-4 font-serif text-[1.375rem] font-normal text-foreground">
               {pedagogy.intensiveCourses.title}
             </h3>
-            <div className="space-y-2 text-sm leading-[1.85] text-foreground-muted">
-              {pedagogy.intensiveCourses.paragraphs.map((paragraph) => (
-                <FormattedParagraph key={paragraph.slice(0, 24)}>{paragraph}</FormattedParagraph>
-              ))}
-            </div>
-            <div className="mt-8">
-              <Button href={pedagogy.intensiveCourses.learnMore.href}>
-                {pedagogy.intensiveCourses.learnMore.label}
-              </Button>
-            </div>
+            <CmsRichText data={pedagogy.intensiveCourses.content} />
+            {pedagogy.intensiveCourses.learnMore.label && (
+              <div className="mt-8">
+                <Button href={pedagogy.intensiveCourses.learnMore.href}>
+                  {pedagogy.intensiveCourses.learnMore.label}
+                </Button>
+              </div>
+            )}
           </div>
         </Reveal>
       </Container>

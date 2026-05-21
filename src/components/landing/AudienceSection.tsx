@@ -1,4 +1,4 @@
-import { FormattedParagraph } from '@/components/ui/FormattedParagraph'
+import { CmsRichText } from '@/components/cms/CmsRichText'
 import { Container } from '@/components/ui/Container'
 import { Reveal } from '@/components/ui/Reveal'
 import { SectionHeader } from '@/components/ui/SectionHeader'
@@ -14,17 +14,7 @@ export function AudienceSection({ audience }: AudienceSectionProps) {
       <Container>
         <Reveal>
           <SectionHeader label={audience.label} title={audience.title} />
-
-          <div className="max-w-3xl space-y-2">
-            {audience.paragraphs.map((paragraph) => (
-              <FormattedParagraph
-                key={paragraph.slice(0, 24)}
-                className="text-sm leading-[1.95] text-foreground-muted"
-              >
-                {paragraph}
-              </FormattedParagraph>
-            ))}
-          </div>
+          <CmsRichText data={audience.content} />
         </Reveal>
       </Container>
     </section>

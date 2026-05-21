@@ -1,6 +1,6 @@
 import type { GuestbookPage as GuestbookPageDoc } from '@/payload-types'
 import { defaultGuestbookPage } from '@/lib/cms/defaults'
-import { splitParagraphs } from '@/lib/splitParagraphs'
+import { mapRichText } from '@/lib/cms/mapRichText'
 import { studentPageHref } from '@/lib/cms/studentPageHref'
 import type { GuestbookPageData } from '@/lib/cms/types'
 import type { Eleve } from '@/payload-types'
@@ -20,24 +20,28 @@ export function mapGuestbookPage(
     return defaultGuestbookPage
   }
 
-  const letterContent = data.letterContent || defaultGuestbookPage.letter.content.join('\n\n')
-  const letterParagraphs = splitParagraphs(letterContent)
-
   const testimonials =
-    data.testimonials?.length ?
-      data.testimonials.map((item) => ({
-        content: item.content || '',
-        author: item.author || '',
-        pageHref: testimonialPageHref(item.student),
-      }))
-    : defaultGuestbookPage.testimonials
+    data.testimonials
+      ?.map((item) => {
+        const content = mapRichText(item.content)
+        if (!content || !item.author) {
+          return null
+        }
+
+        return {
+          content,
+          author: item.author,
+          pageHref: testimonialPageHref(item.student),
+        }
+      })
+      .filter((item): item is NonNullable<typeof item> => Boolean(item)) ?? []
 
   return {
     letter: {
-      title: data.letterTitle || defaultGuestbookPage.letter.title,
-      content: letterParagraphs.length ? letterParagraphs : defaultGuestbookPage.letter.content,
-      signature: data.letterSignature || defaultGuestbookPage.letter.signature,
+      title: data.letterTitle ?? '',
+      content: mapRichText(data.letterContent),
+      signature: data.letterSignature ?? '',
     },
-    testimonials: testimonials.filter((item) => item.content && item.author),
+    testimonials,
   }
 }

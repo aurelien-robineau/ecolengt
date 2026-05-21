@@ -1,5 +1,9 @@
 import type { Article, Eleve, LegalNoticePage, TomTomPage } from '@/payload-types'
 
+import type { CmsRichTextContent } from '@/lib/cms/richText'
+
+export type { CmsRichTextContent }
+
 export type SiteSettingsData = {
   name: string
   address: {
@@ -7,7 +11,7 @@ export type SiteSettingsData = {
     city: string
   }
   contact: {
-    phones: Array<{ label: string; href: string; display: string }>
+    phones: Array<{ href: string; display: string }>
     emails: Array<{ href: string; display: string }>
   }
   social: {
@@ -23,7 +27,7 @@ export type ContactPageData = {
 }
 
 export type GuestbookTestimonial = {
-  content: string
+  content: CmsRichTextContent
   author: string
   pageHref: string | null
 }
@@ -31,7 +35,7 @@ export type GuestbookTestimonial = {
 export type GuestbookPageData = {
   letter: {
     title: string
-    content: string[]
+    content: CmsRichTextContent | null
     signature: string
   }
   testimonials: GuestbookTestimonial[]
@@ -54,16 +58,16 @@ export type StudentProfileData = {
 }
 
 export type AlumniPageData = {
-  intro: string[]
+  intro: CmsRichTextContent | null
   students: AlumniStudent[]
 }
 
 export type TomTomPageData = {
-  content: NonNullable<TomTomPage['content']>
+  content: CmsRichTextContent | null
 }
 
 export type LegalNoticePageData = {
-  content: NonNullable<LegalNoticePage['content']>
+  content: CmsRichTextContent | null
 }
 
 export type ArticleListItem = {
@@ -111,28 +115,27 @@ export type LandingPageData = {
     id: string
     label: string
     title: string
-    paragraphs: string[]
+    content: CmsRichTextContent | null
   }
   pedagogy: {
     id: string
     label: string
     title: string
-    lead: string
-    body: string[]
+    content: CmsRichTextContent | null
     features: {
       courseOrganization: {
         title: string
         items: string[]
-        footer: string
+        footer: CmsRichTextContent | null
       }
       practice: {
         title: string
-        body: string
+        body: CmsRichTextContent | null
       }
     }
     intensiveCourses: {
       title: string
-      paragraphs: string[]
+      content: CmsRichTextContent | null
       learnMore: {
         label: string
         href: string
@@ -143,7 +146,7 @@ export type LandingPageData = {
     id: string
     label: string
     title: string
-    description: string[]
+    description: CmsRichTextContent | null
     gallery: GalleryItem[]
   }
 }

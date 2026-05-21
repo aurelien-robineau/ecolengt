@@ -1,15 +1,18 @@
-import { FormattedParagraph } from '@/components/ui/FormattedParagraph'
+import { CmsRichText } from '@/components/cms/CmsRichText'
+import type { CmsRichTextContent } from '@/lib/cms/richText'
 
 type AlumniIntroProps = {
-  paragraphs: string[]
+  content: CmsRichTextContent | null
 }
 
-export function AlumniIntro({ paragraphs }: AlumniIntroProps) {
+export function AlumniIntro({ content }: AlumniIntroProps) {
+  if (!content) {
+    return null
+  }
+
   return (
-    <div className="mb-12 max-w-2xl space-y-2 text-sm leading-[1.9] text-foreground-muted">
-      {paragraphs.map((paragraph, index) => (
-        <FormattedParagraph key={`${paragraph.slice(0, 24)}-${index}`}>{paragraph}</FormattedParagraph>
-      ))}
+    <div className="mb-12 max-w-2xl">
+      <CmsRichText data={content} />
     </div>
   )
 }

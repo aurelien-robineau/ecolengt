@@ -1,14 +1,8 @@
 import type { GlobalConfig } from 'payload'
 
 import { adminGroups } from '@/lib/cms/adminGroups'
+import { pageRichTextEditor } from '@/lib/cms/pageRichTextEditor'
 import { revalidateSite } from '@/lib/cms/revalidateSite'
-
-const paragraphField = {
-  name: 'text',
-  type: 'textarea' as const,
-  label: 'Paragraphe',
-  required: true,
-}
 
 export const HomePage: GlobalConfig = {
   slug: 'home-page',
@@ -150,14 +144,10 @@ export const HomePage: GlobalConfig = {
               },
             },
             {
-              name: 'audienceParagraphs',
-              type: 'array',
+              name: 'audienceContent',
+              type: 'richText',
               label: 'Texte de la section',
-              labels: {
-                singular: 'Paragraphe',
-                plural: 'Paragraphes',
-              },
-              fields: [paragraphField],
+              editor: pageRichTextEditor,
             },
           ],
         },
@@ -181,27 +171,10 @@ export const HomePage: GlobalConfig = {
               required: true,
             },
             {
-              name: 'pedagogyLead',
-              type: 'textarea',
-              label: 'Premier paragraphe',
-              required: true,
-              admin: {
-                description:
-                  'Texte d’introduction en tête de section, avant les autres paragraphes.',
-              },
-            },
-            {
-              name: 'pedagogyBody',
-              type: 'array',
-              label: 'Paragraphes suivants',
-              labels: {
-                singular: 'Paragraphe',
-                plural: 'Paragraphes',
-              },
-              admin: {
-                description: 'Suite du texte de présentation, affichée sous le premier paragraphe.',
-              },
-              fields: [paragraphField],
+              name: 'pedagogyContent',
+              type: 'richText',
+              label: 'Texte de présentation',
+              editor: pageRichTextEditor,
             },
             {
               type: 'collapsible',
@@ -235,12 +208,9 @@ export const HomePage: GlobalConfig = {
                 },
                 {
                   name: 'courseOrganizationFooter',
-                  type: 'textarea',
+                  type: 'richText',
                   label: 'Paragraphe de conclusion',
-                  required: true,
-                  admin: {
-                    description: 'Texte affiché sous la liste à puces.',
-                  },
+                  editor: pageRichTextEditor,
                 },
               ],
             },
@@ -256,9 +226,9 @@ export const HomePage: GlobalConfig = {
                 },
                 {
                   name: 'practiceBody',
-                  type: 'textarea',
+                  type: 'richText',
                   label: 'Texte',
-                  required: true,
+                  editor: pageRichTextEditor,
                 },
               ],
             },
@@ -276,14 +246,10 @@ export const HomePage: GlobalConfig = {
                   required: true,
                 },
                 {
-                  name: 'intensiveCoursesParagraphs',
-                  type: 'array',
-                  label: 'Paragraphes',
-                  labels: {
-                    singular: 'Paragraphe',
-                    plural: 'Paragraphes',
-                  },
-                  fields: [paragraphField],
+                  name: 'intensiveCoursesContent',
+                  type: 'richText',
+                  label: 'Texte',
+                  editor: pageRichTextEditor,
                 },
                 {
                   name: 'intensiveCoursesButtonLabel',
@@ -320,16 +286,9 @@ export const HomePage: GlobalConfig = {
             },
             {
               name: 'facilitiesDescription',
-              type: 'array',
+              type: 'richText',
               label: 'Texte de présentation',
-              labels: {
-                singular: 'Paragraphe',
-                plural: 'Paragraphes',
-              },
-              admin: {
-                description: 'Un ou plusieurs paragraphes au-dessus de la galerie photos.',
-              },
-              fields: [paragraphField],
+              editor: pageRichTextEditor,
             },
             {
               name: 'facilitiesGallery',

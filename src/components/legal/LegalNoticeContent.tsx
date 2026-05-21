@@ -6,6 +6,10 @@ type LegalNoticeContentProps = {
 }
 
 export function LegalNoticeContent({ content }: LegalNoticeContentProps) {
+  if (!content) {
+    return null
+  }
+
   return (
     <div className="border-t border-foreground/10 pt-10">
       <CmsRichText data={content} />

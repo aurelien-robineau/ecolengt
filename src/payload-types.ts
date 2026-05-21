@@ -525,30 +525,41 @@ export interface HomePage {
    * Grand titre visible sur la page d’accueil.
    */
   audienceTitle: string;
-  audienceParagraphs?:
-    | {
-        text: string;
-        id?: string | null;
-      }[]
-    | null;
+  audienceContent?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   /**
    * Ex. La pédagogie
    */
   pedagogyLabel: string;
   pedagogyTitle: string;
-  /**
-   * Texte d’introduction en tête de section, avant les autres paragraphes.
-   */
-  pedagogyLead: string;
-  /**
-   * Suite du texte de présentation, affichée sous le premier paragraphe.
-   */
-  pedagogyBody?:
-    | {
-        text: string;
-        id?: string | null;
-      }[]
-    | null;
+  pedagogyContent?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   courseOrganizationTitle: string;
   courseOrganizationItems?:
     | {
@@ -556,19 +567,53 @@ export interface HomePage {
         id?: string | null;
       }[]
     | null;
-  /**
-   * Texte affiché sous la liste à puces.
-   */
-  courseOrganizationFooter: string;
+  courseOrganizationFooter?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   practiceTitle: string;
-  practiceBody: string;
+  practiceBody?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   intensiveCoursesTitle: string;
-  intensiveCoursesParagraphs?:
-    | {
-        text: string;
-        id?: string | null;
-      }[]
-    | null;
+  intensiveCoursesContent?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   /**
    * Bouton en bas de l’encadré (ex. En savoir plus). Mène à la page Contact.
    */
@@ -578,15 +623,21 @@ export interface HomePage {
    */
   facilitiesLabel: string;
   facilitiesTitle: string;
-  /**
-   * Un ou plusieurs paragraphes au-dessus de la galerie photos.
-   */
-  facilitiesDescription?:
-    | {
-        text: string;
-        id?: string | null;
-      }[]
-    | null;
+  facilitiesDescription?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   /**
    * Grille de photos en bas de section. La première peut être affichée en grand format.
    */
@@ -619,10 +670,21 @@ export interface GuestbookPage {
    * Ex. : À Dante Agostini
    */
   letterTitle: string;
-  /**
-   * Saisissez un paragraphe par bloc, séparés par une ligne vide.
-   */
-  letterContent: string;
+  letterContent?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   /**
    * Affichée sous le message (ex. Nadia & Gilles Touché).
    */
@@ -633,10 +695,21 @@ export interface GuestbookPage {
          * Optionnel. Si la fiche a une page (/eleves/…), le nom de l’auteur devient un lien.
          */
         student?: (string | null) | Eleve;
-        /**
-         * Un témoignage long peut tenir sur plusieurs paragraphes : séparez-les par une ligne vide.
-         */
-        content: string;
+        content: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        };
         /**
          * Nom affiché sous le témoignage (ex. Marie D., parent d’élève).
          */
@@ -655,10 +728,21 @@ export interface GuestbookPage {
  */
 export interface AlumniPage {
   id: string;
-  /**
-   * Un paragraphe par bloc, séparés par une ligne vide (ex. La musique est au-delà des mots…).
-   */
-  introText: string;
+  introContent?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   alumniList?:
     | {
         /**
@@ -794,10 +878,6 @@ export interface SiteSetting {
   phones?:
     | {
         /**
-         * Optionnel. Ex. : Fixe, Mobile, Gilles…
-         */
-        label?: string | null;
-        /**
          * Tel qu’affiché sur le site (ex. 04 42 63 03 74). Le lien d’appel est généré automatiquement.
          */
         number: string;
@@ -809,10 +889,6 @@ export interface SiteSetting {
    */
   emails?:
     | {
-        /**
-         * Optionnel. Ex. : Contact général, Nadia, Gilles…
-         */
-        label?: string | null;
         address: string;
         id?: string | null;
       }[]
@@ -844,21 +920,10 @@ export interface HomePageSelect<T extends boolean = true> {
   quotePortrait?: T;
   audienceLabel?: T;
   audienceTitle?: T;
-  audienceParagraphs?:
-    | T
-    | {
-        text?: T;
-        id?: T;
-      };
+  audienceContent?: T;
   pedagogyLabel?: T;
   pedagogyTitle?: T;
-  pedagogyLead?: T;
-  pedagogyBody?:
-    | T
-    | {
-        text?: T;
-        id?: T;
-      };
+  pedagogyContent?: T;
   courseOrganizationTitle?: T;
   courseOrganizationItems?:
     | T
@@ -870,21 +935,11 @@ export interface HomePageSelect<T extends boolean = true> {
   practiceTitle?: T;
   practiceBody?: T;
   intensiveCoursesTitle?: T;
-  intensiveCoursesParagraphs?:
-    | T
-    | {
-        text?: T;
-        id?: T;
-      };
+  intensiveCoursesContent?: T;
   intensiveCoursesButtonLabel?: T;
   facilitiesLabel?: T;
   facilitiesTitle?: T;
-  facilitiesDescription?:
-    | T
-    | {
-        text?: T;
-        id?: T;
-      };
+  facilitiesDescription?: T;
   facilitiesGallery?:
     | T
     | {
@@ -922,7 +977,7 @@ export interface GuestbookPageSelect<T extends boolean = true> {
  * via the `definition` "alumni-page_select".
  */
 export interface AlumniPageSelect<T extends boolean = true> {
-  introText?: T;
+  introContent?: T;
   alumniList?:
     | T
     | {
@@ -989,14 +1044,12 @@ export interface SiteSettingsSelect<T extends boolean = true> {
   phones?:
     | T
     | {
-        label?: T;
         number?: T;
         id?: T;
       };
   emails?:
     | T
     | {
-        label?: T;
         address?: T;
         id?: T;
       };

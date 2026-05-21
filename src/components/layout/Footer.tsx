@@ -52,23 +52,33 @@ export function Footer({ site }: FooterProps) {
             ))}
           </div>
 
-          <div>
-            <h4 className="mb-6 text-[11px] tracking-[0.2em] text-brand uppercase">
-              Réseaux sociaux
-            </h4>
-            <a
-              href={site.social.instagram}
-              className="block text-sm leading-8 no-underline transition-colors hover:text-brand"
-            >
-              Instagram
-            </a>
-            <a
-              href={site.social.facebook}
-              className="block text-sm leading-8 no-underline transition-colors hover:text-brand"
-            >
-              Facebook
-            </a>
-          </div>
+          {(site.social.instagram || site.social.facebook) && (
+            <div>
+              <h4 className="mb-6 text-[11px] tracking-[0.2em] text-brand uppercase">
+                Réseaux sociaux
+              </h4>
+              {site.social.instagram && (
+                <a
+                  href={site.social.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block text-sm leading-8 no-underline transition-colors hover:text-brand"
+                >
+                  Instagram
+                </a>
+              )}
+              {site.social.facebook && (
+                <a
+                  href={site.social.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block text-sm leading-8 no-underline transition-colors hover:text-brand"
+                >
+                  Facebook
+                </a>
+              )}
+            </div>
+          )}
         </div>
 
         <div className="flex flex-col gap-3 border-t border-[#222] pt-8 sm:flex-row sm:items-center sm:justify-between">
