@@ -16,6 +16,7 @@ import { GuestbookPage } from './globals/GuestbookPage'
 import { HomePage } from './globals/HomePage'
 import { LegalNoticePage } from './globals/LegalNoticePage'
 import { SiteSettings } from './globals/SiteSettings'
+import { TomTomPage } from './globals/TomTomPage'
 import { disableAdminAPIView } from './lib/cms/disableAdminAPIView'
 import { siteFaviconMetadata } from './lib/site/favicon'
 
@@ -48,7 +49,15 @@ export default buildConfig({
     },
   },
   collections: [Media, Articles, Students, Users],
-  globals: [HomePage, GuestbookPage, AlumniPage, ContactPage, LegalNoticePage, SiteSettings],
+  globals: [
+    HomePage,
+    GuestbookPage,
+    AlumniPage,
+    TomTomPage,
+    ContactPage,
+    LegalNoticePage,
+    SiteSettings,
+  ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

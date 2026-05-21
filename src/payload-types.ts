@@ -95,6 +95,7 @@ export interface Config {
     'home-page': HomePage;
     'guestbook-page': GuestbookPage;
     'alumni-page': AlumniPage;
+    'tom-tom-page': TomTomPage;
     'contact-page': ContactPage;
     'legal-notice-page': LegalNoticePage;
     'site-settings': SiteSetting;
@@ -103,6 +104,7 @@ export interface Config {
     'home-page': HomePageSelect<false> | HomePageSelect<true>;
     'guestbook-page': GuestbookPageSelect<false> | GuestbookPageSelect<true>;
     'alumni-page': AlumniPageSelect<false> | AlumniPageSelect<true>;
+    'tom-tom-page': TomTomPageSelect<false> | TomTomPageSelect<true>;
     'contact-page': ContactPageSelect<false> | ContactPageSelect<true>;
     'legal-notice-page': LegalNoticePageSelect<false> | LegalNoticePageSelect<true>;
     'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
@@ -669,6 +671,35 @@ export interface AlumniPage {
   createdAt?: string | null;
 }
 /**
+ * Contenu de la page Tom Tom (association).
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tom-tom-page".
+ */
+export interface TomTomPage {
+  id: string;
+  /**
+   * Texte complet de la page Tom Tom.
+   */
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * Contenu affiché sur la page Contact : photos d’accès et carte Google Maps.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -891,6 +922,16 @@ export interface AlumniPageSelect<T extends boolean = true> {
             };
         id?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tom-tom-page_select".
+ */
+export interface TomTomPageSelect<T extends boolean = true> {
+  content?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
