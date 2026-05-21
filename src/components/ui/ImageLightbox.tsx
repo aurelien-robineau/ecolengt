@@ -142,10 +142,10 @@ export function ImageLightbox({ slides, initialIndex, onClose }: ImageLightboxPr
       : null}
 
       <figure
-        className="relative flex max-h-full max-w-full flex-col items-center"
+        className="relative flex w-[min(calc(100vw-2rem),72rem)] max-w-full flex-col items-center sm:w-[min(calc(100vw-4rem),72rem)]"
         onClick={(event) => event.stopPropagation()}
       >
-        <div className="relative h-[min(80dvh,900px)] w-full max-w-[min(100%,72rem)]">
+        <div className="relative h-[min(80dvh,900px)] w-full">
           <Image
             src={slide.image.src}
             alt={slide.image.alt}
