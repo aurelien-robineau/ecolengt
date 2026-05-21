@@ -18,12 +18,15 @@ import { LegalNoticePage } from './globals/LegalNoticePage'
 import { SiteSettings } from './globals/SiteSettings'
 import { TomTomPage } from './globals/TomTomPage'
 import { disableAdminAPIView } from './lib/cms/disableAdminAPIView'
+import { vercelBlobStoragePlugin } from './lib/cms/storage'
 import { siteFaviconMetadata } from './lib/site/favicon'
+import { getServerURL } from './lib/site/serverUrl'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
+  serverURL: getServerURL(),
   admin: {
     user: Users.slug,
     meta: siteFaviconMetadata,
@@ -67,7 +70,7 @@ export default buildConfig({
     url: process.env.DATABASE_URL || '',
   }),
   sharp,
-  plugins: [disableAdminAPIView],
+  plugins: [disableAdminAPIView, ...(vercelBlobStoragePlugin ? [vercelBlobStoragePlugin] : [])],
   i18n: {
     supportedLanguages: { fr },
   },

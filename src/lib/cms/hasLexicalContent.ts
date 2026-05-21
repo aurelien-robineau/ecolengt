@@ -19,8 +19,10 @@ export function hasLexicalContent(content: LexicalRoot | string | null | undefin
       return false
     }
 
-    if (node.type === 'paragraph' && Array.isArray(node.children)) {
-      return node.children.some(
+    const typed = node as { type: string; children?: unknown[] }
+
+    if (typed.type === 'paragraph' && Array.isArray(typed.children)) {
+      return typed.children.some(
         (child) =>
           child &&
           typeof child === 'object' &&
@@ -32,6 +34,6 @@ export function hasLexicalContent(content: LexicalRoot | string | null | undefin
       )
     }
 
-    return node.type !== 'paragraph'
+    return typed.type !== 'paragraph'
   })
 }

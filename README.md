@@ -62,6 +62,10 @@ Alternatively, you can use [Docker](https://www.docker.com) to spin up this temp
 
 That's it! The Docker instance will help you get up and running quickly while also standardizing the development environment across your teams.
 
+## Deployment (Vercel)
+
+See **[docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)** for step-by-step setup on the Vercel Hobby (free) plan: MongoDB Atlas, Vercel Blob, and environment variables.
+
 ## Questions
 
 If you have any issues or questions, reach out to us on [Discord](https://discord.com/invite/payload) or start a [GitHub discussion](https://github.com/payloadcms/payload/discussions).
