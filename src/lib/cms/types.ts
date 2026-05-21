@@ -125,8 +125,7 @@ export type LandingPageData = {
     features: {
       courseOrganization: {
         title: string
-        items: string[]
-        footer: CmsRichTextContent | null
+        content: CmsRichTextContent | null
       }
       practice: {
         title: string

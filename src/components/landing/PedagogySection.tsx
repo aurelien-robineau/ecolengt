@@ -30,17 +30,7 @@ export function PedagogySection({ pedagogy }: PedagogySectionProps) {
               <h3 className="mb-4 font-serif text-xl font-normal text-foreground">
                 {courseOrganization.title}
               </h3>
-              {courseOrganization.items.length > 0 && (
-                <ul className="mb-4 space-y-2 text-sm leading-[1.85] text-foreground-muted">
-                  {courseOrganization.items.map((item) => (
-                    <li key={item} className="flex gap-2">
-                      <span className="mt-2 size-1 shrink-0 rounded-full bg-brand" aria-hidden />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-              <CmsRichText data={courseOrganization.footer} />
+              <CmsRichText data={courseOrganization.content} />
             </article>
 
             <article className="bg-surface-card p-8">

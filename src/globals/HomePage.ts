@@ -190,26 +190,9 @@ export const HomePage: GlobalConfig = {
                   required: true,
                 },
                 {
-                  name: 'courseOrganizationItems',
-                  type: 'array',
-                  label: 'Points à puces',
-                  labels: {
-                    singular: 'Point',
-                    plural: 'Points',
-                  },
-                  fields: [
-                    {
-                      name: 'text',
-                      type: 'text',
-                      label: 'Texte du point',
-                      required: true,
-                    },
-                  ],
-                },
-                {
-                  name: 'courseOrganizationFooter',
+                  name: 'courseOrganizationContent',
                   type: 'richText',
-                  label: 'Paragraphe de conclusion',
+                  label: 'Texte',
                   editor: pageRichTextEditor,
                 },
               ],
