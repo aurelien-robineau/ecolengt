@@ -1,13 +1,18 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { siteConfig } from '@/config/site'
+
 import { Button } from '@/components/ui/Button'
 import { Container } from '@/components/ui/Container'
 import { Logo } from '@/components/ui/Logo'
+import type { SiteSettingsData } from '@/lib/cms/types'
 import { cn } from '@/lib/cn'
 
-export function Header() {
+type HeaderProps = {
+  site: SiteSettingsData
+}
+
+export function Header({ site }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
@@ -29,7 +34,7 @@ export function Header() {
 
         <nav className="hidden items-center gap-8 lg:flex" aria-label="Navigation principale">
           <ul className="flex list-none gap-8">
-            {siteConfig.navigation.map((item) => (
+            {site.navigation.map((item) => (
               <li key={item.href}>
                 <a
                   href={item.href}

@@ -1,4 +1,35 @@
-export const landingContent = {
+import type { LandingPageData, SiteSettingsData } from '@/lib/cms/types'
+
+export const defaultSiteSettings: SiteSettingsData = {
+  name: 'École de Batterie',
+  subtitle: 'Nadia & Gilles Touché',
+  tagline: 'Écoute… et tu parviendras',
+  location: 'Aix-en-Provence',
+  founded: 'Depuis 2003',
+  address: {
+    street: '14 Rue Rifle Rafle',
+    city: '13100 Aix-en-Provence',
+  },
+  contact: {
+    phones: [
+      { label: 'Landline', href: 'tel:+33442630374', display: '04 42 63 03 74' },
+      { label: 'Mobile', href: 'tel:+33671371745', display: '06 71 37 17 45' },
+      { label: 'Mobile', href: 'tel:+33671210360', display: '06 71 21 03 60' },
+    ],
+    emails: [{ href: 'mailto:nadiatouche@orange.fr', display: 'nadiatouche@orange.fr' }],
+  },
+  social: {
+    instagram: '#',
+    facebook: '#',
+  },
+  navigation: [
+    { label: 'Pour qui', href: '#audience' },
+    { label: 'La pédagogie', href: '#pedagogy' },
+    { label: 'Les locaux', href: '#facilities' },
+  ],
+}
+
+export const defaultLandingPage: LandingPageData = {
   hero: {
     cta: "Découvrir l'école",
     ctaHref: '#audience',
@@ -7,6 +38,7 @@ export const landingContent = {
     text: 'Nous vous offrons un enseignement adapté à votre disponibilité, dans le respect de votre personnalité musicale.',
     cite: 'Nadia et Gilles Touché',
     imageAlt: 'Nadia et Gilles Touché',
+    portrait: null,
   },
   audience: {
     id: 'audience',
@@ -67,10 +99,10 @@ export const landingContent = {
       'Batteries Gretsch USA des années 1970 et cymbales Zildjian K.',
     ],
     gallery: [
-      { caption: 'Salle principale', wide: true as const },
-      { caption: 'Cymbales Zildjian K', wide: false as const },
-      { caption: "Salle d'attente & accueil", wide: false as const },
-      { caption: 'Espace de pratique', wide: false as const },
+      { caption: 'Salle principale', wide: true, image: null },
+      { caption: 'Cymbales Zildjian K', wide: false, image: null },
+      { caption: "Salle d'attente & accueil", wide: false, image: null },
+      { caption: 'Espace de pratique', wide: false, image: null },
     ],
   },
-} as const
+}

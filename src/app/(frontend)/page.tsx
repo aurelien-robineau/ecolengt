@@ -3,15 +3,18 @@ import { FacilitiesSection } from '@/components/landing/FacilitiesSection'
 import { HeroSection } from '@/components/landing/HeroSection'
 import { PedagogySection } from '@/components/landing/PedagogySection'
 import { QuoteBand } from '@/components/landing/QuoteBand'
+import { getSiteContent } from '@/lib/cms/getSiteContent'
 
-export default function HomePage() {
+export default async function HomePage() {
+  const { site, landing } = await getSiteContent()
+
   return (
     <>
-      <HeroSection />
-      <QuoteBand />
-      <AudienceSection />
-      <PedagogySection />
-      <FacilitiesSection />
+      <HeroSection hero={landing.hero} site={site} />
+      <QuoteBand quote={landing.quote} />
+      <AudienceSection audience={landing.audience} />
+      <PedagogySection pedagogy={landing.pedagogy} />
+      <FacilitiesSection facilities={landing.facilities} />
     </>
   )
 }

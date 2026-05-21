@@ -1,8 +1,12 @@
-import { siteConfig } from '@/config/site'
 import { Container } from '@/components/ui/Container'
 import { Logo } from '@/components/ui/Logo'
+import type { SiteSettingsData } from '@/lib/cms/types'
 
-export function Footer() {
+type FooterProps = {
+  site: SiteSettingsData
+}
+
+export function Footer({ site }: FooterProps) {
   const year = new Date().getFullYear()
 
   return (
@@ -10,23 +14,23 @@ export function Footer() {
       <Container>
         <div className="mb-14">
           <Logo variant="white" href={undefined} className="mb-5 max-h-11" />
-          <p className="font-serif text-base text-surface-muted">{siteConfig.name}</p>
-          <p className="font-serif text-base text-surface-muted">{siteConfig.subtitle}</p>
+          <p className="font-serif text-base text-surface-muted">{site.name}</p>
+          <p className="font-serif text-base text-surface-muted">{site.subtitle}</p>
         </div>
 
         <div className="mb-16 grid gap-12 sm:grid-cols-2 lg:grid-cols-3 lg:gap-16">
           <div>
             <h4 className="mb-6 text-[11px] tracking-[0.2em] text-brand uppercase">Adresse</h4>
             <address className="text-sm not-italic leading-8">
-              {siteConfig.address.street}
+              {site.address.street}
               <br />
-              {siteConfig.address.city}
+              {site.address.city}
             </address>
           </div>
 
           <div>
             <h4 className="mb-6 text-[11px] tracking-[0.2em] text-brand uppercase">Contact</h4>
-            {siteConfig.contact.phones.map((phone) => (
+            {site.contact.phones.map((phone) => (
               <a
                 key={phone.href}
                 href={phone.href}
@@ -35,12 +39,15 @@ export function Footer() {
                 {phone.display}
               </a>
             ))}
-            <a
-              href={siteConfig.contact.email.href}
-              className="mt-2 block text-sm leading-8 text-foreground-subtle no-underline transition-colors hover:text-brand"
-            >
-              {siteConfig.contact.email.display}
-            </a>
+            {site.contact.emails.map((email) => (
+              <a
+                key={email.href}
+                href={email.href}
+                className="block text-sm leading-8 text-foreground-subtle no-underline transition-colors hover:text-brand"
+              >
+                {email.display}
+              </a>
+            ))}
           </div>
 
           <div>
@@ -48,13 +55,13 @@ export function Footer() {
               Réseaux sociaux
             </h4>
             <a
-              href={siteConfig.social.instagram}
+              href={site.social.instagram}
               className="block text-sm leading-8 no-underline transition-colors hover:text-brand"
             >
               Instagram
             </a>
             <a
-              href={siteConfig.social.facebook}
+              href={site.social.facebook}
               className="block text-sm leading-8 no-underline transition-colors hover:text-brand"
             >
               Facebook
@@ -64,7 +71,7 @@ export function Footer() {
 
         <div className="border-t border-[#222] pt-8">
           <p className="text-xs text-[#606060]">
-            © {year} {siteConfig.name} — {siteConfig.subtitle}
+            © {year} {site.name} — {site.subtitle}
           </p>
         </div>
       </Container>

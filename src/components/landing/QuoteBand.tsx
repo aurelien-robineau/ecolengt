@@ -1,19 +1,27 @@
-import { landingContent } from '@/content/landing'
+import { CmsImage } from '@/components/cms/CmsImage'
 import { Container } from '@/components/ui/Container'
 import { PortraitPlaceholder } from '@/components/landing/PortraitPlaceholder'
+import type { LandingPageData } from '@/lib/cms/types'
 
-export function QuoteBand() {
-  const { quote } = landingContent
+type QuoteBandProps = {
+  quote: LandingPageData['quote']
+}
 
+export function QuoteBand({ quote }: QuoteBandProps) {
   return (
     <section className="bg-brand py-20">
       <Container>
         <div className="mx-auto grid max-w-4xl items-center gap-12 lg:grid-cols-[minmax(0,14rem)_1fr] lg:gap-16">
-          <PortraitPlaceholder
-            alt={quote.imageAlt}
-            className="mx-auto w-full max-w-[14rem] lg:mx-0 lg:max-w-none"
-            variant="onBrand"
-          />
+          {quote.portrait ?
+            <div className="relative mx-auto aspect-4/5 w-full max-w-[14rem] overflow-hidden bg-foreground/8 ring-1 ring-foreground/10 lg:mx-0 lg:max-w-none">
+              <CmsImage image={quote.portrait} className="absolute inset-0" sizes="14rem" />
+            </div>
+          : <PortraitPlaceholder
+              alt={quote.imageAlt}
+              variant="onBrand"
+              className="mx-auto w-full max-w-[14rem] lg:mx-0 lg:max-w-none"
+            />
+          }
 
           <blockquote className="text-center lg:text-left">
             <p className="font-serif text-[clamp(1.25rem,2.5vw,1.75rem)] leading-relaxed font-light text-foreground italic">
