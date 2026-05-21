@@ -22,7 +22,7 @@ export const adminNavGroupOrder = [
 ] as const
 
 /** Order within Contenu. */
-export const adminNavContentOrder = ['media', 'eleves'] as const
+export const adminNavContentOrder = ['media', 'articles', 'eleves'] as const
 
 /** Order within Pages du site. */
 export const adminNavPagesOrder = [
