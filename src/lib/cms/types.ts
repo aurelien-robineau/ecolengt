@@ -1,3 +1,5 @@
+import type { LegalNoticePage } from '@/payload-types'
+
 export type SiteSettingsData = {
   name: string
   address: {
@@ -54,6 +56,10 @@ export type StudentProfileData = {
 export type AlumniPageData = {
   intro: string[]
   students: AlumniStudent[]
+}
+
+export type LegalNoticePageData = {
+  content: NonNullable<LegalNoticePage['content']>
 }
 
 export type CmsImageData = {
@@ -132,4 +138,5 @@ export type SiteContent = {
   contact: ContactPageData
   guestbook: GuestbookPageData
   alumni: AlumniPageData
+  legalNotice: LegalNoticePageData
 }

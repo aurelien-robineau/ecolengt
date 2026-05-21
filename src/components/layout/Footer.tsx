@@ -1,5 +1,8 @@
+import Link from 'next/link'
+
 import { Container } from '@/components/ui/Container'
 import { Logo } from '@/components/ui/Logo'
+import { routes } from '@/config/routes'
 import type { SiteSettingsData } from '@/lib/cms/types'
 
 type FooterProps = {
@@ -68,10 +71,16 @@ export function Footer({ site }: FooterProps) {
           </div>
         </div>
 
-        <div className="border-t border-[#222] pt-8">
+        <div className="flex flex-col gap-3 border-t border-[#222] pt-8 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-xs text-[#606060]">
             © {year} {site.name}
           </p>
+          <Link
+            href={routes.legalNotice}
+            className="text-xs text-[#606060] no-underline transition-colors hover:text-brand"
+          >
+            Mentions légales
+          </Link>
         </div>
       </Container>
     </footer>
