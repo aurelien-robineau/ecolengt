@@ -2,6 +2,7 @@ import {
   type JSXConvertersFunction,
   LinkJSXConverter,
   RichText,
+  UploadJSXConverter,
 } from '@payloadcms/richtext-lexical/react'
 import type { LegalNoticePage } from '@/payload-types'
 
@@ -15,10 +16,12 @@ const proseClassName = [
   '[&>ul]:my-4 [&>ul]:list-none [&>ul]:space-y-2 [&>ul]:pl-0',
   '[&>ol]:my-4 [&>ol]:list-decimal [&>ol]:space-y-2 [&>ol]:pl-5',
   '[&_a]:text-foreground-muted [&_a]:no-underline [&_a]:transition-colors hover:[&_a]:text-brand',
+  '[&_picture]:my-8 [&_picture]:block [&_img]:h-auto [&_img]:max-w-full',
 ].join(' ')
 
 const converters: JSXConvertersFunction = ({ defaultConverters }) => ({
   ...defaultConverters,
+  ...UploadJSXConverter,
   ...LinkJSXConverter({}),
   heading: ({ node, nodesToJSX }) => {
     const Tag = node.tag

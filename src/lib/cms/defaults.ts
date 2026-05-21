@@ -33,6 +33,7 @@ export const defaultSiteSettings: SiteSettingsData = {
     { label: 'La pédagogie', href: '/#pedagogy' },
     { label: 'Les locaux', href: '/#facilities' },
     { label: 'Livre d’or', href: routes.guestbook },
+    { label: 'Actualité', href: routes.news },
     { label: 'Anciens élèves', href: routes.alumni },
   ],
 }

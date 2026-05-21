@@ -68,6 +68,7 @@ export interface Config {
   blocks: {};
   collections: {
     media: Media;
+    articles: Article;
     eleves: Eleve;
     users: User;
     'payload-kv': PayloadKv;
@@ -78,6 +79,7 @@ export interface Config {
   collectionsJoins: {};
   collectionsSelect: {
     media: MediaSelect<false> | MediaSelect<true>;
+    articles: ArticlesSelect<false> | ArticlesSelect<true>;
     eleves: ElevesSelect<false> | ElevesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -158,7 +160,47 @@ export interface Media {
   focalY?: number | null;
 }
 /**
- * Fiches élèves optionnelles. L’identifiant URL est généré à partir du nom (/eleves/…).
+ * Actualités du site. Chaque article a une page dédiée sous /actualite/… et apparaît sur la page Actualité.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "articles".
+ */
+export interface Article {
+  id: string;
+  title: string;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  /**
+   * Résumé affiché sur la page Actualité (liste des articles).
+   */
+  shortDescription: string;
+  image: string | Media;
+  /**
+   * Texte de l’article. Vous pouvez y insérer des images depuis la médiathèque.
+   */
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Fiches élèves. Une page publique est créée automatiquement à partir du nom (/eleves/…).
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "eleves".
@@ -170,9 +212,6 @@ export interface Eleve {
    * When enabled, the slug will auto-generate from the title field on save and autosave.
    */
   generateSlug?: boolean | null;
-  /**
-   * Généré automatiquement à partir du nom (ex. Jean Dupont → jean-dupont). Videz le champ pour ne pas publier de page.
-   */
   slug?: string | null;
   /**
    * Ex. : Batteur — groupe XYZ, professeur de batterie…
@@ -251,6 +290,10 @@ export interface PayloadLockedDocument {
         value: string | Media;
       } | null)
     | ({
+        relationTo: 'articles';
+        value: string | Article;
+      } | null)
+    | ({
         relationTo: 'eleves';
         value: string | Eleve;
       } | null)
@@ -317,6 +360,20 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "articles_select".
+ */
+export interface ArticlesSelect<T extends boolean = true> {
+  title?: T;
+  generateSlug?: T;
+  slug?: T;
+  shortDescription?: T;
+  image?: T;
+  content?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

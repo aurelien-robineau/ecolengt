@@ -6,6 +6,7 @@ import { fr } from '@payloadcms/translations/languages/fr'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 
+import { Articles } from './collections/Articles'
 import { Media } from './collections/Media'
 import { Students } from './collections/Students'
 import { Users } from './collections/Users'
@@ -46,7 +47,7 @@ export default buildConfig({
       ],
     },
   },
-  collections: [Media, Students, Users],
+  collections: [Media, Articles, Students, Users],
   globals: [HomePage, GuestbookPage, AlumniPage, ContactPage, LegalNoticePage, SiteSettings],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
