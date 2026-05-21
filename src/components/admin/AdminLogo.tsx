@@ -4,7 +4,7 @@ import type { ServerProps } from 'payload'
 export function AdminLogo(_props: ServerProps) {
   return (
     <img
-      src="/assets/logo.svg"
+      src="/brand/logo.svg"
       alt="École de Batterie NGT"
       width={193}
       height={44}
