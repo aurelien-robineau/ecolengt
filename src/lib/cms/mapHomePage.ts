@@ -5,12 +5,6 @@ import { mapMedia } from '@/lib/cms/mapMedia'
 import { mapRichText } from '@/lib/cms/mapRichText'
 import type { LandingPageData } from '@/lib/cms/types'
 
-function mapTextItems(
-  items: Array<{ text?: string | null; id?: string | null }> | null | undefined,
-): string[] {
-  return items?.map((item) => item.text).filter((text): text is string => Boolean(text)) ?? []
-}
-
 export function mapHomePage(data: HomePageDoc | null | undefined): LandingPageData {
   if (!data) {
     return defaultLandingPage
@@ -48,8 +42,7 @@ export function mapHomePage(data: HomePageDoc | null | undefined): LandingPageDa
       features: {
         courseOrganization: {
           title: data.courseOrganizationTitle ?? '',
-          items: mapTextItems(data.courseOrganizationItems),
-          footer: mapRichText(data.courseOrganizationFooter),
+          content: mapRichText(data.courseOrganizationContent),
         },
         practice: {
           title: data.practiceTitle ?? '',

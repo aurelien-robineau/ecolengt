@@ -561,13 +561,7 @@ export interface HomePage {
     [k: string]: unknown;
   } | null;
   courseOrganizationTitle: string;
-  courseOrganizationItems?:
-    | {
-        text: string;
-        id?: string | null;
-      }[]
-    | null;
-  courseOrganizationFooter?: {
+  courseOrganizationContent?: {
     root: {
       type: string;
       children: {
@@ -925,13 +919,7 @@ export interface HomePageSelect<T extends boolean = true> {
   pedagogyTitle?: T;
   pedagogyContent?: T;
   courseOrganizationTitle?: T;
-  courseOrganizationItems?:
-    | T
-    | {
-        text?: T;
-        id?: T;
-      };
-  courseOrganizationFooter?: T;
+  courseOrganizationContent?: T;
   practiceTitle?: T;
   practiceBody?: T;
   intensiveCoursesTitle?: T;

@@ -80,8 +80,7 @@ export const defaultLandingPage: LandingPageData = {
     features: {
       courseOrganization: {
         title: '',
-        items: [],
-        footer: null,
+        content: null,
       },
       practice: {
         title: '',
