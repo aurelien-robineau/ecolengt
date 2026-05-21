@@ -22,7 +22,7 @@ export function Logo({ variant = 'default', className, href = '/', priority }: L
   const image = (
     <Image
       src={logoPaths[variant]}
-      alt="École de Batterie Nadia & Gilles Touché"
+      alt="École de Batterie NGT"
       width={230}
       height={100}
       className={cn('h-auto w-auto', !className && 'max-h-12 md:max-h-14', className)}

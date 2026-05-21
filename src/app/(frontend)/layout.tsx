@@ -21,10 +21,10 @@ const dmSans = DM_Sans({
 })
 
 export async function generateMetadata() {
-  const { site } = await getSiteContent()
+  const { site, landing } = await getSiteContent()
 
   return {
-    title: `${site.name} — ${site.subtitle} · ${site.location}`,
+    title: `${site.name} · ${landing.hero.location}`,
     description:
       'École de batterie à Aix-en-Provence. Enseignement pour tous niveaux dès 6 ans, méthode Dante Agostini.',
   }

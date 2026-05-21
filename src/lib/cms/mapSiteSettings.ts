@@ -28,11 +28,7 @@ export function mapSiteSettings(data: SiteSetting | null | undefined): SiteSetti
     : defaultSiteSettings.contact.emails
 
   return {
-    name: data.schoolName || defaultSiteSettings.name,
-    subtitle: data.subtitle || defaultSiteSettings.subtitle,
-    tagline: data.tagline || defaultSiteSettings.tagline,
-    location: data.location || defaultSiteSettings.location,
-    founded: data.founded || defaultSiteSettings.founded,
+    name: data.schoolNameShort || defaultSiteSettings.name,
     address: {
       street: data.addressStreet || defaultSiteSettings.address.street,
       city: data.addressCity || defaultSiteSettings.address.city,

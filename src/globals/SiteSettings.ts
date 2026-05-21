@@ -25,48 +25,13 @@ export const SiteSettings: GlobalConfig = {
       },
       fields: [
         {
-          name: 'schoolName',
+          name: 'schoolNameShort',
           type: 'text',
-          label: 'Nom de l’école',
-          required: true,
-          admin: {
-            description: 'Titre principal sur la bannière d’accueil (ex. École de Batterie).',
-          },
-        },
-        {
-          name: 'subtitle',
-          type: 'text',
-          label: 'Noms des professeurs',
-          required: true,
-          admin: {
-            description: 'Affiché sous le nom de l’école, en italique (ex. Nadia & Gilles Touché).',
-          },
-        },
-        {
-          name: 'tagline',
-          type: 'text',
-          label: 'Phrase d’accroche',
+          label: 'Nom court',
           required: true,
           admin: {
             description:
-              'Courte phrase en italique au-dessus du titre, sur la bannière d’accueil (ex. Écoutez… et tu parviendras).',
-          },
-        },
-        {
-          name: 'location',
-          type: 'text',
-          label: 'Ville',
-          required: true,
-          admin: {
-            description: 'Affichée sous les noms sur la bannière (ex. Aix-en-Provence).',
-          },
-        },
-        {
-          name: 'founded',
-          type: 'text',
-          label: 'Mention « depuis »',
-          admin: {
-            description: 'Texte optionnel à côté de la ville (ex. Depuis 2003). Laisser vide pour ne rien afficher.',
+              'Forme abrégée du nom (ex. École de Batterie NGT). Utilisé dans l’en-tête, le pied de page et les titres de page.',
           },
         },
       ],

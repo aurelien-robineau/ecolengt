@@ -25,6 +25,11 @@ export function mapHomePage(data: HomePageDoc | null | undefined): LandingPageDa
 
   return {
     hero: {
+      tagline: data.heroTagline || defaultLandingPage.hero.tagline,
+      name: data.heroName || defaultLandingPage.hero.name,
+      subtitle: data.heroSubtitle || defaultLandingPage.hero.subtitle,
+      location: data.heroLocation || defaultLandingPage.hero.location,
+      founded: data.heroFounded || defaultLandingPage.hero.founded,
       cta: data.heroCta || defaultLandingPage.hero.cta,
       ctaHref: defaultLandingPage.hero.ctaHref,
     },

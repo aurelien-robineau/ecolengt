@@ -15,7 +15,6 @@ export function Footer({ site }: FooterProps) {
         <div className="mb-14">
           <Logo variant="white" href={undefined} className="mb-5 max-h-11" />
           <p className="font-serif text-base text-surface-muted">{site.name}</p>
-          <p className="font-serif text-base text-surface-muted">{site.subtitle}</p>
         </div>
 
         <div className="mb-16 grid gap-12 sm:grid-cols-2 lg:grid-cols-3 lg:gap-16">
@@ -71,7 +70,7 @@ export function Footer({ site }: FooterProps) {
 
         <div className="border-t border-[#222] pt-8">
           <p className="text-xs text-[#606060]">
-            © {year} {site.name} — {site.subtitle}
+            © {year} {site.name}
           </p>
         </div>
       </Container>

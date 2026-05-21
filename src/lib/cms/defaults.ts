@@ -4,11 +4,7 @@ export const defaultMapsEmbedSrc =
   'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3608.3594002590175!2d5.4479491768275485!3d43.52915447110825!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12c98dbdcbee8bf5%3A0xbb7d75229711baa3!2s%C3%89cole%20de%20batterie%20NGT!5e1!3m2!1sfr!2sfr!4v1779380126654!5m2!1sfr!2sfr'
 
 export const defaultSiteSettings: SiteSettingsData = {
-  name: 'École de Batterie',
-  subtitle: 'Nadia & Gilles Touché',
-  tagline: 'Écoute… et tu parviendras',
-  location: 'Aix-en-Provence',
-  founded: 'Depuis 2003',
+  name: 'École de Batterie NGT',
   address: {
     street: '14 Rue Rifle Rafle',
     city: '13100 Aix-en-Provence',
@@ -42,6 +38,11 @@ export const defaultContactPage: ContactPageData = {
 
 export const defaultLandingPage: LandingPageData = {
   hero: {
+    tagline: 'Écoute… et tu parviendras',
+    name: 'École de Batterie',
+    subtitle: 'Nadia & Gilles Touché',
+    location: 'Aix-en-Provence',
+    founded: 'Depuis 2003',
     cta: "Découvrir l'école",
     ctaHref: '/#audience',
   },

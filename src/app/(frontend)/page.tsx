@@ -6,11 +6,11 @@ import { QuoteBand } from '@/components/landing/QuoteBand'
 import { getSiteContent } from '@/lib/cms/getSiteContent'
 
 export default async function HomePage() {
-  const { site, landing } = await getSiteContent()
+  const { landing } = await getSiteContent()
 
   return (
     <>
-      <HeroSection hero={landing.hero} site={site} />
+      <HeroSection hero={landing.hero} />
       <QuoteBand quote={landing.quote} />
       <AudienceSection audience={landing.audience} />
       <PedagogySection pedagogy={landing.pedagogy} />

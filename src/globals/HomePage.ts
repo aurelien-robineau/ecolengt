@@ -14,7 +14,8 @@ export const HomePage: GlobalConfig = {
   label: 'Page d’accueil',
   admin: {
     group: 'Site',
-    description: 'Textes et photos des différentes sections affichées sur la page d’accueil du site.',
+    description:
+      'Textes et photos des différentes sections affichées sur la page d’accueil du site.',
   },
   access: {
     read: () => true,
@@ -29,15 +30,63 @@ export const HomePage: GlobalConfig = {
       tabs: [
         {
           label: 'Bannière d’accueil',
-          description: 'Grande zone en haut de page avec le titre de l’école et le bouton principal.',
+          description:
+            'Grande zone en haut de page avec le titre de l’école et le bouton principal.',
           fields: [
+            {
+              name: 'heroTagline',
+              type: 'text',
+              label: 'Phrase d’accroche',
+              required: true,
+              admin: {
+                description:
+                  'Courte phrase en italique au-dessus du titre (ex. Écoute… et tu parviendras).',
+              },
+            },
+            {
+              name: 'heroName',
+              type: 'text',
+              label: 'Titre (1re ligne)',
+              required: true,
+              admin: {
+                description: 'Première ligne du titre (ex. École de Batterie).',
+              },
+            },
+            {
+              name: 'heroSubtitle',
+              type: 'text',
+              label: 'Titre (2e ligne)',
+              required: true,
+              admin: {
+                description: 'Deuxième ligne du titre, en italique (ex. Nadia & Gilles Touché).',
+              },
+            },
+            {
+              name: 'heroLocation',
+              type: 'text',
+              label: 'Ville',
+              required: true,
+              admin: {
+                description: 'Affichée sous le titre (ex. Aix-en-Provence).',
+              },
+            },
+            {
+              name: 'heroFounded',
+              type: 'text',
+              label: 'Mention « depuis »',
+              admin: {
+                description:
+                  'Texte optionnel à côté de la ville (ex. Depuis 2003). Laisser vide pour ne rien afficher.',
+              },
+            },
             {
               name: 'heroCta',
               type: 'text',
-              label: 'Texte du bouton jaune',
+              label: 'Texte du CTA',
               required: true,
               admin: {
-                description: 'Libellé du bouton sous le titre (ex. Découvrir l’école). Le lien mène à la section « Pour qui ».',
+                description:
+                  'Libellé du bouton sous le titre (ex. Découvrir l’école). Le lien mène à la section « Pour qui ».',
               },
             },
           ],
@@ -52,7 +101,8 @@ export const HomePage: GlobalConfig = {
               label: 'Texte de la citation',
               required: true,
               admin: {
-                description: 'Citation entre guillemets, sans les « » (ajoutés automatiquement sur le site).',
+                description:
+                  'Citation entre guillemets, sans les « » (ajoutés automatiquement sur le site).',
               },
             },
             {
@@ -70,7 +120,8 @@ export const HomePage: GlobalConfig = {
               relationTo: 'media',
               label: 'Photo des professeurs',
               admin: {
-                description: 'Portrait affiché à gauche de la citation. Créez d’abord le fichier dans Médias si besoin.',
+                description:
+                  'Portrait affiché à gauche de la citation. Créez d’abord le fichier dans Médias si besoin.',
               },
             },
           ],
@@ -134,7 +185,8 @@ export const HomePage: GlobalConfig = {
               label: 'Premier paragraphe',
               required: true,
               admin: {
-                description: 'Texte d’introduction en tête de section, avant les autres paragraphes.',
+                description:
+                  'Texte d’introduction en tête de section, avant les autres paragraphes.',
               },
             },
             {
@@ -238,7 +290,8 @@ export const HomePage: GlobalConfig = {
                   label: 'Texte du bouton',
                   required: true,
                   admin: {
-                    description: 'Bouton en bas de l’encadré (ex. En savoir plus). Mène à la page Contact.',
+                    description:
+                      'Bouton en bas de l’encadré (ex. En savoir plus). Mène à la page Contact.',
                   },
                 },
               ],
@@ -286,7 +339,8 @@ export const HomePage: GlobalConfig = {
                 plural: 'Photos',
               },
               admin: {
-                description: 'Grille de photos en bas de section. La première peut être affichée en grand format.',
+                description:
+                  'Grille de photos en bas de section. La première peut être affichée en grand format.',
               },
               fields: [
                 {
@@ -310,7 +364,8 @@ export const HomePage: GlobalConfig = {
                   label: 'Photo en grand format',
                   defaultValue: false,
                   admin: {
-                    description: 'Cochez pour une image large sur deux colonnes (idéal pour la salle principale).',
+                    description:
+                      'Cochez pour une image large sur deux colonnes (idéal pour la salle principale).',
                   },
                 },
               ],
