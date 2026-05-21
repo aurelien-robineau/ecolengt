@@ -70,7 +70,7 @@ export default buildConfig({
     url: process.env.DATABASE_URL || '',
   }),
   sharp,
-  plugins: [disableAdminAPIView, ...(vercelBlobStoragePlugin ? [vercelBlobStoragePlugin] : [])],
+  plugins: [disableAdminAPIView, vercelBlobStoragePlugin],
   i18n: {
     supportedLanguages: { fr },
   },
