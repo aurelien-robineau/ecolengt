@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-import { GuestbookLetter } from '@/components/guestbook/GuestbookLetter'
+import { GuestbookIntroduction } from '@/components/guestbook/GuestbookIntroduction'
 import { GuestbookTestimonials } from '@/components/guestbook/GuestbookTestimonials'
 import { Container } from '@/components/ui/Container'
 import { SectionHeader } from '@/components/ui/SectionHeader'
@@ -22,7 +22,7 @@ export default async function GuestbookPage() {
     <section className="bg-surface py-(--spacing-section-mobile) pt-28 md:py-(--spacing-section)">
       <Container>
         <SectionHeader label={site.name} title="Livre d’or" />
-        <GuestbookLetter letter={guestbook.letter} />
+        <GuestbookIntroduction introduction={guestbook.introduction} />
         <GuestbookTestimonials items={guestbook.testimonials} />
       </Container>
     </section>

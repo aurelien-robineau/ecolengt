@@ -37,11 +37,7 @@ export function mapGuestbookPage(
       .filter((item): item is NonNullable<typeof item> => Boolean(item)) ?? []
 
   return {
-    letter: {
-      title: data.letterTitle ?? '',
-      content: mapRichText(data.letterContent),
-      signature: data.letterSignature ?? '',
-    },
+    introduction: mapRichText(data.introduction),
     testimonials,
   }
 }

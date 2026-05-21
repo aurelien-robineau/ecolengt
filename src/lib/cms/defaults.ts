@@ -32,11 +32,7 @@ export const defaultSiteSettings: SiteSettingsData = {
 }
 
 export const defaultGuestbookPage: GuestbookPageData = {
-  letter: {
-    title: '',
-    content: null,
-    signature: '',
-  },
+  introduction: null,
   testimonials: [],
 }
 

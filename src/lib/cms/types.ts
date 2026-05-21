@@ -34,11 +34,7 @@ export type GuestbookTestimonial = {
 }
 
 export type GuestbookPageData = {
-  letter: {
-    title: string
-    content: CmsRichTextContent | null
-    signature: string
-  }
+  introduction: CmsRichTextContent | null
   testimonials: GuestbookTestimonial[]
 }
 

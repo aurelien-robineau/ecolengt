@@ -9,7 +9,7 @@ export const GuestbookPage: GlobalConfig = {
   label: 'Livre d’or',
   admin: {
     group: adminGroups.pages,
-    description: 'Message des professeurs et témoignages affichés sur la page Livre d’or.',
+    description: 'Introduction et témoignages affichés sur la page Livre d’or.',
   },
   access: {
     read: () => true,
@@ -23,32 +23,14 @@ export const GuestbookPage: GlobalConfig = {
       type: 'tabs',
       tabs: [
         {
-          label: 'Message des professeurs',
-          description: 'Texte d’introduction en tête de page.',
+          label: 'Introduction',
+          description: 'Texte affiché en tête de page, avant les témoignages.',
           fields: [
             {
-              name: 'letterTitle',
-              type: 'text',
-              label: 'Titre',
-              required: true,
-              admin: {
-                description: 'Ex. : À Dante Agostini',
-              },
-            },
-            {
-              name: 'letterContent',
+              name: 'introduction',
               type: 'richText',
-              label: 'Message',
+              label: 'Introduction',
               editor: pageRichTextEditor,
-            },
-            {
-              name: 'letterSignature',
-              type: 'text',
-              label: 'Signature',
-              required: true,
-              admin: {
-                description: 'Affichée sous le message (ex. Nadia & Gilles Touché).',
-              },
             },
           ],
         },

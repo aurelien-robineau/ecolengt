@@ -653,18 +653,14 @@ export interface HomePage {
   createdAt?: string | null;
 }
 /**
- * Message des professeurs et témoignages affichés sur la page Livre d’or.
+ * Introduction et témoignages affichés sur la page Livre d’or.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "guestbook-page".
  */
 export interface GuestbookPage {
   id: string;
-  /**
-   * Ex. : À Dante Agostini
-   */
-  letterTitle: string;
-  letterContent?: {
+  introduction?: {
     root: {
       type: string;
       children: {
@@ -679,10 +675,6 @@ export interface GuestbookPage {
     };
     [k: string]: unknown;
   } | null;
-  /**
-   * Affichée sous le message (ex. Nadia & Gilles Touché).
-   */
-  letterSignature: string;
   testimonials?:
     | {
         /**
@@ -952,9 +944,7 @@ export interface HomePageSelect<T extends boolean = true> {
  * via the `definition` "guestbook-page_select".
  */
 export interface GuestbookPageSelect<T extends boolean = true> {
-  letterTitle?: T;
-  letterContent?: T;
-  letterSignature?: T;
+  introduction?: T;
   testimonials?:
     | T
     | {
