@@ -20,6 +20,20 @@ export type ContactPageData = {
   mapsEmbedSrc: string
 }
 
+export type GuestbookTestimonial = {
+  content: string
+  author: string
+}
+
+export type GuestbookPageData = {
+  letter: {
+    title: string
+    content: string[]
+    signature: string
+  }
+  testimonials: GuestbookTestimonial[]
+}
+
 export type CmsImageData = {
   src: string
   alt: string
@@ -94,4 +108,5 @@ export type SiteContent = {
   site: SiteSettingsData
   landing: LandingPageData
   contact: ContactPageData
+  guestbook: GuestbookPageData
 }
