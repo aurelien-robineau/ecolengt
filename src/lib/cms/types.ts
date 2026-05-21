@@ -1,4 +1,4 @@
-import type { Article, LegalNoticePage, TomTomPage } from '@/payload-types'
+import type { Article, Eleve, LegalNoticePage, TomTomPage } from '@/payload-types'
 
 export type SiteSettingsData = {
   name: string
@@ -49,7 +49,7 @@ export type StudentProfileData = {
   quote: string | null
   photos: Array<NonNullable<CmsImageData>>
   jobTitle: string | null
-  description: string[]
+  description: NonNullable<Eleve['description']> | null
   pageHref: string
 }
 

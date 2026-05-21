@@ -1,3 +1,4 @@
+import { CmsRichText } from '@/components/cms/CmsRichText'
 import { StudentPhotos } from '@/components/students/StudentPhotos'
 import { FormattedParagraph } from '@/components/ui/FormattedParagraph'
 import type { StudentProfileData } from '@/lib/cms/types'
@@ -29,14 +30,8 @@ export function StudentProfile({ student }: StudentProfileProps) {
         </p>
       : null}
 
-      {student.description.length > 0 ?
-        <div className="max-w-2xl space-y-2 text-sm leading-[1.9] text-foreground-muted">
-          {student.description.map((paragraph, index) => (
-            <FormattedParagraph key={`${paragraph.slice(0, 24)}-${index}`}>
-              {paragraph}
-            </FormattedParagraph>
-          ))}
-        </div>
+      {student.description ?
+        <CmsRichText data={student.description} />
       : null}
     </article>
   )

@@ -1,13 +1,7 @@
-import {
-  HeadingFeature,
-  LinkFeature,
-  OrderedListFeature,
-  UnorderedListFeature,
-  lexicalEditor,
-} from '@payloadcms/richtext-lexical'
 import type { GlobalConfig } from 'payload'
 
 import { adminGroups } from '@/lib/cms/adminGroups'
+import { pageRichTextEditor } from '@/lib/cms/pageRichTextEditor'
 import { revalidateSite } from '@/lib/cms/revalidateSite'
 
 export const LegalNoticePage: GlobalConfig = {
@@ -33,17 +27,7 @@ export const LegalNoticePage: GlobalConfig = {
       admin: {
         description: 'Rédigez le texte des mentions légales.',
       },
-      editor: lexicalEditor({
-        features: ({ rootFeatures }) => [
-          ...rootFeatures,
-          HeadingFeature({ enabledHeadingSizes: ['h3'] }),
-          UnorderedListFeature(),
-          OrderedListFeature(),
-          LinkFeature({
-            enabledCollections: [],
-          }),
-        ],
-      }),
+      editor: pageRichTextEditor,
     },
   ],
 }
