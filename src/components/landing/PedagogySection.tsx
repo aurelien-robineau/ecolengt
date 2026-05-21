@@ -1,3 +1,4 @@
+import { FormattedParagraph } from '@/components/ui/FormattedParagraph'
 import { Button } from '@/components/ui/Button'
 import { Container } from '@/components/ui/Container'
 import { Reveal } from '@/components/ui/Reveal'
@@ -21,11 +22,16 @@ export function PedagogySection({ pedagogy }: PedagogySectionProps) {
           <SectionHeader label={pedagogy.label} title={pedagogy.title} />
 
           <div className="mb-20 max-w-3xl space-y-2">
-            <p className="text-sm leading-[1.95] text-foreground-muted">{pedagogy.lead}</p>
+            <FormattedParagraph className="text-sm leading-[1.95] text-foreground-muted">
+              {pedagogy.lead}
+            </FormattedParagraph>
             {pedagogy.body.map((paragraph) => (
-              <p key={paragraph.slice(0, 24)} className="text-sm leading-[1.95] text-foreground-muted">
+              <FormattedParagraph
+                key={paragraph.slice(0, 24)}
+                className="text-sm leading-[1.95] text-foreground-muted"
+              >
                 {paragraph}
-              </p>
+              </FormattedParagraph>
             ))}
           </div>
 
@@ -42,16 +48,18 @@ export function PedagogySection({ pedagogy }: PedagogySectionProps) {
                   </li>
                 ))}
               </ul>
-              <p className="text-sm leading-[1.85] text-foreground-muted">
+              <FormattedParagraph className="text-sm leading-[1.85] text-foreground-muted">
                 {courseOrganization.footer}
-              </p>
+              </FormattedParagraph>
             </article>
 
             <article className="bg-surface-card p-8">
               <h3 className="mb-4 font-serif text-xl font-normal text-foreground">
                 {practice.title}
               </h3>
-              <p className="text-sm leading-[1.85] text-foreground-muted">{practice.body}</p>
+              <FormattedParagraph className="text-sm leading-[1.85] text-foreground-muted">
+                {practice.body}
+              </FormattedParagraph>
             </article>
           </div>
 
@@ -61,7 +69,7 @@ export function PedagogySection({ pedagogy }: PedagogySectionProps) {
             </h3>
             <div className="space-y-2 text-sm leading-[1.85] text-foreground-muted">
               {pedagogy.intensiveCourses.paragraphs.map((paragraph) => (
-                <p key={paragraph.slice(0, 24)}>{paragraph}</p>
+                <FormattedParagraph key={paragraph.slice(0, 24)}>{paragraph}</FormattedParagraph>
               ))}
             </div>
             <div className="mt-8">

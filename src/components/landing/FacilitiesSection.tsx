@@ -1,3 +1,4 @@
+import { FormattedParagraph } from '@/components/ui/FormattedParagraph'
 import { Container } from '@/components/ui/Container'
 import { PhotoGallery } from '@/components/ui/PhotoGallery'
 import { Reveal } from '@/components/ui/Reveal'
@@ -20,9 +21,12 @@ export function FacilitiesSection({ facilities }: FacilitiesSectionProps) {
 
           <div className="mb-12 max-w-xl space-y-2">
             {facilities.description.map((paragraph) => (
-              <p key={paragraph.slice(0, 24)} className="text-sm leading-[1.9] text-foreground-muted">
+              <FormattedParagraph
+                key={paragraph.slice(0, 24)}
+                className="text-sm leading-[1.9] text-foreground-muted"
+              >
                 {paragraph}
-              </p>
+              </FormattedParagraph>
             ))}
           </div>
 

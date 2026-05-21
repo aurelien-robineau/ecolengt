@@ -68,6 +68,16 @@ export const GuestbookPage: GlobalConfig = {
               },
               fields: [
                 {
+                  name: 'student',
+                  type: 'relationship',
+                  relationTo: 'eleves',
+                  label: 'Fiche élève',
+                  admin: {
+                    description:
+                      'Optionnel. Si la fiche a une page (/eleves/…), le nom de l’auteur devient un lien.',
+                  },
+                },
+                {
                   name: 'content',
                   type: 'textarea',
                   label: 'Texte',
@@ -83,7 +93,8 @@ export const GuestbookPage: GlobalConfig = {
                   label: 'Auteur',
                   required: true,
                   admin: {
-                    description: 'Ex. : Marie D., parent d’élève',
+                    description:
+                      'Nom affiché sous le témoignage (ex. Marie D., parent d’élève).',
                   },
                 },
               ],

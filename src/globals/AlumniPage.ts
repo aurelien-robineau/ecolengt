@@ -39,7 +39,7 @@ export const AlumniPage: GlobalConfig = {
           label: 'Anciens élèves',
           fields: [
             {
-              name: 'students',
+              name: 'alumniList',
               type: 'array',
               label: 'Élèves',
               labels: {
@@ -48,10 +48,24 @@ export const AlumniPage: GlobalConfig = {
               },
               fields: [
                 {
+                  name: 'student',
+                  type: 'relationship',
+                  relationTo: 'eleves',
+                  label: 'Fiche élève',
+                  admin: {
+                    description:
+                      'Liez une fiche Élève pour activer le lien vers la page dédiée (/eleves/…).',
+                  },
+                },
+                {
                   name: 'name',
                   type: 'text',
-                  label: 'Nom',
-                  required: true,
+                  label: 'Nom affiché',
+                  admin: {
+                    description:
+                      'Utilisé si aucune fiche n’est liée, ou si le nom doit différer de la fiche.',
+                    condition: (_, siblingData) => !siblingData?.student,
+                  },
                 },
                 {
                   name: 'projects',

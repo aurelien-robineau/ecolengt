@@ -37,9 +37,7 @@ export function ImagePlaceholder({
         </svg>
       </div>
       {caption ?
-        <figcaption className="absolute inset-x-0 bottom-0 translate-y-1 bg-linear-to-t from-surface/95 to-transparent px-6 py-6 text-xs tracking-[0.08em] text-foreground-muted opacity-0 transition-[opacity,transform] duration-300 group-hover:translate-y-0 group-hover:opacity-100">
-          {caption}
-        </figcaption>
+        <span className="sr-only">{caption}</span>
       : null}
     </>
   )

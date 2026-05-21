@@ -69,6 +69,7 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    eleves: Eleve;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -78,6 +79,7 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    eleves: ElevesSelect<false> | ElevesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -181,6 +183,44 @@ export interface Media {
   focalY?: number | null;
 }
 /**
+ * Fiches élèves optionnelles. L’identifiant URL est généré à partir du nom (/eleves/…).
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "eleves".
+ */
+export interface Eleve {
+  id: string;
+  name: string;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  /**
+   * Généré automatiquement à partir du nom (ex. Jean Dupont → jean-dupont). Videz le champ pour ne pas publier de page.
+   */
+  slug?: string | null;
+  /**
+   * Courte citation affichée sous le titre (optionnel).
+   */
+  quote?: string | null;
+  photos?:
+    | {
+        image: string | Media;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Ex. : Batteur — groupe XYZ, professeur de batterie…
+   */
+  jobTitle?: string | null;
+  /**
+   * Un paragraphe par bloc, séparés par une ligne vide.
+   */
+  description?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
@@ -211,6 +251,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: string | Media;
+      } | null)
+    | ({
+        relationTo: 'eleves';
+        value: string | Eleve;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -293,6 +337,26 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "eleves_select".
+ */
+export interface ElevesSelect<T extends boolean = true> {
+  name?: T;
+  generateSlug?: T;
+  slug?: T;
+  quote?: T;
+  photos?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
+  jobTitle?: T;
+  description?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -577,11 +641,15 @@ export interface GuestbookPage {
   testimonials?:
     | {
         /**
+         * Optionnel. Si la fiche a une page (/eleves/…), le nom de l’auteur devient un lien.
+         */
+        student?: (string | null) | Eleve;
+        /**
          * Un témoignage long peut tenir sur plusieurs paragraphes : séparez-les par une ligne vide.
          */
         content: string;
         /**
-         * Ex. : Marie D., parent d’élève
+         * Nom affiché sous le témoignage (ex. Marie D., parent d’élève).
          */
         author: string;
         id?: string | null;
@@ -602,9 +670,16 @@ export interface AlumniPage {
    * Un paragraphe par bloc, séparés par une ligne vide (ex. La musique est au-delà des mots…).
    */
   introText: string;
-  students?:
+  alumniList?:
     | {
-        name: string;
+        /**
+         * Liez une fiche Élève pour activer le lien vers la page dédiée (/eleves/…).
+         */
+        student?: (string | null) | Eleve;
+        /**
+         * Utilisé si aucune fiche n’est liée, ou si le nom doit différer de la fiche.
+         */
+        name?: string | null;
         /**
          * Chaque ligne : un projet, un groupe, un festival, une collaboration, etc.
          */
@@ -746,6 +821,7 @@ export interface GuestbookPageSelect<T extends boolean = true> {
   testimonials?:
     | T
     | {
+        student?: T;
         content?: T;
         author?: T;
         id?: T;
@@ -760,9 +836,10 @@ export interface GuestbookPageSelect<T extends boolean = true> {
  */
 export interface AlumniPageSelect<T extends boolean = true> {
   introText?: T;
-  students?:
+  alumniList?:
     | T
     | {
+        student?: T;
         name?: T;
         projects?:
           | T

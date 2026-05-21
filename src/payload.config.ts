@@ -7,6 +7,7 @@ import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 
 import { Media } from './collections/Media'
+import { Students } from './collections/Students'
 import { Users } from './collections/Users'
 import { AlumniPage } from './globals/AlumniPage'
 import { ContactPage } from './globals/ContactPage'
@@ -24,7 +25,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media],
+  collections: [Users, Media, Students],
   globals: [SiteSettings, HomePage, ContactPage, GuestbookPage, AlumniPage],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',

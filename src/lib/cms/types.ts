@@ -23,6 +23,7 @@ export type ContactPageData = {
 export type GuestbookTestimonial = {
   content: string
   author: string
+  pageHref: string | null
 }
 
 export type GuestbookPageData = {
@@ -37,6 +38,17 @@ export type GuestbookPageData = {
 export type AlumniStudent = {
   name: string
   projects: string[]
+  pageHref: string | null
+}
+
+export type StudentProfileData = {
+  slug: string
+  name: string
+  quote: string | null
+  photos: Array<NonNullable<CmsImageData>>
+  jobTitle: string | null
+  description: string[]
+  pageHref: string
 }
 
 export type AlumniPageData = {

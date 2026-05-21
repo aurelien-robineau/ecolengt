@@ -1,3 +1,4 @@
+import { FormattedParagraph } from '@/components/ui/FormattedParagraph'
 import { Container } from '@/components/ui/Container'
 import { Reveal } from '@/components/ui/Reveal'
 import { SectionHeader } from '@/components/ui/SectionHeader'
@@ -16,9 +17,12 @@ export function AudienceSection({ audience }: AudienceSectionProps) {
 
           <div className="max-w-3xl space-y-2">
             {audience.paragraphs.map((paragraph) => (
-              <p key={paragraph.slice(0, 24)} className="text-sm leading-[1.95] text-foreground-muted">
+              <FormattedParagraph
+                key={paragraph.slice(0, 24)}
+                className="text-sm leading-[1.95] text-foreground-muted"
+              >
                 {paragraph}
-              </p>
+              </FormattedParagraph>
             ))}
           </div>
         </Reveal>

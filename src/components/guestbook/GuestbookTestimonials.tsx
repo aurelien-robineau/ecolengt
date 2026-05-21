@@ -1,3 +1,5 @@
+import { FormattedParagraph } from '@/components/ui/FormattedParagraph'
+import { PersonName } from '@/components/ui/PersonName'
 import type { GuestbookTestimonial } from '@/lib/cms/types'
 import { splitParagraphs } from '@/lib/splitParagraphs'
 
@@ -22,16 +24,21 @@ export function GuestbookTestimonials({ items }: GuestbookTestimonialsProps) {
               <blockquote className="max-w-3xl border-l-2 border-brand pl-6 md:pl-8">
                 <div className="space-y-2">
                   {paragraphs.map((paragraph, pIndex) => (
-                    <p
+                    <FormattedParagraph
                       key={`${pIndex}-${paragraph.slice(0, 16)}`}
                       className="text-sm leading-[1.9] text-foreground-muted md:text-[0.9375rem]"
                     >
                       {paragraph}
-                    </p>
+                    </FormattedParagraph>
                   ))}
                 </div>
                 <footer className="mt-6 text-xs tracking-[0.12em] text-foreground-subtle uppercase">
-                  — {item.author}
+                  —{' '}
+                  <PersonName
+                    name={item.author}
+                    href={item.pageHref}
+                    className="text-xs tracking-[0.12em] uppercase"
+                  />
                 </footer>
               </blockquote>
             </li>
