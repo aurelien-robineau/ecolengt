@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 
 import type { CmsImageData } from '@/lib/cms/types'
+
 export type LightboxSlide = {
   image: NonNullable<CmsImageData>
 }
@@ -144,14 +145,13 @@ export function ImageLightbox({ slides, initialIndex, onClose }: ImageLightboxPr
         className="relative flex max-h-full max-w-full flex-col items-center"
         onClick={(event) => event.stopPropagation()}
       >
-        <div className="relative max-h-[min(80dvh,900px)] w-full max-w-[min(100%,72rem)]">
+        <div className="relative h-[min(80dvh,900px)] w-full max-w-[min(100%,72rem)]">
           <Image
             src={slide.image.src}
             alt={slide.image.alt}
-            width={slide.image.width ?? 1600}
-            height={slide.image.height ?? 1200}
-            className="mx-auto h-auto max-h-[min(80dvh,900px)] w-auto max-w-full object-contain"
-            sizes="100vw"
+            fill
+            className="object-contain"
+            sizes="(max-width: 1152px) 100vw, 72rem"
             priority
           />
         </div>
