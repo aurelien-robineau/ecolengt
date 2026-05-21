@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
 import { adminGroups } from '@/lib/cms/adminGroups'
+import { pageRichTextEditor } from '@/lib/cms/pageRichTextEditor'
 import { hiddenSlugField } from '@/lib/cms/hiddenSlugField'
 import { revalidateSite } from '@/lib/cms/revalidateSite'
 import { slugifyName } from '@/lib/slugifyName'
@@ -89,11 +90,12 @@ export const Students: CollectionConfig = {
             },
             {
               name: 'description',
-              type: 'textarea',
+              type: 'richText',
               label: 'Présentation',
               admin: {
-                description: 'Un paragraphe par bloc, séparés par une ligne vide.',
+                description: 'Texte de présentation affiché sur la page publique de l’élève.',
               },
+              editor: pageRichTextEditor,
             },
           ],
         },

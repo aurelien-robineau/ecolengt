@@ -230,9 +230,23 @@ export interface Eleve {
       }[]
     | null;
   /**
-   * Un paragraphe par bloc, séparés par une ligne vide.
+   * Texte de présentation affiché sur la page publique de l’élève.
    */
-  description?: string | null;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   updatedAt: string;
   createdAt: string;
 }
