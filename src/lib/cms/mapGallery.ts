@@ -9,21 +9,16 @@ type GalleryEntry = {
   id?: string | null
 }
 
-export function mapGallery(
-  entries: GalleryEntry[] | null | undefined,
-  fallback: GalleryItem[],
-): GalleryItem[] {
+export function mapGallery(entries: GalleryEntry[] | null | undefined): GalleryItem[] {
   if (!entries?.length) {
-    return fallback
+    return []
   }
 
-  return entries.map((item, index) => {
-    const fallbackItem = fallback[index]
-
-    return {
-      caption: item.caption || fallbackItem?.caption || '',
+  return entries
+    .map((item) => ({
+      caption: item.caption ?? '',
       wide: item.wide ?? false,
-      image: mapMedia(item.image, item.caption || fallbackItem?.caption || 'Photo'),
-    }
-  })
+      image: mapMedia(item.image, item.caption ?? 'Photo'),
+    }))
+    .filter((item) => item.image)
 }

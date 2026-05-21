@@ -1,4 +1,4 @@
-import { FormattedParagraph } from '@/components/ui/FormattedParagraph'
+import { CmsRichText } from '@/components/cms/CmsRichText'
 import { Container } from '@/components/ui/Container'
 import { PhotoGallery } from '@/components/ui/PhotoGallery'
 import { Reveal } from '@/components/ui/Reveal'
@@ -19,15 +19,8 @@ export function FacilitiesSection({ facilities }: FacilitiesSectionProps) {
         <Reveal>
           <SectionHeader label={facilities.label} title={facilities.title} />
 
-          <div className="mb-12 max-w-xl space-y-2">
-            {facilities.description.map((paragraph) => (
-              <FormattedParagraph
-                key={paragraph.slice(0, 24)}
-                className="text-sm leading-[1.9] text-foreground-muted"
-              >
-                {paragraph}
-              </FormattedParagraph>
-            ))}
+          <div className="mb-12 max-w-xl">
+            <CmsRichText data={facilities.description} />
           </div>
 
           <PhotoGallery items={facilities.gallery} />

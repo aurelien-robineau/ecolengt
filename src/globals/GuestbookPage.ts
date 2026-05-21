@@ -1,6 +1,7 @@
 import type { GlobalConfig } from 'payload'
 
 import { adminGroups } from '@/lib/cms/adminGroups'
+import { pageRichTextEditor } from '@/lib/cms/pageRichTextEditor'
 import { revalidateSite } from '@/lib/cms/revalidateSite'
 
 export const GuestbookPage: GlobalConfig = {
@@ -36,13 +37,9 @@ export const GuestbookPage: GlobalConfig = {
             },
             {
               name: 'letterContent',
-              type: 'textarea',
+              type: 'richText',
               label: 'Message',
-              required: true,
-              admin: {
-                description:
-                  'Saisissez un paragraphe par bloc, séparés par une ligne vide.',
-              },
+              editor: pageRichTextEditor,
             },
             {
               name: 'letterSignature',
@@ -80,13 +77,10 @@ export const GuestbookPage: GlobalConfig = {
                 },
                 {
                   name: 'content',
-                  type: 'textarea',
+                  type: 'richText',
                   label: 'Texte',
                   required: true,
-                  admin: {
-                    description:
-                      'Un témoignage long peut tenir sur plusieurs paragraphes : séparez-les par une ligne vide.',
-                  },
+                  editor: pageRichTextEditor,
                 },
                 {
                   name: 'author',

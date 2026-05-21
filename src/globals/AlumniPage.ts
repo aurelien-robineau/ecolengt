@@ -1,6 +1,7 @@
 import type { GlobalConfig } from 'payload'
 
 import { adminGroups } from '@/lib/cms/adminGroups'
+import { pageRichTextEditor } from '@/lib/cms/pageRichTextEditor'
 import { revalidateSite } from '@/lib/cms/revalidateSite'
 
 export const AlumniPage: GlobalConfig = {
@@ -25,14 +26,10 @@ export const AlumniPage: GlobalConfig = {
           label: 'Introduction',
           fields: [
             {
-              name: 'introText',
-              type: 'textarea',
+              name: 'introContent',
+              type: 'richText',
               label: 'Texte d’introduction',
-              required: true,
-              admin: {
-                description:
-                  'Un paragraphe par bloc, séparés par une ligne vide (ex. La musique est au-delà des mots…).',
-              },
+              editor: pageRichTextEditor,
             },
           ],
         },

@@ -9,11 +9,10 @@ export function mapContactPage(data: ContactPageDoc | null | undefined): Contact
     return defaultContactPage
   }
 
-  const mapsEmbedSrc =
-    extractMapsEmbedSrc(data.mapsEmbed) ?? defaultContactPage.mapsEmbedSrc
+  const mapsEmbedSrc = extractMapsEmbedSrc(data.mapsEmbed) ?? defaultContactPage.mapsEmbedSrc
 
   return {
-    accessGallery: mapGallery(data.accessGallery, defaultContactPage.accessGallery),
+    accessGallery: mapGallery(data.accessGallery),
     mapsEmbedSrc,
   }
 }

@@ -1,14 +1,11 @@
-import { defaultLegalNoticeContent } from '@/lib/cms/defaultLegalNoticeContent'
-import { hasLexicalContent } from '@/lib/cms/hasLexicalContent'
+import { mapRichText } from '@/lib/cms/mapRichText'
 import type { LegalNoticePageData } from '@/lib/cms/types'
 import type { LegalNoticePage as LegalNoticePageDoc } from '@/payload-types'
 
 export function mapLegalNoticePage(
   data: LegalNoticePageDoc | null | undefined,
 ): LegalNoticePageData {
-  const content = data?.content
-
   return {
-    content: hasLexicalContent(content) ? content! : defaultLegalNoticeContent,
+    content: mapRichText(data?.content),
   }
 }
