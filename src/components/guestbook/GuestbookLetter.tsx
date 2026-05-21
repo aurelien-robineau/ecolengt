@@ -10,7 +10,7 @@ export function GuestbookLetter({ letter }: GuestbookLetterProps) {
       <h2 className="mb-8 font-serif text-[clamp(1.25rem,2.5vw,1.75rem)] leading-[1.2] font-light text-foreground">
         {letter.title}
       </h2>
-      <div className="space-y-5 text-sm leading-[1.9] text-foreground-muted">
+      <div className="space-y-2 text-sm leading-[1.9] text-foreground-muted">
         {letter.content.map((paragraph, index) => (
           <p key={`${paragraph.slice(0, 24)}-${index}`}>{paragraph}</p>
         ))}

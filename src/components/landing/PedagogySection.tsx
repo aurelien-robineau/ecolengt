@@ -20,7 +20,7 @@ export function PedagogySection({ pedagogy }: PedagogySectionProps) {
         <Reveal>
           <SectionHeader label={pedagogy.label} title={pedagogy.title} />
 
-          <div className="mb-20 max-w-3xl space-y-6">
+          <div className="mb-20 max-w-3xl space-y-2">
             <p className="text-sm leading-[1.95] text-foreground-muted">{pedagogy.lead}</p>
             {pedagogy.body.map((paragraph) => (
               <p key={paragraph.slice(0, 24)} className="text-sm leading-[1.95] text-foreground-muted">
@@ -59,7 +59,7 @@ export function PedagogySection({ pedagogy }: PedagogySectionProps) {
             <h3 className="mb-4 font-serif text-[1.375rem] font-normal text-foreground">
               {pedagogy.intensiveCourses.title}
             </h3>
-            <div className="space-y-4 text-sm leading-[1.85] text-foreground-muted">
+            <div className="space-y-2 text-sm leading-[1.85] text-foreground-muted">
               {pedagogy.intensiveCourses.paragraphs.map((paragraph) => (
                 <p key={paragraph.slice(0, 24)}>{paragraph}</p>
               ))}

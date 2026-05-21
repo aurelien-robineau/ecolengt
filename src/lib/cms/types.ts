@@ -34,6 +34,16 @@ export type GuestbookPageData = {
   testimonials: GuestbookTestimonial[]
 }
 
+export type AlumniStudent = {
+  name: string
+  projects: string[]
+}
+
+export type AlumniPageData = {
+  intro: string[]
+  students: AlumniStudent[]
+}
+
 export type CmsImageData = {
   src: string
   alt: string
@@ -109,4 +119,5 @@ export type SiteContent = {
   landing: LandingPageData
   contact: ContactPageData
   guestbook: GuestbookPageData
+  alumni: AlumniPageData
 }

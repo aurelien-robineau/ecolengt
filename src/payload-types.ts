@@ -92,12 +92,14 @@ export interface Config {
     'home-page': HomePage;
     'contact-page': ContactPage;
     'guestbook-page': GuestbookPage;
+    'alumni-page': AlumniPage;
   };
   globalsSelect: {
     'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
     'home-page': HomePageSelect<false> | HomePageSelect<true>;
     'contact-page': ContactPageSelect<false> | ContactPageSelect<true>;
     'guestbook-page': GuestbookPageSelect<false> | GuestbookPageSelect<true>;
+    'alumni-page': AlumniPageSelect<false> | AlumniPageSelect<true>;
   };
   locale: null;
   widgets: {
@@ -589,6 +591,36 @@ export interface GuestbookPage {
   createdAt?: string | null;
 }
 /**
+ * Texte d’introduction et liste des anciens élèves affichés sur la page dédiée.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "alumni-page".
+ */
+export interface AlumniPage {
+  id: string;
+  /**
+   * Un paragraphe par bloc, séparés par une ligne vide (ex. La musique est au-delà des mots…).
+   */
+  introText: string;
+  students?:
+    | {
+        name: string;
+        /**
+         * Chaque ligne : un projet, un groupe, un festival, une collaboration, etc.
+         */
+        projects?:
+          | {
+              label: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "site-settings_select".
  */
@@ -716,6 +748,28 @@ export interface GuestbookPageSelect<T extends boolean = true> {
     | {
         content?: T;
         author?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "alumni-page_select".
+ */
+export interface AlumniPageSelect<T extends boolean = true> {
+  introText?: T;
+  students?:
+    | T
+    | {
+        name?: T;
+        projects?:
+          | T
+          | {
+              label?: T;
+              id?: T;
+            };
         id?: T;
       };
   updatedAt?: T;

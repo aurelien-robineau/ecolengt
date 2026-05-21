@@ -20,7 +20,7 @@ export function GuestbookTestimonials({ items }: GuestbookTestimonialsProps) {
           return (
             <li key={`${item.author}-${index}`}>
               <blockquote className="max-w-3xl border-l-2 border-brand pl-6 md:pl-8">
-                <div className="space-y-4">
+                <div className="space-y-2">
                   {paragraphs.map((paragraph, pIndex) => (
                     <p
                       key={`${pIndex}-${paragraph.slice(0, 16)}`}

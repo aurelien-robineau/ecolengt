@@ -18,7 +18,7 @@ export function FacilitiesSection({ facilities }: FacilitiesSectionProps) {
         <Reveal>
           <SectionHeader label={facilities.label} title={facilities.title} />
 
-          <div className="mb-14 max-w-xl space-y-4">
+          <div className="mb-12 max-w-xl space-y-2">
             {facilities.description.map((paragraph) => (
               <p key={paragraph.slice(0, 24)} className="text-sm leading-[1.9] text-foreground-muted">
                 {paragraph}
