@@ -1,3 +1,4 @@
+import { FormattedParagraph } from '@/components/ui/FormattedParagraph'
 import type { GuestbookPageData } from '@/lib/cms/types'
 
 type GuestbookLetterProps = {
@@ -12,7 +13,7 @@ export function GuestbookLetter({ letter }: GuestbookLetterProps) {
       </h2>
       <div className="space-y-2 text-sm leading-[1.9] text-foreground-muted">
         {letter.content.map((paragraph, index) => (
-          <p key={`${paragraph.slice(0, 24)}-${index}`}>{paragraph}</p>
+          <FormattedParagraph key={`${paragraph.slice(0, 24)}-${index}`}>{paragraph}</FormattedParagraph>
         ))}
       </div>
       <p className="mt-8 font-serif text-base text-foreground italic">{letter.signature}</p>

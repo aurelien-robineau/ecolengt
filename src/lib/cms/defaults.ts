@@ -53,6 +53,7 @@ export const defaultGuestbookPage: GuestbookPageData = {
       content:
         'Une école où l’on apprend bien plus que la technique : le goût du travail, le respect de la musique et une vraie exigence, toujours dans la bienveillance.\n\nNotre fils y prend des cours depuis plusieurs années. Nous avons vu progresser non seulement son jeu, mais aussi sa rigueur, sa confiance et sa façon d’écouter la musique. Les professeurs savent adapter leur pédagogie à chaque élève, sans jamais perdre de vue l’exigence qui fait la qualité de l’enseignement.',
       author: 'Parents d’élève',
+      pageHref: null,
     },
   ],
 }
@@ -66,6 +67,7 @@ export const defaultAlumniPage: AlumniPageData = {
     {
       name: 'Nom de l’élève',
       projects: ['Groupe ou projet', 'Festival, scène, collaboration…'],
+      pageHref: null,
     },
   ],
 }

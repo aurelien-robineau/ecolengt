@@ -3,4 +3,5 @@ export const routes = {
   contact: '/contact',
   guestbook: '/livre-dor',
   alumni: '/anciens-eleves',
+  students: '/eleves',
 } as const
