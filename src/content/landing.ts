@@ -6,6 +6,7 @@ export const landingContent = {
   quote: {
     text: 'Nous vous offrons un enseignement adapté à votre disponibilité, dans le respect de votre personnalité musicale.',
     cite: 'Nadia et Gilles Touché',
+    imageAlt: 'Nadia et Gilles Touché',
   },
   audience: {
     id: 'audience',
@@ -22,8 +23,7 @@ export const landingContent = {
     id: 'pedagogy',
     label: 'La pédagogie',
     title: "Un suivi permanent de l'initiation à l'excellence, une qualité pédagogique unique.",
-    lead:
-      'Au contact de Dante Agostini, à travers son enseignement, à travers les échanges divers que nous avons eu; notre passion de la batterie, de la musique, de l’enseignement a pris naissance. Depuis plus de 30 ans au contact de nos élèves cette passion s’affirme jour après jour.',
+    lead: 'Au contact de Dante Agostini, à travers son enseignement, à travers les échanges divers que nous avons eu; notre passion de la batterie, de la musique, de l’enseignement a pris naissance. Depuis plus de 30 ans au contact de nos élèves cette passion s’affirme jour après jour.',
     body: [
       'Notre pédagogie est le fruit de ce parcours : que ce soit à St Germain-en-Laye à Creil à Aulnay sous Bois à Poitiers à Paris (école Dante Agostini) ou à Aix-en-Provence nous avons régulièrement rencontré des élèves à l’écoute de leurs professeurs faisant preuve d’une grande confiance et fournissant le travail demandé.',
       'Les résultats obtenus à la fin de leur cycle d’étude puis ensuite durant leur parcours musical nous encouragent à persévérer dans cette voie. La capacité à fournir un travail régulier intense, la patience de laisser mûrir les connaissances ainsi acquises, l’honnêteté et l’intégrité dans l’expression musicale voilà des fondements qui ne seront jamais dépassés.',
@@ -62,8 +62,10 @@ export const landingContent = {
     id: 'facilities',
     label: 'Les locaux',
     title: 'Des conditions matérielles remarquables.',
-    description:
-      'Dans un cadre convivial, nos locaux sont parfaitement équipés pour l’enseignement de la batterie. Batteries Gretsch USA des années 1970 et cymbales Zildjian K.',
+    description: [
+      'Dans un cadre convivial, nos locaux sont parfaitement équipés pour l’enseignement de la batterie.',
+      'Batteries Gretsch USA des années 1970 et cymbales Zildjian K.',
+    ],
     gallery: [
       { caption: 'Salle principale', wide: true as const },
       { caption: 'Cymbales Zildjian K', wide: false as const },

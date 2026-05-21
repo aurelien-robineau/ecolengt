@@ -16,9 +16,11 @@ export function FacilitiesSection() {
         <Reveal>
           <SectionHeader label={facilities.label} title={facilities.title} />
 
-          <p className="mb-14 max-w-xl text-sm leading-[1.9] text-foreground-muted">
-            {facilities.description}
-          </p>
+          <div className="mb-14 max-w-xl space-y-4 text-sm leading-[1.9] text-foreground-muted">
+            {facilities.description.map((paragraph) => (
+              <p key={paragraph.slice(0, 24)}>{paragraph}</p>
+            ))}
+          </div>
 
           <div className="grid grid-cols-2 gap-0.5 bg-border sm:grid-cols-4">
             {facilities.gallery.map((item, index) => (
