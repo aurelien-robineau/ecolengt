@@ -20,6 +20,30 @@ export const TomTomPage: GlobalConfig = {
   },
   fields: [
     {
+      name: 'callout',
+      type: 'group',
+      label: 'Bouton sous le titre',
+      admin: {
+        description:
+          'Bouton affiché juste sous le titre de la page. Laisser vide pour ne rien afficher.',
+      },
+      fields: [
+        {
+          name: 'label',
+          type: 'text',
+          label: 'Texte du bouton',
+        },
+        {
+          name: 'href',
+          type: 'text',
+          label: 'URL du bouton',
+          admin: {
+            description: 'Lien interne (ex. /contact) ou externe (https://…).',
+          },
+        },
+      ],
+    },
+    {
       name: 'content',
       type: 'richText',
       label: 'Contenu',

@@ -61,6 +61,10 @@ export type AlumniPageData = {
 }
 
 export type TomTomPageData = {
+  callout: {
+    label: string
+    href: string
+  } | null
   content: CmsRichTextContent | null
 }
 

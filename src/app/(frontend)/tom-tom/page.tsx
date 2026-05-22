@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 
 import { TomTomContent } from '@/components/tom-tom/TomTomContent'
+import { Button } from '@/components/ui/Button'
 import { Container } from '@/components/ui/Container'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import { getSiteContent } from '@/lib/cms/getSiteContent'
@@ -22,6 +23,11 @@ export default async function TomTomPage() {
     <section className="bg-surface py-(--spacing-section-mobile) pt-28 md:py-(--spacing-section)">
       <Container>
         <SectionHeader label={site.name} title="Tom Tom" />
+        {tomTom.callout ?
+          <div className="mb-12">
+            <Button href={tomTom.callout.href}>{tomTom.callout.label}</Button>
+          </div>
+        : null}
         <TomTomContent content={tomTom.content} />
       </Container>
     </section>
