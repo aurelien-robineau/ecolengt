@@ -1,7 +1,11 @@
 version: '3'
 
 services:
+  # Optional: run the app inside Docker (conflicts with local `pnpm dev` on port 3000).
+  # Start with: docker compose --profile full-stack up
   payload:
+    profiles:
+      - full-stack
     image: node:20-alpine
     ports:
       - '3000:3000'
