@@ -53,7 +53,7 @@ export const Students: CollectionConfig = {
               type: 'text',
               label: 'Activité / titre',
               admin: {
-                description: 'Ex. : Batteur — groupe XYZ, professeur de batterie…',
+                description: 'Activité ou titre affiché sous le nom sur la page publique.',
               },
             },
           ],

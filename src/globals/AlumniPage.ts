@@ -75,7 +75,7 @@ export const AlumniPage: GlobalConfig = {
                   },
                   admin: {
                     description:
-                      'Chaque ligne : un projet, un groupe, un festival, une collaboration, etc.',
+                      'Liste des projets, groupes ou activités affichés pour cet ancien élève.',
                   },
                   fields: [
                     {
