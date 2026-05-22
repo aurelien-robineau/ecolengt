@@ -28,7 +28,11 @@ export async function FrontendShell({ children }: FrontendShellProps) {
   const { site } = await getSiteContent()
 
   return (
-    <html lang="fr" className={`${cormorant.variable} ${dmSans.variable}`}>
+    <html
+      lang="fr"
+      data-scroll-behavior="smooth"
+      className={`${cormorant.variable} ${dmSans.variable}`}
+    >
       <body>
         <Header site={site} />
         <main>{children}</main>

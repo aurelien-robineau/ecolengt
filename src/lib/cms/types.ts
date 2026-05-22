@@ -89,7 +89,6 @@ export type CmsImageData = {
 
 export type GalleryItem = {
   caption: string
-  wide: boolean
   image: CmsImageData
 }
 

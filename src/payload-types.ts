@@ -633,7 +633,7 @@ export interface HomePage {
     [k: string]: unknown;
   } | null;
   /**
-   * Grille de photos en bas de section. La première peut être affichée en grand format.
+   * Galerie de photos en bas de section (disposition mosaïque).
    */
   facilitiesGallery?:
     | {
@@ -642,10 +642,6 @@ export interface HomePage {
          * Texte affiché au survol de la photo (optionnel).
          */
         caption?: string | null;
-        /**
-         * Affiche l’image sur deux colonnes dans la grille.
-         */
-        wide?: boolean | null;
         id?: string | null;
       }[]
     | null;
@@ -936,7 +932,6 @@ export interface HomePageSelect<T extends boolean = true> {
     | {
         image?: T;
         caption?: T;
-        wide?: T;
         id?: T;
       };
   updatedAt?: T;

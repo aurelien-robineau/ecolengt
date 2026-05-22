@@ -8,11 +8,21 @@ type CmsImageProps = {
   className?: string
   sizes?: string
   priority?: boolean
+  loading?: 'lazy' | 'eager'
+  fetchPriority?: 'high' | 'low' | 'auto'
   /** cover fills a fixed frame; contain keeps the full image visible (no crop). */
   fit?: 'cover' | 'contain'
 }
 
-export function CmsImage({ image, className, sizes = '100vw', priority, fit = 'cover' }: CmsImageProps) {
+export function CmsImage({
+  image,
+  className,
+  sizes = '100vw',
+  priority,
+  loading,
+  fetchPriority,
+  fit = 'cover',
+}: CmsImageProps) {
   if (!image) {
     return null
   }
@@ -29,6 +39,8 @@ export function CmsImage({ image, className, sizes = '100vw', priority, fit = 'c
       )}
       sizes={sizes}
       priority={priority}
+      loading={priority ? undefined : loading}
+      fetchPriority={fetchPriority}
     />
   )
 }

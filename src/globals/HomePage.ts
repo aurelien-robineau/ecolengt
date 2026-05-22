@@ -280,8 +280,7 @@ export const HomePage: GlobalConfig = {
                 plural: 'Photos',
               },
               admin: {
-                description:
-                  'Grille de photos en bas de section. La première peut être affichée en grand format.',
+                description: 'Galerie de photos en bas de section (disposition mosaïque).',
               },
               fields: [
                 {
@@ -297,15 +296,6 @@ export const HomePage: GlobalConfig = {
                   label: 'Légende',
                   admin: {
                     description: 'Texte affiché au survol de la photo (optionnel).',
-                  },
-                },
-                {
-                  name: 'wide',
-                  type: 'checkbox',
-                  label: 'Photo en grand format',
-                  defaultValue: false,
-                  admin: {
-                    description: 'Affiche l’image sur deux colonnes dans la grille.',
                   },
                 },
               ],

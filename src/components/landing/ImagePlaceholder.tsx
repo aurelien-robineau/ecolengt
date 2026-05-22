@@ -2,7 +2,6 @@ import { cn } from '@/lib/cn'
 
 type ImagePlaceholderProps = {
   caption?: string
-  wide?: boolean
   tone?: 0 | 1 | 2 | 3
   className?: string
   embedded?: boolean
@@ -12,7 +11,6 @@ const tones = ['bg-[#e8e0d0]', 'bg-[#e2ddd4]', 'bg-[#ddd8d0]', 'bg-[#e6e0d4]']
 
 export function ImagePlaceholder({
   caption,
-  wide,
   tone = 0,
   className,
   embedded = false,
@@ -50,7 +48,7 @@ export function ImagePlaceholder({
     <figure
       className={cn(
         'group relative overflow-hidden bg-surface-elevated',
-        wide ? 'col-span-2 aspect-2/1' : 'aspect-square',
+        'aspect-square',
         className,
       )}
     >
