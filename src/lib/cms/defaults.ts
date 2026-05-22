@@ -30,6 +30,7 @@ export const defaultSiteSettings: SiteSettingsData = {
     { label: 'Livre d’or', href: routes.guestbook },
     { label: 'Anciens élèves', href: routes.alumni },
     { label: 'Tom Tom', href: routes.tomTom },
+    { label: 'Tarifs', href: routes.pricing },
   ],
 }
 

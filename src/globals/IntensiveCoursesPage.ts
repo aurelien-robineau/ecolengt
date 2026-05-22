@@ -6,11 +6,10 @@ import { revalidateSite } from '@/lib/cms/revalidateSite'
 
 export const IntensiveCoursesPage: GlobalConfig = {
   slug: 'intensive-courses-page',
-  label: 'Page Stages intensifs',
+  label: 'Stages intensifs',
   admin: {
     group: adminGroups.pages,
-    description:
-      'Contenu de la page Stages intensifs : introduction, galerie, encadrés et accès.',
+    description: 'Contenu de la page Stages intensifs : introduction, galerie, encadrés et accès.',
   },
   access: {
     read: () => true,

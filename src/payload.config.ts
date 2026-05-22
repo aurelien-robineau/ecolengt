@@ -14,8 +14,10 @@ import { AlumniPage } from './globals/AlumniPage'
 import { ContactPage } from './globals/ContactPage'
 import { GuestbookPage } from './globals/GuestbookPage'
 import { HomePage } from './globals/HomePage'
+import { IntensiveCoursesCalendarPage } from './globals/IntensiveCoursesCalendarPage'
 import { IntensiveCoursesPage } from './globals/IntensiveCoursesPage'
 import { LegalNoticePage } from './globals/LegalNoticePage'
+import { PricingPage } from './globals/PricingPage'
 import { SiteSettings } from './globals/SiteSettings'
 import { TomTomPage } from './globals/TomTomPage'
 import { disableAdminAPIView } from './lib/cms/disableAdminAPIView'
@@ -59,8 +61,10 @@ export default buildConfig({
     AlumniPage,
     TomTomPage,
     IntensiveCoursesPage,
+    IntensiveCoursesCalendarPage,
     ContactPage,
     LegalNoticePage,
+    PricingPage,
     SiteSettings,
   ],
   editor: lexicalEditor(),
