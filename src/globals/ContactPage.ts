@@ -6,10 +6,11 @@ import { revalidateSite } from '@/lib/cms/revalidateSite'
 
 export const ContactPage: GlobalConfig = {
   slug: 'contact-page',
-  label: 'Page Contact',
+  label: 'Contact',
   admin: {
     group: adminGroups.pages,
-    description: 'Contenu affiché sur la page Contact : texte d’introduction, photos d’accès et carte Google Maps.',
+    description:
+      'Contenu affiché sur la page Contact : texte d’introduction, photos d’accès et carte Google Maps.',
   },
   access: {
     read: () => true,
@@ -36,7 +37,8 @@ export const ContactPage: GlobalConfig = {
         },
         {
           label: 'Accès',
-          description: 'Instructions pour se rendre sur place et galerie photos sous la section Accès.',
+          description:
+            'Instructions pour se rendre sur place et galerie photos sous la section Accès.',
           fields: [
             {
               name: 'accessDirectionsContent',

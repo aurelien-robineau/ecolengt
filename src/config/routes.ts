@@ -6,6 +6,8 @@ export const routes = {
   tomTom: '/tom-tom',
   news: '/actualite',
   stagesIntensifs: '/stages-intensifs',
+  stagesIntensifsCalendar: '/stages-intensifs/calendrier',
+  pricing: '/tarifs',
   students: '/eleves',
   legalNotice: '/mentions-legales',
 } as const

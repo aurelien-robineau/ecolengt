@@ -7,6 +7,8 @@ import { mapContactPage } from '@/lib/cms/mapContactPage'
 import { mapGuestbookPage } from '@/lib/cms/mapGuestbookPage'
 import { mapHomePage } from '@/lib/cms/mapHomePage'
 import { mapIntensiveCoursesPage } from '@/lib/cms/mapIntensiveCoursesPage'
+import { mapIntensiveCoursesSubPage } from '@/lib/cms/mapIntensiveCoursesSubPage'
+import { mapPricingPage } from '@/lib/cms/mapPricingPage'
 import { mapLegalNoticePage } from '@/lib/cms/mapLegalNoticePage'
 import { mapSiteSettings } from '@/lib/cms/mapSiteSettings'
 import { mapTomTomPage } from '@/lib/cms/mapTomTomPage'
@@ -23,6 +25,8 @@ export const getSiteContent = cache(async (): Promise<SiteContent> => {
     alumniPage,
     tomTomPage,
     intensiveCoursesPage,
+    pricingPage,
+    intensiveCoursesCalendarPage,
     legalNoticePage,
   ] = await Promise.all([
       payload.findGlobal({
@@ -54,6 +58,14 @@ export const getSiteContent = cache(async (): Promise<SiteContent> => {
         depth: 2,
       }),
       payload.findGlobal({
+        slug: 'pricing-page',
+        depth: 2,
+      }),
+      payload.findGlobal({
+        slug: 'intensive-courses-calendar-page',
+        depth: 2,
+      }),
+      payload.findGlobal({
         slug: 'legal-notice-page',
         depth: 2,
       }),
@@ -67,6 +79,8 @@ export const getSiteContent = cache(async (): Promise<SiteContent> => {
     alumni: mapAlumniPage(alumniPage),
     tomTom: mapTomTomPage(tomTomPage),
     intensiveCourses: mapIntensiveCoursesPage(intensiveCoursesPage),
+    pricing: mapPricingPage(pricingPage),
+    intensiveCoursesCalendar: mapIntensiveCoursesSubPage(intensiveCoursesCalendarPage),
     legalNotice: mapLegalNoticePage(legalNoticePage),
   }
 })

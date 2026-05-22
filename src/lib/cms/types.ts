@@ -87,6 +87,15 @@ export type IntensiveCoursesAccessData = {
   gallery: GalleryItem[]
 }
 
+export type IntensiveCoursesSubPageData = {
+  content: CmsRichTextContent | null
+}
+
+export type PricingPageData = {
+  classes: CmsRichTextContent | null
+  workshops: CmsRichTextContent | null
+}
+
 export type IntensiveCoursesPageData = {
   intro: CmsRichTextContent | null
   gallery: GalleryItem[]
@@ -185,5 +194,7 @@ export type SiteContent = {
   alumni: AlumniPageData
   tomTom: TomTomPageData
   intensiveCourses: IntensiveCoursesPageData
+  pricing: PricingPageData
+  intensiveCoursesCalendar: IntensiveCoursesSubPageData
   legalNotice: LegalNoticePageData
 }

@@ -188,7 +188,7 @@ export function Header({ site }: HeaderProps) {
               <MenuIcon open={menuOpen} />
             </button>
 
-            <Button href={routes.contact} variant="ghost" className="hidden sm:inline-block">
+            <Button href={routes.contact} variant="ghost" className="hidden sm:inline-flex">
               Contact
             </Button>
           </div>

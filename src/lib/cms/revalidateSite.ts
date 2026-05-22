@@ -9,4 +9,6 @@ export function revalidateSite() {
   revalidatePath(routes.legalNotice)
   revalidatePath(routes.tomTom)
   revalidatePath(routes.stagesIntensifs)
+  revalidatePath(routes.pricing)
+  revalidatePath(routes.stagesIntensifsCalendar)
 }

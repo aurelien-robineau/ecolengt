@@ -97,8 +97,10 @@ export interface Config {
     'alumni-page': AlumniPage;
     'tom-tom-page': TomTomPage;
     'intensive-courses-page': IntensiveCoursesPage;
+    'intensive-courses-calendar-page': IntensiveCoursesCalendarPage;
     'contact-page': ContactPage;
     'legal-notice-page': LegalNoticePage;
+    'pricing-page': PricingPage;
     'site-settings': SiteSetting;
   };
   globalsSelect: {
@@ -107,8 +109,10 @@ export interface Config {
     'alumni-page': AlumniPageSelect<false> | AlumniPageSelect<true>;
     'tom-tom-page': TomTomPageSelect<false> | TomTomPageSelect<true>;
     'intensive-courses-page': IntensiveCoursesPageSelect<false> | IntensiveCoursesPageSelect<true>;
+    'intensive-courses-calendar-page': IntensiveCoursesCalendarPageSelect<false> | IntensiveCoursesCalendarPageSelect<true>;
     'contact-page': ContactPageSelect<false> | ContactPageSelect<true>;
     'legal-notice-page': LegalNoticePageSelect<false> | LegalNoticePageSelect<true>;
+    'pricing-page': PricingPageSelect<false> | PricingPageSelect<true>;
     'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
   };
   locale: null;
@@ -899,6 +903,32 @@ export interface IntensiveCoursesPage {
   createdAt?: string | null;
 }
 /**
+ * Calendrier des stages intensifs (page liée depuis Stages intensifs).
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "intensive-courses-calendar-page".
+ */
+export interface IntensiveCoursesCalendarPage {
+  id: string;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * Contenu affiché sur la page Contact : texte d’introduction, photos d’accès et carte Google Maps.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -978,6 +1008,53 @@ export interface LegalNoticePage {
     };
     [k: string]: unknown;
   };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Tarifs des cours et des stages intensifs.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pricing-page".
+ */
+export interface PricingPage {
+  id: string;
+  /**
+   * Contenu de la section Cours sur la page Tarifs.
+   */
+  classesContent?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Contenu de la section Stages intensifs sur la page Tarifs.
+   */
+  workshopsContent?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1170,6 +1247,16 @@ export interface IntensiveCoursesPageSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "intensive-courses-calendar-page_select".
+ */
+export interface IntensiveCoursesCalendarPageSelect<T extends boolean = true> {
+  content?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "contact-page_select".
  */
 export interface ContactPageSelect<T extends boolean = true> {
@@ -1192,6 +1279,17 @@ export interface ContactPageSelect<T extends boolean = true> {
  */
 export interface LegalNoticePageSelect<T extends boolean = true> {
   content?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pricing-page_select".
+ */
+export interface PricingPageSelect<T extends boolean = true> {
+  classesContent?: T;
+  workshopsContent?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

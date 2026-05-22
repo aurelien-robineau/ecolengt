@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 
 import { CmsRichText } from '@/components/cms/CmsRichText'
 import { IntensiveCoursesAccess } from '@/components/intensive-courses/IntensiveCoursesAccess'
+import { IntensiveCoursesPageActions } from '@/components/intensive-courses/IntensiveCoursesPageActions'
 import { IntensiveCoursesBlocks } from '@/components/intensive-courses/IntensiveCoursesBlocks'
 import { MasonryGallery } from '@/components/ui/MasonryGallery'
 import { Container } from '@/components/ui/Container'
@@ -28,6 +29,7 @@ export default async function StagesIntensifsPage() {
     <section className="bg-surface py-(--spacing-section-mobile) pt-28 md:py-(--spacing-section)">
       <Container>
         <SectionHeader label={site.name} title="Stages intensifs" />
+        <IntensiveCoursesPageActions />
 
         {hasIntro ?
           <div className="mb-12 max-w-xl">
