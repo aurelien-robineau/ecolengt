@@ -1,4 +1,5 @@
 import { cn } from '@/lib/cn'
+import { sectionLabelClassName } from '@/lib/ui/typography'
 
 type SectionHeaderProps = {
   label?: string
@@ -10,7 +11,7 @@ export function SectionHeader({ label, title, className }: SectionHeaderProps) {
   return (
     <header className={cn('mb-12', className)}>
       {label ? (
-        <p className="mb-3 text-xs font-medium tracking-[0.22em] text-foreground uppercase">
+        <p className={cn('mb-3 tracking-[0.22em]', sectionLabelClassName)}>
           {label}
         </p>
       ) : null}

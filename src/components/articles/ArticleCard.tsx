@@ -31,7 +31,7 @@ export function ArticleCard({ article }: ArticleCardProps) {
         </Link>
       </h2>
 
-      <p className="mb-4 flex-1 text-sm leading-[1.75] text-foreground-muted">
+      <p className="mb-4 flex-1 text-base leading-[1.75] text-foreground-muted md:text-sm">
         {article.shortDescription}
       </p>
 

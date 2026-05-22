@@ -1,6 +1,7 @@
 import { CmsRichText } from '@/components/cms/CmsRichText'
 import { PersonName } from '@/components/ui/PersonName'
 import type { GuestbookTestimonial } from '@/lib/cms/types'
+import { sectionLabelClassName } from '@/lib/ui/typography'
 
 type GuestbookTestimonialsProps = {
   items: GuestbookTestimonial[]
@@ -13,7 +14,7 @@ export function GuestbookTestimonials({ items }: GuestbookTestimonialsProps) {
 
   return (
     <section aria-label="Témoignages">
-      <h2 className="mb-10 text-[11px] tracking-[0.2em] text-foreground uppercase">Témoignages</h2>
+      <h2 className={`mb-10 ${sectionLabelClassName}`}>Témoignages</h2>
       <ul className="flex list-none flex-col gap-14 md:gap-16">
         {items.map((item, index) => (
           <li key={`${item.author}-${index}`}>

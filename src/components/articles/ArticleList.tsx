@@ -8,7 +8,7 @@ type ArticleListProps = {
 export function ArticleList({ articles }: ArticleListProps) {
   if (!articles.length) {
     return (
-      <p className="max-w-2xl text-sm leading-[1.9] text-foreground-muted">
+      <p className="max-w-2xl text-base leading-[1.9] text-foreground-muted md:text-sm">
         Aucun article pour le moment.
       </p>
     )
