@@ -9,7 +9,7 @@ import {
 import type { CmsRichTextContent } from '@/lib/cms/richText'
 
 const proseClassName = [
-  'cms-rich-text max-w-2xl text-sm leading-[1.65] text-foreground-muted',
+  'cms-rich-text min-w-0 w-full max-w-full text-sm leading-[1.65] text-foreground-muted',
   '[&_p]:mb-2',
   '[&_p:last-child]:mb-0',
   '[&_h3]:mt-8 [&_h3]:mb-3 [&_h3]:text-xs [&_h3]:font-medium [&_h3]:tracking-[0.2em] [&_h3]:text-foreground [&_h3]:uppercase',
