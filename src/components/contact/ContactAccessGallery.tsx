@@ -1,4 +1,4 @@
-import { PhotoGallery } from '@/components/ui/PhotoGallery'
+import { MasonryGallery } from '@/components/ui/MasonryGallery'
 import type { GalleryItem } from '@/lib/cms/types'
 import { sectionLabelClassName } from '@/lib/ui/typography'
 
@@ -14,7 +14,7 @@ export function ContactAccessGallery({ items }: ContactAccessGalleryProps) {
   return (
     <div className="mb-16">
       <h2 className={`mb-8 ${sectionLabelClassName}`}>Accès</h2>
-      <PhotoGallery items={items} columns={2} />
+      <MasonryGallery items={items} columns={2} />
     </div>
   )
 }

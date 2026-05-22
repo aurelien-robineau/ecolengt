@@ -8,6 +8,6 @@ export const sectionLabelClassName =
 
 /** Contact values on the contact page (phone, email, address). */
 export const contactValueClassName =
-  'font-sans text-lg leading-snug font-normal text-foreground md:text-xl'
+  'font-sans text-lg leading-snug font-normal text-foreground md:text-xl lg:text-lg'
 
 export const contactLinkValueClassName = `${contactValueClassName} block no-underline transition-colors hover:text-brand`

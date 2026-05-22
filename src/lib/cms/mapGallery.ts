@@ -5,7 +5,6 @@ import type { GalleryItem } from '@/lib/cms/types'
 type GalleryEntry = {
   image?: Media | string | null
   caption?: string | null
-  wide?: boolean | null
   id?: string | null
 }
 
@@ -17,7 +16,6 @@ export function mapGallery(entries: GalleryEntry[] | null | undefined): GalleryI
   return entries
     .map((item) => ({
       caption: item.caption ?? '',
-      wide: item.wide ?? false,
       image: mapMedia(item.image, item.caption ?? 'Photo'),
     }))
     .filter((item) => item.image)

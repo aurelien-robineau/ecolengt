@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 
 import { CmsImage } from '@/components/cms/CmsImage'
 import { ImageLightbox, type LightboxSlide } from '@/components/ui/ImageLightbox'
@@ -8,9 +8,9 @@ import { ImagePlaceholder } from '@/components/landing/ImagePlaceholder'
 import type { CmsImageData, GalleryItem } from '@/lib/cms/types'
 import { cn } from '@/lib/cn'
 
-type PhotoGalleryProps = {
+type MasonryGalleryProps = {
   items: GalleryItem[]
-  columns?: 2 | 4
+  columns?: 2 | 3 | 4
   /** When only one image: show full photo without cropping. */
   naturalSingle?: boolean
   /** Lightbox on single-image layout. Defaults to true. */
@@ -23,17 +23,17 @@ type PhotoGalleryProps = {
 
 const layoutByColumns = {
   2: {
-    grid: 'grid grid-cols-1 gap-0.5 bg-border sm:grid-cols-2',
-    item: 'aspect-4/3',
-    itemWide: 'sm:col-span-2 aspect-2/1',
-    imageSizes: (wide: boolean) => (wide ? '100vw' : '(max-width: 640px) 100vw, 50vw'),
+    itemClassName: 'w-full sm:w-[calc((100%-0.125rem)/2)]',
+    imageSizes: '(max-width: 640px) 100vw, 50vw',
+  },
+  3: {
+    itemClassName: 'w-full sm:w-[calc((100%-0.125rem)/2)] lg:w-[calc((100%-0.25rem)/3)]',
+    imageSizes: '(max-width: 500px) 100vw, (max-width: 768px) 50vw, 33vw',
   },
   4: {
-    grid: 'grid grid-cols-1 gap-0.5 bg-border sm:grid-cols-2 lg:grid-cols-4',
-    item: 'aspect-square',
-    itemWide: 'sm:col-span-2 aspect-2/1',
-    imageSizes: (wide: boolean) =>
-      wide ? '(max-width: 640px) 100vw, 50vw' : '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw',
+    itemClassName:
+      'w-full sm:w-[calc((100%-0.125rem)/2)] md:w-[calc((100%-0.25rem)/3)] lg:w-[calc((100%-0.375rem)/4)]',
+    imageSizes: '(max-width: 500px) 100vw, (max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw',
   },
 } as const
 
@@ -43,15 +43,47 @@ function toSlides(items: GalleryItem[]): LightboxSlide[] {
     .map((item) => ({ image: item.image }))
 }
 
-export function PhotoGallery({
+/** Avoid below-fold gallery images competing for LCP before the user scrolls near them. */
+function useGalleryInView() {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const [shouldLoad, setShouldLoad] = useState(false)
+
+  useEffect(() => {
+    const node = containerRef.current
+    if (!node) return
+
+    if (typeof IntersectionObserver === 'undefined') {
+      setShouldLoad(true)
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) {
+          setShouldLoad(true)
+          observer.disconnect()
+        }
+      },
+      { rootMargin: '300px' },
+    )
+
+    observer.observe(node)
+    return () => observer.disconnect()
+  }, [])
+
+  return { containerRef, shouldLoad }
+}
+
+export function MasonryGallery({
   items,
-  columns = 4,
+  columns = 2,
   naturalSingle = true,
   singleLightbox = true,
   singleFigureClassName = 'max-w-3xl',
   singleImageClassName = 'max-h-[min(85dvh,56rem)]',
-}: PhotoGalleryProps) {
+}: MasonryGalleryProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
+  const { containerRef, shouldLoad } = useGalleryInView()
 
   const slides = useMemo(() => toSlides(items), [items])
   const slideIndexByItem = useMemo(() => {
@@ -110,7 +142,7 @@ export function PhotoGallery({
 
   return (
     <>
-      <div className={layout.grid}>
+      <div ref={containerRef} className="flex flex-wrap justify-center gap-0.5">
         {items.map((item, index) => {
           const slideIndex = slideIndexByItem.get(index)
 
@@ -119,25 +151,29 @@ export function PhotoGallery({
               key={`${item.image?.src ?? 'placeholder'}-${index}`}
               className={cn(
                 'group relative overflow-hidden bg-surface-elevated',
-                item.wide ? layout.itemWide : layout.item,
+                layout.itemClassName,
               )}
             >
               {item.image ?
-                <>
-                  <CmsImage
-                    image={item.image}
-                    className="pointer-events-none absolute inset-0 transition-transform duration-500 group-hover:scale-[1.03]"
-                    sizes={layout.imageSizes(item.wide)}
-                  />
-                  {slideIndex !== undefined ?
-                    <button
-                      type="button"
-                      className="absolute inset-0 z-10 cursor-zoom-in focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
-                      onClick={() => setOpenIndex(slideIndex)}
-                      aria-label={`Agrandir la photo${item.image.alt ? ` : ${item.image.alt}` : ''}`}
+                shouldLoad ?
+                  <>
+                    <CmsImage
+                      image={item.image}
+                      className="h-auto w-full transition-transform duration-500 group-hover:scale-[1.03]"
+                      sizes={layout.imageSizes}
+                      loading="lazy"
+                      fetchPriority="low"
                     />
-                  : null}
-                </>
+                    {slideIndex !== undefined ?
+                      <button
+                        type="button"
+                        className="absolute inset-0 z-10 cursor-zoom-in focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+                        onClick={() => setOpenIndex(slideIndex)}
+                        aria-label={`Agrandir la photo${item.image.alt ? ` : ${item.image.alt}` : ''}`}
+                      />
+                    : null}
+                  </>
+                : <div className="min-h-48 w-full" aria-hidden />
               : <ImagePlaceholder
                   caption={item.caption}
                   tone={(index % 4) as 0 | 1 | 2 | 3}

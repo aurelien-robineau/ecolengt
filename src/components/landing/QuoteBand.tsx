@@ -14,7 +14,12 @@ export function QuoteBand({ quote }: QuoteBandProps) {
         <div className="mx-auto grid max-w-4xl items-center gap-12 lg:grid-cols-[minmax(0,14rem)_1fr] lg:gap-16">
           {quote.portrait ?
             <div className="relative mx-auto aspect-4/5 w-full max-w-[14rem] overflow-hidden bg-foreground/8 ring-1 ring-foreground/10 lg:mx-0 lg:max-w-none">
-              <CmsImage image={quote.portrait} className="absolute inset-0" sizes="14rem" />
+              <CmsImage
+                image={quote.portrait}
+                className="absolute inset-0"
+                sizes="14rem"
+                priority
+              />
             </div>
           : <PortraitPlaceholder
               alt={quote.imageAlt}
