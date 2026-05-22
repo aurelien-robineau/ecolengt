@@ -8,7 +8,7 @@ export const PricingPage: GlobalConfig = {
   slug: 'pricing-page',
   label: 'Tarifs',
   admin: {
-    group: adminGroups.pages,
+    group: adminGroups.pagesGeneral,
     description: 'Tarifs des cours et des stages intensifs.',
   },
   access: {

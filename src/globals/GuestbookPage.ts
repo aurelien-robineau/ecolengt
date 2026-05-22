@@ -8,7 +8,7 @@ export const GuestbookPage: GlobalConfig = {
   slug: 'guestbook-page',
   label: 'Livre d’or',
   admin: {
-    group: adminGroups.pages,
+    group: adminGroups.pagesGeneral,
     description: 'Introduction et témoignages affichés sur la page Livre d’or.',
   },
   access: {

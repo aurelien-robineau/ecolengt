@@ -8,7 +8,7 @@ export const ContactPage: GlobalConfig = {
   slug: 'contact-page',
   label: 'Contact',
   admin: {
-    group: adminGroups.pages,
+    group: adminGroups.pagesGeneral,
     description:
       'Contenu affiché sur la page Contact : texte d’introduction, photos d’accès et carte Google Maps.',
   },

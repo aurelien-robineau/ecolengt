@@ -8,7 +8,7 @@ export const LegalNoticePage: GlobalConfig = {
   slug: 'legal-notice-page',
   label: 'Mentions légales',
   admin: {
-    group: adminGroups.pages,
+    group: adminGroups.pagesOther,
     description: 'Texte affiché sur la page Mentions légales du site.',
   },
   access: {

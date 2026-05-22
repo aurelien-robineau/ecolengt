@@ -8,7 +8,7 @@ export const TomTomPage: GlobalConfig = {
   slug: 'tom-tom-page',
   label: 'Tom Tom',
   admin: {
-    group: adminGroups.pages,
+    group: adminGroups.pagesGeneral,
     description: 'Contenu de la page Tom Tom (association).',
   },
   access: {

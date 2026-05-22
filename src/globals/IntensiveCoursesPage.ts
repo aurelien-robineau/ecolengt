@@ -8,7 +8,7 @@ export const IntensiveCoursesPage: GlobalConfig = {
   slug: 'intensive-courses-page',
   label: 'Stages intensifs',
   admin: {
-    group: adminGroups.pages,
+    group: adminGroups.pagesStages,
     description: 'Contenu de la page Stages intensifs : introduction, galerie, encadrés et accès.',
   },
   access: {

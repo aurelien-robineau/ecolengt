@@ -4,7 +4,9 @@ import {
   adminGroups,
   adminNavContentOrder,
   adminNavGroupOrder,
-  adminNavPagesOrder,
+  adminNavPagesGeneralOrder,
+  adminNavPagesOtherOrder,
+  adminNavPagesStagesOrder,
 } from '@/lib/cms/adminGroups'
 
 function sortBySlugOrder<T extends { slug: string }>(
@@ -20,13 +22,20 @@ function sortBySlugOrder<T extends { slug: string }>(
   })
 }
 
+const pagesGroupOrders: Record<string, readonly string[]> = {
+  [adminGroups.pagesGeneral]: adminNavPagesGeneralOrder,
+  [adminGroups.pagesStages]: adminNavPagesStagesOrder,
+  [adminGroups.pagesOther]: adminNavPagesOtherOrder,
+}
+
 function sortEntitiesInGroup(group: NavGroupType): NavGroupType {
   if (group.label === adminGroups.content) {
     return { ...group, entities: sortBySlugOrder(group.entities, adminNavContentOrder) }
   }
 
-  if (group.label === adminGroups.pages) {
-    return { ...group, entities: sortBySlugOrder(group.entities, adminNavPagesOrder) }
+  const pagesOrder = pagesGroupOrders[group.label]
+  if (pagesOrder) {
+    return { ...group, entities: sortBySlugOrder(group.entities, pagesOrder) }
   }
 
   return group

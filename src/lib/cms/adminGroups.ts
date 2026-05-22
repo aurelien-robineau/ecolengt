@@ -7,8 +7,12 @@ export const adminGroups = {
   config: 'Configuration',
   /** Repeatable records and uploaded assets */
   content: 'Contenu',
-  /** One global per public page (home, contact, etc.) */
-  pages: 'Pages du site',
+  /** Main site pages */
+  pagesGeneral: 'Pages générales',
+  /** Intensive courses pages */
+  pagesStages: 'Pages stages intensifs',
+  /** Legal and misc. pages */
+  pagesOther: 'Autres pages',
   /** Auth accounts for this admin */
   administration: 'Administration',
 } as const
@@ -17,23 +21,31 @@ export const adminGroups = {
 export const adminNavGroupOrder = [
   adminGroups.config,
   adminGroups.content,
-  adminGroups.pages,
+  adminGroups.pagesGeneral,
+  adminGroups.pagesStages,
+  adminGroups.pagesOther,
   adminGroups.administration,
 ] as const
 
 /** Order within Contenu. */
 export const adminNavContentOrder = ['media', 'articles', 'eleves'] as const
 
-/** Order within Pages du site. */
-export const adminNavPagesOrder = [
+/** Order within Pages générales. */
+export const adminNavPagesGeneralOrder = [
   'home-page',
   'news-page',
   'guestbook-page',
   'alumni-page',
   'tom-tom-page',
+  'pricing-page',
+  'contact-page',
+] as const
+
+/** Order within Pages stages intensifs. */
+export const adminNavPagesStagesOrder = [
   'intensive-courses-page',
   'intensive-courses-calendar-page',
-  'contact-page',
-  'legal-notice-page',
-  'pricing-page',
 ] as const
+
+/** Order within Autres pages. */
+export const adminNavPagesOtherOrder = ['legal-notice-page'] as const

@@ -8,7 +8,7 @@ export const IntensiveCoursesCalendarPage: GlobalConfig = {
   slug: 'intensive-courses-calendar-page',
   label: 'Calendrier des stages intensifs',
   admin: {
-    group: adminGroups.pages,
+    group: adminGroups.pagesStages,
     description: 'Calendrier des stages intensifs (page liée depuis Stages intensifs).',
   },
   access: {

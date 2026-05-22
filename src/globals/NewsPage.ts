@@ -8,7 +8,7 @@ export const NewsPage: GlobalConfig = {
   slug: 'news-page',
   label: 'Actualité',
   admin: {
-    group: adminGroups.pages,
+    group: adminGroups.pagesGeneral,
     description:
       'Contenu affiché sur la page Actualité, en plus de la liste des articles.',
   },
