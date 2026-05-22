@@ -24,15 +24,15 @@ After you click the `Deploy` button above, you'll want to have standalone copy o
 
 That's it! Changes made in `./src` will be reflected in your app. Follow the on-screen instructions to login and create your first admin user. Then check out [Production](#production) once you're ready to build and serve your app, and [Deployment](#deployment) when you're ready to go live.
 
-#### Docker (Optional)
+#### Docker (MongoDB only — recommended)
 
-If you prefer to use Docker for local development instead of a local MongoDB instance, the provided docker-compose.yml file can be used.
+Use Docker for MongoDB and run the Next.js app locally on port 3000:
 
-To do so, follow these steps:
+1. Ensure `DATABASE_URL` in `.env` points at the local container, e.g. `mongodb://127.0.0.1/ecolengt`
+2. Start MongoDB: `pnpm docker:db` (or `docker compose up mongo -d`)
+3. Run `pnpm dev` and open `http://localhost:3000`
 
-- Modify the `MONGODB_URL` in your `.env` file to `mongodb://127.0.0.1/<dbname>`
-- Modify the `docker-compose.yml` file's `MONGODB_URL` to match the above `<dbname>`
-- Run `docker-compose up` to start the database, optionally pass `-d` to run in the background.
+Do **not** run `docker compose up` with the full stack while `pnpm dev` is running — both bind port 3000.
 
 ## How it works
 
@@ -52,15 +52,15 @@ See the [Collections](https://payloadcms.com/docs/configuration/collections) doc
 
   This is the uploads enabled collection. It features pre-configured sizes, focal point and manual resizing to help you manage your pictures.
 
-### Docker
+### Docker (full stack — optional)
 
-Alternatively, you can use [Docker](https://www.docker.com) to spin up this template locally. To do so, follow these steps:
+To run both MongoDB and the app inside Docker (e.g. without Node installed locally):
 
-1. Follow [steps 1 and 2 from above](#development), the docker-compose file will automatically use the `.env` file in your project root
-1. Next run `docker-compose up`
-1. Follow [steps 4 and 5 from above](#development) to login and create your first admin user
+1. Follow [steps 1 and 2 from above](#development)
+2. Run `docker compose --profile full-stack up`
+3. Open `http://localhost:3000` and create your first admin user
 
-That's it! The Docker instance will help you get up and running quickly while also standardizing the development environment across your teams.
+For day-to-day development, prefer MongoDB in Docker plus `pnpm dev` (see above).
 
 ## Deployment (Vercel)
 
