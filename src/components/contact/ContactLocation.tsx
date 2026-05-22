@@ -7,8 +7,8 @@ type ContactLocationProps = {
 
 export function ContactLocation({ site, mapsEmbedSrc }: ContactLocationProps) {
   return (
-    <div className="mb-16 grid min-w-0 gap-10 lg:grid-cols-[minmax(0,16rem)_minmax(0,1fr)] lg:gap-12 lg:items-start">
-      <div className="min-w-0 space-y-10">
+    <div className="mb-16 grid gap-10 lg:grid-cols-[minmax(0,16rem)_1fr] lg:gap-12 lg:items-start">
+      <div className="space-y-10">
         <div>
           <h2 className="mb-6 text-[11px] tracking-[0.2em] text-foreground uppercase">Téléphone</h2>
           {site.contact.phones.map((phone) => (
@@ -45,7 +45,7 @@ export function ContactLocation({ site, mapsEmbedSrc }: ContactLocationProps) {
         </div>
       </div>
 
-      <div className="relative aspect-4/3 min-w-0 w-full overflow-hidden bg-surface-muted lg:aspect-auto lg:min-h-[28rem]">
+      <div className="relative aspect-4/3 w-full overflow-hidden bg-surface-muted lg:aspect-auto lg:min-h-[28rem]">
         <iframe
           src={mapsEmbedSrc}
           title={`Plan d’accès — ${site.name}`}
