@@ -759,6 +759,16 @@ export interface AlumniPage {
 export interface TomTomPage {
   id: string;
   /**
+   * Bouton affiché juste sous le titre de la page. Laisser vide pour ne rien afficher.
+   */
+  callout?: {
+    label?: string | null;
+    /**
+     * Lien interne (ex. /contact) ou externe (https://…).
+     */
+    href?: string | null;
+  };
+  /**
    * Texte complet de la page Tom Tom.
    */
   content: {
@@ -984,6 +994,12 @@ export interface AlumniPageSelect<T extends boolean = true> {
  * via the `definition` "tom-tom-page_select".
  */
 export interface TomTomPageSelect<T extends boolean = true> {
+  callout?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
   content?: T;
   updatedAt?: T;
   createdAt?: T;
