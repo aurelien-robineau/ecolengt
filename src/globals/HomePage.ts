@@ -6,9 +6,9 @@ import { revalidateSite } from '@/lib/cms/revalidateSite'
 
 export const HomePage: GlobalConfig = {
   slug: 'home-page',
-  label: 'Page d’accueil',
+  label: 'Accueil',
   admin: {
-    group: adminGroups.pages,
+    group: adminGroups.pagesGeneral,
     description:
       'Textes et photos des différentes sections affichées sur la page d’accueil du site.',
   },

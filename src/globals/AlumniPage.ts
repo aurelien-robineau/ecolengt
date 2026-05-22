@@ -8,7 +8,7 @@ export const AlumniPage: GlobalConfig = {
   slug: 'alumni-page',
   label: 'Anciens élèves',
   admin: {
-    group: adminGroups.pages,
+    group: adminGroups.pagesGeneral,
     description: 'Texte d’introduction et liste des anciens élèves affichés sur la page dédiée.',
   },
   access: {
