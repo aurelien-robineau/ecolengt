@@ -14,6 +14,7 @@ export const defaultSiteSettings: SiteSettingsData = {
   address: {
     street: '',
     city: '',
+    mapsUrl: '',
   },
   contact: {
     phones: [],

@@ -9,6 +9,7 @@ export type SiteSettingsData = {
   address: {
     street: string
     city: string
+    mapsUrl: string
   }
   contact: {
     phones: Array<{ href: string; display: string }>

@@ -866,6 +866,10 @@ export interface SiteSetting {
   addressStreet: string;
   addressCity: string;
   /**
+   * URL de la fiche Google Maps (bouton « Partager » → « Lien »). Utilisée lorsque l’on clique sur l’adresse sur le site.
+   */
+  mapsUrl?: string | null;
+  /**
    * Liste des téléphones affichés dans le pied de page.
    */
   phones?:
@@ -1025,6 +1029,7 @@ export interface SiteSettingsSelect<T extends boolean = true> {
   schoolNameShort?: T;
   addressStreet?: T;
   addressCity?: T;
+  mapsUrl?: T;
   phones?:
     | T
     | {

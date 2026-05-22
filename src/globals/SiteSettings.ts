@@ -56,6 +56,15 @@ export const SiteSettings: GlobalConfig = {
               label: 'Code postal et ville',
               required: true,
             },
+            {
+              name: 'mapsUrl',
+              type: 'text',
+              label: 'Lien Google Maps',
+              admin: {
+                description:
+                  'URL de la fiche Google Maps (bouton « Partager » → « Lien »). Utilisée lorsque l’on clique sur l’adresse sur le site.',
+              },
+            },
           ],
         },
         {

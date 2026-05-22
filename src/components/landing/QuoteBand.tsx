@@ -24,7 +24,7 @@ export function QuoteBand({ quote }: QuoteBandProps) {
           }
 
           <blockquote className="text-center lg:text-left">
-            <p className="font-serif text-[clamp(1.25rem,2.5vw,1.75rem)] leading-relaxed font-light text-foreground italic">
+            <p className="font-serif text-[clamp(1.375rem,3vw,2rem)] leading-relaxed font-light text-foreground italic">
               « {quote.text} »
             </p>
             <cite className="mt-6 block text-xs tracking-[0.15em] text-foreground/45 uppercase not-italic">

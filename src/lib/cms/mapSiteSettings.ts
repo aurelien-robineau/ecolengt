@@ -29,6 +29,7 @@ export function mapSiteSettings(data: SiteSetting | null | undefined): SiteSetti
     address: {
       street: data.addressStreet ?? '',
       city: data.addressCity ?? '',
+      mapsUrl: data.mapsUrl?.trim() ?? '',
     },
     contact: {
       phones,
