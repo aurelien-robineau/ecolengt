@@ -17,6 +17,7 @@ import { HomePage } from './globals/HomePage'
 import { IntensiveCoursesCalendarPage } from './globals/IntensiveCoursesCalendarPage'
 import { IntensiveCoursesPage } from './globals/IntensiveCoursesPage'
 import { LegalNoticePage } from './globals/LegalNoticePage'
+import { NewsPage } from './globals/NewsPage'
 import { PricingPage } from './globals/PricingPage'
 import { SiteSettings } from './globals/SiteSettings'
 import { TomTomPage } from './globals/TomTomPage'
@@ -58,6 +59,7 @@ export default buildConfig({
   globals: [
     HomePage,
     GuestbookPage,
+    NewsPage,
     AlumniPage,
     TomTomPage,
     IntensiveCoursesPage,

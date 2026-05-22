@@ -107,6 +107,10 @@ export type LegalNoticePageData = {
   content: CmsRichTextContent | null
 }
 
+export type NewsPageData = {
+  upcomingEventsAlert: CmsRichTextContent | null
+}
+
 export type ArticleListItem = {
   slug: string
   title: string
@@ -190,6 +194,7 @@ export type SiteContent = {
   site: SiteSettingsData
   landing: LandingPageData
   contact: ContactPageData
+  news: NewsPageData
   guestbook: GuestbookPageData
   alumni: AlumniPageData
   tomTom: TomTomPageData

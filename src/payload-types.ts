@@ -94,6 +94,7 @@ export interface Config {
   globals: {
     'home-page': HomePage;
     'guestbook-page': GuestbookPage;
+    'news-page': NewsPage;
     'alumni-page': AlumniPage;
     'tom-tom-page': TomTomPage;
     'intensive-courses-page': IntensiveCoursesPage;
@@ -106,6 +107,7 @@ export interface Config {
   globalsSelect: {
     'home-page': HomePageSelect<false> | HomePageSelect<true>;
     'guestbook-page': GuestbookPageSelect<false> | GuestbookPageSelect<true>;
+    'news-page': NewsPageSelect<false> | NewsPageSelect<true>;
     'alumni-page': AlumniPageSelect<false> | AlumniPageSelect<true>;
     'tom-tom-page': TomTomPageSelect<false> | TomTomPageSelect<true>;
     'intensive-courses-page': IntensiveCoursesPageSelect<false> | IntensiveCoursesPageSelect<true>;
@@ -717,6 +719,35 @@ export interface GuestbookPage {
   createdAt?: string | null;
 }
 /**
+ * Contenu affiché sur la page Actualité, en plus de la liste des articles.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "news-page".
+ */
+export interface NewsPage {
+  id: string;
+  /**
+   * Encadré jaune optionnel en haut de la page Actualité (prochains événements, dates, etc.). Laisser vide pour ne rien afficher.
+   */
+  upcomingEventsAlert?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * Texte d’introduction et liste des anciens élèves affichés sur la page dédiée.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1168,6 +1199,16 @@ export interface GuestbookPageSelect<T extends boolean = true> {
         author?: T;
         id?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "news-page_select".
+ */
+export interface NewsPageSelect<T extends boolean = true> {
+  upcomingEventsAlert?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
