@@ -10,6 +10,7 @@ import { mapIntensiveCoursesPage } from '@/lib/cms/mapIntensiveCoursesPage'
 import { mapIntensiveCoursesSubPage } from '@/lib/cms/mapIntensiveCoursesSubPage'
 import { mapPricingPage } from '@/lib/cms/mapPricingPage'
 import { mapLegalNoticePage } from '@/lib/cms/mapLegalNoticePage'
+import { mapNewsPage } from '@/lib/cms/mapNewsPage'
 import { mapSiteSettings } from '@/lib/cms/mapSiteSettings'
 import { mapTomTomPage } from '@/lib/cms/mapTomTomPage'
 import type { SiteContent } from '@/lib/cms/types'
@@ -21,6 +22,7 @@ export const getSiteContent = cache(async (): Promise<SiteContent> => {
     siteSettings,
     homePage,
     contactPage,
+    newsPage,
     guestbookPage,
     alumniPage,
     tomTomPage,
@@ -39,6 +41,10 @@ export const getSiteContent = cache(async (): Promise<SiteContent> => {
       }),
       payload.findGlobal({
         slug: 'contact-page',
+        depth: 2,
+      }),
+      payload.findGlobal({
+        slug: 'news-page',
         depth: 2,
       }),
       payload.findGlobal({
@@ -75,6 +81,7 @@ export const getSiteContent = cache(async (): Promise<SiteContent> => {
     site: mapSiteSettings(siteSettings),
     landing: mapHomePage(homePage),
     contact: mapContactPage(contactPage),
+    news: mapNewsPage(newsPage),
     guestbook: mapGuestbookPage(guestbookPage),
     alumni: mapAlumniPage(alumniPage),
     tomTom: mapTomTomPage(tomTomPage),

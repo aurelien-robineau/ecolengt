@@ -27,6 +27,7 @@ export const adminNavContentOrder = ['media', 'articles', 'eleves'] as const
 /** Order within Pages du site. */
 export const adminNavPagesOrder = [
   'home-page',
+  'news-page',
   'guestbook-page',
   'alumni-page',
   'tom-tom-page',

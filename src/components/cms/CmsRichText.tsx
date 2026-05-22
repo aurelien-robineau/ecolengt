@@ -7,6 +7,7 @@ import {
 } from '@payloadcms/richtext-lexical/react'
 
 import type { CmsRichTextContent } from '@/lib/cms/richText'
+import { cn } from '@/lib/cn'
 import { bodyTextClassName } from '@/lib/ui/typography'
 
 const proseClassName = [
@@ -48,12 +49,15 @@ const converters: JSXConvertersFunction = ({ defaultConverters }) => ({
 
 type CmsRichTextProps = {
   data: CmsRichTextContent | null
+  className?: string
 }
 
-export function CmsRichText({ data }: CmsRichTextProps) {
+export function CmsRichText({ data, className }: CmsRichTextProps) {
   if (!data) {
     return null
   }
 
-  return <RichText className={proseClassName} converters={converters} data={data} />
+  return (
+    <RichText className={cn(proseClassName, className)} converters={converters} data={data} />
+  )
 }

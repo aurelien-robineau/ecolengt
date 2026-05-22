@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 
 import { ArticleList } from '@/components/articles/ArticleList'
+import { NewsUpcomingAlert } from '@/components/articles/NewsUpcomingAlert'
 import { Container } from '@/components/ui/Container'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import { getArticles } from '@/lib/cms/getArticles'
@@ -16,12 +17,13 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function NewsPage() {
-  const [{ site }, articles] = await Promise.all([getSiteContent(), getArticles()])
+  const [{ site, news }, articles] = await Promise.all([getSiteContent(), getArticles()])
 
   return (
     <section className="bg-surface py-(--spacing-section-mobile) pt-28 md:py-(--spacing-section)">
       <Container>
         <SectionHeader label={site.name} title="Actualité" />
+        <NewsUpcomingAlert alert={news.upcomingEventsAlert} />
         <ArticleList articles={articles} />
       </Container>
     </section>
