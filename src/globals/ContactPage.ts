@@ -35,9 +35,19 @@ export const ContactPage: GlobalConfig = {
           ],
         },
         {
-          label: 'Photos d’accès',
-          description: 'Galerie sous la carte, sur la page Contact (2 photos par ligne).',
+          label: 'Accès',
+          description: 'Instructions pour se rendre sur place et galerie photos sous la section Accès.',
           fields: [
+            {
+              name: 'accessDirectionsContent',
+              type: 'richText',
+              label: 'Instructions pour se rendre sur place',
+              editor: pageRichTextEditor,
+              admin: {
+                description:
+                  'Indications optionnelles affichées sous le titre « Accès », avant les photos.',
+              },
+            },
             {
               name: 'accessGallery',
               type: 'array',

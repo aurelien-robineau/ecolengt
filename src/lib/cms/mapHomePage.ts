@@ -20,7 +20,7 @@ export function mapHomePage(data: HomePageDoc | null | undefined): LandingPageDa
       location: data.heroLocation ?? '',
       founded: data.heroFounded ?? '',
       cta: data.heroCta ?? '',
-      ctaHref: defaultLandingPage.hero.ctaHref,
+      ctaHref: data.heroCtaHref?.trim() ?? '',
     },
     quote: {
       text: data.quoteText ?? '',
@@ -54,7 +54,7 @@ export function mapHomePage(data: HomePageDoc | null | undefined): LandingPageDa
         content: mapRichText(data.intensiveCoursesContent),
         learnMore: {
           label: data.intensiveCoursesButtonLabel ?? '',
-          href: defaultLandingPage.pedagogy.intensiveCourses.learnMore.href,
+          href: data.intensiveCoursesButtonHref?.trim() ?? '',
         },
       },
     },

@@ -19,6 +19,8 @@ type MasonryGalleryProps = {
   singleFigureClassName?: string
   /** Image classes when only one image (natural layout). */
   singleImageClassName?: string
+  /** Eager-load the first image (above-the-fold galleries). */
+  priorityFirstImage?: boolean
 }
 
 const layoutByColumns = {
@@ -44,9 +46,9 @@ function toSlides(items: GalleryItem[]): LightboxSlide[] {
 }
 
 /** Avoid below-fold gallery images competing for LCP before the user scrolls near them. */
-function useGalleryInView() {
+function useGalleryInView(loadImmediately = false) {
   const containerRef = useRef<HTMLDivElement>(null)
-  const [shouldLoad, setShouldLoad] = useState(false)
+  const [shouldLoad, setShouldLoad] = useState(loadImmediately)
 
   useEffect(() => {
     const node = containerRef.current
@@ -81,9 +83,10 @@ export function MasonryGallery({
   singleLightbox = true,
   singleFigureClassName = 'max-w-3xl',
   singleImageClassName = 'max-h-[min(85dvh,56rem)]',
+  priorityFirstImage = false,
 }: MasonryGalleryProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
-  const { containerRef, shouldLoad } = useGalleryInView()
+  const { containerRef, shouldLoad } = useGalleryInView(priorityFirstImage)
 
   const slides = useMemo(() => toSlides(items), [items])
   const slideIndexByItem = useMemo(() => {
@@ -116,6 +119,9 @@ export function MasonryGallery({
         fit="contain"
         className={singleImageClassName}
         sizes="(max-width: 768px) 100vw, 28rem"
+        priority
+        loading="eager"
+        fetchPriority="high"
       />
     )
 
@@ -145,6 +151,7 @@ export function MasonryGallery({
       <div ref={containerRef} className="flex flex-wrap justify-center gap-0.5">
         {items.map((item, index) => {
           const slideIndex = slideIndexByItem.get(index)
+          const isPriorityImage = priorityFirstImage && index === 0
 
           return (
             <figure
@@ -155,14 +162,15 @@ export function MasonryGallery({
               )}
             >
               {item.image ?
-                shouldLoad ?
+                shouldLoad || isPriorityImage ?
                   <>
                     <CmsImage
                       image={item.image}
                       className="h-auto w-full transition-transform duration-500 group-hover:scale-[1.03]"
                       sizes={layout.imageSizes}
-                      loading="lazy"
-                      fetchPriority="low"
+                      priority={isPriorityImage}
+                      loading={isPriorityImage ? 'eager' : 'lazy'}
+                      fetchPriority={isPriorityImage ? 'high' : 'low'}
                     />
                     {slideIndex !== undefined ?
                       <button

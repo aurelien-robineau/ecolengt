@@ -96,6 +96,7 @@ export interface Config {
     'guestbook-page': GuestbookPage;
     'alumni-page': AlumniPage;
     'tom-tom-page': TomTomPage;
+    'intensive-courses-page': IntensiveCoursesPage;
     'contact-page': ContactPage;
     'legal-notice-page': LegalNoticePage;
     'site-settings': SiteSetting;
@@ -105,6 +106,7 @@ export interface Config {
     'guestbook-page': GuestbookPageSelect<false> | GuestbookPageSelect<true>;
     'alumni-page': AlumniPageSelect<false> | AlumniPageSelect<true>;
     'tom-tom-page': TomTomPageSelect<false> | TomTomPageSelect<true>;
+    'intensive-courses-page': IntensiveCoursesPageSelect<false> | IntensiveCoursesPageSelect<true>;
     'contact-page': ContactPageSelect<false> | ContactPageSelect<true>;
     'legal-notice-page': LegalNoticePageSelect<false> | LegalNoticePageSelect<true>;
     'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
@@ -502,9 +504,13 @@ export interface HomePage {
    */
   heroFounded?: string | null;
   /**
-   * Libellé du bouton sous le titre. Le lien mène à la section « Pour qui ».
+   * Libellé du bouton sous le titre de la bannière.
    */
   heroCta: string;
+  /**
+   * Lien du bouton (ex. /#audience, /stages-intensifs, /contact ou https://…). Obligatoire pour afficher le bouton.
+   */
+  heroCtaHref?: string | null;
   /**
    * Citation entre guillemets, sans les « » (ajoutés automatiquement sur le site).
    */
@@ -609,9 +615,13 @@ export interface HomePage {
     [k: string]: unknown;
   } | null;
   /**
-   * Libellé du bouton en bas de l’encadré. Mène à la page Contact.
+   * Libellé du bouton en bas de l’encadré stages intensifs.
    */
   intensiveCoursesButtonLabel: string;
+  /**
+   * Lien du bouton (ex. /stages-intensifs, /contact ou https://…). Obligatoire pour afficher le bouton.
+   */
+  intensiveCoursesButtonHref?: string | null;
   /**
    * Petit titre de section affiché au-dessus du titre principal.
    */
@@ -790,6 +800,105 @@ export interface TomTomPage {
   createdAt?: string | null;
 }
 /**
+ * Contenu de la page Stages intensifs : introduction, galerie, encadrés et accès.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "intensive-courses-page".
+ */
+export interface IntensiveCoursesPage {
+  id: string;
+  /**
+   * Texte affiché sous le titre de la page.
+   */
+  introContent?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Galerie sous l’introduction (disposition mosaïque, 3 colonnes).
+   */
+  gallery?:
+    | {
+        image: string | Media;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Blocs titre + texte affichés deux par ligne ; un bloc seul sur la dernière ligne prend toute la largeur.
+   */
+  blocks?:
+    | {
+        title: string;
+        content?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        id?: string | null;
+      }[]
+    | null;
+  accessAddressStreet?: string | null;
+  accessAddressCity?: string | null;
+  /**
+   * URL de la fiche Google Maps (bouton « Partager » → « Lien »). Utilisée lorsque l’on clique sur l’adresse.
+   */
+  accessMapsUrl?: string | null;
+  /**
+   * Collez le code iframe fourni par Google Maps (« Partager » → « Intégrer une carte »), ou uniquement l’URL src du iframe.
+   */
+  accessMapsEmbed?: string | null;
+  /**
+   * Indications optionnelles (accès, parking, etc.) affichées dans l’encadré adresse, sous l’adresse postale.
+   */
+  accessDirectionsContent?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Galerie sous la carte (2 photos par ligne).
+   */
+  accessGallery?:
+    | {
+        image: string | Media;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * Contenu affiché sur la page Contact : texte d’introduction, photos d’accès et carte Google Maps.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -798,6 +907,24 @@ export interface TomTomPage {
 export interface ContactPage {
   id: string;
   introContent?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Indications optionnelles affichées sous le titre « Accès », avant les photos.
+   */
+  accessDirectionsContent?: {
     root: {
       type: string;
       children: {
@@ -918,6 +1045,7 @@ export interface HomePageSelect<T extends boolean = true> {
   heroLocation?: T;
   heroFounded?: T;
   heroCta?: T;
+  heroCtaHref?: T;
   quoteText?: T;
   quoteCite?: T;
   quotePortrait?: T;
@@ -934,6 +1062,7 @@ export interface HomePageSelect<T extends boolean = true> {
   intensiveCoursesTitle?: T;
   intensiveCoursesContent?: T;
   intensiveCoursesButtonLabel?: T;
+  intensiveCoursesButtonHref?: T;
   facilitiesLabel?: T;
   facilitiesTitle?: T;
   facilitiesDescription?: T;
@@ -1007,10 +1136,45 @@ export interface TomTomPageSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "intensive-courses-page_select".
+ */
+export interface IntensiveCoursesPageSelect<T extends boolean = true> {
+  introContent?: T;
+  gallery?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
+  blocks?:
+    | T
+    | {
+        title?: T;
+        content?: T;
+        id?: T;
+      };
+  accessAddressStreet?: T;
+  accessAddressCity?: T;
+  accessMapsUrl?: T;
+  accessMapsEmbed?: T;
+  accessDirectionsContent?: T;
+  accessGallery?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "contact-page_select".
  */
 export interface ContactPageSelect<T extends boolean = true> {
   introContent?: T;
+  accessDirectionsContent?: T;
   accessGallery?:
     | T
     | {

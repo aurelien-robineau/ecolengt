@@ -5,6 +5,7 @@ export const routes = {
   alumni: '/anciens-eleves',
   tomTom: '/tom-tom',
   news: '/actualite',
+  stagesIntensifs: '/stages-intensifs',
   students: '/eleves',
   legalNotice: '/mentions-legales',
 } as const

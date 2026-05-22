@@ -28,7 +28,10 @@ export default async function ContactPage() {
           <CmsRichText data={contact.intro} />
         </div>
         <ContactLocation site={site} mapsEmbedSrc={contact.mapsEmbedSrc} />
-        <ContactAccessGallery items={contact.accessGallery} />
+        <ContactAccessGallery
+          directions={contact.accessDirections}
+          items={contact.accessGallery}
+        />
         <ContactDetails site={site} />
       </Container>
     </section>

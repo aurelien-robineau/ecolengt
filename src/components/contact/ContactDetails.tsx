@@ -1,4 +1,5 @@
 import type { SiteSettingsData } from '@/lib/cms/types'
+import { pageSectionTitleClassName } from '@/lib/ui/typography'
 
 type ContactDetailsProps = {
   site: SiteSettingsData
@@ -13,9 +14,7 @@ export function ContactDetails({ site }: ContactDetailsProps) {
 
   return (
     <div>
-      <h2 className="mb-6 text-[11px] tracking-[0.2em] text-foreground uppercase">
-        Réseaux sociaux
-      </h2>
+      <h2 className={`mb-8 ${pageSectionTitleClassName}`}>Réseaux sociaux</h2>
       {site.social.instagram && (
         <a
           href={site.social.instagram}

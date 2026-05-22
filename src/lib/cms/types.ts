@@ -24,6 +24,7 @@ export type SiteSettingsData = {
 
 export type ContactPageData = {
   intro: CmsRichTextContent | null
+  accessDirections: CmsRichTextContent | null
   accessGallery: GalleryItem[]
   mapsEmbedSrc: string
 }
@@ -66,6 +67,31 @@ export type TomTomPageData = {
     href: string
   } | null
   content: CmsRichTextContent | null
+}
+
+export type IntensiveCoursesBlock = {
+  title: string
+  content: CmsRichTextContent | null
+}
+
+export type PageAddressData = {
+  street: string
+  city: string
+  mapsUrl: string
+}
+
+export type IntensiveCoursesAccessData = {
+  address: PageAddressData
+  mapsEmbedSrc: string
+  directions: CmsRichTextContent | null
+  gallery: GalleryItem[]
+}
+
+export type IntensiveCoursesPageData = {
+  intro: CmsRichTextContent | null
+  gallery: GalleryItem[]
+  blocks: IntensiveCoursesBlock[]
+  access: IntensiveCoursesAccessData
 }
 
 export type LegalNoticePageData = {
@@ -158,5 +184,6 @@ export type SiteContent = {
   guestbook: GuestbookPageData
   alumni: AlumniPageData
   tomTom: TomTomPageData
+  intensiveCourses: IntensiveCoursesPageData
   legalNotice: LegalNoticePageData
 }

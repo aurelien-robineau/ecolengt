@@ -8,4 +8,5 @@ export function revalidateSite() {
   revalidatePath(routes.students, 'layout')
   revalidatePath(routes.legalNotice)
   revalidatePath(routes.tomTom)
+  revalidatePath(routes.stagesIntensifs)
 }

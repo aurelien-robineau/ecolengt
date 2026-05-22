@@ -44,9 +44,11 @@ export function HeroSection({ hero }: HeroSectionProps) {
           : null}
         </p>
 
-        <div className="animate-fade-up-delay-3">
-          <Button href={hero.ctaHref}>{hero.cta}</Button>
-        </div>
+        {hero.cta && hero.ctaHref ?
+          <div className="animate-fade-up-delay-3">
+            <Button href={hero.ctaHref}>{hero.cta}</Button>
+          </div>
+        : null}
       </Container>
     </section>
   )

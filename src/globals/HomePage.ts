@@ -79,8 +79,16 @@ export const HomePage: GlobalConfig = {
               label: 'Texte du CTA',
               required: true,
               admin: {
+                description: 'Libellé du bouton sous le titre de la bannière.',
+              },
+            },
+            {
+              name: 'heroCtaHref',
+              type: 'text',
+              label: 'URL du CTA',
+              admin: {
                 description:
-                  'Libellé du bouton sous le titre. Le lien mène à la section « Pour qui ».',
+                  'Lien du bouton (ex. /#audience, /stages-intensifs, /contact ou https://…). Obligatoire pour afficher le bouton.',
               },
             },
           ],
@@ -239,7 +247,16 @@ export const HomePage: GlobalConfig = {
                   label: 'Texte du bouton',
                   required: true,
                   admin: {
-                    description: 'Libellé du bouton en bas de l’encadré. Mène à la page Contact.',
+                    description: 'Libellé du bouton en bas de l’encadré stages intensifs.',
+                  },
+                },
+                {
+                  name: 'intensiveCoursesButtonHref',
+                  type: 'text',
+                  label: 'URL du bouton',
+                  admin: {
+                    description:
+                      'Lien du bouton (ex. /stages-intensifs, /contact ou https://…). Obligatoire pour afficher le bouton.',
                   },
                 },
               ],
