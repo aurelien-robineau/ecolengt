@@ -32,7 +32,7 @@ export const SiteSettings: GlobalConfig = {
               required: true,
               admin: {
                 description:
-                  'Forme abrégée du nom (ex. École de Batterie NGT). Utilisé dans l’en-tête, le pied de page et les titres de page.',
+                  'Forme abrégée du nom. Utilisée dans l’en-tête, le pied de page et les titres de page.',
               },
             },
           ],
@@ -90,7 +90,7 @@ export const SiteSettings: GlobalConfig = {
                   required: true,
                   admin: {
                     description:
-                      'Tel qu’affiché sur le site (ex. 04 42 63 03 74). Le lien d’appel est généré automatiquement.',
+                      'Numéro tel qu’affiché sur le site. Le lien d’appel est généré automatiquement.',
                   },
                 },
               ],
@@ -126,7 +126,7 @@ export const SiteSettings: GlobalConfig = {
               type: 'text',
               label: 'Lien Instagram',
               admin: {
-                description: 'URL complète de la page ou du profil (ex. https://instagram.com/…).',
+                description: 'URL complète de la page ou du profil Instagram.',
               },
             },
             {
@@ -134,7 +134,7 @@ export const SiteSettings: GlobalConfig = {
               type: 'text',
               label: 'Lien Facebook',
               admin: {
-                description: 'URL complète de la page (ex. https://facebook.com/…).',
+                description: 'URL complète de la page Facebook.',
               },
             },
           ],

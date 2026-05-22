@@ -70,8 +70,7 @@ export const GuestbookPage: GlobalConfig = {
                   label: 'Auteur',
                   required: true,
                   admin: {
-                    description:
-                      'Nom affiché sous le témoignage (ex. Marie D., parent d’élève).',
+                    description: 'Nom affiché sous le témoignage.',
                   },
                 },
               ],

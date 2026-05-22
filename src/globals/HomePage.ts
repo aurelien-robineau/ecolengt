@@ -34,8 +34,7 @@ export const HomePage: GlobalConfig = {
               label: 'Phrase d’accroche',
               required: true,
               admin: {
-                description:
-                  'Courte phrase en italique au-dessus du titre (ex. Écoute… et tu parviendras).',
+                description: 'Courte phrase en italique affichée au-dessus du titre.',
               },
             },
             {
@@ -44,7 +43,7 @@ export const HomePage: GlobalConfig = {
               label: 'Titre (1re ligne)',
               required: true,
               admin: {
-                description: 'Première ligne du titre (ex. École de Batterie).',
+                description: 'Première ligne du titre principal.',
               },
             },
             {
@@ -53,7 +52,7 @@ export const HomePage: GlobalConfig = {
               label: 'Titre (2e ligne)',
               required: true,
               admin: {
-                description: 'Deuxième ligne du titre, en italique (ex. Nadia & Gilles Touché).',
+                description: 'Deuxième ligne du titre, affichée en italique.',
               },
             },
             {
@@ -62,7 +61,7 @@ export const HomePage: GlobalConfig = {
               label: 'Ville',
               required: true,
               admin: {
-                description: 'Affichée sous le titre (ex. Aix-en-Provence).',
+                description: 'Ville affichée sous le titre.',
               },
             },
             {
@@ -71,7 +70,7 @@ export const HomePage: GlobalConfig = {
               label: 'Mention « depuis »',
               admin: {
                 description:
-                  'Texte optionnel à côté de la ville (ex. Depuis 2003). Laisser vide pour ne rien afficher.',
+                  'Mention optionnelle affichée à côté de la ville. Laisser vide pour ne rien afficher.',
               },
             },
             {
@@ -81,7 +80,7 @@ export const HomePage: GlobalConfig = {
               required: true,
               admin: {
                 description:
-                  'Libellé du bouton sous le titre (ex. Découvrir l’école). Le lien mène à la section « Pour qui ».',
+                  'Libellé du bouton sous le titre. Le lien mène à la section « Pour qui ».',
               },
             },
           ],
@@ -106,7 +105,7 @@ export const HomePage: GlobalConfig = {
               label: 'Signature',
               required: true,
               admin: {
-                description: 'Nom affiché sous la citation (ex. Nadia et Gilles Touché).',
+                description: 'Nom affiché sous la citation.',
               },
             },
             {
@@ -131,7 +130,7 @@ export const HomePage: GlobalConfig = {
               label: 'Petit titre de section',
               required: true,
               admin: {
-                description: 'Court texte en majuscules au-dessus du titre (ex. Pour qui).',
+                description: 'Court texte en majuscules affiché au-dessus du titre de section.',
               },
             },
             {
@@ -161,7 +160,7 @@ export const HomePage: GlobalConfig = {
               label: 'Petit titre de section',
               required: true,
               admin: {
-                description: 'Ex. La pédagogie',
+                description: 'Petit titre de section affiché au-dessus du titre principal.',
               },
             },
             {
@@ -240,8 +239,7 @@ export const HomePage: GlobalConfig = {
                   label: 'Texte du bouton',
                   required: true,
                   admin: {
-                    description:
-                      'Bouton en bas de l’encadré (ex. En savoir plus). Mène à la page Contact.',
+                    description: 'Libellé du bouton en bas de l’encadré. Mène à la page Contact.',
                   },
                 },
               ],
@@ -258,7 +256,7 @@ export const HomePage: GlobalConfig = {
               label: 'Petit titre de section',
               required: true,
               admin: {
-                description: 'Ex. Les locaux',
+                description: 'Petit titre de section affiché au-dessus du titre principal.',
               },
             },
             {
@@ -307,8 +305,7 @@ export const HomePage: GlobalConfig = {
                   label: 'Photo en grand format',
                   defaultValue: false,
                   admin: {
-                    description:
-                      'Cochez pour une image large sur deux colonnes (idéal pour la salle principale).',
+                    description: 'Affiche l’image sur deux colonnes dans la grille.',
                   },
                 },
               ],

@@ -10,7 +10,7 @@ export const Media: CollectionConfig = {
   },
   admin: {
     group: adminGroups.content,
-    description: 'Photos et images utilisées sur le site (portrait, locaux, etc.).',
+    description: 'Photos et images utilisées sur le site.',
   },
   access: {
     read: () => true,
@@ -26,7 +26,7 @@ export const Media: CollectionConfig = {
       required: true,
       admin: {
         description:
-          'Courte description du contenu de l’image (accessibilité). Ex. : Nadia et Gilles Touché devant une batterie.',
+          'Courte description du contenu de l’image, pour l’accessibilité.',
       },
     },
   ],

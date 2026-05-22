@@ -138,7 +138,7 @@ export interface UserAuthOperations {
   };
 }
 /**
- * Photos et images utilisées sur le site (portrait, locaux, etc.).
+ * Photos et images utilisées sur le site.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media".
@@ -146,7 +146,7 @@ export interface UserAuthOperations {
 export interface Media {
   id: string;
   /**
-   * Courte description du contenu de l’image (accessibilité). Ex. : Nadia et Gilles Touché devant une batterie.
+   * Courte description du contenu de l’image, pour l’accessibilité.
    */
   alt: string;
   updatedAt: string;
@@ -216,7 +216,7 @@ export interface Eleve {
   generateSlug?: boolean | null;
   slug?: string | null;
   /**
-   * Ex. : Batteur — groupe XYZ, professeur de batterie…
+   * Activité ou titre affiché sous le nom sur la page publique.
    */
   jobTitle?: string | null;
   /**
@@ -482,27 +482,27 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 export interface HomePage {
   id: string;
   /**
-   * Courte phrase en italique au-dessus du titre (ex. Écoute… et tu parviendras).
+   * Courte phrase en italique affichée au-dessus du titre.
    */
   heroTagline: string;
   /**
-   * Première ligne du titre (ex. École de Batterie).
+   * Première ligne du titre principal.
    */
   heroName: string;
   /**
-   * Deuxième ligne du titre, en italique (ex. Nadia & Gilles Touché).
+   * Deuxième ligne du titre, affichée en italique.
    */
   heroSubtitle: string;
   /**
-   * Affichée sous le titre (ex. Aix-en-Provence).
+   * Ville affichée sous le titre.
    */
   heroLocation: string;
   /**
-   * Texte optionnel à côté de la ville (ex. Depuis 2003). Laisser vide pour ne rien afficher.
+   * Mention optionnelle affichée à côté de la ville. Laisser vide pour ne rien afficher.
    */
   heroFounded?: string | null;
   /**
-   * Libellé du bouton sous le titre (ex. Découvrir l’école). Le lien mène à la section « Pour qui ».
+   * Libellé du bouton sous le titre. Le lien mène à la section « Pour qui ».
    */
   heroCta: string;
   /**
@@ -510,7 +510,7 @@ export interface HomePage {
    */
   quoteText: string;
   /**
-   * Nom affiché sous la citation (ex. Nadia et Gilles Touché).
+   * Nom affiché sous la citation.
    */
   quoteCite: string;
   /**
@@ -518,7 +518,7 @@ export interface HomePage {
    */
   quotePortrait?: (string | null) | Media;
   /**
-   * Court texte en majuscules au-dessus du titre (ex. Pour qui).
+   * Court texte en majuscules affiché au-dessus du titre de section.
    */
   audienceLabel: string;
   /**
@@ -541,7 +541,7 @@ export interface HomePage {
     [k: string]: unknown;
   } | null;
   /**
-   * Ex. La pédagogie
+   * Petit titre de section affiché au-dessus du titre principal.
    */
   pedagogyLabel: string;
   pedagogyTitle: string;
@@ -609,11 +609,11 @@ export interface HomePage {
     [k: string]: unknown;
   } | null;
   /**
-   * Bouton en bas de l’encadré (ex. En savoir plus). Mène à la page Contact.
+   * Libellé du bouton en bas de l’encadré. Mène à la page Contact.
    */
   intensiveCoursesButtonLabel: string;
   /**
-   * Ex. Les locaux
+   * Petit titre de section affiché au-dessus du titre principal.
    */
   facilitiesLabel: string;
   facilitiesTitle: string;
@@ -643,7 +643,7 @@ export interface HomePage {
          */
         caption?: string | null;
         /**
-         * Cochez pour une image large sur deux colonnes (idéal pour la salle principale).
+         * Affiche l’image sur deux colonnes dans la grille.
          */
         wide?: boolean | null;
         id?: string | null;
@@ -697,7 +697,7 @@ export interface GuestbookPage {
           [k: string]: unknown;
         };
         /**
-         * Nom affiché sous le témoignage (ex. Marie D., parent d’élève).
+         * Nom affiché sous le témoignage.
          */
         author: string;
         id?: string | null;
@@ -740,7 +740,7 @@ export interface AlumniPage {
          */
         name?: string | null;
         /**
-         * Chaque ligne : un projet, un groupe, un festival, une collaboration, etc.
+         * Liste des projets, groupes ou activités affichés pour cet ancien élève.
          */
         projects?:
           | {
@@ -857,7 +857,7 @@ export interface LegalNoticePage {
 export interface SiteSetting {
   id: string;
   /**
-   * Forme abrégée du nom (ex. École de Batterie NGT). Utilisé dans l’en-tête, le pied de page et les titres de page.
+   * Forme abrégée du nom. Utilisée dans l’en-tête, le pied de page et les titres de page.
    */
   schoolNameShort: string;
   /**
@@ -875,7 +875,7 @@ export interface SiteSetting {
   phones?:
     | {
         /**
-         * Tel qu’affiché sur le site (ex. 04 42 63 03 74). Le lien d’appel est généré automatiquement.
+         * Numéro tel qu’affiché sur le site. Le lien d’appel est généré automatiquement.
          */
         number: string;
         id?: string | null;
@@ -891,11 +891,11 @@ export interface SiteSetting {
       }[]
     | null;
   /**
-   * URL complète de la page ou du profil (ex. https://instagram.com/…).
+   * URL complète de la page ou du profil Instagram.
    */
   instagramUrl?: string | null;
   /**
-   * URL complète de la page (ex. https://facebook.com/…).
+   * URL complète de la page Facebook.
    */
   facebookUrl?: string | null;
   updatedAt?: string | null;
