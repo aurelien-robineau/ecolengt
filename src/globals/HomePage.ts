@@ -297,7 +297,7 @@ export const HomePage: GlobalConfig = {
                 plural: 'Photos',
               },
               admin: {
-                description: 'Galerie de photos en bas de section (disposition mosaïque).',
+                description: 'Galerie de photos en bas de section (grille responsive).',
               },
               fields: [
                 {
@@ -306,14 +306,6 @@ export const HomePage: GlobalConfig = {
                   relationTo: 'media',
                   label: 'Image',
                   required: true,
-                },
-                {
-                  name: 'caption',
-                  type: 'text',
-                  label: 'Légende',
-                  admin: {
-                    description: 'Texte affiché au survol de la photo (optionnel).',
-                  },
                 },
               ],
             },

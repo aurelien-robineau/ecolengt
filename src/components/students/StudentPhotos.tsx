@@ -1,6 +1,6 @@
 'use client'
 
-import { MasonryGallery } from '@/components/ui/MasonryGallery'
+import { Gallery } from '@/components/ui/Gallery'
 import type { CmsImageData } from '@/lib/cms/types'
 
 type StudentPhotosProps = {
@@ -10,10 +10,7 @@ type StudentPhotosProps = {
 export function StudentPhotos({ photos }: StudentPhotosProps) {
   const items = photos
     .filter((photo): photo is NonNullable<CmsImageData> => photo !== null)
-    .map((image) => ({
-      caption: '',
-      image,
-    }))
+    .map((image) => ({ image }))
 
   if (!items.length) {
     return null
@@ -22,7 +19,7 @@ export function StudentPhotos({ photos }: StudentPhotosProps) {
   const isSingle = items.length === 1
 
   return (
-    <MasonryGallery
+    <Gallery
       items={items}
       columns={2}
       naturalSingle

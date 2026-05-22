@@ -1,5 +1,5 @@
 import { LocationWithMap } from '@/components/location/LocationWithMap'
-import { MasonryGallery } from '@/components/ui/MasonryGallery'
+import { Gallery } from '@/components/ui/Gallery'
 import { hasLexicalContent } from '@/lib/cms/hasLexicalContent'
 import type { IntensiveCoursesPageData } from '@/lib/cms/types'
 import { pageSectionTitleClassName } from '@/lib/ui/typography'
@@ -36,7 +36,7 @@ export function IntensiveCoursesAccess({ siteName, access }: IntensiveCoursesAcc
       />
 
       {hasGallery ?
-        <MasonryGallery items={access.gallery} columns={2} />
+        <Gallery items={access.gallery} columns={2} />
       : null}
     </section>
   )

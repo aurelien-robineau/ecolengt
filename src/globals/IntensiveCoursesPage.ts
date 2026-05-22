@@ -37,7 +37,7 @@ export const IntensiveCoursesPage: GlobalConfig = {
         plural: 'Photos',
       },
       admin: {
-        description: 'Galerie sous l’introduction (disposition mosaïque, 3 colonnes).',
+        description: 'Galerie sous l’introduction (grille responsive, 3 colonnes).',
       },
       fields: [
         {

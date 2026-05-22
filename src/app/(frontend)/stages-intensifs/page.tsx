@@ -4,7 +4,7 @@ import { CmsRichText } from '@/components/cms/CmsRichText'
 import { IntensiveCoursesAccess } from '@/components/intensive-courses/IntensiveCoursesAccess'
 import { IntensiveCoursesPageActions } from '@/components/intensive-courses/IntensiveCoursesPageActions'
 import { IntensiveCoursesBlocks } from '@/components/intensive-courses/IntensiveCoursesBlocks'
-import { MasonryGallery } from '@/components/ui/MasonryGallery'
+import { Gallery } from '@/components/ui/Gallery'
 import { Container } from '@/components/ui/Container'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import { hasLexicalContent } from '@/lib/cms/hasLexicalContent'
@@ -39,7 +39,7 @@ export default async function StagesIntensifsPage() {
 
         {hasGallery ?
           <div className={intensiveCourses.blocks.length ? 'mb-20' : undefined}>
-            <MasonryGallery
+            <Gallery
               items={intensiveCourses.gallery}
               columns={3}
               priorityFirstImage
