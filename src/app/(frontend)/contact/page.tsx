@@ -21,10 +21,10 @@ export default async function ContactPage() {
   const { site, contact } = await getSiteContent()
 
   return (
-    <section className="overflow-x-clip bg-surface py-(--spacing-section-mobile) pt-28 md:py-(--spacing-section)">
+    <section className="bg-surface py-(--spacing-section-mobile) pt-28 md:py-(--spacing-section)">
       <Container>
         <SectionHeader label={site.name} title="Nous contacter" />
-        <div className="mb-12 min-w-0 w-full max-w-xl">
+        <div className="mb-12 max-w-xl">
           <CmsRichText data={contact.intro} />
         </div>
         <ContactLocation site={site} mapsEmbedSrc={contact.mapsEmbedSrc} />

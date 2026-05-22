@@ -11,7 +11,7 @@ export function Container({ children, className, as: Tag = 'div', id }: Containe
   return (
     <Tag
       id={id}
-      className={cn('mx-auto min-w-0 w-full max-w-(--width-content) px-8 md:px-16', className)}
+      className={cn('mx-auto w-full max-w-(--width-content) px-8 md:px-16', className)}
     >
       {children}
     </Tag>

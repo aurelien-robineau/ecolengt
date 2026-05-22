@@ -26,14 +26,14 @@ export function PedagogySection({ pedagogy }: PedagogySectionProps) {
           </div>
 
           <div className="mb-16 grid gap-px bg-border lg:grid-cols-2">
-            <article className="min-w-0 bg-surface-card p-8">
+            <article className="bg-surface-card p-8">
               <h3 className="mb-4 font-serif text-xl font-normal text-foreground">
                 {courseOrganization.title}
               </h3>
               <CmsRichText data={courseOrganization.content} />
             </article>
 
-            <article className="min-w-0 bg-surface-card p-8">
+            <article className="bg-surface-card p-8">
               <h3 className="mb-4 font-serif text-xl font-normal text-foreground">
                 {practice.title}
               </h3>
