@@ -46,13 +46,14 @@ export function PedagogySection({ pedagogy }: PedagogySectionProps) {
               {pedagogy.intensiveCourses.title}
             </h3>
             <CmsRichText data={pedagogy.intensiveCourses.content} />
-            {pedagogy.intensiveCourses.learnMore.label && (
+            {pedagogy.intensiveCourses.learnMore.label &&
+            pedagogy.intensiveCourses.learnMore.href ?
               <div className="mt-8">
                 <Button href={pedagogy.intensiveCourses.learnMore.href}>
                   {pedagogy.intensiveCourses.learnMore.label}
                 </Button>
               </div>
-            )}
+            : null}
           </div>
         </Reveal>
       </Container>

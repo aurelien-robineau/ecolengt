@@ -26,6 +26,7 @@ export const defaultSiteSettings: SiteSettingsData = {
   },
   navigation: [
     { label: 'Actualité', href: routes.news },
+    { label: 'Stages intensifs', href: routes.stagesIntensifs },
     { label: 'Livre d’or', href: routes.guestbook },
     { label: 'Anciens élèves', href: routes.alumni },
     { label: 'Tom Tom', href: routes.tomTom },
@@ -44,6 +45,7 @@ export const defaultAlumniPage: AlumniPageData = {
 
 export const defaultContactPage: ContactPageData = {
   intro: null,
+  accessDirections: null,
   accessGallery: [],
   mapsEmbedSrc: defaultMapsEmbedSrc,
 }
@@ -56,7 +58,7 @@ export const defaultLandingPage: LandingPageData = {
     location: '',
     founded: '',
     cta: '',
-    ctaHref: '/#audience',
+    ctaHref: '',
   },
   quote: {
     text: '',
@@ -90,7 +92,7 @@ export const defaultLandingPage: LandingPageData = {
       content: null,
       learnMore: {
         label: '',
-        href: '/contact',
+        href: '',
       },
     },
   },
@@ -102,3 +104,4 @@ export const defaultLandingPage: LandingPageData = {
     gallery: [],
   },
 }
+

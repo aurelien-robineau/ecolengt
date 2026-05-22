@@ -1,0 +1,53 @@
+import type { Metadata } from 'next'
+
+import { CmsRichText } from '@/components/cms/CmsRichText'
+import { IntensiveCoursesAccess } from '@/components/intensive-courses/IntensiveCoursesAccess'
+import { IntensiveCoursesBlocks } from '@/components/intensive-courses/IntensiveCoursesBlocks'
+import { MasonryGallery } from '@/components/ui/MasonryGallery'
+import { Container } from '@/components/ui/Container'
+import { SectionHeader } from '@/components/ui/SectionHeader'
+import { hasLexicalContent } from '@/lib/cms/hasLexicalContent'
+import { getSiteContent } from '@/lib/cms/getSiteContent'
+
+export async function generateMetadata(): Promise<Metadata> {
+  const { site, landing } = await getSiteContent()
+
+  return {
+    title: `Stages intensifs — ${site.name} · ${landing.hero.location}`,
+    description: `Stages intensifs de batterie à ${landing.hero.location}.`,
+  }
+}
+
+export default async function StagesIntensifsPage() {
+  const { site, intensiveCourses } = await getSiteContent()
+  const hasIntro =
+    intensiveCourses.intro && hasLexicalContent(intensiveCourses.intro)
+  const hasGallery = intensiveCourses.gallery.length > 0
+
+  return (
+    <section className="bg-surface py-(--spacing-section-mobile) pt-28 md:py-(--spacing-section)">
+      <Container>
+        <SectionHeader label={site.name} title="Stages intensifs" />
+
+        {hasIntro ?
+          <div className="mb-12 max-w-xl">
+            <CmsRichText data={intensiveCourses.intro} />
+          </div>
+        : null}
+
+        {hasGallery ?
+          <div className={intensiveCourses.blocks.length ? 'mb-20' : undefined}>
+            <MasonryGallery
+              items={intensiveCourses.gallery}
+              columns={3}
+              priorityFirstImage
+            />
+          </div>
+        : null}
+
+        <IntensiveCoursesBlocks blocks={intensiveCourses.blocks} />
+        <IntensiveCoursesAccess siteName={site.name} access={intensiveCourses.access} />
+      </Container>
+    </section>
+  )
+}

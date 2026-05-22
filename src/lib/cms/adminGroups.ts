@@ -30,6 +30,7 @@ export const adminNavPagesOrder = [
   'guestbook-page',
   'alumni-page',
   'tom-tom-page',
+  'intensive-courses-page',
   'contact-page',
   'legal-notice-page',
 ] as const

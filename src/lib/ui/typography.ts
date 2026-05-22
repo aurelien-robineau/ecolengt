@@ -6,6 +6,10 @@ export const bodyTextClassName =
 export const sectionLabelClassName =
   'text-xs font-medium tracking-[0.2em] text-foreground uppercase md:text-[11px]'
 
+/** Major section headings within a page (Accès, Réseaux sociaux, etc.). */
+export const pageSectionTitleClassName =
+  'font-serif text-[clamp(1.375rem,2.5vw,1.875rem)] font-light leading-[1.15] text-foreground'
+
 /** Contact values on the contact page (phone, email, address). */
 export const contactValueClassName =
   'font-sans text-lg leading-snug font-normal text-foreground md:text-xl lg:text-lg'

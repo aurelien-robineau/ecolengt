@@ -14,6 +14,7 @@ import { AlumniPage } from './globals/AlumniPage'
 import { ContactPage } from './globals/ContactPage'
 import { GuestbookPage } from './globals/GuestbookPage'
 import { HomePage } from './globals/HomePage'
+import { IntensiveCoursesPage } from './globals/IntensiveCoursesPage'
 import { LegalNoticePage } from './globals/LegalNoticePage'
 import { SiteSettings } from './globals/SiteSettings'
 import { TomTomPage } from './globals/TomTomPage'
@@ -57,6 +58,7 @@ export default buildConfig({
     GuestbookPage,
     AlumniPage,
     TomTomPage,
+    IntensiveCoursesPage,
     ContactPage,
     LegalNoticePage,
     SiteSettings,

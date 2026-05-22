@@ -14,6 +14,7 @@ export function mapContactPage(data: ContactPageDoc | null | undefined): Contact
 
   return {
     intro: mapRichText(data.introContent),
+    accessDirections: mapRichText(data.accessDirectionsContent),
     accessGallery: mapGallery(data.accessGallery),
     mapsEmbedSrc,
   }

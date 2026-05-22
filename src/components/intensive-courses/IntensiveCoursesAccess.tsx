@@ -1,0 +1,43 @@
+import { LocationWithMap } from '@/components/location/LocationWithMap'
+import { MasonryGallery } from '@/components/ui/MasonryGallery'
+import { hasLexicalContent } from '@/lib/cms/hasLexicalContent'
+import type { IntensiveCoursesPageData } from '@/lib/cms/types'
+import { pageSectionTitleClassName } from '@/lib/ui/typography'
+
+type IntensiveCoursesAccessProps = {
+  siteName: string
+  access: IntensiveCoursesPageData['access']
+}
+
+export function IntensiveCoursesAccess({ siteName, access }: IntensiveCoursesAccessProps) {
+  const hasDirections = access.directions && hasLexicalContent(access.directions)
+  const hasGallery = access.gallery.length > 0
+  const hasLocation = Boolean(
+    access.address.street ||
+      access.address.city ||
+      access.mapsEmbedSrc ||
+      hasDirections,
+  )
+
+  if (!hasLocation && !hasGallery) {
+    return null
+  }
+
+  return (
+    <section className="border-t border-border pt-16 md:pt-20">
+      <h2 className={`mb-10 ${pageSectionTitleClassName}`}>Accès</h2>
+
+      <LocationWithMap
+        address={access.address}
+        mapsEmbedSrc={access.mapsEmbedSrc}
+        mapTitle={`Plan d’accès — ${siteName}`}
+        directions={access.directions}
+        className={hasGallery ? 'mb-12' : undefined}
+      />
+
+      {hasGallery ?
+        <MasonryGallery items={access.gallery} columns={2} />
+      : null}
+    </section>
+  )
+}
