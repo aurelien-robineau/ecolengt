@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { cn } from '@/lib/cn'
+import { isExternalHref } from '@/lib/isExternalHref'
 import { resolveHashHref } from '@/lib/resolveHashHref'
 
 type ButtonProps = {
@@ -20,10 +21,16 @@ const variants = {
 export function Button({ href, children, variant = 'primary', className, onClick }: ButtonProps) {
   const classNames = cn('inline-block no-underline', variants[variant], className)
   const resolvedHref = resolveHashHref(href)
+  const external = isExternalHref(href)
 
-  if (resolvedHref.includes('#')) {
+  if (resolvedHref.includes('#') || external) {
     return (
-      <a href={resolvedHref} className={classNames} onClick={onClick}>
+      <a
+        href={external ? href : resolvedHref}
+        className={classNames}
+        onClick={onClick}
+        {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+      >
         {children}
       </a>
     )
