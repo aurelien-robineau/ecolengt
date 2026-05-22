@@ -30,18 +30,9 @@ export function NotFoundSection({ site }: NotFoundSectionProps) {
           La page que vous cherchez n’existe pas, a été déplacée ou l’adresse est incorrecte.
         </p>
 
-        <div className="animate-fade-up-delay-3 flex flex-wrap items-stretch justify-center gap-4">
-          <Button
-            href={routes.home}
-            className="inline-flex items-center justify-center px-9 py-3.5"
-          >
-            Retour à l’accueil
-          </Button>
-          <Button
-            href={routes.contact}
-            variant="ghost"
-            className="inline-flex items-center justify-center px-9 py-3.5 text-xs tracking-[0.15em]"
-          >
+        <div className="animate-fade-up-delay-3 flex flex-wrap items-center justify-center gap-4">
+          <Button href={routes.home}>Retour à l’accueil</Button>
+          <Button href={routes.contact} variant="ghost" className="px-9 text-xs tracking-[0.15em]">
             Nous contacter
           </Button>
         </div>
