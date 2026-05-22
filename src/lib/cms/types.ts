@@ -131,8 +131,7 @@ export type CmsImageData = {
 } | null
 
 export type GalleryItem = {
-  caption: string
-  image: CmsImageData
+  image: NonNullable<CmsImageData>
 }
 
 export type LandingPageData = {

@@ -1,5 +1,5 @@
 import { CmsRichText } from '@/components/cms/CmsRichText'
-import { MasonryGallery } from '@/components/ui/MasonryGallery'
+import { Gallery } from '@/components/ui/Gallery'
 import { hasLexicalContent } from '@/lib/cms/hasLexicalContent'
 import type { CmsRichTextContent, GalleryItem } from '@/lib/cms/types'
 import { pageSectionTitleClassName } from '@/lib/ui/typography'
@@ -28,7 +28,7 @@ export function ContactAccessGallery({ directions, items }: ContactAccessGallery
       : null}
 
       {hasGallery ?
-        <MasonryGallery items={items} columns={2} />
+        <Gallery items={items} columns={2} />
       : null}
     </div>
   )

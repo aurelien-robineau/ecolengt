@@ -1,6 +1,6 @@
 import { CmsRichText } from '@/components/cms/CmsRichText'
 import { Container } from '@/components/ui/Container'
-import { MasonryGallery } from '@/components/ui/MasonryGallery'
+import { Gallery } from '@/components/ui/Gallery'
 import { Reveal } from '@/components/ui/Reveal'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import type { LandingPageData } from '@/lib/cms/types'
@@ -23,7 +23,7 @@ export function FacilitiesSection({ facilities }: FacilitiesSectionProps) {
             <CmsRichText data={facilities.description} />
           </div>
 
-          <MasonryGallery items={facilities.gallery} columns={3} />
+          <Gallery items={facilities.gallery} columns={3} />
         </Reveal>
       </Container>
     </section>

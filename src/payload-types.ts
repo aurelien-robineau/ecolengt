@@ -649,15 +649,11 @@ export interface HomePage {
     [k: string]: unknown;
   } | null;
   /**
-   * Galerie de photos en bas de section (disposition mosaïque).
+   * Galerie de photos en bas de section (grille responsive).
    */
   facilitiesGallery?:
     | {
         image: string | Media;
-        /**
-         * Texte affiché au survol de la photo (optionnel).
-         */
-        caption?: string | null;
         id?: string | null;
       }[]
     | null;
@@ -861,7 +857,7 @@ export interface IntensiveCoursesPage {
     [k: string]: unknown;
   } | null;
   /**
-   * Galerie sous l’introduction (disposition mosaïque, 3 colonnes).
+   * Galerie sous l’introduction (grille responsive, 3 colonnes).
    */
   gallery?:
     | {
@@ -1178,7 +1174,6 @@ export interface HomePageSelect<T extends boolean = true> {
     | T
     | {
         image?: T;
-        caption?: T;
         id?: T;
       };
   updatedAt?: T;
