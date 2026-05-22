@@ -1,4 +1,9 @@
 import type { ContactPageData, SiteSettingsData } from '@/lib/cms/types'
+import {
+  contactAddressClassName,
+  contactLinkClassName,
+  sectionLabelClassName,
+} from '@/lib/ui/typography'
 
 type ContactLocationProps = {
   site: SiteSettingsData
@@ -8,36 +13,36 @@ type ContactLocationProps = {
 export function ContactLocation({ site, mapsEmbedSrc }: ContactLocationProps) {
   return (
     <div className="mb-16 grid gap-10 lg:grid-cols-[minmax(0,16rem)_1fr] lg:gap-12 lg:items-start">
-      <div className="space-y-10">
+      <div className="space-y-12">
         <div>
-          <h2 className="mb-6 text-[11px] tracking-[0.2em] text-foreground uppercase">Téléphone</h2>
-          {site.contact.phones.map((phone) => (
-            <a
-              key={phone.href}
-              href={phone.href}
-              className="block text-sm leading-8 text-foreground-muted no-underline transition-colors hover:text-foreground"
-            >
-              {phone.display}
-            </a>
-          ))}
+          <h2 className={sectionLabelClassName}>Téléphone</h2>
+          <ul className="mt-4 list-none space-y-2">
+            {site.contact.phones.map((phone) => (
+              <li key={phone.href}>
+                <a href={phone.href} className={contactLinkClassName}>
+                  {phone.display}
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
 
         <div>
-          <h2 className="mb-6 text-[11px] tracking-[0.2em] text-foreground uppercase">E-mail</h2>
-          {site.contact.emails.map((email) => (
-            <a
-              key={email.href}
-              href={email.href}
-              className="block text-sm leading-8 text-foreground-muted no-underline transition-colors hover:text-foreground"
-            >
-              {email.display}
-            </a>
-          ))}
+          <h2 className={sectionLabelClassName}>E-mail</h2>
+          <ul className="mt-4 list-none space-y-2">
+            {site.contact.emails.map((email) => (
+              <li key={email.href}>
+                <a href={email.href} className={contactLinkClassName}>
+                  {email.display}
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
 
         <div>
-          <h2 className="mb-6 text-[11px] tracking-[0.2em] text-foreground uppercase">Adresse</h2>
-          <address className="text-sm not-italic leading-8 text-foreground-muted">
+          <h2 className={sectionLabelClassName}>Adresse</h2>
+          <address className={`mt-4 ${contactAddressClassName}`}>
             {site.address.street}
             <br />
             {site.address.city}
