@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 
 import type { CmsImageData } from '@/lib/cms/types'
+import { cn } from '@/lib/cn'
 
 export type LightboxSlide = {
   image: NonNullable<CmsImageData>
@@ -88,79 +89,86 @@ export function ImageLightbox({ slides, initialIndex, onClose }: ImageLightboxPr
 
   return createPortal(
     <div
-      className="fixed inset-0 z-110 flex items-center justify-center bg-foreground/92 p-4 sm:p-8"
+      className="fixed inset-0 z-110 flex flex-col overflow-hidden bg-foreground/92 p-3 pt-[max(0.75rem,env(safe-area-inset-top))] pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:p-8"
       role="dialog"
       aria-modal="true"
       aria-label={slide.image.alt || 'Diaporama photo'}
       onClick={onClose}
     >
-      <button
-        type="button"
-        className="absolute top-4 right-4 z-10 flex size-11 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition-colors hover:bg-white/20"
-        onClick={(event) => {
-          event.stopPropagation()
-          onClose()
-        }}
-        aria-label="Fermer"
-      >
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
-          <path
-            d="M4 4l10 10M14 4L4 14"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-          />
-        </svg>
-      </button>
-
-      {hasMultiple ?
+      <div className="flex shrink-0 justify-end">
         <button
           type="button"
-          className="absolute top-1/2 left-2 z-10 flex size-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition-colors hover:bg-white/20 sm:left-6"
+          className="flex size-11 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition-colors hover:bg-white/20"
           onClick={(event) => {
             event.stopPropagation()
-            goPrev()
+            onClose()
           }}
-          aria-label="Photo précédente"
+          aria-label="Fermer"
         >
-          <ChevronIcon direction="left" />
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
+            <path
+              d="M4 4l10 10M14 4L4 14"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+            />
+          </svg>
         </button>
-      : null}
+      </div>
 
-      {hasMultiple ?
-        <button
-          type="button"
-          className="absolute top-1/2 right-2 z-10 flex size-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition-colors hover:bg-white/20 sm:right-6"
-          onClick={(event) => {
-            event.stopPropagation()
-            goNext()
-          }}
-          aria-label="Photo suivante"
-        >
-          <ChevronIcon direction="right" />
-        </button>
-      : null}
-
-      <figure
-        className="relative flex w-[min(calc(100vw-2rem),72rem)] max-w-full flex-col items-center sm:w-[min(calc(100vw-4rem),72rem)]"
-        onClick={(event) => event.stopPropagation()}
-      >
-        <div className="relative h-[min(80dvh,900px)] w-full">
-          <Image
-            src={slide.image.src}
-            alt={slide.image.alt}
-            fill
-            className="object-contain"
-            sizes="(max-width: 1152px) 100vw, 72rem"
-            priority
-          />
-        </div>
+      <div className="relative flex min-h-0 flex-1 items-center justify-center">
         {hasMultiple ?
-          <p className="mt-3 text-xs tracking-[0.12em] text-white/50 uppercase">
-            {index + 1} / {slides.length}
-          </p>
+          <button
+            type="button"
+            className="absolute top-1/2 left-0 z-10 flex size-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition-colors hover:bg-white/20 sm:left-2 sm:size-11"
+            onClick={(event) => {
+              event.stopPropagation()
+              goPrev()
+            }}
+            aria-label="Photo précédente"
+          >
+            <ChevronIcon direction="left" />
+          </button>
         : null}
-      </figure>
+
+        {hasMultiple ?
+          <button
+            type="button"
+            className="absolute top-1/2 right-0 z-10 flex size-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition-colors hover:bg-white/20 sm:right-2 sm:size-11"
+            onClick={(event) => {
+              event.stopPropagation()
+              goNext()
+            }}
+            aria-label="Photo suivante"
+          >
+            <ChevronIcon direction="right" />
+          </button>
+        : null}
+
+        <figure
+          className={cn(
+            'relative flex h-full min-h-0 w-full max-w-6xl flex-col items-center justify-center',
+            hasMultiple ? 'px-11 sm:px-14' : 'px-0',
+          )}
+          onClick={(event) => event.stopPropagation()}
+        >
+          <div className="relative h-full max-h-[calc(100dvh-7rem)] w-full min-h-48 sm:max-h-[calc(100dvh-8rem)]">
+            <Image
+              src={slide.image.src}
+              alt={slide.image.alt}
+              fill
+              className="object-contain"
+              sizes="(max-width: 1152px) 100vw, 72rem"
+              priority
+            />
+          </div>
+          {hasMultiple ?
+            <p className="mt-3 shrink-0 text-xs tracking-[0.12em] text-white/50 uppercase">
+              {index + 1} / {slides.length}
+            </p>
+          : null}
+        </figure>
+      </div>
     </div>,
     document.body,
   )
