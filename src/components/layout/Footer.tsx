@@ -1,14 +1,10 @@
 import Link from 'next/link'
 
+import { AddressContent } from '@/components/ui/AddressContent'
 import { Container } from '@/components/ui/Container'
 import { Logo } from '@/components/ui/Logo'
 import { routes } from '@/config/routes'
 import type { SiteSettingsData } from '@/lib/cms/types'
-import {
-  contactAddressOnDarkClassName,
-  contactLinkOnDarkClassName,
-  sectionLabelClassName,
-} from '@/lib/ui/typography'
 
 type FooterProps = {
   site: SiteSettingsData
@@ -27,63 +23,63 @@ export function Footer({ site }: FooterProps) {
 
         <div className="mb-16 grid gap-12 sm:grid-cols-2 lg:grid-cols-3 lg:gap-16">
           <div>
-            <h4 className={`mb-4 ${sectionLabelClassName} text-brand`}>Adresse</h4>
-            <address className={contactAddressOnDarkClassName}>
-              {site.address.street}
-              <br />
-              {site.address.city}
-            </address>
+            <h4 className="mb-6 text-[11px] tracking-[0.2em] text-brand uppercase">Adresse</h4>
+            <AddressContent
+              street={site.address.street}
+              city={site.address.city}
+              mapsUrl={site.address.mapsUrl}
+              className="text-sm leading-8"
+              linkClassName="text-foreground-subtle hover:text-brand"
+            />
           </div>
 
           <div>
-            <h4 className={`mb-4 ${sectionLabelClassName} text-brand`}>Contact</h4>
-            <ul className="list-none space-y-2">
-              {site.contact.phones.map((phone) => (
-                <li key={phone.href}>
-                  <a href={phone.href} className={contactLinkOnDarkClassName}>
-                    {phone.display}
-                  </a>
-                </li>
-              ))}
-              {site.contact.emails.map((email) => (
-                <li key={email.href}>
-                  <a href={email.href} className={contactLinkOnDarkClassName}>
-                    {email.display}
-                  </a>
-                </li>
-              ))}
-            </ul>
+            <h4 className="mb-6 text-[11px] tracking-[0.2em] text-brand uppercase">Contact</h4>
+            {site.contact.phones.map((phone) => (
+              <a
+                key={phone.href}
+                href={phone.href}
+                className="block text-sm leading-8 text-foreground-subtle no-underline transition-colors hover:text-brand"
+              >
+                {phone.display}
+              </a>
+            ))}
+            {site.contact.emails.map((email) => (
+              <a
+                key={email.href}
+                href={email.href}
+                className="block text-sm leading-8 text-foreground-subtle no-underline transition-colors hover:text-brand"
+              >
+                {email.display}
+              </a>
+            ))}
           </div>
 
           {(site.social.instagram || site.social.facebook) && (
             <div>
-              <h4 className={`mb-4 ${sectionLabelClassName} text-brand`}>Réseaux sociaux</h4>
-              <ul className="list-none space-y-2">
-                {site.social.instagram && (
-                  <li>
-                    <a
-                      href={site.social.instagram}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={contactLinkOnDarkClassName}
-                    >
-                      Instagram
-                    </a>
-                  </li>
-                )}
-                {site.social.facebook && (
-                  <li>
-                    <a
-                      href={site.social.facebook}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={contactLinkOnDarkClassName}
-                    >
-                      Facebook
-                    </a>
-                  </li>
-                )}
-              </ul>
+              <h4 className="mb-6 text-[11px] tracking-[0.2em] text-brand uppercase">
+                Réseaux sociaux
+              </h4>
+              {site.social.instagram && (
+                <a
+                  href={site.social.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block text-sm leading-8 no-underline transition-colors hover:text-brand"
+                >
+                  Instagram
+                </a>
+              )}
+              {site.social.facebook && (
+                <a
+                  href={site.social.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block text-sm leading-8 no-underline transition-colors hover:text-brand"
+                >
+                  Facebook
+                </a>
+              )}
             </div>
           )}
         </div>

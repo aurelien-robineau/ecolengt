@@ -1,7 +1,11 @@
+import type { ReactNode } from 'react'
+
+import { AddressContent } from '@/components/ui/AddressContent'
 import type { ContactPageData, SiteSettingsData } from '@/lib/cms/types'
+import { cn } from '@/lib/cn'
 import {
-  contactAddressClassName,
-  contactLinkClassName,
+  contactLinkValueClassName,
+  contactValueClassName,
   sectionLabelClassName,
 } from '@/lib/ui/typography'
 
@@ -10,45 +14,59 @@ type ContactLocationProps = {
   mapsEmbedSrc: ContactPageData['mapsEmbedSrc']
 }
 
+type ContactInfoBlockProps = {
+  label: string
+  children: ReactNode
+  className?: string
+}
+
+function ContactInfoBlock({ label, children, className }: ContactInfoBlockProps) {
+  return (
+    <div className={cn('border-b border-brand-border/50 py-6 last:border-b-0 last:pb-0', className)}>
+      <h2 className={cn(sectionLabelClassName, 'mb-4')}>{label}</h2>
+      {children}
+    </div>
+  )
+}
+
 export function ContactLocation({ site, mapsEmbedSrc }: ContactLocationProps) {
   return (
-    <div className="mb-16 grid gap-10 lg:grid-cols-[minmax(0,16rem)_1fr] lg:gap-12 lg:items-start">
-      <div className="space-y-12">
-        <div>
-          <h2 className={sectionLabelClassName}>Téléphone</h2>
-          <ul className="mt-4 list-none space-y-2">
+    <div className="mb-16 grid gap-10 lg:grid-cols-[minmax(0,20rem)_1fr] lg:gap-12 lg:items-start">
+      <aside className="border border-brand-border bg-brand-dim p-6 md:p-8">
+        <ContactInfoBlock label="Téléphone" className="pt-0">
+          <ul className="list-none space-y-3">
             {site.contact.phones.map((phone) => (
               <li key={phone.href}>
-                <a href={phone.href} className={contactLinkClassName}>
+                <a href={phone.href} className={contactLinkValueClassName}>
                   {phone.display}
                 </a>
               </li>
             ))}
           </ul>
-        </div>
+        </ContactInfoBlock>
 
-        <div>
-          <h2 className={sectionLabelClassName}>E-mail</h2>
-          <ul className="mt-4 list-none space-y-2">
+        <ContactInfoBlock label="E-mail">
+          <ul className="list-none space-y-3">
             {site.contact.emails.map((email) => (
               <li key={email.href}>
-                <a href={email.href} className={contactLinkClassName}>
+                <a href={email.href} className={contactLinkValueClassName}>
                   {email.display}
                 </a>
               </li>
             ))}
           </ul>
-        </div>
+        </ContactInfoBlock>
 
-        <div>
-          <h2 className={sectionLabelClassName}>Adresse</h2>
-          <address className={`mt-4 ${contactAddressClassName}`}>
-            {site.address.street}
-            <br />
-            {site.address.city}
-          </address>
-        </div>
-      </div>
+        <ContactInfoBlock label="Adresse">
+          <AddressContent
+            street={site.address.street}
+            city={site.address.city}
+            mapsUrl={site.address.mapsUrl}
+            className={contactValueClassName}
+            linkClassName={contactLinkValueClassName}
+          />
+        </ContactInfoBlock>
+      </aside>
 
       <div className="relative aspect-4/3 w-full overflow-hidden bg-surface-muted lg:aspect-auto lg:min-h-[28rem]">
         <iframe

@@ -1,5 +1,4 @@
 import type { SiteSettingsData } from '@/lib/cms/types'
-import { contactLinkClassName, sectionLabelClassName } from '@/lib/ui/typography'
 
 type ContactDetailsProps = {
   site: SiteSettingsData
@@ -14,33 +13,29 @@ export function ContactDetails({ site }: ContactDetailsProps) {
 
   return (
     <div>
-      <h2 className={sectionLabelClassName}>Réseaux sociaux</h2>
-      <ul className="mt-4 list-none space-y-2">
-        {site.social.instagram && (
-          <li>
-            <a
-              href={site.social.instagram}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={contactLinkClassName}
-            >
-              Instagram
-            </a>
-          </li>
-        )}
-        {site.social.facebook && (
-          <li>
-            <a
-              href={site.social.facebook}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={contactLinkClassName}
-            >
-              Facebook
-            </a>
-          </li>
-        )}
-      </ul>
+      <h2 className="mb-6 text-[11px] tracking-[0.2em] text-foreground uppercase">
+        Réseaux sociaux
+      </h2>
+      {site.social.instagram && (
+        <a
+          href={site.social.instagram}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block text-sm leading-8 text-foreground-muted no-underline transition-colors hover:text-foreground"
+        >
+          Instagram
+        </a>
+      )}
+      {site.social.facebook && (
+        <a
+          href={site.social.facebook}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block text-sm leading-8 text-foreground-muted no-underline transition-colors hover:text-foreground"
+        >
+          Facebook
+        </a>
+      )}
     </div>
   )
 }

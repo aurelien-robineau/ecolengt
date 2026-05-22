@@ -6,18 +6,8 @@ export const bodyTextClassName =
 export const sectionLabelClassName =
   'text-xs font-medium tracking-[0.2em] text-foreground uppercase md:text-[11px]'
 
-/** Phone, email — prominent on light backgrounds. */
-export const contactLinkClassName =
-  'block text-lg leading-snug font-normal text-foreground no-underline transition-colors hover:text-brand md:text-xl'
+/** Contact values on the contact page (phone, email, address). */
+export const contactValueClassName =
+  'font-sans text-lg leading-snug font-normal text-foreground md:text-xl'
 
-/** Phone, email — prominent on dark footer. */
-export const contactLinkOnDarkClassName =
-  'block text-lg leading-snug font-normal text-surface-muted no-underline transition-colors hover:text-brand md:text-xl'
-
-/** Postal address on light backgrounds. */
-export const contactAddressClassName =
-  'not-italic text-lg leading-snug font-normal text-foreground md:text-xl'
-
-/** Postal address on dark footer. */
-export const contactAddressOnDarkClassName =
-  'not-italic text-lg leading-snug font-normal text-surface-muted md:text-xl'
+export const contactLinkValueClassName = `${contactValueClassName} block no-underline transition-colors hover:text-brand`
