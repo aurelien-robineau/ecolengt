@@ -7,7 +7,7 @@ import { mapContactPage } from '@/lib/cms/mapContactPage'
 import { mapGuestbookPage } from '@/lib/cms/mapGuestbookPage'
 import { mapHomePage } from '@/lib/cms/mapHomePage'
 import { mapIntensiveCoursesPage } from '@/lib/cms/mapIntensiveCoursesPage'
-import { mapIntensiveCoursesSubPage } from '@/lib/cms/mapIntensiveCoursesSubPage'
+import { mapIntensiveCoursesCalendarPage } from '@/lib/cms/mapIntensiveCoursesCalendarPage'
 import { mapPricingPage } from '@/lib/cms/mapPricingPage'
 import { mapLegalNoticePage } from '@/lib/cms/mapLegalNoticePage'
 import { mapNewsPage } from '@/lib/cms/mapNewsPage'
@@ -87,7 +87,7 @@ export const getSiteContent = cache(async (): Promise<SiteContent> => {
     tomTom: mapTomTomPage(tomTomPage),
     intensiveCourses: mapIntensiveCoursesPage(intensiveCoursesPage),
     pricing: mapPricingPage(pricingPage),
-    intensiveCoursesCalendar: mapIntensiveCoursesSubPage(intensiveCoursesCalendarPage),
+    intensiveCoursesCalendar: mapIntensiveCoursesCalendarPage(intensiveCoursesCalendarPage),
     legalNotice: mapLegalNoticePage(legalNoticePage),
   }
 })

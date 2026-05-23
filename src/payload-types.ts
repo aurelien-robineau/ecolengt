@@ -847,28 +847,40 @@ export interface IntensiveCoursesPage {
   createdAt?: string | null;
 }
 /**
- * Calendrier des stages intensifs (page liée depuis Stages intensifs).
+ * Une entrée par année scolaire : titre (ex. 2025-2026) et dates pour cette période.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "intensive-courses-calendar-page".
  */
 export interface IntensiveCoursesCalendarPage {
   id: string;
-  content?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
+  /**
+   * Ajoutez une entrée par année scolaire, avec les dates des stages pour cette période.
+   */
+  schoolYears?:
+    | {
+        /**
+         * Ex. 2025-2026
+         */
+        title: string;
+        content?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1256,7 +1268,13 @@ export interface IntensiveCoursesPageSelect<T extends boolean = true> {
  * via the `definition` "intensive-courses-calendar-page_select".
  */
 export interface IntensiveCoursesCalendarPageSelect<T extends boolean = true> {
-  content?: T;
+  schoolYears?:
+    | T
+    | {
+        title?: T;
+        content?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

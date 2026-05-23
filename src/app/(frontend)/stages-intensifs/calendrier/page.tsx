@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-import { IntensiveCoursesRichText } from '@/components/intensive-courses/IntensiveCoursesRichText'
+import { IntensiveCoursesCalendarSchoolYears } from '@/components/intensive-courses/IntensiveCoursesCalendarSchoolYears'
 import { Container } from '@/components/ui/Container'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import { getSiteContent } from '@/lib/cms/getSiteContent'
@@ -21,7 +21,9 @@ export default async function StagesIntensifsCalendarPage() {
     <section className="bg-surface py-(--spacing-section-mobile) pt-28 md:py-(--spacing-section)">
       <Container>
         <SectionHeader label={site.name} title="Calendrier des stages intensifs" />
-        <IntensiveCoursesRichText content={intensiveCoursesCalendar.content} />
+        <IntensiveCoursesCalendarSchoolYears
+          schoolYears={intensiveCoursesCalendar.schoolYears}
+        />
       </Container>
     </section>
   )

@@ -6,24 +6,10 @@ import { mapSiteAddress } from '@/lib/cms/mapSiteAddress'
 import { mapRichText } from '@/lib/cms/mapRichText'
 import type { SiteSettingsData } from '@/lib/cms/types'
 
-type SiteSettingLegacy = SiteSetting & {
-  mapsUrl?: string | null
-  workshopsAddressStreet?: string | null
-  workshopsAddressStreetLine2?: string | null
-  workshopsAddressPostalCode?: string | null
-  workshopsAddressCity?: string | null
-  workshopsAddressMapsUrl?: string | null
-  workshopsAddressMapsEmbed?: string | null
-  workshopsAccessDirectionsContent?: SiteSetting['intensiveCoursesAccessDirectionsContent']
-  workshopsAccessGallery?: SiteSetting['intensiveCoursesAccessGallery']
-}
-
 export function mapSiteSettings(data: SiteSetting | null | undefined): SiteSettingsData {
   if (!data) {
     return defaultSiteSettings
   }
-
-  const legacy = data as SiteSettingLegacy
 
   const phones =
     data.phones
@@ -54,7 +40,7 @@ export function mapSiteSettings(data: SiteSetting | null | undefined): SiteSetti
       streetLine2: data.addressStreetLine2,
       postalCode: data.addressPostalCode,
       city: data.addressCity,
-      mapsUrl: data.addressMapsUrl ?? legacy.mapsUrl,
+      mapsUrl: data.addressMapsUrl,
       mapsEmbed: data.addressMapsEmbed,
     }),
     addressAccess: {
@@ -62,22 +48,16 @@ export function mapSiteSettings(data: SiteSetting | null | undefined): SiteSetti
       gallery: mapGallery(data.addressAccessGallery),
     },
     intensiveCoursesAddress: mapSiteAddress({
-      street: data.intensiveCoursesAddressStreet ?? legacy.workshopsAddressStreet,
-      streetLine2:
-        data.intensiveCoursesAddressStreetLine2 ?? legacy.workshopsAddressStreetLine2,
-      postalCode:
-        data.intensiveCoursesAddressPostalCode ?? legacy.workshopsAddressPostalCode,
-      city: data.intensiveCoursesAddressCity ?? legacy.workshopsAddressCity,
-      mapsUrl: data.intensiveCoursesAddressMapsUrl ?? legacy.workshopsAddressMapsUrl,
-      mapsEmbed: data.intensiveCoursesAddressMapsEmbed ?? legacy.workshopsAddressMapsEmbed,
+      street: data.intensiveCoursesAddressStreet,
+      streetLine2: data.intensiveCoursesAddressStreetLine2,
+      postalCode: data.intensiveCoursesAddressPostalCode,
+      city: data.intensiveCoursesAddressCity,
+      mapsUrl: data.intensiveCoursesAddressMapsUrl,
+      mapsEmbed: data.intensiveCoursesAddressMapsEmbed,
     }),
     intensiveCoursesAccess: {
-      directions: mapRichText(
-        data.intensiveCoursesAccessDirectionsContent ?? legacy.workshopsAccessDirectionsContent,
-      ),
-      gallery: mapGallery(
-        data.intensiveCoursesAccessGallery ?? legacy.workshopsAccessGallery,
-      ),
+      directions: mapRichText(data.intensiveCoursesAccessDirectionsContent),
+      gallery: mapGallery(data.intensiveCoursesAccessGallery),
     },
     contact: {
       phones,
