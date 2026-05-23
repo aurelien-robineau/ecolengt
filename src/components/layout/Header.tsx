@@ -1,5 +1,6 @@
 'use client'
 
+import { usePathname } from 'next/navigation'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 
@@ -43,7 +44,36 @@ function MenuIcon({ open }: { open: boolean }) {
 
 const MENU_TRANSITION_MS = 300
 
+function isNavItemActive(pathname: string, href: string): boolean {
+  const path = resolveHashHref(href).split('#')[0] ?? '/'
+
+  if (path === routes.home) {
+    return pathname === routes.home
+  }
+
+  if (path === routes.alumni && pathname.startsWith(`${routes.students}/`)) {
+    return true
+  }
+
+  return pathname === path || pathname.startsWith(`${path}/`)
+}
+
+function navLinkClassName(isActive: boolean, variant: 'desktop' | 'mobile'): string {
+  if (variant === 'desktop') {
+    return cn(
+      'text-[11px] tracking-[0.12em] uppercase no-underline transition-colors',
+      isActive ? 'text-foreground' : 'text-foreground-muted hover:text-foreground',
+    )
+  }
+
+  return cn(
+    'block py-3 font-serif text-2xl font-light no-underline transition-colors',
+    isActive ? 'text-foreground' : 'text-foreground-muted hover:text-foreground',
+  )
+}
+
 export function Header({ site }: HeaderProps) {
+  const pathname = usePathname()
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [menuMounted, setMenuMounted] = useState(false)
@@ -142,18 +172,23 @@ export function Header({ site }: HeaderProps) {
             inert={menuOpen ? undefined : true}
           >
             <ul className="mt-8 flex list-none flex-col gap-1">
-              {site.navigation.map((item) => (
-                <li key={item.href}>
-                  <a
-                    href={resolveHashHref(item.href)}
-                    className="block py-3 font-serif text-2xl font-light text-foreground-muted no-underline transition-colors hover:text-foreground"
-                    onClick={closeMenu}
-                    tabIndex={menuOpen ? 0 : -1}
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              ))}
+              {site.navigation.map((item) => {
+                const isActive = isNavItemActive(pathname, item.href)
+
+                return (
+                  <li key={item.href}>
+                    <a
+                      href={resolveHashHref(item.href)}
+                      className={navLinkClassName(isActive, 'mobile')}
+                      aria-current={isActive ? 'page' : undefined}
+                      onClick={closeMenu}
+                      tabIndex={menuOpen ? 0 : -1}
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                )
+              })}
             </ul>
 
             <div className="mt-auto pt-10">
@@ -190,16 +225,21 @@ export function Header({ site }: HeaderProps) {
 
           <nav className="hidden items-center gap-8 lg:flex" aria-label="Navigation principale">
             <ul className="flex list-none gap-8">
-              {site.navigation.map((item) => (
-                <li key={item.href}>
-                  <a
-                    href={resolveHashHref(item.href)}
-                    className="text-[11px] tracking-[0.12em] text-foreground-muted uppercase no-underline transition-colors hover:text-foreground"
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              ))}
+              {site.navigation.map((item) => {
+                const isActive = isNavItemActive(pathname, item.href)
+
+                return (
+                  <li key={item.href}>
+                    <a
+                      href={resolveHashHref(item.href)}
+                      className={navLinkClassName(isActive, 'desktop')}
+                      aria-current={isActive ? 'page' : undefined}
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                )
+              })}
             </ul>
           </nav>
 
