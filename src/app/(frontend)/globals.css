@@ -31,9 +31,35 @@
     scroll-behavior: smooth;
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
   body {
     @apply bg-surface font-sans font-light text-foreground antialiased;
     line-height: 1.7;
+  }
+
+  :where(a, button, input, select, textarea, [tabindex]:not([tabindex='-1'])):focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand;
+  }
+
+  /* Skip-link target: no visible ring when landing on <main> after skip. */
+  main:focus {
+    outline: none;
+  }
+}
+
+@layer components {
+  /* Visually hidden until keyboard focus — zero impact for mouse users. */
+  .skip-link {
+    @apply sr-only;
+  }
+
+  .skip-link:focus-visible {
+    @apply not-sr-only fixed top-4 left-4 z-200 rounded-sm bg-foreground px-4 py-2 text-xs font-medium tracking-wide text-surface uppercase no-underline;
   }
 }
 
@@ -68,5 +94,16 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up,
+  .animate-fade-up-delay-1,
+  .animate-fade-up-delay-2,
+  .animate-fade-up-delay-3 {
+    animation: none;
+    opacity: 1;
+    transform: none;
   }
 }

@@ -12,6 +12,8 @@ type CmsImageProps = {
   fetchPriority?: 'high' | 'low' | 'auto'
   /** cover fills a fixed frame; contain keeps the full image visible (no crop). */
   fit?: 'cover' | 'contain'
+  /** Mark purely decorative images (empty alt). */
+  decorative?: boolean
 }
 
 export function CmsImage({
@@ -22,6 +24,7 @@ export function CmsImage({
   loading,
   fetchPriority,
   fit = 'cover',
+  decorative = false,
 }: CmsImageProps) {
   if (!image) {
     return null
@@ -30,7 +33,8 @@ export function CmsImage({
   return (
     <Image
       src={image.src}
-      alt={image.alt}
+      alt={decorative ? '' : image.alt}
+      {...(decorative ? { role: 'presentation' } : {})}
       width={image.width ?? 1200}
       height={image.height ?? 800}
       className={cn(

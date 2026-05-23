@@ -27,6 +27,7 @@ export function HeroSection({ hero, city, foundedYear }: HeroSectionProps) {
             className="absolute inset-0 object-[center_35%] md:object-center"
             sizes="100vw"
             priority
+            decorative
           />
         </div>
       : null}

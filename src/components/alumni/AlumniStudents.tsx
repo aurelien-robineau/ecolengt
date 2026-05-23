@@ -11,7 +11,7 @@ export function AlumniStudents({ students }: AlumniStudentsProps) {
   }
 
   return (
-    <section aria-label="Anciens élèves">
+    <section>
       <ul className="grid list-none gap-x-10 gap-y-9 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-12 lg:gap-y-11">
         {students.map((student, index) => (
           <li key={`${student.name}-${index}`}>

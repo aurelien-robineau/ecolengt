@@ -1,3 +1,4 @@
+import { externalLinkAriaLabel } from '@/lib/a11y/externalLink'
 import { formatPostalCityLine } from '@/lib/cms/formatAddress'
 import { cn } from '@/lib/cn'
 
@@ -36,6 +37,8 @@ export function AddressContent({
     return <address className={cn('not-italic', className)}>{lines}</address>
   }
 
+  const mapsLabel = externalLinkAriaLabel('Voir l’adresse sur Google Maps', mapsUrl)
+
   return (
     <address className="not-italic">
       <a
@@ -43,6 +46,7 @@ export function AddressContent({
         target="_blank"
         rel="noopener noreferrer"
         className={linkClassName}
+        aria-label={mapsLabel}
       >
         {lines}
       </a>

@@ -13,7 +13,7 @@ export function GuestbookTestimonials({ items }: GuestbookTestimonialsProps) {
   }
 
   return (
-    <section aria-label="Témoignages">
+    <section>
       <h2 className={`mb-10 ${sectionLabelClassName}`}>Témoignages</h2>
       <ul className="flex list-none flex-col gap-14 md:gap-16">
         {items.map((item, index) => (

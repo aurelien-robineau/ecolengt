@@ -28,7 +28,7 @@ export default async function StagesIntensifsPage() {
   return (
     <section className="bg-surface py-(--spacing-section-mobile) pt-28 md:py-(--spacing-section)">
       <Container>
-        <SectionHeader label={site.name} title="Stages intensifs" />
+        <SectionHeader label={site.name} title="Stages intensifs" titleAs="h1" />
         <IntensiveCoursesPageActions />
 
         {hasIntro ?

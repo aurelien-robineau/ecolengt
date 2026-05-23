@@ -23,7 +23,7 @@ export default async function ContactPage() {
   return (
     <section className="bg-surface py-(--spacing-section-mobile) pt-28 md:py-(--spacing-section)">
       <Container>
-        <SectionHeader label={site.name} title="Nous contacter" />
+        <SectionHeader label={site.name} title="Nous contacter" titleAs="h1" />
         <div className="mb-12 max-w-xl">
           <CmsRichText data={contact.intro} />
         </div>

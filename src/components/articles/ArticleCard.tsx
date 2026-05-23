@@ -8,15 +8,22 @@ type ArticleCardProps = {
 }
 
 export function ArticleCard({ article }: ArticleCardProps) {
+  const articleLabel = `Article : ${article.title}`
+
   return (
     <article className="group flex flex-col">
-      <Link href={article.pageHref} className="mb-5 block overflow-hidden">
+      <Link
+        href={article.pageHref}
+        className="mb-5 block overflow-hidden"
+        aria-label={article.image ? `${articleLabel} — voir l’image` : articleLabel}
+      >
         {article.image ?
           <div className="aspect-[16/10] overflow-hidden bg-foreground/5">
             <CmsImage
               image={article.image}
               className="transition-transform duration-500 ease-out group-hover:scale-[1.02]"
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              decorative
             />
           </div>
         : null}
@@ -38,6 +45,7 @@ export function ArticleCard({ article }: ArticleCardProps) {
       <Link
         href={article.pageHref}
         className="text-[11px] tracking-[0.12em] text-foreground-muted uppercase no-underline transition-colors hover:text-brand"
+        aria-label={`Lire la suite : ${article.title}`}
       >
         Lire la suite
       </Link>

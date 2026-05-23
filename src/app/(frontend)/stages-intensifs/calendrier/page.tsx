@@ -20,7 +20,7 @@ export default async function StagesIntensifsCalendarPage() {
   return (
     <section className="bg-surface py-(--spacing-section-mobile) pt-28 md:py-(--spacing-section)">
       <Container>
-        <SectionHeader label={site.name} title="Calendrier des stages intensifs" />
+        <SectionHeader label={site.name} title="Calendrier des stages intensifs" titleAs="h1" />
         <IntensiveCoursesCalendarSchoolYears
           schoolYears={intensiveCoursesCalendar.schoolYears}
         />

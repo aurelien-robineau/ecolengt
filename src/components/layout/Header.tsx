@@ -1,12 +1,13 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 
 import { Button } from '@/components/ui/Button'
 import { Container } from '@/components/ui/Container'
 import { Logo } from '@/components/ui/Logo'
 import { routes } from '@/config/routes'
+import { getFocusableElements, useFocusTrap } from '@/lib/a11y/focus'
 import type { SiteSettingsData } from '@/lib/cms/types'
 import { cn } from '@/lib/cn'
 import { resolveHashHref } from '@/lib/resolveHashHref'
@@ -47,6 +48,8 @@ export function Header({ site }: HeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false)
   const [menuMounted, setMenuMounted] = useState(false)
   const [mounted, setMounted] = useState(false)
+  const menuButtonRef = useRef<HTMLButtonElement>(null)
+  const mobileNavRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
     setMounted(true)
@@ -66,36 +69,54 @@ export function Header({ site }: HeaderProps) {
     }
   }, [menuOpen])
 
+  const closeMenu = useCallback(() => {
+    setMenuOpen(false)
+    window.setTimeout(() => setMenuMounted(false), MENU_TRANSITION_MS)
+  }, [])
+
+  const openMenu = useCallback(() => {
+    const openedWithKeyboard = menuButtonRef.current?.matches(':focus-visible') ?? false
+
+    setMenuMounted(true)
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        setMenuOpen(true)
+
+        if (openedWithKeyboard) {
+          requestAnimationFrame(() => {
+            const nav = mobileNavRef.current
+            if (!nav) return
+            getFocusableElements(nav)[0]?.focus()
+          })
+        }
+      })
+    })
+  }, [])
+
+  const toggleMenu = useCallback(() => {
+    if (menuOpen) {
+      closeMenu()
+    } else {
+      openMenu()
+    }
+  }, [closeMenu, menuOpen, openMenu])
+
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
+      if (event.key === 'Escape' && menuOpen) {
         closeMenu()
       }
     }
 
     window.addEventListener('keydown', onKeyDown)
     return () => window.removeEventListener('keydown', onKeyDown)
-  }, [])
+  }, [closeMenu, menuOpen])
 
-  const openMenu = () => {
-    setMenuMounted(true)
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => setMenuOpen(true))
-    })
-  }
-
-  const closeMenu = () => {
-    setMenuOpen(false)
-    window.setTimeout(() => setMenuMounted(false), MENU_TRANSITION_MS)
-  }
-
-  const toggleMenu = () => {
-    if (menuOpen) {
-      closeMenu()
-    } else {
-      openMenu()
-    }
-  }
+  useFocusTrap({
+    active: menuOpen,
+    containerRef: mobileNavRef,
+    restoreFocusRef: menuButtonRef,
+  })
 
   const mobileMenu =
     mounted && menuMounted ?
@@ -106,10 +127,11 @@ export function Header({ site }: HeaderProps) {
               'fixed inset-0 z-90 bg-foreground/25 transition-opacity duration-300 ease-out lg:hidden',
               menuOpen ? 'opacity-100' : 'pointer-events-none opacity-0',
             )}
-            aria-hidden={!menuOpen}
+            aria-hidden
             onClick={closeMenu}
           />
           <nav
+            ref={mobileNavRef}
             id="mobile-nav"
             className={cn(
               'fixed top-0 right-0 z-95 flex h-dvh w-[min(100%,20rem)] flex-col border-l border-border bg-surface px-8 pt-17.5 pb-10 shadow-xl transition-transform duration-300 ease-out lg:hidden',
@@ -117,6 +139,7 @@ export function Header({ site }: HeaderProps) {
             )}
             aria-label="Navigation mobile"
             aria-hidden={!menuOpen}
+            inert={menuOpen ? undefined : true}
           >
             <ul className="mt-8 flex list-none flex-col gap-1">
               {site.navigation.map((item) => (
@@ -159,7 +182,11 @@ export function Header({ site }: HeaderProps) {
         )}
       >
         <Container className="flex h-[70px] items-center justify-between gap-4">
-          <Logo priority className="max-h-9 md:max-h-10" />
+          <Logo
+            priority
+            className="max-h-9 md:max-h-10"
+            linkLabel={`${site.name} — Accueil`}
+          />
 
           <nav className="hidden items-center gap-8 lg:flex" aria-label="Navigation principale">
             <ul className="flex list-none gap-8">
@@ -178,6 +205,7 @@ export function Header({ site }: HeaderProps) {
 
           <div className="flex items-center gap-3">
             <button
+              ref={menuButtonRef}
               type="button"
               className="inline-flex h-10 w-10 items-center justify-center border border-border text-foreground-muted transition-colors hover:border-foreground hover:text-foreground lg:hidden"
               aria-expanded={menuOpen}

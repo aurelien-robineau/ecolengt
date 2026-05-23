@@ -3,7 +3,9 @@ import React from 'react'
 
 import { Footer } from '@/components/layout/Footer'
 import { Header } from '@/components/layout/Header'
+import { SkipLink } from '@/components/ui/SkipLink'
 import { getSiteContent } from '@/lib/cms/getSiteContent'
+import { mainContentId } from '@/lib/a11y/mainContent'
 
 import '@/app/(frontend)/globals.css'
 
@@ -34,8 +36,11 @@ export async function FrontendShell({ children }: FrontendShellProps) {
       className={`${cormorant.variable} ${dmSans.variable}`}
     >
       <body>
+        <SkipLink />
         <Header site={site} />
-        <main>{children}</main>
+        <main id={mainContentId} tabIndex={-1} className="outline-none">
+          {children}
+        </main>
         <Footer site={site} />
       </body>
     </html>
