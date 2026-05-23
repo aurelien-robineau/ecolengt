@@ -67,7 +67,7 @@ export const SiteSettings: GlobalConfig = {
               type: 'collapsible',
               label: 'Adresse des stages intensifs',
               admin: {
-                initCollapsed: true,
+                initCollapsed: false,
                 description: 'Section Accès de la page Stages intensifs.',
               },
               fields: [

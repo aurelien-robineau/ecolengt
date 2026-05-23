@@ -68,6 +68,7 @@ export const landingSectionFields: Field[] = [
     type: 'collapsible',
     label: 'Encadré mis en avant',
     admin: {
+      initCollapsed: true,
       description:
         'Bloc optionnel sur fond jaune clair. Laisser le titre vide pour ne pas l’afficher.',
     },
