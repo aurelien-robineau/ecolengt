@@ -10,7 +10,7 @@ export const NewsPage: GlobalConfig = {
   admin: {
     group: adminGroups.pagesGeneral,
     description:
-      'Contenu affiché sur la page Actualité, en plus de la liste des articles.',
+      'Encadré optionnel en haut de la page Actualité. Les articles se gèrent dans Contenu → Articles.',
   },
   access: {
     read: () => true,
@@ -28,6 +28,16 @@ export const NewsPage: GlobalConfig = {
       admin: {
         description:
           'Encadré jaune optionnel en haut de la page Actualité (prochains événements, dates, etc.). Laisser vide pour ne rien afficher.',
+      },
+    },
+    {
+      name: 'articlesManager',
+      type: 'ui',
+      label: 'Articles',
+      admin: {
+        components: {
+          Field: '@/components/admin/NewsArticlesField#NewsArticlesField',
+        },
       },
     },
   ],
