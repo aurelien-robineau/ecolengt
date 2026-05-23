@@ -7,26 +7,19 @@ type QuoteBandProps = {
   quote: LandingPageData['quote']
 }
 
+const portraitFrameClassName =
+  'relative mx-auto aspect-4/5 w-full max-w-[14rem] overflow-hidden bg-foreground/8 ring-1 ring-foreground/10 lg:mx-0 lg:max-w-none'
+
 export function QuoteBand({ quote }: QuoteBandProps) {
   return (
     <section className="bg-brand py-20">
       <Container>
         <div className="mx-auto grid max-w-4xl items-center gap-12 lg:grid-cols-[minmax(0,14rem)_1fr] lg:gap-16">
-          {quote.portrait ?
-            <div className="relative mx-auto aspect-4/5 w-full max-w-[14rem] overflow-hidden bg-foreground/8 ring-1 ring-foreground/10 lg:mx-0 lg:max-w-none">
-              <CmsImage
-                image={quote.portrait}
-                className="absolute inset-0"
-                sizes="14rem"
-                priority
-              />
-            </div>
-          : <PortraitPlaceholder
-              alt={quote.imageAlt}
-              variant="onBrand"
-              className="mx-auto w-full max-w-[14rem] lg:mx-0 lg:max-w-none"
-            />
-          }
+          <div className={portraitFrameClassName}>
+            {quote.portrait ?
+              <CmsImage image={quote.portrait} fill sizes="14rem" priority />
+            : <PortraitPlaceholder alt={quote.imageAlt} embedded />}
+          </div>
 
           <blockquote className="text-center lg:text-left">
             <p className="font-serif text-[clamp(1.375rem,3vw,2rem)] leading-relaxed font-light text-foreground italic">

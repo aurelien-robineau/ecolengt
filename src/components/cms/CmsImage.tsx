@@ -14,6 +14,8 @@ type CmsImageProps = {
   fit?: 'cover' | 'contain'
   /** Mark purely decorative images (empty alt). */
   decorative?: boolean
+  /** Fill a positioned parent container (requires relative + sized ancestor). */
+  fill?: boolean
 }
 
 export function CmsImage({
@@ -25,20 +27,32 @@ export function CmsImage({
   fetchPriority,
   fit = 'cover',
   decorative = false,
+  fill = false,
 }: CmsImageProps) {
   if (!image) {
     return null
   }
+
+  const objectFitClass =
+    fit === 'contain' ? 'object-contain' : 'object-cover'
 
   return (
     <Image
       src={image.src}
       alt={decorative ? '' : image.alt}
       {...(decorative ? { role: 'presentation' } : {})}
-      width={image.width ?? 1200}
-      height={image.height ?? 800}
+      {...(fill ?
+        { fill: true }
+      : {
+          width: image.width ?? 1200,
+          height: image.height ?? 800,
+        })}
       className={cn(
-        fit === 'contain' ? 'h-auto w-auto max-w-full object-contain' : 'h-full w-full object-cover',
+        fill ?
+          objectFitClass
+        : fit === 'contain' ?
+          'h-auto w-auto max-w-full object-contain'
+        : 'h-full w-full object-cover',
         className,
       )}
       sizes={sizes}
