@@ -27,10 +27,10 @@ export default async function ContactPage() {
         <div className="mb-12 max-w-xl">
           <CmsRichText data={contact.intro} />
         </div>
-        <ContactLocation site={site} mapsEmbedSrc={contact.mapsEmbedSrc} />
+        <ContactLocation site={site} />
         <ContactAccessGallery
-          directions={contact.accessDirections}
-          items={contact.accessGallery}
+          directions={site.addressAccess.directions}
+          items={site.addressAccess.gallery}
         />
         <ContactDetails site={site} />
       </Container>

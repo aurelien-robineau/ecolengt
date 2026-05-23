@@ -10,7 +10,7 @@ export const ContactPage: GlobalConfig = {
   admin: {
     group: adminGroups.pagesGeneral,
     description:
-      'Contenu affiché sur la page Contact : texte d’introduction, photos d’accès et carte Google Maps.',
+      'Texte d’introduction de la page Contact. L’adresse, la carte, les instructions et les photos d’accès sont gérées dans Paramètres du site.',
   },
   access: {
     read: () => true,
@@ -21,71 +21,13 @@ export const ContactPage: GlobalConfig = {
   },
   fields: [
     {
-      type: 'tabs',
-      tabs: [
-        {
-          label: 'Introduction',
-          description: 'Texte affiché sous le titre de la page Contact.',
-          fields: [
-            {
-              name: 'introContent',
-              type: 'richText',
-              label: 'Texte d’introduction',
-              editor: pageRichTextEditor,
-            },
-          ],
-        },
-        {
-          label: 'Accès',
-          description:
-            'Instructions pour se rendre sur place et galerie photos sous la section Accès.',
-          fields: [
-            {
-              name: 'accessDirectionsContent',
-              type: 'richText',
-              label: 'Instructions pour se rendre sur place',
-              editor: pageRichTextEditor,
-              admin: {
-                description:
-                  'Indications optionnelles affichées sous le titre « Accès », avant les photos.',
-              },
-            },
-            {
-              name: 'accessGallery',
-              type: 'array',
-              label: 'Photos',
-              labels: {
-                singular: 'Photo',
-                plural: 'Photos',
-              },
-              fields: [
-                {
-                  name: 'image',
-                  type: 'upload',
-                  relationTo: 'media',
-                  label: 'Image',
-                  required: true,
-                },
-              ],
-            },
-          ],
-        },
-        {
-          label: 'Carte Google Maps',
-          description: 'Carte affichée à côté de l’adresse sur la page Contact.',
-          fields: [
-            {
-              name: 'mapsEmbed',
-              type: 'textarea',
-              label: 'Code d’intégration',
-              admin: {
-                description:
-                  'Collez le code iframe fourni par Google Maps (« Partager » → « Intégrer une carte »), ou uniquement l’URL src du iframe.',
-              },
-            },
-          ],
-        },
-      ],
+      name: 'introContent',
+      type: 'richText',
+      label: 'Texte d’introduction',
+      editor: pageRichTextEditor,
+      admin: {
+        description: 'Texte affiché sous le titre de la page Contact.',
+      },
     },
   ],
 }

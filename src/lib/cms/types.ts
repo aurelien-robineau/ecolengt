@@ -4,15 +4,26 @@ import type { CmsRichTextContent } from '@/lib/cms/richText'
 
 export type { CmsRichTextContent }
 
+export type SiteAddressData = {
+  street: string
+  streetLine2: string
+  postalCode: string
+  city: string
+  mapsUrl: string
+  mapsEmbedSrc: string
+}
+
+export type SiteMainAccessData = {
+  directions: CmsRichTextContent | null
+  gallery: GalleryItem[]
+}
+
 export type SiteSettingsData = {
   name: string
   foundedYear: number | null
-  address: {
-    street: string
-    postalCode: string
-    city: string
-    mapsUrl: string
-  }
+  address: SiteAddressData
+  addressAccess: SiteMainAccessData
+  workshopsAddress: SiteAddressData
   contact: {
     phones: Array<{ href: string; display: string }>
     emails: Array<{ href: string; display: string }>
@@ -26,9 +37,6 @@ export type SiteSettingsData = {
 
 export type ContactPageData = {
   intro: CmsRichTextContent | null
-  accessDirections: CmsRichTextContent | null
-  accessGallery: GalleryItem[]
-  mapsEmbedSrc: string
 }
 
 export type GuestbookTestimonial = {
@@ -76,16 +84,7 @@ export type IntensiveCoursesBlock = {
   content: CmsRichTextContent | null
 }
 
-export type PageAddressData = {
-  street: string
-  postalCode: string
-  city: string
-  mapsUrl: string
-}
-
 export type IntensiveCoursesAccessData = {
-  address: PageAddressData
-  mapsEmbedSrc: string
   directions: CmsRichTextContent | null
   gallery: GalleryItem[]
 }

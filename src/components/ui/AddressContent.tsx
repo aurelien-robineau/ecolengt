@@ -3,6 +3,7 @@ import { cn } from '@/lib/cn'
 
 type AddressContentProps = {
   street: string
+  streetLine2?: string
   postalCode: string
   city: string
   mapsUrl: string
@@ -12,6 +13,7 @@ type AddressContentProps = {
 
 export function AddressContent({
   street,
+  streetLine2,
   postalCode,
   city,
   mapsUrl,
@@ -19,10 +21,17 @@ export function AddressContent({
   linkClassName,
 }: AddressContentProps) {
   const cityLine = formatPostalCityLine(postalCode, city)
+  const line2 = streetLine2?.trim()
 
   const lines = (
     <>
       {street}
+      {line2 ?
+        <>
+          <br />
+          {line2}
+        </>
+      : null}
       {cityLine ?
         <>
           <br />

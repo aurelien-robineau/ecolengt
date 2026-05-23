@@ -26,6 +26,7 @@ export function Footer({ site }: FooterProps) {
             <h4 className="mb-6 text-[11px] tracking-[0.2em] text-brand uppercase">Adresse</h4>
             <AddressContent
               street={site.address.street}
+              streetLine2={site.address.streetLine2}
               postalCode={site.address.postalCode}
               city={site.address.city}
               mapsUrl={site.address.mapsUrl}

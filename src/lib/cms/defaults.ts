@@ -7,17 +7,24 @@ import type {
   SiteSettingsData,
 } from '@/lib/cms/types'
 
-export const defaultMapsEmbedSrc = ''
+const emptySiteAddress = {
+  street: '',
+  streetLine2: '',
+  postalCode: '',
+  city: '',
+  mapsUrl: '',
+  mapsEmbedSrc: '',
+}
 
 export const defaultSiteSettings: SiteSettingsData = {
   name: '',
   foundedYear: null,
-  address: {
-    street: '',
-    postalCode: '',
-    city: '',
-    mapsUrl: '',
+  address: { ...emptySiteAddress },
+  addressAccess: {
+    directions: null,
+    gallery: [],
   },
+  workshopsAddress: { ...emptySiteAddress },
   contact: {
     phones: [],
     emails: [],
@@ -48,9 +55,6 @@ export const defaultAlumniPage: AlumniPageData = {
 
 export const defaultContactPage: ContactPageData = {
   intro: null,
-  accessDirections: null,
-  accessGallery: [],
-  mapsEmbedSrc: defaultMapsEmbedSrc,
 }
 
 export const defaultLandingPage: LandingPageData = {

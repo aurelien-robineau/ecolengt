@@ -1,21 +1,24 @@
 import { LocationWithMap } from '@/components/location/LocationWithMap'
 import { Gallery } from '@/components/ui/Gallery'
 import { hasLexicalContent } from '@/lib/cms/hasLexicalContent'
-import type { IntensiveCoursesPageData } from '@/lib/cms/types'
+import type { IntensiveCoursesPageData, SiteAddressData } from '@/lib/cms/types'
 import { pageSectionTitleClassName } from '@/lib/ui/typography'
 
 type IntensiveCoursesAccessProps = {
   siteName: string
+  address: SiteAddressData
   access: IntensiveCoursesPageData['access']
 }
 
-export function IntensiveCoursesAccess({ siteName, access }: IntensiveCoursesAccessProps) {
+export function IntensiveCoursesAccess({ siteName, address, access }: IntensiveCoursesAccessProps) {
   const hasDirections = access.directions && hasLexicalContent(access.directions)
   const hasGallery = access.gallery.length > 0
   const hasLocation = Boolean(
-    access.address.street ||
-      access.address.city ||
-      access.mapsEmbedSrc ||
+    address.street ||
+      address.streetLine2 ||
+      address.postalCode ||
+      address.city ||
+      address.mapsEmbedSrc ||
       hasDirections,
   )
 
@@ -28,8 +31,7 @@ export function IntensiveCoursesAccess({ siteName, access }: IntensiveCoursesAcc
       <h2 className={`mb-10 ${pageSectionTitleClassName}`}>Accès</h2>
 
       <LocationWithMap
-        address={access.address}
-        mapsEmbedSrc={access.mapsEmbedSrc}
+        address={address}
         mapTitle={`Plan d’accès — ${siteName}`}
         directions={access.directions}
         className={hasGallery ? 'mb-12' : undefined}

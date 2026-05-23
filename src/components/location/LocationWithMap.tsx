@@ -1,13 +1,12 @@
 import { CmsRichText } from '@/components/cms/CmsRichText'
 import { AddressContent } from '@/components/ui/AddressContent'
-import type { CmsRichTextContent, PageAddressData } from '@/lib/cms/types'
+import type { CmsRichTextContent, SiteAddressData } from '@/lib/cms/types'
 import { cn } from '@/lib/cn'
 import { hasLexicalContent } from '@/lib/cms/hasLexicalContent'
 import { contactLinkValueClassName, contactValueClassName, sectionLabelClassName } from '@/lib/ui/typography'
 
 type LocationWithMapProps = {
-  address: PageAddressData
-  mapsEmbedSrc: string
+  address: SiteAddressData
   mapTitle: string
   directions?: CmsRichTextContent | null
   className?: string
@@ -15,14 +14,15 @@ type LocationWithMapProps = {
 
 export function LocationWithMap({
   address,
-  mapsEmbedSrc,
   mapTitle,
   directions,
   className,
 }: LocationWithMapProps) {
-  const hasAddress = Boolean(address.street || address.city)
+  const hasAddress = Boolean(
+    address.street || address.streetLine2 || address.postalCode || address.city,
+  )
   const hasDirections = directions && hasLexicalContent(directions)
-  const hasMap = Boolean(mapsEmbedSrc)
+  const hasMap = Boolean(address.mapsEmbedSrc)
   const hasAside = hasAddress || hasDirections
 
   if (!hasAside && !hasMap) {
@@ -44,6 +44,7 @@ export function LocationWithMap({
               <h3 className={cn(sectionLabelClassName, 'mb-4')}>Adresse</h3>
               <AddressContent
                 street={address.street}
+                streetLine2={address.streetLine2}
                 postalCode={address.postalCode}
                 city={address.city}
                 mapsUrl={address.mapsUrl}
@@ -66,7 +67,7 @@ export function LocationWithMap({
       {hasMap ?
         <div className="relative aspect-4/3 w-full overflow-hidden bg-surface-muted lg:aspect-auto lg:min-h-112">
           <iframe
-            src={mapsEmbedSrc}
+            src={address.mapsEmbedSrc}
             title={mapTitle}
             className="absolute inset-0 h-full w-full border-0"
             loading="lazy"
