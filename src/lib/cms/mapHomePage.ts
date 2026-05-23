@@ -64,6 +64,7 @@ export function mapHomePage(data: HomePageDoc | null | undefined): LandingPageDa
       subtitle: data.heroSubtitle ?? '',
       cta: data.heroCta ?? '',
       ctaHref: data.heroCtaHref?.trim() ?? '',
+      backgroundImage: mapMedia(data.heroBackgroundImage, ''),
     },
     quote: {
       text: data.quoteText ?? '',

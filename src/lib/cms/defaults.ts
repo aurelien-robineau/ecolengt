@@ -68,6 +68,7 @@ export const defaultLandingPage: LandingPageData = {
     subtitle: '',
     cta: '',
     ctaHref: '',
+    backgroundImage: null,
   },
   quote: {
     text: '',
