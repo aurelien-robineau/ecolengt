@@ -4,6 +4,8 @@ type PortraitPlaceholderProps = {
   alt: string
   className?: string
   variant?: 'default' | 'onBrand'
+  /** Render only inner content inside a parent frame. */
+  embedded?: boolean
 }
 
 const backgrounds = {
@@ -15,11 +17,10 @@ export function PortraitPlaceholder({
   alt,
   className,
   variant = 'default',
+  embedded = false,
 }: PortraitPlaceholderProps) {
-  return (
-    <figure
-      className={cn('relative aspect-4/5 w-full max-w-md overflow-hidden', backgrounds[variant], className)}
-    >
+  const content = (
+    <>
       <div className="absolute inset-0 flex items-center justify-center">
         <svg
           className="h-14 w-14 stroke-foreground-subtle opacity-35"
@@ -33,6 +34,18 @@ export function PortraitPlaceholder({
         </svg>
       </div>
       <span className="sr-only">{alt}</span>
+    </>
+  )
+
+  if (embedded) {
+    return content
+  }
+
+  return (
+    <figure
+      className={cn('relative aspect-4/5 w-full max-w-md overflow-hidden', backgrounds[variant], className)}
+    >
+      {content}
     </figure>
   )
 }
