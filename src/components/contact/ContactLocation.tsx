@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 
 import { AddressContent } from '@/components/ui/AddressContent'
-import type { ContactPageData, SiteSettingsData } from '@/lib/cms/types'
+import type { SiteSettingsData } from '@/lib/cms/types'
 import { cn } from '@/lib/cn'
 import {
   contactLinkValueClassName,
@@ -11,7 +11,6 @@ import {
 
 type ContactLocationProps = {
   site: SiteSettingsData
-  mapsEmbedSrc: ContactPageData['mapsEmbedSrc']
 }
 
 type ContactInfoBlockProps = {
@@ -29,9 +28,16 @@ function ContactInfoBlock({ label, children, className }: ContactInfoBlockProps)
   )
 }
 
-export function ContactLocation({ site, mapsEmbedSrc }: ContactLocationProps) {
+export function ContactLocation({ site }: ContactLocationProps) {
+  const hasMap = Boolean(site.address.mapsEmbedSrc)
+
   return (
-    <div className="mb-16 grid gap-10 lg:grid-cols-[minmax(0,20rem)_1fr] lg:gap-12 lg:items-start">
+    <div
+      className={cn(
+        'mb-16 grid gap-10',
+        hasMap && 'lg:grid-cols-[minmax(0,20rem)_1fr] lg:gap-12 lg:items-start',
+      )}
+    >
       <aside className="border border-brand-border bg-brand-dim p-6 md:p-8">
         <ContactInfoBlock label="Téléphone" className="pt-0">
           <ul className="list-none space-y-3">
@@ -60,6 +66,7 @@ export function ContactLocation({ site, mapsEmbedSrc }: ContactLocationProps) {
         <ContactInfoBlock label="Adresse">
           <AddressContent
             street={site.address.street}
+            streetLine2={site.address.streetLine2}
             postalCode={site.address.postalCode}
             city={site.address.city}
             mapsUrl={site.address.mapsUrl}
@@ -69,16 +76,18 @@ export function ContactLocation({ site, mapsEmbedSrc }: ContactLocationProps) {
         </ContactInfoBlock>
       </aside>
 
-      <div className="relative aspect-4/3 w-full overflow-hidden bg-surface-muted lg:aspect-auto lg:min-h-[28rem]">
-        <iframe
-          src={mapsEmbedSrc}
-          title={`Plan d’accès — ${site.name}`}
-          className="absolute inset-0 h-full w-full border-0"
-          loading="lazy"
-          allowFullScreen
-          referrerPolicy="no-referrer-when-downgrade"
-        />
-      </div>
+      {hasMap ?
+        <div className="relative aspect-4/3 w-full overflow-hidden bg-surface-muted lg:aspect-auto lg:min-h-[28rem]">
+          <iframe
+            src={site.address.mapsEmbedSrc}
+            title={`Plan d’accès — ${site.name}`}
+            className="absolute inset-0 h-full w-full border-0"
+            loading="lazy"
+            allowFullScreen
+            referrerPolicy="no-referrer-when-downgrade"
+          />
+        </div>
+      : null}
     </div>
   )
 }

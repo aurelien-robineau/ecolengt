@@ -785,7 +785,7 @@ export interface TomTomPage {
   createdAt?: string | null;
 }
 /**
- * Contenu de la page Stages intensifs : introduction, galerie, encadrés et accès.
+ * Contenu de la page Stages intensifs : introduction, galerie, encadrés et accès. L’adresse des stages est gérée dans Paramètres du site.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "intensive-courses-page".
@@ -843,16 +843,6 @@ export interface IntensiveCoursesPage {
         id?: string | null;
       }[]
     | null;
-  accessAddressStreet?: string | null;
-  accessAddressCity?: string | null;
-  /**
-   * URL de la fiche Google Maps (bouton « Partager » → « Lien »). Utilisée lorsque l’on clique sur l’adresse.
-   */
-  accessMapsUrl?: string | null;
-  /**
-   * Collez le code iframe fourni par Google Maps (« Partager » → « Intégrer une carte »), ou uniquement l’URL src du iframe.
-   */
-  accessMapsEmbed?: string | null;
   /**
    * Indications optionnelles (accès, parking, etc.) affichées dans l’encadré adresse, sous l’adresse postale.
    */
@@ -910,13 +900,16 @@ export interface IntensiveCoursesCalendarPage {
   createdAt?: string | null;
 }
 /**
- * Contenu affiché sur la page Contact : texte d’introduction, photos d’accès et carte Google Maps.
+ * Texte d’introduction de la page Contact. L’adresse, la carte, les instructions et les photos d’accès sont gérées dans Paramètres du site.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "contact-page".
  */
 export interface ContactPage {
   id: string;
+  /**
+   * Texte affiché sous le titre de la page Contact.
+   */
   introContent?: {
     root: {
       type: string;
@@ -932,34 +925,6 @@ export interface ContactPage {
     };
     [k: string]: unknown;
   } | null;
-  /**
-   * Indications optionnelles affichées sous le titre « Accès », avant les photos.
-   */
-  accessDirectionsContent?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  accessGallery?:
-    | {
-        image: string | Media;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Collez le code iframe fourni par Google Maps (« Partager » → « Intégrer une carte »), ou uniquement l’URL src du iframe.
-   */
-  mapsEmbed?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1056,15 +1021,68 @@ export interface SiteSetting {
    */
   foundedYear?: number | null;
   /**
-   * Affiché dans le pied de page, colonne Adresse.
+   * Affiché dans le pied de page, la page Contact et les encadrés adresse.
    */
   addressStreet: string;
+  /**
+   * Nom du lieu ou du bâtiment, affiché sur la deuxième ligne de l’adresse (entre la rue et le code postal / ville).
+   */
+  addressStreetLine2?: string | null;
   addressPostalCode: string;
   addressCity: string;
   /**
    * URL de la fiche Google Maps (bouton « Partager » → « Lien »). Utilisée lorsque l’on clique sur l’adresse sur le site.
    */
-  mapsUrl?: string | null;
+  addressMapsUrl?: string | null;
+  /**
+   * Collez le code iframe fourni par Google Maps (« Partager » → « Intégrer une carte »), ou uniquement l’URL src du iframe.
+   */
+  addressMapsEmbed?: string | null;
+  /**
+   * Indications optionnelles affichées sur la page Contact, sous le titre « Accès », avant les photos.
+   */
+  addressAccessDirectionsContent?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Galerie affichée sur la page Contact, sous les instructions d’accès.
+   */
+  addressAccessGallery?:
+    | {
+        image: string | Media;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Affichée dans la section Accès de la page Stages intensifs.
+   */
+  workshopsAddressStreet?: string | null;
+  /**
+   * Nom du lieu ou du bâtiment, affiché sur la deuxième ligne de l’adresse (entre la rue et le code postal / ville).
+   */
+  workshopsAddressStreetLine2?: string | null;
+  workshopsAddressPostalCode?: string | null;
+  workshopsAddressCity?: string | null;
+  /**
+   * URL de la fiche Google Maps (bouton « Partager » → « Lien »). Utilisée lorsque l’on clique sur l’adresse sur le site.
+   */
+  workshopsAddressMapsUrl?: string | null;
+  /**
+   * Collez le code iframe fourni par Google Maps (« Partager » → « Intégrer une carte »), ou uniquement l’URL src du iframe.
+   */
+  workshopsAddressMapsEmbed?: string | null;
   /**
    * Liste des téléphones affichés dans le pied de page.
    */
@@ -1229,10 +1247,6 @@ export interface IntensiveCoursesPageSelect<T extends boolean = true> {
         content?: T;
         id?: T;
       };
-  accessAddressStreet?: T;
-  accessAddressCity?: T;
-  accessMapsUrl?: T;
-  accessMapsEmbed?: T;
   accessDirectionsContent?: T;
   accessGallery?:
     | T
@@ -1260,14 +1274,6 @@ export interface IntensiveCoursesCalendarPageSelect<T extends boolean = true> {
  */
 export interface ContactPageSelect<T extends boolean = true> {
   introContent?: T;
-  accessDirectionsContent?: T;
-  accessGallery?:
-    | T
-    | {
-        image?: T;
-        id?: T;
-      };
-  mapsEmbed?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -1301,9 +1307,24 @@ export interface SiteSettingsSelect<T extends boolean = true> {
   schoolNameShort?: T;
   foundedYear?: T;
   addressStreet?: T;
+  addressStreetLine2?: T;
   addressPostalCode?: T;
   addressCity?: T;
-  mapsUrl?: T;
+  addressMapsUrl?: T;
+  addressMapsEmbed?: T;
+  addressAccessDirectionsContent?: T;
+  addressAccessGallery?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
+  workshopsAddressStreet?: T;
+  workshopsAddressStreetLine2?: T;
+  workshopsAddressPostalCode?: T;
+  workshopsAddressCity?: T;
+  workshopsAddressMapsUrl?: T;
+  workshopsAddressMapsEmbed?: T;
   phones?:
     | T
     | {

@@ -1,12 +1,21 @@
 import type { SiteSetting } from '@/payload-types'
 import { defaultSiteSettings } from '@/lib/cms/defaults'
 import { formatPhoneHref } from '@/lib/cms/formatPhoneHref'
+import { mapGallery } from '@/lib/cms/mapGallery'
+import { mapSiteAddress } from '@/lib/cms/mapSiteAddress'
+import { mapRichText } from '@/lib/cms/mapRichText'
 import type { SiteSettingsData } from '@/lib/cms/types'
+
+type SiteSettingLegacy = SiteSetting & {
+  mapsUrl?: string | null
+}
 
 export function mapSiteSettings(data: SiteSetting | null | undefined): SiteSettingsData {
   if (!data) {
     return defaultSiteSettings
   }
+
+  const legacy = data as SiteSettingLegacy
 
   const phones =
     data.phones
@@ -32,12 +41,26 @@ export function mapSiteSettings(data: SiteSetting | null | undefined): SiteSetti
   return {
     name: data.schoolNameShort ?? '',
     foundedYear,
-    address: {
-      street: data.addressStreet ?? '',
-      postalCode: data.addressPostalCode ?? '',
-      city: data.addressCity ?? '',
-      mapsUrl: data.mapsUrl?.trim() ?? '',
+    address: mapSiteAddress({
+      street: data.addressStreet,
+      streetLine2: data.addressStreetLine2,
+      postalCode: data.addressPostalCode,
+      city: data.addressCity,
+      mapsUrl: data.addressMapsUrl ?? legacy.mapsUrl,
+      mapsEmbed: data.addressMapsEmbed,
+    }),
+    addressAccess: {
+      directions: mapRichText(data.addressAccessDirectionsContent),
+      gallery: mapGallery(data.addressAccessGallery),
     },
+    workshopsAddress: mapSiteAddress({
+      street: data.workshopsAddressStreet,
+      streetLine2: data.workshopsAddressStreetLine2,
+      postalCode: data.workshopsAddressPostalCode,
+      city: data.workshopsAddressCity,
+      mapsUrl: data.workshopsAddressMapsUrl,
+      mapsEmbed: data.workshopsAddressMapsEmbed,
+    }),
     contact: {
       phones,
       emails,

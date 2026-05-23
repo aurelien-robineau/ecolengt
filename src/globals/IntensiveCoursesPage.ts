@@ -9,7 +9,8 @@ export const IntensiveCoursesPage: GlobalConfig = {
   label: 'Stages intensifs',
   admin: {
     group: adminGroups.pagesStages,
-    description: 'Contenu de la page Stages intensifs : introduction, galerie, encadrés et accès.',
+    description:
+      'Contenu de la page Stages intensifs : introduction, galerie, encadrés et accès. L’adresse des stages est gérée dans Paramètres du site.',
   },
   access: {
     read: () => true,
@@ -81,37 +82,9 @@ export const IntensiveCoursesPage: GlobalConfig = {
       label: 'Accès',
       admin: {
         description:
-          'Adresse propre à cette page, instructions d’accès, carte Google Maps et galerie photos.',
+          'Instructions d’accès et galerie photos. L’adresse et la carte sont gérées dans Paramètres du site.',
       },
       fields: [
-        {
-          name: 'accessAddressStreet',
-          type: 'text',
-          label: 'Rue et numéro',
-        },
-        {
-          name: 'accessAddressCity',
-          type: 'text',
-          label: 'Code postal et ville',
-        },
-        {
-          name: 'accessMapsUrl',
-          type: 'text',
-          label: 'Lien Google Maps',
-          admin: {
-            description:
-              'URL de la fiche Google Maps (bouton « Partager » → « Lien »). Utilisée lorsque l’on clique sur l’adresse.',
-          },
-        },
-        {
-          name: 'accessMapsEmbed',
-          type: 'textarea',
-          label: 'Code d’intégration Google Maps',
-          admin: {
-            description:
-              'Collez le code iframe fourni par Google Maps (« Partager » → « Intégrer une carte »), ou uniquement l’URL src du iframe.',
-          },
-        },
         {
           name: 'accessDirectionsContent',
           type: 'richText',

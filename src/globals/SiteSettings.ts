@@ -1,6 +1,8 @@
 import type { GlobalConfig } from 'payload'
 
 import { adminGroups } from '@/lib/cms/adminGroups'
+import { siteAddressFields } from '@/lib/cms/siteAddressFields'
+import { siteMainAccessFields } from '@/lib/cms/siteAccessFields'
 import { revalidateSite } from '@/lib/cms/revalidateSite'
 import { validateFoundedYear } from '@/lib/cms/validateFoundedYear'
 
@@ -50,37 +52,25 @@ export const SiteSettings: GlobalConfig = {
         },
         {
           label: 'Adresse',
-          description: 'Adresse postale affichée dans le pied de page.',
+          description: 'Adresses et cartes affichées sur le site.',
           fields: [
             {
-              name: 'addressStreet',
-              type: 'text',
-              label: 'Rue et numéro',
-              required: true,
+              type: 'collapsible',
+              label: 'Adresse de l’école',
               admin: {
-                description: 'Affiché dans le pied de page, colonne Adresse.',
+                initCollapsed: false,
+                description: 'Pied de page, page Contact et métadonnées du site.',
               },
+              fields: [...siteAddressFields('address'), ...siteMainAccessFields],
             },
             {
-              name: 'addressPostalCode',
-              type: 'text',
-              label: 'Code postal',
-              required: true,
-            },
-            {
-              name: 'addressCity',
-              type: 'text',
-              label: 'Ville',
-              required: true,
-            },
-            {
-              name: 'mapsUrl',
-              type: 'text',
-              label: 'Lien Google Maps',
+              type: 'collapsible',
+              label: 'Adresse des stages intensifs',
               admin: {
-                description:
-                  'URL de la fiche Google Maps (bouton « Partager » → « Lien »). Utilisée lorsque l’on clique sur l’adresse sur le site.',
+                initCollapsed: true,
+                description: 'Section Accès de la page Stages intensifs.',
               },
+              fields: siteAddressFields('workshopsAddress'),
             },
           ],
         },
