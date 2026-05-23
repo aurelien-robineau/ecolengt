@@ -167,6 +167,7 @@ export type LandingPageData = {
     subtitle: string
     cta: string
     ctaHref: string
+    backgroundImage: CmsImageData
   }
   quote: {
     text: string

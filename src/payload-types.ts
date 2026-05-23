@@ -510,6 +510,10 @@ export interface HomePage {
    */
   heroCtaHref?: string | null;
   /**
+   * Image optionnelle affichée en arrière-plan de la bannière, sur toute la hauteur de la section.
+   */
+  heroBackgroundImage?: (string | null) | Media;
+  /**
    * Citation entre guillemets, sans les « » (ajoutés automatiquement sur le site).
    */
   quoteText: string;
@@ -1137,6 +1141,7 @@ export interface HomePageSelect<T extends boolean = true> {
   heroSubtitle?: T;
   heroCta?: T;
   heroCtaHref?: T;
+  heroBackgroundImage?: T;
   quoteText?: T;
   quoteCite?: T;
   quotePortrait?: T;

@@ -73,6 +73,16 @@ export const HomePage: GlobalConfig = {
                 description: buttonUrlFieldDescription,
               },
             },
+            {
+              name: 'heroBackgroundImage',
+              type: 'upload',
+              relationTo: 'media',
+              label: 'Image de fond',
+              admin: {
+                description:
+                  'Image optionnelle affichée en arrière-plan de la bannière, sur toute la hauteur de la section.',
+              },
+            },
           ],
         },
         {
