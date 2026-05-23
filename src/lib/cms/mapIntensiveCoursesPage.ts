@@ -7,10 +7,6 @@ const emptyIntensiveCoursesPage: IntensiveCoursesPageData = {
   intro: null,
   gallery: [],
   blocks: [],
-  access: {
-    directions: null,
-    gallery: [],
-  },
 }
 
 export function mapIntensiveCoursesPage(
@@ -27,9 +23,5 @@ export function mapIntensiveCoursesPage(
       title: block.title?.trim() ?? '',
       content: mapRichText(block.content),
     })),
-    access: {
-      directions: mapRichText(data.accessDirectionsContent),
-      gallery: mapGallery(data.accessGallery),
-    },
   }
 }

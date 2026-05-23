@@ -6,26 +6,28 @@ const mapsEmbedDescription =
 const mapsUrlDescription =
   'URL de la fiche Google Maps (bouton « Partager » → « Lien »). Utilisée lorsque l’on clique sur l’adresse sur le site.'
 
-export function siteAddressFields(namePrefix: 'address' | 'workshopsAddress'): Field[] {
-  const streetField = namePrefix === 'address' ? 'addressStreet' : 'workshopsAddressStreet'
+export type SiteAddressFieldPrefix = 'address' | 'intensiveCoursesAddress'
+
+export function siteAddressFields(namePrefix: SiteAddressFieldPrefix): Field[] {
+  const isSchool = namePrefix === 'address'
+  const streetField = isSchool ? 'addressStreet' : 'intensiveCoursesAddressStreet'
   const streetLine2Field =
-    namePrefix === 'address' ? 'addressStreetLine2' : 'workshopsAddressStreetLine2'
+    isSchool ? 'addressStreetLine2' : 'intensiveCoursesAddressStreetLine2'
   const postalCodeField =
-    namePrefix === 'address' ? 'addressPostalCode' : 'workshopsAddressPostalCode'
-  const cityField = namePrefix === 'address' ? 'addressCity' : 'workshopsAddressCity'
-  const mapsUrlField = namePrefix === 'address' ? 'addressMapsUrl' : 'workshopsAddressMapsUrl'
-  const mapsEmbedField =
-    namePrefix === 'address' ? 'addressMapsEmbed' : 'workshopsAddressMapsEmbed'
+    isSchool ? 'addressPostalCode' : 'intensiveCoursesAddressPostalCode'
+  const cityField = isSchool ? 'addressCity' : 'intensiveCoursesAddressCity'
+  const mapsUrlField = isSchool ? 'addressMapsUrl' : 'intensiveCoursesAddressMapsUrl'
+  const mapsEmbedField = isSchool ? 'addressMapsEmbed' : 'intensiveCoursesAddressMapsEmbed'
 
   return [
     {
       name: streetField,
       type: 'text',
       label: 'Rue et numéro',
-      required: namePrefix === 'address',
+      required: isSchool,
       admin: {
         description:
-          namePrefix === 'address' ?
+          isSchool ?
             'Affiché dans le pied de page, la page Contact et les encadrés adresse.'
           : 'Affichée dans la section Accès de la page Stages intensifs.',
       },
@@ -43,13 +45,13 @@ export function siteAddressFields(namePrefix: 'address' | 'workshopsAddress'): F
       name: postalCodeField,
       type: 'text',
       label: 'Code postal',
-      required: namePrefix === 'address',
+      required: isSchool,
     },
     {
       name: cityField,
       type: 'text',
       label: 'Ville',
-      required: namePrefix === 'address',
+      required: isSchool,
     },
     {
       name: mapsUrlField,

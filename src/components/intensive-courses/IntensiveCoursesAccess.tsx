@@ -1,13 +1,13 @@
 import { LocationWithMap } from '@/components/location/LocationWithMap'
 import { Gallery } from '@/components/ui/Gallery'
 import { hasLexicalContent } from '@/lib/cms/hasLexicalContent'
-import type { IntensiveCoursesPageData, SiteAddressData } from '@/lib/cms/types'
+import type { SiteAddressData, SiteMainAccessData } from '@/lib/cms/types'
 import { pageSectionTitleClassName } from '@/lib/ui/typography'
 
 type IntensiveCoursesAccessProps = {
   siteName: string
   address: SiteAddressData
-  access: IntensiveCoursesPageData['access']
+  access: SiteMainAccessData
 }
 
 export function IntensiveCoursesAccess({ siteName, address, access }: IntensiveCoursesAccessProps) {

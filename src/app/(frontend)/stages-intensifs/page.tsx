@@ -50,8 +50,8 @@ export default async function StagesIntensifsPage() {
         <IntensiveCoursesBlocks blocks={intensiveCourses.blocks} />
         <IntensiveCoursesAccess
           siteName={site.name}
-          address={site.workshopsAddress}
-          access={intensiveCourses.access}
+          address={site.intensiveCoursesAddress}
+          access={site.intensiveCoursesAccess}
         />
       </Container>
     </section>

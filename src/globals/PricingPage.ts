@@ -29,7 +29,7 @@ export const PricingPage: GlobalConfig = {
       },
     },
     {
-      name: 'workshopsContent',
+      name: 'intensiveCoursesContent',
       type: 'richText',
       label: 'Tarifs — Stages intensifs',
       editor: pageRichTextEditor,
