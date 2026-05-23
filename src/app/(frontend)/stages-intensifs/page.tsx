@@ -8,15 +8,16 @@ import { Gallery } from '@/components/ui/Gallery'
 import { Container } from '@/components/ui/Container'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import { hasLexicalContent } from '@/lib/cms/hasLexicalContent'
+import { routes } from '@/config/routes'
 import { getSiteContent } from '@/lib/cms/getSiteContent'
+import { buildPageMetadata } from '@/lib/seo/metadata'
+import { seoCopy } from '@/lib/seo/copy'
 
 export async function generateMetadata(): Promise<Metadata> {
   const { site } = await getSiteContent()
+  const { title, description } = seoCopy.stagesIntensifs(site)
 
-  return {
-    title: `Stages intensifs — ${site.name} · ${site.address.city}`,
-    description: `Stages intensifs de batterie à ${site.address.city}.`,
-  }
+  return buildPageMetadata({ site, pathname: routes.stagesIntensifs, title, description })
 }
 
 export default async function StagesIntensifsPage() {

@@ -4,16 +4,16 @@ import { TomTomContent } from '@/components/tom-tom/TomTomContent'
 import { Button } from '@/components/ui/Button'
 import { Container } from '@/components/ui/Container'
 import { SectionHeader } from '@/components/ui/SectionHeader'
+import { routes } from '@/config/routes'
 import { getSiteContent } from '@/lib/cms/getSiteContent'
+import { buildPageMetadata } from '@/lib/seo/metadata'
+import { seoCopy } from '@/lib/seo/copy'
 
 export async function generateMetadata(): Promise<Metadata> {
   const { site } = await getSiteContent()
+  const { title, description } = seoCopy.tomTom(site)
 
-  return {
-    title: `Tom Tom — ${site.name} · ${site.address.city}`,
-    description:
-      'Association Tom Tom : promotion de la batterie, examens publics NGT et actions culturelles à Aix-en-Provence.',
-  }
+  return buildPageMetadata({ site, pathname: routes.tomTom, title, description })
 }
 
 export default async function TomTomPage() {

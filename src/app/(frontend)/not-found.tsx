@@ -2,14 +2,20 @@ import type { Metadata } from 'next'
 
 import { NotFoundSection } from '@/components/errors/NotFoundSection'
 import { getSiteContent } from '@/lib/cms/getSiteContent'
+import { buildPageMetadata } from '@/lib/seo/metadata'
+import { seoCopy } from '@/lib/seo/copy'
 
 export async function generateMetadata(): Promise<Metadata> {
   const { site } = await getSiteContent()
+  const { title, description } = seoCopy.notFound(site)
 
-  return {
-    title: `Page introuvable — ${site.name}`,
-    description: 'Cette page n’existe pas ou a été déplacée.',
-  }
+  return buildPageMetadata({
+    site,
+    pathname: '/404',
+    title,
+    description,
+    noIndex: true,
+  })
 }
 
 export default async function NotFound() {

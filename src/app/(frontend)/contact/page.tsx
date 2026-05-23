@@ -6,15 +6,16 @@ import { ContactDetails } from '@/components/contact/ContactDetails'
 import { ContactLocation } from '@/components/contact/ContactLocation'
 import { Container } from '@/components/ui/Container'
 import { SectionHeader } from '@/components/ui/SectionHeader'
+import { routes } from '@/config/routes'
 import { getSiteContent } from '@/lib/cms/getSiteContent'
+import { buildPageMetadata } from '@/lib/seo/metadata'
+import { seoCopy } from '@/lib/seo/copy'
 
 export async function generateMetadata(): Promise<Metadata> {
   const { site } = await getSiteContent()
+  const { title, description } = seoCopy.contact(site)
 
-  return {
-    title: `Contact — ${site.name} · ${site.address.city}`,
-    description: `Contactez ${site.name} à ${site.address.city}. Téléphone, e-mail et adresse.`,
-  }
+  return buildPageMetadata({ site, pathname: routes.contact, title, description })
 }
 
 export default async function ContactPage() {

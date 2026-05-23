@@ -5,15 +5,16 @@ import { NewsUpcomingAlert } from '@/components/articles/NewsUpcomingAlert'
 import { Container } from '@/components/ui/Container'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import { getArticles } from '@/lib/cms/getArticles'
+import { routes } from '@/config/routes'
 import { getSiteContent } from '@/lib/cms/getSiteContent'
+import { buildPageMetadata } from '@/lib/seo/metadata'
+import { seoCopy } from '@/lib/seo/copy'
 
 export async function generateMetadata(): Promise<Metadata> {
   const { site } = await getSiteContent()
+  const { title, description } = seoCopy.actualite(site)
 
-  return {
-    title: `Actualité — ${site.name} · ${site.address.city}`,
-    description: `Actualités et nouvelles de ${site.name} à ${site.address.city}.`,
-  }
+  return buildPageMetadata({ site, pathname: routes.news, title, description })
 }
 
 export default async function NewsPage() {

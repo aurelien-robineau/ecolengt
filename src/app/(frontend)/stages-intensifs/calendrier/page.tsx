@@ -3,15 +3,21 @@ import type { Metadata } from 'next'
 import { IntensiveCoursesCalendarSchoolYears } from '@/components/intensive-courses/IntensiveCoursesCalendarSchoolYears'
 import { Container } from '@/components/ui/Container'
 import { SectionHeader } from '@/components/ui/SectionHeader'
+import { routes } from '@/config/routes'
 import { getSiteContent } from '@/lib/cms/getSiteContent'
+import { buildPageMetadata } from '@/lib/seo/metadata'
+import { seoCopy } from '@/lib/seo/copy'
 
 export async function generateMetadata(): Promise<Metadata> {
   const { site } = await getSiteContent()
+  const { title, description } = seoCopy.stagesCalendrier(site)
 
-  return {
-    title: `Calendrier des stages intensifs — ${site.name} · ${site.address.city}`,
-    description: `Calendrier des stages intensifs de batterie à ${site.address.city}.`,
-  }
+  return buildPageMetadata({
+    site,
+    pathname: routes.stagesIntensifsCalendar,
+    title,
+    description,
+  })
 }
 
 export default async function StagesIntensifsCalendarPage() {

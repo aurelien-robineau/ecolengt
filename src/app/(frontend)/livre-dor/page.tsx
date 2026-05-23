@@ -4,15 +4,16 @@ import { GuestbookIntroduction } from '@/components/guestbook/GuestbookIntroduct
 import { GuestbookTestimonials } from '@/components/guestbook/GuestbookTestimonials'
 import { Container } from '@/components/ui/Container'
 import { SectionHeader } from '@/components/ui/SectionHeader'
+import { routes } from '@/config/routes'
 import { getSiteContent } from '@/lib/cms/getSiteContent'
+import { buildPageMetadata } from '@/lib/seo/metadata'
+import { seoCopy } from '@/lib/seo/copy'
 
 export async function generateMetadata(): Promise<Metadata> {
   const { site } = await getSiteContent()
+  const { title, description } = seoCopy.livreDor(site)
 
-  return {
-    title: `Livre d’or — ${site.name} · ${site.address.city}`,
-    description: `Témoignages et messages des élèves de ${site.name} à ${site.address.city}.`,
-  }
+  return buildPageMetadata({ site, pathname: routes.guestbook, title, description })
 }
 
 export default async function GuestbookPage() {
