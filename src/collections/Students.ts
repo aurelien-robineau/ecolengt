@@ -16,7 +16,7 @@ export const Students: CollectionConfig = {
     group: adminGroups.content,
     useAsTitle: 'name',
     description:
-      'Fiches élèves. Une page publique est créée automatiquement à partir du nom (/eleves/…).',
+      'Fiches élèves. Une page publique est créée automatiquement à partir du nom.',
     defaultColumns: ['name', 'jobTitle', 'updatedAt'],
   },
   access: {

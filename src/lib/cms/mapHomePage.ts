@@ -3,14 +3,59 @@ import { defaultLandingPage } from '@/lib/cms/defaults'
 import { mapGallery } from '@/lib/cms/mapGallery'
 import { mapMedia } from '@/lib/cms/mapMedia'
 import { mapRichText } from '@/lib/cms/mapRichText'
-import type { LandingPageData } from '@/lib/cms/types'
+import type { LandingPageData, LandingSection, LandingSectionItem } from '@/lib/cms/types'
+
+type HomePageSectionDoc = NonNullable<HomePageDoc['sections']>[number]
+
+type HomePageSectionItemDoc = NonNullable<HomePageSectionDoc['items']>[number]
+
+function mapSectionItem(item: HomePageSectionItemDoc): LandingSectionItem {
+  return {
+    title: item.title ?? '',
+    description: mapRichText(item.description),
+  }
+}
+
+function mapSectionHighlight(
+  highlight: HomePageSectionDoc['highlight'],
+): LandingSection['highlight'] {
+  const title = highlight?.title?.trim()
+  if (!title) {
+    return null
+  }
+
+  const buttonLabel = highlight?.buttonLabel?.trim()
+  const buttonHref = highlight?.buttonHref?.trim()
+
+  return {
+    title,
+    description: mapRichText(highlight?.description),
+    button:
+      buttonLabel && buttonHref ?
+        {
+          label: buttonLabel,
+          href: buttonHref,
+        }
+      : null,
+  }
+}
+
+function mapSection(section: HomePageSectionDoc, index: number): LandingSection {
+  return {
+    id: `section-${index + 1}`,
+    surtitle: section.surtitle ?? '',
+    title: section.title ?? '',
+    description: mapRichText(section.description),
+    items: (section.items ?? []).map(mapSectionItem),
+    highlight: mapSectionHighlight(section.highlight),
+    gallery: mapGallery(section.gallery),
+  }
+}
 
 export function mapHomePage(data: HomePageDoc | null | undefined): LandingPageData {
   if (!data) {
     return defaultLandingPage
   }
-
-  const gallery = mapGallery(data.facilitiesGallery)
 
   return {
     hero: {
@@ -28,42 +73,6 @@ export function mapHomePage(data: HomePageDoc | null | undefined): LandingPageDa
       imageAlt: data.quoteCite ?? '',
       portrait: mapMedia(data.quotePortrait, data.quoteCite ?? ''),
     },
-    audience: {
-      id: defaultLandingPage.audience.id,
-      label: data.audienceLabel ?? '',
-      title: data.audienceTitle ?? '',
-      content: mapRichText(data.audienceContent),
-    },
-    pedagogy: {
-      id: defaultLandingPage.pedagogy.id,
-      label: data.pedagogyLabel ?? '',
-      title: data.pedagogyTitle ?? '',
-      content: mapRichText(data.pedagogyContent),
-      features: {
-        courseOrganization: {
-          title: data.courseOrganizationTitle ?? '',
-          content: mapRichText(data.courseOrganizationContent),
-        },
-        practice: {
-          title: data.practiceTitle ?? '',
-          body: mapRichText(data.practiceBody),
-        },
-      },
-      intensiveCourses: {
-        title: data.intensiveCoursesTitle ?? '',
-        content: mapRichText(data.intensiveCoursesContent),
-        learnMore: {
-          label: data.intensiveCoursesButtonLabel ?? '',
-          href: data.intensiveCoursesButtonHref?.trim() ?? '',
-        },
-      },
-    },
-    facilities: {
-      id: defaultLandingPage.facilities.id,
-      label: data.facilitiesLabel ?? '',
-      title: data.facilitiesTitle ?? '',
-      description: mapRichText(data.facilitiesDescription),
-      gallery,
-    },
+    sections: (data.sections ?? []).map(mapSection),
   }
 }

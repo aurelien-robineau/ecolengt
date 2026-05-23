@@ -52,7 +52,7 @@ export const AlumniPage: GlobalConfig = {
                   label: 'Fiche élève',
                   admin: {
                     description:
-                      'Liez une fiche Élève pour activer le lien vers la page dédiée (/eleves/…).',
+                      'Liez une fiche Élève pour activer le lien vers la page dédiée.',
                   },
                 },
                 {

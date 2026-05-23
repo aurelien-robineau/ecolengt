@@ -54,7 +54,7 @@ export const GuestbookPage: GlobalConfig = {
                   label: 'Fiche élève',
                   admin: {
                     description:
-                      'Optionnel. Si la fiche a une page (/eleves/…), le nom de l’auteur devient un lien.',
+                      'Optionnel. Si la fiche a une page publique, le nom de l’auteur devient un lien.',
                   },
                 },
                 {

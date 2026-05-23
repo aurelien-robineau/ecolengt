@@ -210,7 +210,7 @@ export interface Article {
   createdAt: string;
 }
 /**
- * Fiches élèves. Une page publique est créée automatiquement à partir du nom (/eleves/…).
+ * Fiches élèves. Une page publique est créée automatiquement à partir du nom.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "eleves".
@@ -514,7 +514,7 @@ export interface HomePage {
    */
   heroCta: string;
   /**
-   * Lien du bouton (ex. /#audience, /stages-intensifs, /contact ou https://…). Obligatoire pour afficher le bouton.
+   * Chemin relatif (/page, /#ancre) ou URL absolue (https://…). Obligatoire pour afficher le bouton.
    */
   heroCtaHref?: string | null;
   /**
@@ -530,130 +530,92 @@ export interface HomePage {
    */
   quotePortrait?: (string | null) | Media;
   /**
-   * Court texte en majuscules affiché au-dessus du titre de section.
+   * Ajoutez autant de sections que nécessaire. Seuls le sur-titre et le titre sont obligatoires.
    */
-  audienceLabel: string;
-  /**
-   * Grand titre visible sur la page d’accueil.
-   */
-  audienceTitle: string;
-  audienceContent?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  /**
-   * Petit titre de section affiché au-dessus du titre principal.
-   */
-  pedagogyLabel: string;
-  pedagogyTitle: string;
-  pedagogyContent?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  courseOrganizationTitle: string;
-  courseOrganizationContent?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  practiceTitle: string;
-  practiceBody?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  intensiveCoursesTitle: string;
-  intensiveCoursesContent?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  /**
-   * Libellé du bouton en bas de l’encadré stages intensifs.
-   */
-  intensiveCoursesButtonLabel: string;
-  /**
-   * Lien du bouton (ex. /stages-intensifs, /contact ou https://…). Obligatoire pour afficher le bouton.
-   */
-  intensiveCoursesButtonHref?: string | null;
-  /**
-   * Petit titre de section affiché au-dessus du titre principal.
-   */
-  facilitiesLabel: string;
-  facilitiesTitle: string;
-  facilitiesDescription?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  /**
-   * Galerie de photos en bas de section (grille responsive).
-   */
-  facilitiesGallery?:
+  sections?:
     | {
-        image: string | Media;
+        /**
+         * Court texte en majuscules affiché au-dessus du titre de section.
+         */
+        surtitle: string;
+        title: string;
+        /**
+         * Texte d’introduction optionnel affiché sous le titre.
+         */
+        description?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        /**
+         * Blocs titre + texte affichés en grille (deux colonnes sur grand écran).
+         */
+        items?:
+          | {
+              title: string;
+              description?: {
+                root: {
+                  type: string;
+                  children: {
+                    type: any;
+                    version: number;
+                    [k: string]: unknown;
+                  }[];
+                  direction: ('ltr' | 'rtl') | null;
+                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                  indent: number;
+                  version: number;
+                };
+                [k: string]: unknown;
+              } | null;
+              id?: string | null;
+            }[]
+          | null;
+        highlight?: {
+          title?: string | null;
+          description?: {
+            root: {
+              type: string;
+              children: {
+                type: any;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
+            [k: string]: unknown;
+          } | null;
+          /**
+           * Libellé du bouton optionnel en bas de l’encadré.
+           */
+          buttonLabel?: string | null;
+          /**
+           * Chemin relatif (/page, /#ancre) ou URL absolue (https://…). Obligatoire pour afficher le bouton.
+           */
+          buttonHref?: string | null;
+        };
+        /**
+         * Galerie optionnelle en bas de section (grille responsive, 3 colonnes).
+         */
+        gallery?:
+          | {
+              image: string | Media;
+              id?: string | null;
+            }[]
+          | null;
         id?: string | null;
       }[]
     | null;
@@ -686,7 +648,7 @@ export interface GuestbookPage {
   testimonials?:
     | {
         /**
-         * Optionnel. Si la fiche a une page (/eleves/…), le nom de l’auteur devient un lien.
+         * Optionnel. Si la fiche a une page publique, le nom de l’auteur devient un lien.
          */
         student?: (string | null) | Eleve;
         content: {
@@ -769,7 +731,7 @@ export interface AlumniPage {
   alumniList?:
     | {
         /**
-         * Liez une fiche Élève pour activer le lien vers la page dédiée (/eleves/…).
+         * Liez une fiche Élève pour activer le lien vers la page dédiée.
          */
         student?: (string | null) | Eleve;
         /**
@@ -805,7 +767,7 @@ export interface TomTomPage {
   callout?: {
     label?: string | null;
     /**
-     * Lien interne (ex. /contact) ou externe (https://…).
+     * Chemin relatif (/page, /#ancre) ou URL absolue (https://…). Obligatoire pour afficher le lien.
      */
     href?: string | null;
   };
@@ -1153,27 +1115,33 @@ export interface HomePageSelect<T extends boolean = true> {
   quoteText?: T;
   quoteCite?: T;
   quotePortrait?: T;
-  audienceLabel?: T;
-  audienceTitle?: T;
-  audienceContent?: T;
-  pedagogyLabel?: T;
-  pedagogyTitle?: T;
-  pedagogyContent?: T;
-  courseOrganizationTitle?: T;
-  courseOrganizationContent?: T;
-  practiceTitle?: T;
-  practiceBody?: T;
-  intensiveCoursesTitle?: T;
-  intensiveCoursesContent?: T;
-  intensiveCoursesButtonLabel?: T;
-  intensiveCoursesButtonHref?: T;
-  facilitiesLabel?: T;
-  facilitiesTitle?: T;
-  facilitiesDescription?: T;
-  facilitiesGallery?:
+  sections?:
     | T
     | {
-        image?: T;
+        surtitle?: T;
+        title?: T;
+        description?: T;
+        items?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              id?: T;
+            };
+        highlight?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              buttonLabel?: T;
+              buttonHref?: T;
+            };
+        gallery?:
+          | T
+          | {
+              image?: T;
+              id?: T;
+            };
         id?: T;
       };
   updatedAt?: T;

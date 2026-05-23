@@ -1,6 +1,7 @@
 import type { GlobalConfig } from 'payload'
 
 import { adminGroups } from '@/lib/cms/adminGroups'
+import { urlFieldDescription } from '@/lib/cms/urlFieldDescription'
 import { pageRichTextEditor } from '@/lib/cms/pageRichTextEditor'
 import { revalidateSite } from '@/lib/cms/revalidateSite'
 
@@ -38,7 +39,7 @@ export const TomTomPage: GlobalConfig = {
           type: 'text',
           label: 'URL du bouton',
           admin: {
-            description: 'Lien interne (ex. /contact) ou externe (https://…).',
+            description: urlFieldDescription,
           },
         },
       ],

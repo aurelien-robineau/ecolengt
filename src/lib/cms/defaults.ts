@@ -67,42 +67,6 @@ export const defaultLandingPage: LandingPageData = {
     imageAlt: '',
     portrait: null,
   },
-  audience: {
-    id: 'audience',
-    label: '',
-    title: '',
-    content: null,
-  },
-  pedagogy: {
-    id: 'pedagogy',
-    label: '',
-    title: '',
-    content: null,
-    features: {
-      courseOrganization: {
-        title: '',
-        content: null,
-      },
-      practice: {
-        title: '',
-        body: null,
-      },
-    },
-    intensiveCourses: {
-      title: '',
-      content: null,
-      learnMore: {
-        label: '',
-        href: '',
-      },
-    },
-  },
-  facilities: {
-    id: 'facilities',
-    label: '',
-    title: '',
-    description: null,
-    gallery: [],
-  },
+  sections: [],
 }
 
