@@ -21,6 +21,15 @@ export function siteAddressFields(namePrefix: SiteAddressFieldPrefix): Field[] {
 
   return [
     {
+      name: streetLine2Field,
+      type: 'text',
+      label: 'Nom du bâtiment',
+      admin: {
+        description:
+          'Première ligne de l’adresse affichée sur le site (nom du lieu ou du bâtiment).',
+      },
+    },
+    {
       name: streetField,
       type: 'text',
       label: 'Rue et numéro',
@@ -28,17 +37,8 @@ export function siteAddressFields(namePrefix: SiteAddressFieldPrefix): Field[] {
       admin: {
         description:
           isSchool ?
-            'Affiché dans le pied de page, la page Contact et les encadrés adresse.'
-          : 'Affichée dans la section Accès de la page Stages intensifs.',
-      },
-    },
-    {
-      name: streetLine2Field,
-      type: 'text',
-      label: 'Nom du bâtiment',
-      admin: {
-        description:
-          'Nom du lieu ou du bâtiment, affiché sur la deuxième ligne de l’adresse (entre la rue et le code postal / ville).',
+            'Deuxième ligne de l’adresse. Affichée dans le pied de page, la page Contact et les encadrés adresse.'
+          : 'Deuxième ligne de l’adresse. Affichée dans la section Accès de la page Stages intensifs.',
       },
     },
     {
