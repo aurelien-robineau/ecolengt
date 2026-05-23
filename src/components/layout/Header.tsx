@@ -194,7 +194,6 @@ export function Header({ site }: HeaderProps) {
             <div className="mt-auto pt-10">
               <Button
                 href={routes.contact}
-                variant="ghost"
                 className="w-full text-center"
                 onClick={closeMenu}
               >
@@ -256,7 +255,7 @@ export function Header({ site }: HeaderProps) {
               <MenuIcon open={menuOpen} />
             </button>
 
-            <Button href={routes.contact} variant="ghost" className="hidden sm:inline-flex">
+            <Button href={routes.contact} className="hidden sm:inline-flex">
               Contact
             </Button>
           </div>
