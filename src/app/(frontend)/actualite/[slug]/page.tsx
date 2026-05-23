@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
 import { ArticleDetail } from '@/components/articles/ArticleDetail'
-import { Container } from '@/components/ui/Container'
 import { articlePageHref } from '@/lib/cms/articlePageHref'
 import { getArticleBySlug, getArticleSlugs } from '@/lib/cms/getArticleBySlug'
 import { getSiteContent } from '@/lib/cms/getSiteContent'
@@ -46,10 +45,8 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   }
 
   return (
-    <section className="bg-surface py-(--spacing-section-mobile) pt-28 md:py-(--spacing-section)">
-      <Container>
-        <ArticleDetail article={article} />
-      </Container>
+    <section className="bg-surface">
+      <ArticleDetail article={article} />
     </section>
   )
 }
