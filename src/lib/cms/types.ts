@@ -23,7 +23,8 @@ export type SiteSettingsData = {
   foundedYear: number | null
   address: SiteAddressData
   addressAccess: SiteMainAccessData
-  workshopsAddress: SiteAddressData
+  intensiveCoursesAddress: SiteAddressData
+  intensiveCoursesAccess: SiteMainAccessData
   contact: {
     phones: Array<{ href: string; display: string }>
     emails: Array<{ href: string; display: string }>
@@ -84,25 +85,19 @@ export type IntensiveCoursesBlock = {
   content: CmsRichTextContent | null
 }
 
-export type IntensiveCoursesAccessData = {
-  directions: CmsRichTextContent | null
-  gallery: GalleryItem[]
-}
-
 export type IntensiveCoursesSubPageData = {
   content: CmsRichTextContent | null
 }
 
 export type PricingPageData = {
   classes: CmsRichTextContent | null
-  workshops: CmsRichTextContent | null
+  intensiveCourses: CmsRichTextContent | null
 }
 
 export type IntensiveCoursesPageData = {
   intro: CmsRichTextContent | null
   gallery: GalleryItem[]
   blocks: IntensiveCoursesBlock[]
-  access: IntensiveCoursesAccessData
 }
 
 export type LegalNoticePageData = {

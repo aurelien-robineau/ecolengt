@@ -24,7 +24,11 @@ export const defaultSiteSettings: SiteSettingsData = {
     directions: null,
     gallery: [],
   },
-  workshopsAddress: { ...emptySiteAddress },
+  intensiveCoursesAddress: { ...emptySiteAddress },
+  intensiveCoursesAccess: {
+    directions: null,
+    gallery: [],
+  },
   contact: {
     phones: [],
     emails: [],

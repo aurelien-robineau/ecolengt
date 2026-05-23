@@ -8,6 +8,14 @@ import type { SiteSettingsData } from '@/lib/cms/types'
 
 type SiteSettingLegacy = SiteSetting & {
   mapsUrl?: string | null
+  workshopsAddressStreet?: string | null
+  workshopsAddressStreetLine2?: string | null
+  workshopsAddressPostalCode?: string | null
+  workshopsAddressCity?: string | null
+  workshopsAddressMapsUrl?: string | null
+  workshopsAddressMapsEmbed?: string | null
+  workshopsAccessDirectionsContent?: SiteSetting['intensiveCoursesAccessDirectionsContent']
+  workshopsAccessGallery?: SiteSetting['intensiveCoursesAccessGallery']
 }
 
 export function mapSiteSettings(data: SiteSetting | null | undefined): SiteSettingsData {
@@ -53,14 +61,24 @@ export function mapSiteSettings(data: SiteSetting | null | undefined): SiteSetti
       directions: mapRichText(data.addressAccessDirectionsContent),
       gallery: mapGallery(data.addressAccessGallery),
     },
-    workshopsAddress: mapSiteAddress({
-      street: data.workshopsAddressStreet,
-      streetLine2: data.workshopsAddressStreetLine2,
-      postalCode: data.workshopsAddressPostalCode,
-      city: data.workshopsAddressCity,
-      mapsUrl: data.workshopsAddressMapsUrl,
-      mapsEmbed: data.workshopsAddressMapsEmbed,
+    intensiveCoursesAddress: mapSiteAddress({
+      street: data.intensiveCoursesAddressStreet ?? legacy.workshopsAddressStreet,
+      streetLine2:
+        data.intensiveCoursesAddressStreetLine2 ?? legacy.workshopsAddressStreetLine2,
+      postalCode:
+        data.intensiveCoursesAddressPostalCode ?? legacy.workshopsAddressPostalCode,
+      city: data.intensiveCoursesAddressCity ?? legacy.workshopsAddressCity,
+      mapsUrl: data.intensiveCoursesAddressMapsUrl ?? legacy.workshopsAddressMapsUrl,
+      mapsEmbed: data.intensiveCoursesAddressMapsEmbed ?? legacy.workshopsAddressMapsEmbed,
     }),
+    intensiveCoursesAccess: {
+      directions: mapRichText(
+        data.intensiveCoursesAccessDirectionsContent ?? legacy.workshopsAccessDirectionsContent,
+      ),
+      gallery: mapGallery(
+        data.intensiveCoursesAccessGallery ?? legacy.workshopsAccessGallery,
+      ),
+    },
     contact: {
       phones,
       emails,

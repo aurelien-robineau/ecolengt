@@ -2,7 +2,7 @@ import type { GlobalConfig } from 'payload'
 
 import { adminGroups } from '@/lib/cms/adminGroups'
 import { siteAddressFields } from '@/lib/cms/siteAddressFields'
-import { siteMainAccessFields } from '@/lib/cms/siteAccessFields'
+import { siteAccessFields } from '@/lib/cms/siteAccessFields'
 import { revalidateSite } from '@/lib/cms/revalidateSite'
 import { validateFoundedYear } from '@/lib/cms/validateFoundedYear'
 
@@ -61,7 +61,7 @@ export const SiteSettings: GlobalConfig = {
                 initCollapsed: false,
                 description: 'Pied de page, page Contact et métadonnées du site.',
               },
-              fields: [...siteAddressFields('address'), ...siteMainAccessFields],
+              fields: [...siteAddressFields('address'), ...siteAccessFields('addressAccess')],
             },
             {
               type: 'collapsible',
@@ -70,7 +70,10 @@ export const SiteSettings: GlobalConfig = {
                 initCollapsed: true,
                 description: 'Section Accès de la page Stages intensifs.',
               },
-              fields: siteAddressFields('workshopsAddress'),
+              fields: [
+                ...siteAddressFields('intensiveCoursesAddress'),
+                ...siteAccessFields('intensiveCoursesAccess'),
+              ],
             },
           ],
         },

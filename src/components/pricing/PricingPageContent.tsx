@@ -1,6 +1,6 @@
 import { CmsRichText } from '@/components/cms/CmsRichText'
 import { ScrollToHash } from '@/components/pricing/ScrollToHash'
-import { pricingWorkshopsSectionId } from '@/config/pricingSections'
+import { pricingIntensiveCoursesSectionId } from '@/config/pricingSections'
 import { hasLexicalContent } from '@/lib/cms/hasLexicalContent'
 import type { PricingPageData } from '@/lib/cms/types'
 import { pageSectionTitleClassName } from '@/lib/ui/typography'
@@ -11,7 +11,8 @@ type PricingPageContentProps = {
 
 export function PricingPageContent({ pricing }: PricingPageContentProps) {
   const hasClasses = pricing.classes && hasLexicalContent(pricing.classes)
-  const hasWorkshops = pricing.workshops && hasLexicalContent(pricing.workshops)
+  const hasIntensiveCourses =
+    pricing.intensiveCourses && hasLexicalContent(pricing.intensiveCourses)
 
   return (
     <>
@@ -26,11 +27,11 @@ export function PricingPageContent({ pricing }: PricingPageContentProps) {
         </section>
       : null}
 
-      {hasWorkshops ?
-        <section id={pricingWorkshopsSectionId} className="scroll-mt-28">
+      {hasIntensiveCourses ?
+        <section id={pricingIntensiveCoursesSectionId} className="scroll-mt-28">
           <h2 className={`mb-8 ${pageSectionTitleClassName}`}>Stages intensifs</h2>
           <div className="max-w-2xl">
-            <CmsRichText data={pricing.workshops} />
+            <CmsRichText data={pricing.intensiveCourses} />
           </div>
         </section>
       : null}

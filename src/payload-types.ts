@@ -785,7 +785,7 @@ export interface TomTomPage {
   createdAt?: string | null;
 }
 /**
- * Contenu de la page Stages intensifs : introduction, galerie, encadrés et accès. L’adresse des stages est gérée dans Paramètres du site.
+ * Introduction, galerie et encadrés de la page. L’adresse et la section Accès sont gérées dans Paramètres du site.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "intensive-courses-page".
@@ -840,33 +840,6 @@ export interface IntensiveCoursesPage {
           };
           [k: string]: unknown;
         } | null;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Indications optionnelles (accès, parking, etc.) affichées dans l’encadré adresse, sous l’adresse postale.
-   */
-  accessDirectionsContent?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  /**
-   * Galerie sous la carte (2 photos par ligne).
-   */
-  accessGallery?:
-    | {
-        image: string | Media;
         id?: string | null;
       }[]
     | null;
@@ -986,7 +959,7 @@ export interface PricingPage {
   /**
    * Contenu de la section Stages intensifs sur la page Tarifs.
    */
-  workshopsContent?: {
+  intensiveCoursesContent?: {
     root: {
       type: string;
       children: {
@@ -1068,21 +1041,48 @@ export interface SiteSetting {
   /**
    * Affichée dans la section Accès de la page Stages intensifs.
    */
-  workshopsAddressStreet?: string | null;
+  intensiveCoursesAddressStreet?: string | null;
   /**
    * Nom du lieu ou du bâtiment, affiché sur la deuxième ligne de l’adresse (entre la rue et le code postal / ville).
    */
-  workshopsAddressStreetLine2?: string | null;
-  workshopsAddressPostalCode?: string | null;
-  workshopsAddressCity?: string | null;
+  intensiveCoursesAddressStreetLine2?: string | null;
+  intensiveCoursesAddressPostalCode?: string | null;
+  intensiveCoursesAddressCity?: string | null;
   /**
    * URL de la fiche Google Maps (bouton « Partager » → « Lien »). Utilisée lorsque l’on clique sur l’adresse sur le site.
    */
-  workshopsAddressMapsUrl?: string | null;
+  intensiveCoursesAddressMapsUrl?: string | null;
   /**
    * Collez le code iframe fourni par Google Maps (« Partager » → « Intégrer une carte »), ou uniquement l’URL src du iframe.
    */
-  workshopsAddressMapsEmbed?: string | null;
+  intensiveCoursesAddressMapsEmbed?: string | null;
+  /**
+   * Indications optionnelles affichées dans la section Accès de la page Stages intensifs, sous l’adresse.
+   */
+  intensiveCoursesAccessDirectionsContent?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Galerie affichée sur la page Stages intensifs, sous la carte (2 photos par ligne).
+   */
+  intensiveCoursesAccessGallery?:
+    | {
+        image: string | Media;
+        id?: string | null;
+      }[]
+    | null;
   /**
    * Liste des téléphones affichés dans le pied de page.
    */
@@ -1247,13 +1247,6 @@ export interface IntensiveCoursesPageSelect<T extends boolean = true> {
         content?: T;
         id?: T;
       };
-  accessDirectionsContent?: T;
-  accessGallery?:
-    | T
-    | {
-        image?: T;
-        id?: T;
-      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -1294,7 +1287,7 @@ export interface LegalNoticePageSelect<T extends boolean = true> {
  */
 export interface PricingPageSelect<T extends boolean = true> {
   classesContent?: T;
-  workshopsContent?: T;
+  intensiveCoursesContent?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -1319,12 +1312,19 @@ export interface SiteSettingsSelect<T extends boolean = true> {
         image?: T;
         id?: T;
       };
-  workshopsAddressStreet?: T;
-  workshopsAddressStreetLine2?: T;
-  workshopsAddressPostalCode?: T;
-  workshopsAddressCity?: T;
-  workshopsAddressMapsUrl?: T;
-  workshopsAddressMapsEmbed?: T;
+  intensiveCoursesAddressStreet?: T;
+  intensiveCoursesAddressStreetLine2?: T;
+  intensiveCoursesAddressPostalCode?: T;
+  intensiveCoursesAddressCity?: T;
+  intensiveCoursesAddressMapsUrl?: T;
+  intensiveCoursesAddressMapsEmbed?: T;
+  intensiveCoursesAccessDirectionsContent?: T;
+  intensiveCoursesAccessGallery?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
   phones?:
     | T
     | {
