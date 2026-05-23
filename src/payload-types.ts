@@ -1010,13 +1010,13 @@ export interface SiteSetting {
    */
   foundedYear?: number | null;
   /**
-   * Affiché dans le pied de page, la page Contact et les encadrés adresse.
-   */
-  addressStreet: string;
-  /**
-   * Nom du lieu ou du bâtiment, affiché sur la deuxième ligne de l’adresse (entre la rue et le code postal / ville).
+   * Première ligne de l’adresse affichée sur le site (nom du lieu ou du bâtiment).
    */
   addressStreetLine2?: string | null;
+  /**
+   * Deuxième ligne de l’adresse. Affichée dans le pied de page, la page Contact et les encadrés adresse.
+   */
+  addressStreet: string;
   addressPostalCode: string;
   addressCity: string;
   /**
@@ -1055,13 +1055,13 @@ export interface SiteSetting {
       }[]
     | null;
   /**
-   * Affichée dans la section Accès de la page Stages intensifs.
-   */
-  intensiveCoursesAddressStreet?: string | null;
-  /**
-   * Nom du lieu ou du bâtiment, affiché sur la deuxième ligne de l’adresse (entre la rue et le code postal / ville).
+   * Première ligne de l’adresse affichée sur le site (nom du lieu ou du bâtiment).
    */
   intensiveCoursesAddressStreetLine2?: string | null;
+  /**
+   * Deuxième ligne de l’adresse. Affichée dans la section Accès de la page Stages intensifs.
+   */
+  intensiveCoursesAddressStreet?: string | null;
   intensiveCoursesAddressPostalCode?: string | null;
   intensiveCoursesAddressCity?: string | null;
   /**
@@ -1322,8 +1322,8 @@ export interface PricingPageSelect<T extends boolean = true> {
 export interface SiteSettingsSelect<T extends boolean = true> {
   schoolNameShort?: T;
   foundedYear?: T;
-  addressStreet?: T;
   addressStreetLine2?: T;
+  addressStreet?: T;
   addressPostalCode?: T;
   addressCity?: T;
   addressMapsUrl?: T;
@@ -1335,8 +1335,8 @@ export interface SiteSettingsSelect<T extends boolean = true> {
         image?: T;
         id?: T;
       };
-  intensiveCoursesAddressStreet?: T;
   intensiveCoursesAddressStreetLine2?: T;
+  intensiveCoursesAddressStreet?: T;
   intensiveCoursesAddressPostalCode?: T;
   intensiveCoursesAddressCity?: T;
   intensiveCoursesAddressMapsUrl?: T;

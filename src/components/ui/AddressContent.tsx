@@ -21,25 +21,16 @@ export function AddressContent({
   linkClassName,
 }: AddressContentProps) {
   const cityLine = formatPostalCityLine(postalCode, city)
-  const line2 = streetLine2?.trim()
+  const addressLines = [streetLine2?.trim(), street.trim(), cityLine].filter(Boolean)
 
-  const lines = (
-    <>
-      {street}
-      {line2 ?
-        <>
-          <br />
-          {line2}
-        </>
+  const lines = addressLines.map((line, index) => (
+    <span key={index}>
+      {index > 0 ?
+        <br />
       : null}
-      {cityLine ?
-        <>
-          <br />
-          {cityLine}
-        </>
-      : null}
-    </>
-  )
+      {line}
+    </span>
+  ))
 
   if (!mapsUrl) {
     return <address className={cn('not-italic', className)}>{lines}</address>
