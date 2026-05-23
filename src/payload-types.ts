@@ -669,7 +669,7 @@ export interface GuestbookPage {
   createdAt?: string | null;
 }
 /**
- * Contenu affiché sur la page Actualité, en plus de la liste des articles.
+ * Encadré optionnel en haut de la page Actualité. Les articles se gèrent dans Contenu → Articles.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "news-page".
