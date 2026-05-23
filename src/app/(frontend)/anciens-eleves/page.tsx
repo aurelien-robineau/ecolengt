@@ -21,7 +21,7 @@ export default async function AlumniPage() {
   return (
     <section className="bg-surface py-(--spacing-section-mobile) pt-28 md:py-(--spacing-section)">
       <Container>
-        <SectionHeader label={site.name} title="Anciens élèves" />
+        <SectionHeader label={site.name} title="Anciens élèves" titleAs="h1" />
         <AlumniIntro content={alumni.intro} />
         <AlumniStudents students={alumni.students} />
       </Container>

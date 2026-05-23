@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { externalLinkAriaLabel } from '@/lib/a11y/externalLink'
 import { cn } from '@/lib/cn'
 import { isExternalHref } from '@/lib/isExternalHref'
 import { resolveHashHref } from '@/lib/resolveHashHref'
@@ -31,6 +32,9 @@ export function Button({
   const classNames = cn(base, variants[variant], className)
   const resolvedHref = resolveHashHref(href)
   const external = isExternalHref(href)
+  const childText = typeof children === 'string' ? children : undefined
+  const externalLabel =
+    external && childText ? externalLinkAriaLabel(childText, href) : undefined
 
   if (resolvedHref.includes('#') || external) {
     return (
@@ -38,6 +42,7 @@ export function Button({
         href={external ? href : resolvedHref}
         className={classNames}
         onClick={onClick}
+        aria-label={externalLabel}
         {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
       >
         {children}

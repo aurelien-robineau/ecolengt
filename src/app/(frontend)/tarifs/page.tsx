@@ -20,7 +20,7 @@ export default async function PricingPage() {
   return (
     <section className="bg-surface py-(--spacing-section-mobile) pt-28 md:py-(--spacing-section)">
       <Container>
-        <SectionHeader label={site.name} title="Tarifs" />
+        <SectionHeader label={site.name} title="Tarifs" titleAs="h1" />
         <PricingPageContent pricing={pricing} />
       </Container>
     </section>

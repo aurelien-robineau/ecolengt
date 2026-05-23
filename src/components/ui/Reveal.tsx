@@ -8,11 +8,28 @@ type RevealProps = {
   className?: string
 }
 
+function prefersReducedMotion(): boolean {
+  return (
+    typeof window !== 'undefined' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  )
+}
+
 export function Reveal({ children, className }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null)
   const [visible, setVisible] = useState(false)
+  const [reduceMotion, setReduceMotion] = useState(false)
 
   useEffect(() => {
+    setReduceMotion(prefersReducedMotion())
+  }, [])
+
+  useEffect(() => {
+    if (reduceMotion) {
+      setVisible(true)
+      return
+    }
+
     const node = ref.current
     if (!node) return
 
@@ -28,14 +45,14 @@ export function Reveal({ children, className }: RevealProps) {
 
     observer.observe(node)
     return () => observer.disconnect()
-  }, [])
+  }, [reduceMotion])
 
   return (
     <div
       ref={ref}
       className={cn(
-        'transition-[opacity,transform] duration-700',
-        visible ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0',
+        !reduceMotion && 'transition-[opacity,transform] duration-700',
+        visible || reduceMotion ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0',
         className,
       )}
     >

@@ -13,14 +13,22 @@ type LogoProps = {
   variant?: LogoVariant
   className?: string
   href?: string
+  /** Accessible name when the logo is a link (image alt is empty to avoid duplication). */
+  linkLabel?: string
   priority?: boolean
 }
 
-export function Logo({ variant = 'default', className, href = '/', priority }: LogoProps) {
+export function Logo({
+  variant = 'default',
+  className,
+  href = '/',
+  linkLabel = 'École de Batterie NGT — Accueil',
+  priority,
+}: LogoProps) {
   const image = (
     <Image
       src={logoPaths[variant]}
-      alt="École de Batterie NGT"
+      alt=""
       width={230}
       height={100}
       className={cn('h-auto w-auto', !className && 'max-h-12 md:max-h-14', className)}
@@ -28,10 +36,16 @@ export function Logo({ variant = 'default', className, href = '/', priority }: L
     />
   )
 
-  if (!href) return image
+  if (!href) {
+    return (
+      <span role="img" aria-label="École de Batterie NGT">
+        {image}
+      </span>
+    )
+  }
 
   return (
-    <Link href={href} className="inline-flex shrink-0 no-underline">
+    <Link href={href} className="inline-flex shrink-0 no-underline" aria-label={linkLabel}>
       {image}
     </Link>
   )

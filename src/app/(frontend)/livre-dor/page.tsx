@@ -21,7 +21,7 @@ export default async function GuestbookPage() {
   return (
     <section className="bg-surface py-(--spacing-section-mobile) pt-28 md:py-(--spacing-section)">
       <Container>
-        <SectionHeader label={site.name} title="Livre d’or" />
+        <SectionHeader label={site.name} title="Livre d’or" titleAs="h1" />
         <GuestbookIntroduction introduction={guestbook.introduction} />
         <GuestbookTestimonials items={guestbook.testimonials} />
       </Container>

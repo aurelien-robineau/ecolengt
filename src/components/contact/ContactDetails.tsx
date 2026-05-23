@@ -1,3 +1,4 @@
+import { ExternalLink } from '@/lib/a11y/externalLink'
 import type { SiteSettingsData } from '@/lib/cms/types'
 import { pageSectionTitleClassName } from '@/lib/ui/typography'
 
@@ -16,24 +17,20 @@ export function ContactDetails({ site }: ContactDetailsProps) {
     <div>
       <h2 className={`mb-8 ${pageSectionTitleClassName}`}>Réseaux sociaux</h2>
       {site.social.instagram && (
-        <a
+        <ExternalLink
           href={site.social.instagram}
-          target="_blank"
-          rel="noopener noreferrer"
           className="block text-sm leading-8 text-foreground-muted no-underline transition-colors hover:text-foreground"
         >
           Instagram
-        </a>
+        </ExternalLink>
       )}
       {site.social.facebook && (
-        <a
+        <ExternalLink
           href={site.social.facebook}
-          target="_blank"
-          rel="noopener noreferrer"
           className="block text-sm leading-8 text-foreground-muted no-underline transition-colors hover:text-foreground"
         >
           Facebook
-        </a>
+        </ExternalLink>
       )}
     </div>
   )

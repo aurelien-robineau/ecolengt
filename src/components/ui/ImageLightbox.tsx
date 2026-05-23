@@ -1,9 +1,10 @@
 'use client'
 
 import Image from 'next/image'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useId, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 
+import { useFocusTrap } from '@/lib/a11y/focus'
 import type { CmsImageData } from '@/lib/cms/types'
 import { cn } from '@/lib/cn'
 
@@ -41,6 +42,10 @@ function ChevronIcon({ direction }: { direction: 'left' | 'right' }) {
 export function ImageLightbox({ slides, initialIndex, onClose }: ImageLightboxProps) {
   const [index, setIndex] = useState(initialIndex)
   const [mounted, setMounted] = useState(false)
+  const dialogRef = useRef<HTMLDivElement>(null)
+  const closeButtonRef = useRef<HTMLButtonElement>(null)
+  const titleId = useId()
+  const statusId = useId()
 
   const slide = slides[index]
   const hasMultiple = slides.length > 1
@@ -60,6 +65,12 @@ export function ImageLightbox({ slides, initialIndex, onClose }: ImageLightboxPr
   useEffect(() => {
     setIndex(initialIndex)
   }, [initialIndex])
+
+  useFocusTrap({
+    active: mounted && Boolean(slide),
+    containerRef: dialogRef,
+    initialFocusRef: closeButtonRef,
+  })
 
   useEffect(() => {
     const previousOverflow = document.body.style.overflow
@@ -87,16 +98,25 @@ export function ImageLightbox({ slides, initialIndex, onClose }: ImageLightboxPr
     return null
   }
 
+  const dialogLabel = slide.image.alt || 'Diaporama photo'
+
   return createPortal(
     <div
+      ref={dialogRef}
       className="fixed inset-0 z-110 flex flex-col overflow-hidden bg-foreground/92 p-3 pt-[max(0.75rem,env(safe-area-inset-top))] pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:p-8"
       role="dialog"
       aria-modal="true"
-      aria-label={slide.image.alt || 'Diaporama photo'}
+      aria-labelledby={titleId}
+      aria-describedby={hasMultiple ? statusId : undefined}
       onClick={onClose}
     >
+      <p id={titleId} className="sr-only">
+        {dialogLabel}
+      </p>
+
       <div className="flex shrink-0 justify-end">
         <button
+          ref={closeButtonRef}
           type="button"
           className="flex size-11 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition-colors hover:bg-white/20"
           onClick={(event) => {
@@ -163,7 +183,12 @@ export function ImageLightbox({ slides, initialIndex, onClose }: ImageLightboxPr
             />
           </div>
           {hasMultiple ?
-            <p className="mt-3 shrink-0 text-xs tracking-[0.12em] text-white/50 uppercase">
+            <p
+              id={statusId}
+              className="mt-3 shrink-0 text-xs tracking-[0.12em] text-white/50 uppercase"
+              aria-live="polite"
+              aria-atomic="true"
+            >
               {index + 1} / {slides.length}
             </p>
           : null}

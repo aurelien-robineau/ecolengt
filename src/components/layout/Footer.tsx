@@ -1,5 +1,6 @@
 import Link from 'next/link'
 
+import { ExternalLink } from '@/lib/a11y/externalLink'
 import { AddressContent } from '@/components/ui/AddressContent'
 import { Container } from '@/components/ui/Container'
 import { Logo } from '@/components/ui/Logo'
@@ -23,7 +24,7 @@ export function Footer({ site }: FooterProps) {
 
         <div className="mb-16 grid gap-12 sm:grid-cols-2 lg:grid-cols-3 lg:gap-16">
           <div>
-            <h4 className="mb-6 text-[11px] tracking-[0.2em] text-brand uppercase">Adresse</h4>
+            <h2 className="mb-6 text-[11px] tracking-[0.2em] text-brand uppercase">Adresse</h2>
             <AddressContent
               street={site.address.street}
               streetLine2={site.address.streetLine2}
@@ -36,7 +37,7 @@ export function Footer({ site }: FooterProps) {
           </div>
 
           <div>
-            <h4 className="mb-6 text-[11px] tracking-[0.2em] text-brand uppercase">Contact</h4>
+            <h2 className="mb-6 text-[11px] tracking-[0.2em] text-brand uppercase">Contact</h2>
             {site.contact.phones.map((phone) => (
               <a
                 key={phone.href}
@@ -59,28 +60,24 @@ export function Footer({ site }: FooterProps) {
 
           {(site.social.instagram || site.social.facebook) && (
             <div>
-              <h4 className="mb-6 text-[11px] tracking-[0.2em] text-brand uppercase">
+              <h2 className="mb-6 text-[11px] tracking-[0.2em] text-brand uppercase">
                 Réseaux sociaux
-              </h4>
+              </h2>
               {site.social.instagram && (
-                <a
+                <ExternalLink
                   href={site.social.instagram}
-                  target="_blank"
-                  rel="noopener noreferrer"
                   className="block text-sm leading-8 no-underline transition-colors hover:text-brand"
                 >
                   Instagram
-                </a>
+                </ExternalLink>
               )}
               {site.social.facebook && (
-                <a
+                <ExternalLink
                   href={site.social.facebook}
-                  target="_blank"
-                  rel="noopener noreferrer"
                   className="block text-sm leading-8 no-underline transition-colors hover:text-brand"
                 >
                   Facebook
-                </a>
+                </ExternalLink>
               )}
             </div>
           )}
