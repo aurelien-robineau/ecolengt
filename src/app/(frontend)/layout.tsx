@@ -2,17 +2,12 @@ import React from 'react'
 
 import { FrontendShell } from '@/components/layout/FrontendShell'
 import { getSiteContent } from '@/lib/cms/getSiteContent'
-import { siteFaviconMetadata } from '@/lib/site/favicon'
+import { buildSiteRootMetadata } from '@/lib/seo/metadata'
 
 export async function generateMetadata() {
   const { site } = await getSiteContent()
 
-  return {
-    title: `${site.name} · ${site.address.city}`,
-    description:
-      'École de batterie à Aix-en-Provence. Enseignement pour tous niveaux dès 6 ans, méthode Dante Agostini.',
-    ...siteFaviconMetadata,
-  }
+  return buildSiteRootMetadata(site)
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {

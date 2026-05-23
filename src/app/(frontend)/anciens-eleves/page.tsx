@@ -4,15 +4,16 @@ import { AlumniIntro } from '@/components/alumni/AlumniIntro'
 import { AlumniStudents } from '@/components/alumni/AlumniStudents'
 import { Container } from '@/components/ui/Container'
 import { SectionHeader } from '@/components/ui/SectionHeader'
+import { routes } from '@/config/routes'
 import { getSiteContent } from '@/lib/cms/getSiteContent'
+import { buildPageMetadata } from '@/lib/seo/metadata'
+import { seoCopy } from '@/lib/seo/copy'
 
 export async function generateMetadata(): Promise<Metadata> {
   const { site } = await getSiteContent()
+  const { title, description } = seoCopy.anciensEleves(site)
 
-  return {
-    title: `Anciens élèves — ${site.name} · ${site.address.city}`,
-    description: `Découvrez les parcours et projets des anciens élèves de ${site.name} à ${site.address.city}.`,
-  }
+  return buildPageMetadata({ site, pathname: routes.alumni, title, description })
 }
 
 export default async function AlumniPage() {

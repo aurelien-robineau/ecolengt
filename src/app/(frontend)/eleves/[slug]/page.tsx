@@ -3,8 +3,10 @@ import { notFound } from 'next/navigation'
 
 import { StudentProfile } from '@/components/students/StudentProfile'
 import { Container } from '@/components/ui/Container'
+import { routes } from '@/config/routes'
 import { getStudentBySlug, getStudentSlugs } from '@/lib/cms/getStudentBySlug'
 import { getSiteContent } from '@/lib/cms/getSiteContent'
+import { buildStudentMetadata } from '@/lib/seo/metadata'
 
 type StudentPageProps = {
   params: Promise<{ slug: string }>
@@ -24,13 +26,13 @@ export async function generateMetadata({ params }: StudentPageProps): Promise<Me
     return { title: site.name }
   }
 
-  return {
-    title: `${student.name} — ${site.name} · ${site.address.city}`,
-    description:
-      student.jobTitle ?
-        `${student.name} — ${student.jobTitle}. Ancien élève de ${site.name}.`
-      : `${student.name}, ancien élève de ${site.name} à ${site.address.city}.`,
-  }
+  const pathname = `${routes.students}/${slug}`
+  const description =
+    student.jobTitle ?
+      `${student.name} — ${student.jobTitle}. Ancien élève de ${site.name}, école de batterie à ${site.address.city}.`
+    : `${student.name}, ancien élève de ${site.name}, formation batterie à ${site.address.city}.`
+
+  return buildStudentMetadata(site, pathname, student.name, description)
 }
 
 export default async function StudentPage({ params }: StudentPageProps) {

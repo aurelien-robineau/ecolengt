@@ -3,15 +3,16 @@ import type { Metadata } from 'next'
 import { PricingPageContent } from '@/components/pricing/PricingPageContent'
 import { Container } from '@/components/ui/Container'
 import { SectionHeader } from '@/components/ui/SectionHeader'
+import { routes } from '@/config/routes'
 import { getSiteContent } from '@/lib/cms/getSiteContent'
+import { buildPageMetadata } from '@/lib/seo/metadata'
+import { seoCopy } from '@/lib/seo/copy'
 
 export async function generateMetadata(): Promise<Metadata> {
   const { site } = await getSiteContent()
+  const { title, description } = seoCopy.tarifs(site)
 
-  return {
-    title: `Tarifs — ${site.name} · ${site.address.city}`,
-    description: `Tarifs des cours et des stages intensifs à ${site.address.city}.`,
-  }
+  return buildPageMetadata({ site, pathname: routes.pricing, title, description })
 }
 
 export default async function PricingPage() {

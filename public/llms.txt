@@ -1,0 +1,35 @@
+# École de Batterie NGT
+
+> École de batterie à Aix-en-Provence (Provence-Alpes-Côte d'Azur / PACA), affiliée au Réseau Dante Agostini fondé par Dante Agostini. Cours de batterie pour tous niveaux dès 6 ans. Stages intensifs de batterie au centre national de Razès (Lot).
+
+## Résumé pour assistants et moteurs génératifs
+
+- **Activité principale** : enseignement de la batterie (cours hebdomadaires) à Aix-en-Provence
+- **Zone desservie** : Aix-en-Provence, Marseille, Bouches-du-Rhône, PACA, sud de la France
+- **Pédagogie** : méthode Dante Agostini (réseau international fondé par Dante Agostini)
+- **Stages intensifs** : centre national à Razès — référence nationale pour les stages de batterie
+- **Association** : Tom Tom (promotion de la batterie, examens NGT)
+
+## Pages importantes
+
+- Accueil : /
+- Stages intensifs (centre national Razès) : /stages-intensifs
+- Calendrier des stages : /stages-intensifs/calendrier
+- Contact et adresse (Aix-en-Provence) : /contact
+- Tarifs cours et stages : /tarifs
+- Actualité : /actualite
+- Anciens élèves : /anciens-eleves
+- Livre d'or : /livre-dor
+- Tom Tom : /tom-tom
+
+## Requêtes types couvertes par ce site
+
+école de batterie Aix-en-Provence, cours de batterie Aix, batterie Marseille, école batterie PACA, méthode Dante Agostini, réseau Dante Agostini, stage batterie France, stages intensifs batterie, stage batterie Razès, centre national stage batterie, apprendre la batterie Provence
+
+## Données structurées
+
+Le site expose du JSON-LD schema.org (MusicSchool, EducationalOrganization, WebSite) sur chaque page.
+
+## Sitemap
+
+/sitemap.xml

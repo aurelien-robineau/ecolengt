@@ -3,8 +3,10 @@ import { notFound } from 'next/navigation'
 
 import { ArticleDetail } from '@/components/articles/ArticleDetail'
 import { Container } from '@/components/ui/Container'
+import { articlePageHref } from '@/lib/cms/articlePageHref'
 import { getArticleBySlug, getArticleSlugs } from '@/lib/cms/getArticleBySlug'
 import { getSiteContent } from '@/lib/cms/getSiteContent'
+import { buildArticleMetadata } from '@/lib/seo/metadata'
 
 type ArticlePageProps = {
   params: Promise<{ slug: string }>
@@ -24,10 +26,15 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
     return { title: site.name }
   }
 
-  return {
-    title: `${article.title} — ${site.name} · ${site.address.city}`,
-    description: article.shortDescription,
-  }
+  const pathname = articlePageHref(slug) ?? `/actualite/${slug}`
+
+  return buildArticleMetadata(
+    site,
+    pathname,
+    article.title,
+    article.shortDescription ??
+      `Actualité de ${site.name}, école de batterie à ${site.address.city}.`,
+  )
 }
 
 export default async function ArticlePage({ params }: ArticlePageProps) {
