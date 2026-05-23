@@ -18,17 +18,14 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: ArticlePageProps): Promise<Metadata> {
   const { slug } = await params
-  const [article, { site, landing }] = await Promise.all([
-    getArticleBySlug(slug),
-    getSiteContent(),
-  ])
+  const [article, { site }] = await Promise.all([getArticleBySlug(slug), getSiteContent()])
 
   if (!article) {
     return { title: site.name }
   }
 
   return {
-    title: `${article.title} — ${site.name} · ${landing.hero.location}`,
+    title: `${article.title} — ${site.name} · ${site.address.city}`,
     description: article.shortDescription,
   }
 }

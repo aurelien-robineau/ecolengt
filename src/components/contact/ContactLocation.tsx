@@ -60,6 +60,7 @@ export function ContactLocation({ site, mapsEmbedSrc }: ContactLocationProps) {
         <ContactInfoBlock label="Adresse">
           <AddressContent
             street={site.address.street}
+            postalCode={site.address.postalCode}
             city={site.address.city}
             mapsUrl={site.address.mapsUrl}
             className={contactValueClassName}

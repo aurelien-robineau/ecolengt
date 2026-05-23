@@ -62,8 +62,6 @@ export function mapHomePage(data: HomePageDoc | null | undefined): LandingPageDa
       tagline: data.heroTagline ?? '',
       name: data.heroName ?? '',
       subtitle: data.heroSubtitle ?? '',
-      location: data.heroLocation ?? '',
-      founded: data.heroFounded ?? '',
       cta: data.heroCta ?? '',
       ctaHref: data.heroCtaHref?.trim() ?? '',
     },

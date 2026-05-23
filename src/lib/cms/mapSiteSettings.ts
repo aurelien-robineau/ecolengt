@@ -24,10 +24,17 @@ export function mapSiteSettings(data: SiteSetting | null | undefined): SiteSetti
         href: `mailto:${entry.address}`,
       })) ?? []
 
+  const foundedYear =
+    typeof data.foundedYear === 'number' && Number.isInteger(data.foundedYear) ?
+      data.foundedYear
+    : null
+
   return {
     name: data.schoolNameShort ?? '',
+    foundedYear,
     address: {
       street: data.addressStreet ?? '',
+      postalCode: data.addressPostalCode ?? '',
       city: data.addressCity ?? '',
       mapsUrl: data.mapsUrl?.trim() ?? '',
     },

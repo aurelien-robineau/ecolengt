@@ -57,24 +57,6 @@ export const HomePage: GlobalConfig = {
               },
             },
             {
-              name: 'heroLocation',
-              type: 'text',
-              label: 'Ville',
-              required: true,
-              admin: {
-                description: 'Ville affichée sous le titre.',
-              },
-            },
-            {
-              name: 'heroFounded',
-              type: 'text',
-              label: 'Mention « depuis »',
-              admin: {
-                description:
-                  'Mention optionnelle affichée à côté de la ville. Laisser vide pour ne rien afficher.',
-              },
-            },
-            {
               name: 'heroCta',
               type: 'text',
               label: 'Texte du CTA',

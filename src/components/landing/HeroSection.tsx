@@ -1,13 +1,19 @@
 import { Button } from '@/components/ui/Button'
 import { Container } from '@/components/ui/Container'
 import { HeroCircles } from '@/components/landing/HeroCircles'
-import type { LandingPageData } from '@/lib/cms/types'
+import { formatFoundedSince } from '@/lib/cms/formatAddress'
+import type { LandingPageData, SiteSettingsData } from '@/lib/cms/types'
 
 type HeroSectionProps = {
   hero: LandingPageData['hero']
+  city: SiteSettingsData['address']['city']
+  foundedYear: SiteSettingsData['foundedYear']
 }
 
-export function HeroSection({ hero }: HeroSectionProps) {
+export function HeroSection({ hero, city, foundedYear }: HeroSectionProps) {
+  const founded = formatFoundedSince(foundedYear)
+  const cityLabel = city.trim()
+
   return (
     <section
       id="home"
@@ -34,15 +40,17 @@ export function HeroSection({ hero }: HeroSectionProps) {
           </em>
         </h1>
 
-        <p className="animate-fade-up-delay-2 mb-12 text-[13px] tracking-[0.2em] text-foreground-subtle uppercase">
-          {hero.location}
-          {hero.founded ?
-            <>
+        {cityLabel || founded ?
+          <p className="animate-fade-up-delay-2 mb-12 text-[13px] tracking-[0.2em] text-foreground-subtle uppercase">
+            {cityLabel}
+            {cityLabel && founded ?
               <span className="mx-3 opacity-50">·</span>
-              {hero.founded}
-            </>
-          : null}
-        </p>
+            : null}
+            {founded}
+          </p>
+        : (
+          <div className="mb-12" />
+        )}
 
         {hero.cta && hero.ctaHref ?
           <div className="animate-fade-up-delay-3">

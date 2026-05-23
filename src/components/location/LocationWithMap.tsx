@@ -44,6 +44,7 @@ export function LocationWithMap({
               <h3 className={cn(sectionLabelClassName, 'mb-4')}>Adresse</h3>
               <AddressContent
                 street={address.street}
+                postalCode={address.postalCode}
                 city={address.city}
                 mapsUrl={address.mapsUrl}
                 className={contactValueClassName}

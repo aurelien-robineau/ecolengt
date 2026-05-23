@@ -9,11 +9,11 @@ import { SectionHeader } from '@/components/ui/SectionHeader'
 import { getSiteContent } from '@/lib/cms/getSiteContent'
 
 export async function generateMetadata(): Promise<Metadata> {
-  const { site, landing } = await getSiteContent()
+  const { site } = await getSiteContent()
 
   return {
-    title: `Contact — ${site.name} · ${landing.hero.location}`,
-    description: `Contactez ${site.name} à ${landing.hero.location}. Téléphone, e-mail et adresse.`,
+    title: `Contact — ${site.name} · ${site.address.city}`,
+    description: `Contactez ${site.name} à ${site.address.city}. Téléphone, e-mail et adresse.`,
   }
 }
 

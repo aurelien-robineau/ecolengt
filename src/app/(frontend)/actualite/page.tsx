@@ -8,11 +8,11 @@ import { getArticles } from '@/lib/cms/getArticles'
 import { getSiteContent } from '@/lib/cms/getSiteContent'
 
 export async function generateMetadata(): Promise<Metadata> {
-  const { site, landing } = await getSiteContent()
+  const { site } = await getSiteContent()
 
   return {
-    title: `Actualité — ${site.name} · ${landing.hero.location}`,
-    description: `Actualités et nouvelles de ${site.name} à ${landing.hero.location}.`,
+    title: `Actualité — ${site.name} · ${site.address.city}`,
+    description: `Actualités et nouvelles de ${site.name} à ${site.address.city}.`,
   }
 }
 

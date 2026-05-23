@@ -6,11 +6,11 @@ import { SectionHeader } from '@/components/ui/SectionHeader'
 import { getSiteContent } from '@/lib/cms/getSiteContent'
 
 export async function generateMetadata(): Promise<Metadata> {
-  const { site, landing } = await getSiteContent()
+  const { site } = await getSiteContent()
 
   return {
-    title: `Tarifs — ${site.name} · ${landing.hero.location}`,
-    description: `Tarifs des cours et des stages intensifs à ${landing.hero.location}.`,
+    title: `Tarifs — ${site.name} · ${site.address.city}`,
+    description: `Tarifs des cours et des stages intensifs à ${site.address.city}.`,
   }
 }
 

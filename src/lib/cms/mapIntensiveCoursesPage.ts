@@ -9,7 +9,7 @@ const emptyIntensiveCoursesPage: IntensiveCoursesPageData = {
   gallery: [],
   blocks: [],
   access: {
-    address: { street: '', city: '', mapsUrl: '' },
+    address: { street: '', postalCode: '', city: '', mapsUrl: '' },
     mapsEmbedSrc: '',
     directions: null,
     gallery: [],
@@ -33,6 +33,7 @@ export function mapIntensiveCoursesPage(
     access: {
       address: {
         street: data.accessAddressStreet?.trim() ?? '',
+        postalCode: '',
         city: data.accessAddressCity?.trim() ?? '',
         mapsUrl: data.accessMapsUrl?.trim() ?? '',
       },
