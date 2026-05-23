@@ -1,7 +1,8 @@
 import type { GlobalConfig } from 'payload'
 
 import { adminGroups } from '@/lib/cms/adminGroups'
-import { pageRichTextEditor } from '@/lib/cms/pageRichTextEditor'
+import { landingSectionFields } from '@/lib/cms/landingSectionFields'
+import { buttonUrlFieldDescription } from '@/lib/cms/urlFieldDescription'
 import { revalidateSite } from '@/lib/cms/revalidateSite'
 
 export const HomePage: GlobalConfig = {
@@ -87,8 +88,7 @@ export const HomePage: GlobalConfig = {
               type: 'text',
               label: 'URL du CTA',
               admin: {
-                description:
-                  'Lien du bouton (ex. /#audience, /stages-intensifs, /contact ou https://…). Obligatoire pour afficher le bouton.',
+                description: buttonUrlFieldDescription,
               },
             },
           ],
@@ -129,185 +129,23 @@ export const HomePage: GlobalConfig = {
           ],
         },
         {
-          label: 'Pour qui',
-          description: 'Section qui explique à qui s’adressent les cours.',
+          label: 'Sections',
+          description: 'Sections de contenu affichées sous le bandeau citation.',
           fields: [
             {
-              name: 'audienceLabel',
-              type: 'text',
-              label: 'Petit titre de section',
-              required: true,
-              admin: {
-                description: 'Court texte en majuscules affiché au-dessus du titre de section.',
-              },
-            },
-            {
-              name: 'audienceTitle',
-              type: 'text',
-              label: 'Titre de section',
-              required: true,
-              admin: {
-                description: 'Grand titre visible sur la page d’accueil.',
-              },
-            },
-            {
-              name: 'audienceContent',
-              type: 'richText',
-              label: 'Texte de la section',
-              editor: pageRichTextEditor,
-            },
-          ],
-        },
-        {
-          label: 'Pédagogie',
-          description: 'Présentation de la méthode, des cours, du travail et des stages.',
-          fields: [
-            {
-              name: 'pedagogyLabel',
-              type: 'text',
-              label: 'Petit titre de section',
-              required: true,
-              admin: {
-                description: 'Petit titre de section affiché au-dessus du titre principal.',
-              },
-            },
-            {
-              name: 'pedagogyTitle',
-              type: 'text',
-              label: 'Titre de section',
-              required: true,
-            },
-            {
-              name: 'pedagogyContent',
-              type: 'richText',
-              label: 'Texte de présentation',
-              editor: pageRichTextEditor,
-            },
-            {
-              type: 'collapsible',
-              label: 'Encadré « Organisation des cours »',
-              admin: {
-                description: 'Bloc à deux colonnes dans la section pédagogie.',
-              },
-              fields: [
-                {
-                  name: 'courseOrganizationTitle',
-                  type: 'text',
-                  label: 'Titre de l’encadré',
-                  required: true,
-                },
-                {
-                  name: 'courseOrganizationContent',
-                  type: 'richText',
-                  label: 'Texte',
-                  editor: pageRichTextEditor,
-                },
-              ],
-            },
-            {
-              type: 'collapsible',
-              label: 'Encadré « Le travail »',
-              fields: [
-                {
-                  name: 'practiceTitle',
-                  type: 'text',
-                  label: 'Titre de l’encadré',
-                  required: true,
-                },
-                {
-                  name: 'practiceBody',
-                  type: 'richText',
-                  label: 'Texte',
-                  editor: pageRichTextEditor,
-                },
-              ],
-            },
-            {
-              type: 'collapsible',
-              label: 'Encadré « Stages intensifs »',
-              admin: {
-                description: 'Bloc sur fond jaune clair en bas de la section pédagogie.',
-              },
-              fields: [
-                {
-                  name: 'intensiveCoursesTitle',
-                  type: 'text',
-                  label: 'Titre',
-                  required: true,
-                },
-                {
-                  name: 'intensiveCoursesContent',
-                  type: 'richText',
-                  label: 'Texte',
-                  editor: pageRichTextEditor,
-                },
-                {
-                  name: 'intensiveCoursesButtonLabel',
-                  type: 'text',
-                  label: 'Texte du bouton',
-                  required: true,
-                  admin: {
-                    description: 'Libellé du bouton en bas de l’encadré stages intensifs.',
-                  },
-                },
-                {
-                  name: 'intensiveCoursesButtonHref',
-                  type: 'text',
-                  label: 'URL du bouton',
-                  admin: {
-                    description:
-                      'Lien du bouton (ex. /stages-intensifs, /contact ou https://…). Obligatoire pour afficher le bouton.',
-                  },
-                },
-              ],
-            },
-          ],
-        },
-        {
-          label: 'Locaux',
-          description: 'Description des salles et galerie photos des locaux.',
-          fields: [
-            {
-              name: 'facilitiesLabel',
-              type: 'text',
-              label: 'Petit titre de section',
-              required: true,
-              admin: {
-                description: 'Petit titre de section affiché au-dessus du titre principal.',
-              },
-            },
-            {
-              name: 'facilitiesTitle',
-              type: 'text',
-              label: 'Titre de section',
-              required: true,
-            },
-            {
-              name: 'facilitiesDescription',
-              type: 'richText',
-              label: 'Texte de présentation',
-              editor: pageRichTextEditor,
-            },
-            {
-              name: 'facilitiesGallery',
+              name: 'sections',
               type: 'array',
-              label: 'Photos des locaux',
+              label: 'Sections',
               labels: {
-                singular: 'Photo',
-                plural: 'Photos',
+                singular: 'Section',
+                plural: 'Sections',
               },
               admin: {
-                description: 'Galerie de photos en bas de section (grille responsive).',
+                description:
+                  'Ajoutez autant de sections que nécessaire. Seuls le sur-titre et le titre sont obligatoires.',
+                initCollapsed: true,
               },
-              fields: [
-                {
-                  name: 'image',
-                  type: 'upload',
-                  relationTo: 'media',
-                  label: 'Image',
-                  required: true,
-                },
-              ],
+              fields: landingSectionFields,
             },
           ],
         },

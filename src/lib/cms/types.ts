@@ -134,6 +134,30 @@ export type GalleryItem = {
   image: NonNullable<CmsImageData>
 }
 
+export type LandingSectionItem = {
+  title: string
+  description: CmsRichTextContent | null
+}
+
+export type LandingSectionHighlight = {
+  title: string
+  description: CmsRichTextContent | null
+  button: {
+    label: string
+    href: string
+  } | null
+}
+
+export type LandingSection = {
+  id: string
+  surtitle: string
+  title: string
+  description: CmsRichTextContent | null
+  items: LandingSectionItem[]
+  highlight: LandingSectionHighlight | null
+  gallery: GalleryItem[]
+}
+
 export type LandingPageData = {
   hero: {
     tagline: string
@@ -150,43 +174,7 @@ export type LandingPageData = {
     imageAlt: string
     portrait: CmsImageData
   }
-  audience: {
-    id: string
-    label: string
-    title: string
-    content: CmsRichTextContent | null
-  }
-  pedagogy: {
-    id: string
-    label: string
-    title: string
-    content: CmsRichTextContent | null
-    features: {
-      courseOrganization: {
-        title: string
-        content: CmsRichTextContent | null
-      }
-      practice: {
-        title: string
-        body: CmsRichTextContent | null
-      }
-    }
-    intensiveCourses: {
-      title: string
-      content: CmsRichTextContent | null
-      learnMore: {
-        label: string
-        href: string
-      }
-    }
-  }
-  facilities: {
-    id: string
-    label: string
-    title: string
-    description: CmsRichTextContent | null
-    gallery: GalleryItem[]
-  }
+  sections: LandingSection[]
 }
 
 export type SiteContent = {
