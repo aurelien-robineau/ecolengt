@@ -6,8 +6,10 @@ export type { CmsRichTextContent }
 
 export type SiteSettingsData = {
   name: string
+  foundedYear: number | null
   address: {
     street: string
+    postalCode: string
     city: string
     mapsUrl: string
   }
@@ -76,6 +78,7 @@ export type IntensiveCoursesBlock = {
 
 export type PageAddressData = {
   street: string
+  postalCode: string
   city: string
   mapsUrl: string
 }
@@ -163,8 +166,6 @@ export type LandingPageData = {
     tagline: string
     name: string
     subtitle: string
-    location: string
-    founded: string
     cta: string
     ctaHref: string
   }

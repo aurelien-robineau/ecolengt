@@ -11,8 +11,10 @@ export const defaultMapsEmbedSrc = ''
 
 export const defaultSiteSettings: SiteSettingsData = {
   name: '',
+  foundedYear: null,
   address: {
     street: '',
+    postalCode: '',
     city: '',
     mapsUrl: '',
   },
@@ -56,8 +58,6 @@ export const defaultLandingPage: LandingPageData = {
     tagline: '',
     name: '',
     subtitle: '',
-    location: '',
-    founded: '',
     cta: '',
     ctaHref: '',
   },

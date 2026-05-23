@@ -11,11 +11,11 @@ import { hasLexicalContent } from '@/lib/cms/hasLexicalContent'
 import { getSiteContent } from '@/lib/cms/getSiteContent'
 
 export async function generateMetadata(): Promise<Metadata> {
-  const { site, landing } = await getSiteContent()
+  const { site } = await getSiteContent()
 
   return {
-    title: `Stages intensifs — ${site.name} · ${landing.hero.location}`,
-    description: `Stages intensifs de batterie à ${landing.hero.location}.`,
+    title: `Stages intensifs — ${site.name} · ${site.address.city}`,
+    description: `Stages intensifs de batterie à ${site.address.city}.`,
   }
 }
 

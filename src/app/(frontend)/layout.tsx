@@ -5,10 +5,10 @@ import { getSiteContent } from '@/lib/cms/getSiteContent'
 import { siteFaviconMetadata } from '@/lib/site/favicon'
 
 export async function generateMetadata() {
-  const { site, landing } = await getSiteContent()
+  const { site } = await getSiteContent()
 
   return {
-    title: `${site.name} · ${landing.hero.location}`,
+    title: `${site.name} · ${site.address.city}`,
     description:
       'École de batterie à Aix-en-Provence. Enseignement pour tous niveaux dès 6 ans, méthode Dante Agostini.',
     ...siteFaviconMetadata,

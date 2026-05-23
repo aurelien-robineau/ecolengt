@@ -502,14 +502,6 @@ export interface HomePage {
    */
   heroSubtitle: string;
   /**
-   * Ville affichée sous le titre.
-   */
-  heroLocation: string;
-  /**
-   * Mention optionnelle affichée à côté de la ville. Laisser vide pour ne rien afficher.
-   */
-  heroFounded?: string | null;
-  /**
    * Libellé du bouton sous le titre de la bannière.
    */
   heroCta: string;
@@ -1060,9 +1052,14 @@ export interface SiteSetting {
    */
   schoolNameShort: string;
   /**
+   * Affichée sur la bannière d’accueil (« Depuis … »). Laisser vide pour ne rien afficher.
+   */
+  foundedYear?: number | null;
+  /**
    * Affiché dans le pied de page, colonne Adresse.
    */
   addressStreet: string;
+  addressPostalCode: string;
   addressCity: string;
   /**
    * URL de la fiche Google Maps (bouton « Partager » → « Lien »). Utilisée lorsque l’on clique sur l’adresse sur le site.
@@ -1108,8 +1105,6 @@ export interface HomePageSelect<T extends boolean = true> {
   heroTagline?: T;
   heroName?: T;
   heroSubtitle?: T;
-  heroLocation?: T;
-  heroFounded?: T;
   heroCta?: T;
   heroCtaHref?: T;
   quoteText?: T;
@@ -1304,7 +1299,9 @@ export interface PricingPageSelect<T extends boolean = true> {
  */
 export interface SiteSettingsSelect<T extends boolean = true> {
   schoolNameShort?: T;
+  foundedYear?: T;
   addressStreet?: T;
+  addressPostalCode?: T;
   addressCity?: T;
   mapsUrl?: T;
   phones?:

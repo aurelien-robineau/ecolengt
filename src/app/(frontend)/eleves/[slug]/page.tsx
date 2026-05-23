@@ -18,21 +18,18 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: StudentPageProps): Promise<Metadata> {
   const { slug } = await params
-  const [student, { site, landing }] = await Promise.all([
-    getStudentBySlug(slug),
-    getSiteContent(),
-  ])
+  const [student, { site }] = await Promise.all([getStudentBySlug(slug), getSiteContent()])
 
   if (!student) {
     return { title: site.name }
   }
 
   return {
-    title: `${student.name} — ${site.name} · ${landing.hero.location}`,
+    title: `${student.name} — ${site.name} · ${site.address.city}`,
     description:
       student.jobTitle ?
         `${student.name} — ${student.jobTitle}. Ancien élève de ${site.name}.`
-      : `${student.name}, ancien élève de ${site.name} à ${landing.hero.location}.`,
+      : `${student.name}, ancien élève de ${site.name} à ${site.address.city}.`,
   }
 }
 

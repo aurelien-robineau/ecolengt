@@ -2,6 +2,7 @@ import type { GlobalConfig } from 'payload'
 
 import { adminGroups } from '@/lib/cms/adminGroups'
 import { revalidateSite } from '@/lib/cms/revalidateSite'
+import { validateFoundedYear } from '@/lib/cms/validateFoundedYear'
 
 export const SiteSettings: GlobalConfig = {
   slug: 'site-settings',
@@ -35,6 +36,16 @@ export const SiteSettings: GlobalConfig = {
                   'Forme abrégée du nom. Utilisée dans l’en-tête, le pied de page et les titres de page.',
               },
             },
+            {
+              name: 'foundedYear',
+              type: 'number',
+              label: 'Année de fondation',
+              admin: {
+                description:
+                  'Affichée sur la bannière d’accueil (« Depuis … »). Laisser vide pour ne rien afficher.',
+              },
+              validate: validateFoundedYear,
+            },
           ],
         },
         {
@@ -51,9 +62,15 @@ export const SiteSettings: GlobalConfig = {
               },
             },
             {
+              name: 'addressPostalCode',
+              type: 'text',
+              label: 'Code postal',
+              required: true,
+            },
+            {
               name: 'addressCity',
               type: 'text',
-              label: 'Code postal et ville',
+              label: 'Ville',
               required: true,
             },
             {

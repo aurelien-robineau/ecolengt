@@ -4,11 +4,15 @@ import { QuoteBand } from '@/components/landing/QuoteBand'
 import { getSiteContent } from '@/lib/cms/getSiteContent'
 
 export default async function HomePage() {
-  const { landing } = await getSiteContent()
+  const { site, landing } = await getSiteContent()
 
   return (
     <>
-      <HeroSection hero={landing.hero} />
+      <HeroSection
+        hero={landing.hero}
+        city={site.address.city}
+        foundedYear={site.foundedYear}
+      />
       <QuoteBand quote={landing.quote} />
       {landing.sections.map((section, index) => (
         <LandingSection key={`${section.id}-${index}`} section={section} />

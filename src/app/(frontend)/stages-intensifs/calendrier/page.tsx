@@ -6,11 +6,11 @@ import { SectionHeader } from '@/components/ui/SectionHeader'
 import { getSiteContent } from '@/lib/cms/getSiteContent'
 
 export async function generateMetadata(): Promise<Metadata> {
-  const { site, landing } = await getSiteContent()
+  const { site } = await getSiteContent()
 
   return {
-    title: `Calendrier des stages intensifs — ${site.name} · ${landing.hero.location}`,
-    description: `Calendrier des stages intensifs de batterie à ${landing.hero.location}.`,
+    title: `Calendrier des stages intensifs — ${site.name} · ${site.address.city}`,
+    description: `Calendrier des stages intensifs de batterie à ${site.address.city}.`,
   }
 }
 
