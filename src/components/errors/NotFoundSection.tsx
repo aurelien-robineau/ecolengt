@@ -1,4 +1,3 @@
-import { HeroCircles } from '@/components/landing/HeroCircles'
 import { Button } from '@/components/ui/Button'
 import { Container } from '@/components/ui/Container'
 import { routes } from '@/config/routes'
@@ -15,7 +14,6 @@ export function NotFoundSection({ site }: NotFoundSectionProps) {
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_55%_55%_at_72%_38%,rgba(255,221,0,0.06)_0%,transparent_70%),radial-gradient(ellipse_40%_50%_at_15%_65%,rgba(255,221,0,0.03)_0%,transparent_60%),linear-gradient(160deg,#f4f4f4_0%,#f0f0f0_100%)]"
         aria-hidden
       />
-      <HeroCircles />
 
       <Container className="relative text-center">
         <p className="animate-fade-up mb-4 font-serif text-[clamp(5rem,18vw,9rem)] leading-none font-light text-brand">
