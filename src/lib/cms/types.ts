@@ -85,8 +85,13 @@ export type IntensiveCoursesBlock = {
   content: CmsRichTextContent | null
 }
 
-export type IntensiveCoursesSubPageData = {
+export type IntensiveCoursesCalendarSchoolYear = {
+  title: string
   content: CmsRichTextContent | null
+}
+
+export type IntensiveCoursesCalendarPageData = {
+  schoolYears: IntensiveCoursesCalendarSchoolYear[]
 }
 
 export type PricingPageData = {
@@ -182,6 +187,6 @@ export type SiteContent = {
   tomTom: TomTomPageData
   intensiveCourses: IntensiveCoursesPageData
   pricing: PricingPageData
-  intensiveCoursesCalendar: IntensiveCoursesSubPageData
+  intensiveCoursesCalendar: IntensiveCoursesCalendarPageData
   legalNotice: LegalNoticePageData
 }
