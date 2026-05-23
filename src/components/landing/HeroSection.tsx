@@ -1,7 +1,6 @@
 import { CmsImage } from '@/components/cms/CmsImage'
 import { Button } from '@/components/ui/Button'
 import { Container } from '@/components/ui/Container'
-import { HeroCircles } from '@/components/landing/HeroCircles'
 import { formatFoundedSince } from '@/lib/cms/formatAddress'
 import { cn } from '@/lib/cn'
 import type { LandingPageData, SiteSettingsData } from '@/lib/cms/types'
@@ -19,13 +18,13 @@ export function HeroSection({ hero, city, foundedYear }: HeroSectionProps) {
   return (
     <section
       id="home"
-      className="relative flex min-h-screen flex-col justify-end overflow-hidden bg-surface-muted pb-32 pt-28"
+      className="relative flex flex-col overflow-hidden bg-surface-muted pt-28 pb-12 md:min-h-screen md:justify-end md:pb-32"
     >
       {hero.backgroundImage ?
         <div className="pointer-events-none absolute inset-0" aria-hidden>
           <CmsImage
             image={hero.backgroundImage}
-            className="absolute inset-0"
+            className="absolute inset-0 object-[center_35%] md:object-center"
             sizes="100vw"
             priority
           />
@@ -35,12 +34,11 @@ export function HeroSection({ hero, city, foundedYear }: HeroSectionProps) {
         className={cn(
           'pointer-events-none absolute inset-0',
           hero.backgroundImage ?
-            'bg-[radial-gradient(ellipse_55%_55%_at_72%_38%,rgba(255,221,0,0.04)_0%,transparent_70%),radial-gradient(ellipse_40%_50%_at_15%_65%,rgba(255,221,0,0.02)_0%,transparent_60%),linear-gradient(160deg,rgba(244,244,244,0.12)_0%,rgba(240,240,240,0.08)_100%)]'
+            'bg-[radial-gradient(ellipse_55%_55%_at_72%_38%,rgba(255,221,0,0.08)_0%,transparent_70%),radial-gradient(ellipse_40%_50%_at_15%_65%,rgba(255,221,0,0.04)_0%,transparent_60%),linear-gradient(160deg,rgba(244,244,244,0.92)_0%,rgba(240,240,240,0.88)_100%)]'
           : 'bg-[radial-gradient(ellipse_55%_55%_at_72%_38%,rgba(255,221,0,0.06)_0%,transparent_70%),radial-gradient(ellipse_40%_50%_at_15%_65%,rgba(255,221,0,0.03)_0%,transparent_60%),linear-gradient(160deg,#f4f4f4_0%,#f0f0f0_100%)]',
         )}
         aria-hidden
       />
-      <HeroCircles />
 
       <Container className="relative">
         <p className="animate-fade-up mb-6 flex items-center gap-4 font-serif text-lg text-foreground-muted italic md:text-xl">
