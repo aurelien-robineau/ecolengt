@@ -38,6 +38,7 @@ export const defaultSiteSettings: SiteSettingsData = {
     facebook: '',
   },
   navigation: [
+    { label: 'Accueil', href: routes.home },
     { label: 'Actualité', href: routes.news },
     { label: 'Stages intensifs', href: routes.stagesIntensifs },
     { label: 'Livre d’or', href: routes.guestbook },
