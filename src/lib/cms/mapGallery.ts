@@ -14,7 +14,7 @@ export function mapGallery(entries: GalleryEntry[] | null | undefined): GalleryI
 
   return entries
     .map((item) => ({
-      image: mapMedia(item.image, 'Photo'),
+      image: mapMedia(item.image, ''),
     }))
     .filter((item): item is GalleryItem => item.image !== null)
 }
