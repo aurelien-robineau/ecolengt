@@ -24,7 +24,7 @@ const proseClassName = [
   '[&_li>ul]:mt-1',
   '[&_a]:text-foreground-muted [&_a]:no-underline [&_a]:transition-colors hover:[&_a]:text-brand',
   '[&_picture]:my-8 [&_picture]:block [&_img]:h-auto [&_img]:max-w-full',
-  '[&_table]:my-6 [&_table]:w-full [&_table]:min-w-[20rem] [&_table]:border-collapse [&_table]:text-sm',
+  '[&_table]:w-full [&_table]:min-w-[20rem] [&_table]:border-collapse [&_table]:text-sm',
   '[&_th]:border [&_th]:border-border [&_th]:bg-surface-muted [&_th]:px-3 [&_th]:py-2 [&_th]:text-left [&_th]:font-medium',
   '[&_td]:border [&_td]:border-border [&_td]:px-3 [&_td]:py-2 [&_td]:align-top',
   '[&_td>p]:mb-0 [&_th>p]:mb-0',
