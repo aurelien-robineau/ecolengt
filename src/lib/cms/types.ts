@@ -53,7 +53,7 @@ export type GuestbookPageData = {
 
 export type AlumniStudent = {
   name: string
-  projects: string[]
+  projects: string | null
   pageHref: string | null
 }
 

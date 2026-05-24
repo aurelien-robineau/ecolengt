@@ -22,17 +22,10 @@ export function AlumniStudents({ students }: AlumniStudentsProps) {
                 className="text-[1.0625rem] leading-snug"
               />
             </h2>
-            {student.projects.length > 0 ?
-              <ul className="list-none space-y-1 text-[0.8125rem] leading-[1.75] text-foreground-muted">
-                {student.projects.map((project, pIndex) => (
-                  <li key={`${project}-${pIndex}`} className="flex gap-2">
-                    <span className="shrink-0 text-brand" aria-hidden>
-                      —
-                    </span>
-                    <span>{project}</span>
-                  </li>
-                ))}
-              </ul>
+            {student.projects ?
+              <p className="whitespace-pre-line text-[0.8125rem] leading-[1.75] text-foreground-muted">
+                {student.projects}
+              </p>
             : null}
           </li>
         ))}

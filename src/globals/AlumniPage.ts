@@ -67,24 +67,12 @@ export const AlumniPage: GlobalConfig = {
                 },
                 {
                   name: 'projects',
-                  type: 'array',
+                  type: 'textarea',
                   label: 'Projets, groupes, concerts…',
-                  labels: {
-                    singular: 'Élément',
-                    plural: 'Éléments',
-                  },
                   admin: {
                     description:
-                      'Liste des projets, groupes ou activités affichés pour cet ancien élève.',
+                      'Texte libre (une ligne par élément ou texte continu) affiché sous le nom.',
                   },
-                  fields: [
-                    {
-                      name: 'label',
-                      type: 'text',
-                      label: 'Libellé',
-                      required: true,
-                    },
-                  ],
                 },
               ],
             },

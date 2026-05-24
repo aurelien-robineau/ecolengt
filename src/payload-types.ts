@@ -161,9 +161,6 @@ export interface Media {
   createdAt: string;
   url?: string | null;
   thumbnailURL?: string | null;
-  /**
-   * Renomme le fichier sur Vercel Blob à l’enregistrement. Si vous omettez l’extension, celle d’origine est conservée.
-   */
   filename?: string | null;
   mimeType?: string | null;
   filesize?: number | null;
@@ -738,14 +735,9 @@ export interface AlumniPage {
          */
         name?: string | null;
         /**
-         * Liste des projets, groupes ou activités affichés pour cet ancien élève.
+         * Texte libre (une ligne par élément ou texte continu) affiché sous le nom.
          */
-        projects?:
-          | {
-              label: string;
-              id?: string | null;
-            }[]
-          | null;
+        projects?: string | null;
         id?: string | null;
       }[]
     | null;
@@ -1238,12 +1230,7 @@ export interface AlumniPageSelect<T extends boolean = true> {
     | {
         student?: T;
         name?: T;
-        projects?:
-          | T
-          | {
-              label?: T;
-              id?: T;
-            };
+        projects?: T;
         id?: T;
       };
   updatedAt?: T;
