@@ -31,7 +31,7 @@ export const Media: CollectionConfig = {
       admin: {
         hidden: false,
         description:
-          'Modifiez le nom sans l’extension (affichée à droite). Cliquez sur « Modifier » pour déverrouiller.',
+          'Nom du fichier sur l’espace de stockage. Cliquez sur « Modifier » pour déverrouiller.',
         components: {
           Field: '@/components/admin/MediaFilenameField#MediaFilenameField',
         },
