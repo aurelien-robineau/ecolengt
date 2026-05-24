@@ -91,7 +91,7 @@ export function Footer({ site }: FooterProps) {
             href={routes.legalNotice}
             className="text-xs text-[#606060] no-underline transition-colors hover:text-brand"
           >
-            Mentions légales
+            Mentions Légales & Politique de Confidentialité
           </Link>
         </div>
       </Container>
