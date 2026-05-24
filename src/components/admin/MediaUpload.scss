@@ -1,4 +1,13 @@
 .media-upload-root {
+  .file-field__upload-actions {
+    flex-wrap: wrap;
+    gap: calc(var(--base) / 2);
+  }
+
+  .media-upload-root__remove-file {
+    flex-shrink: 0;
+  }
+
   .file-field__filename.file-field__filename--locked,
   .file-field__filename:disabled,
   .file-field__filename[readonly] {

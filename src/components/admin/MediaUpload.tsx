@@ -3,6 +3,7 @@
 import { Upload, useConfig, useDocumentInfo } from '@payloadcms/ui'
 import { useRef } from 'react'
 
+import { MediaRemoveFileAction } from '@/components/admin/MediaRemoveFileAction'
 import { MediaUploadDefaultFilename } from '@/components/admin/MediaUploadDefaultFilename'
 
 import './MediaUpload.scss'
@@ -24,6 +25,7 @@ export function MediaUpload() {
       <MediaUploadDefaultFilename rootRef={rootRef} />
       <Upload
         collectionSlug={collectionSlug}
+        customActions={[<MediaRemoveFileAction key="remove-file" rootRef={rootRef} />]}
         initialState={initialState}
         uploadConfig={upload}
       />
