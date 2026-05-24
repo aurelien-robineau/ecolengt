@@ -1,7 +1,7 @@
 import type { GlobalConfig } from 'payload'
 
 import { adminGroups } from '@/lib/cms/adminGroups'
-import { pageRichTextEditor } from '@/lib/cms/pageRichTextEditor'
+import { cmsRichTextEditor } from '@/lib/cms/cmsRichTextEditor'
 import { revalidateSite } from '@/lib/cms/revalidateSite'
 
 export const LegalNoticePage: GlobalConfig = {
@@ -27,7 +27,7 @@ export const LegalNoticePage: GlobalConfig = {
       admin: {
         description: 'Rédigez le texte des mentions légales.',
       },
-      editor: pageRichTextEditor,
+      editor: cmsRichTextEditor,
     },
   ],
 }

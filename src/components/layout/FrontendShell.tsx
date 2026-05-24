@@ -20,7 +20,7 @@ const cormorant = Cormorant_Garamond({
 const dmSans = DM_Sans({
   subsets: ['latin'],
   variable: '--font-dm-sans',
-  weight: ['300', '400', '500'],
+  weight: ['300', '400', '500', '600'],
 })
 
 type FrontendShellProps = {

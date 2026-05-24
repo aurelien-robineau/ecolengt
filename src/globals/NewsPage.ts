@@ -1,7 +1,7 @@
 import type { GlobalConfig } from 'payload'
 
 import { adminGroups } from '@/lib/cms/adminGroups'
-import { pageRichTextEditor } from '@/lib/cms/pageRichTextEditor'
+import { cmsRichTextEditor } from '@/lib/cms/cmsRichTextEditor'
 import { revalidateSite } from '@/lib/cms/revalidateSite'
 
 export const NewsPage: GlobalConfig = {
@@ -24,7 +24,7 @@ export const NewsPage: GlobalConfig = {
       name: 'upcomingEventsAlert',
       type: 'richText',
       label: 'Encadré informations importantes',
-      editor: pageRichTextEditor,
+      editor: cmsRichTextEditor,
       admin: {
         description:
           'Encadré jaune optionnel en haut de la page Actualité (prochains événements, dates, etc.). Laisser vide pour ne rien afficher.',

@@ -1,6 +1,6 @@
 import type { Field } from 'payload'
 
-import { pageRichTextEditor } from '@/lib/cms/pageRichTextEditor'
+import { cmsRichTextEditor } from '@/lib/cms/cmsRichTextEditor'
 import { buttonUrlFieldDescription } from '@/lib/cms/urlFieldDescription'
 
 export const landingSectionGalleryFields: Field[] = [
@@ -33,7 +33,7 @@ export const landingSectionFields: Field[] = [
     name: 'description',
     type: 'richText',
     label: 'Description',
-    editor: pageRichTextEditor,
+    editor: cmsRichTextEditor,
     admin: {
       description: 'Texte d’introduction optionnel affiché sous le titre.',
     },
@@ -60,7 +60,7 @@ export const landingSectionFields: Field[] = [
         name: 'description',
         type: 'richText',
         label: 'Texte',
-        editor: pageRichTextEditor,
+        editor: cmsRichTextEditor,
       },
     ],
   },
@@ -87,7 +87,7 @@ export const landingSectionFields: Field[] = [
             name: 'description',
             type: 'richText',
             label: 'Texte',
-            editor: pageRichTextEditor,
+            editor: cmsRichTextEditor,
           },
           {
             name: 'buttonLabel',

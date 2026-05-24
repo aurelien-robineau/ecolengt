@@ -1,7 +1,7 @@
 import type { GlobalConfig } from 'payload'
 
 import { adminGroups } from '@/lib/cms/adminGroups'
-import { pageRichTextEditor } from '@/lib/cms/pageRichTextEditor'
+import { cmsRichTextEditor } from '@/lib/cms/cmsRichTextEditor'
 import { revalidateSite } from '@/lib/cms/revalidateSite'
 
 export const AlumniPage: GlobalConfig = {
@@ -29,7 +29,7 @@ export const AlumniPage: GlobalConfig = {
               name: 'introContent',
               type: 'richText',
               label: 'Texte d’introduction',
-              editor: pageRichTextEditor,
+              editor: cmsRichTextEditor,
             },
           ],
         },

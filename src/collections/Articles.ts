@@ -1,6 +1,6 @@
 import type { CollectionConfig } from 'payload'
 
-import { articleRichTextEditor } from '@/lib/cms/articleRichTextEditor'
+import { cmsRichTextEditor } from '@/lib/cms/cmsRichTextEditor'
 import { adminGroups } from '@/lib/cms/adminGroups'
 import { hiddenSlugField } from '@/lib/cms/hiddenSlugField'
 import { revalidateSite } from '@/lib/cms/revalidateSite'
@@ -78,7 +78,7 @@ export const Articles: CollectionConfig = {
                 description:
                   'Texte de l’article. Vous pouvez y insérer des images depuis la médiathèque.',
               },
-              editor: articleRichTextEditor,
+              editor: cmsRichTextEditor,
             },
           ],
         },

@@ -1,7 +1,7 @@
 import type { Field } from 'payload'
 
 import { landingSectionGalleryFields } from '@/lib/cms/landingSectionFields'
-import { pageRichTextEditor } from '@/lib/cms/pageRichTextEditor'
+import { cmsRichTextEditor } from '@/lib/cms/cmsRichTextEditor'
 
 export type SiteAccessFieldPrefix = 'addressAccess' | 'intensiveCoursesAccess'
 
@@ -32,7 +32,7 @@ export function siteAccessFields(prefix: SiteAccessFieldPrefix): Field[] {
       name: directionsField,
       type: 'richText',
       label: 'Instructions pour se rendre sur place',
-      editor: pageRichTextEditor,
+      editor: cmsRichTextEditor,
       admin: {
         description: directionsDescription,
       },

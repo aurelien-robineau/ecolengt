@@ -1,7 +1,7 @@
 import type { GlobalConfig } from 'payload'
 
 import { adminGroups } from '@/lib/cms/adminGroups'
-import { pageRichTextEditor } from '@/lib/cms/pageRichTextEditor'
+import { cmsRichTextEditor } from '@/lib/cms/cmsRichTextEditor'
 import { revalidateSite } from '@/lib/cms/revalidateSite'
 
 export const GuestbookPage: GlobalConfig = {
@@ -30,7 +30,7 @@ export const GuestbookPage: GlobalConfig = {
               name: 'introduction',
               type: 'richText',
               label: 'Introduction',
-              editor: pageRichTextEditor,
+              editor: cmsRichTextEditor,
             },
           ],
         },
@@ -62,7 +62,7 @@ export const GuestbookPage: GlobalConfig = {
                   type: 'richText',
                   label: 'Texte',
                   required: true,
-                  editor: pageRichTextEditor,
+                  editor: cmsRichTextEditor,
                 },
                 {
                   name: 'author',

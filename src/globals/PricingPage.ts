@@ -1,7 +1,7 @@
 import type { GlobalConfig } from 'payload'
 
 import { adminGroups } from '@/lib/cms/adminGroups'
-import { pageRichTextEditor } from '@/lib/cms/pageRichTextEditor'
+import { cmsRichTextEditor } from '@/lib/cms/cmsRichTextEditor'
 import { revalidateSite } from '@/lib/cms/revalidateSite'
 
 export const PricingPage: GlobalConfig = {
@@ -23,7 +23,7 @@ export const PricingPage: GlobalConfig = {
       name: 'classesContent',
       type: 'richText',
       label: 'Tarifs — Cours',
-      editor: pageRichTextEditor,
+      editor: cmsRichTextEditor,
       admin: {
         description: 'Contenu de la section Cours sur la page Tarifs.',
       },
@@ -32,7 +32,7 @@ export const PricingPage: GlobalConfig = {
       name: 'intensiveCoursesContent',
       type: 'richText',
       label: 'Tarifs — Stages intensifs',
-      editor: pageRichTextEditor,
+      editor: cmsRichTextEditor,
       admin: {
         description: 'Contenu de la section Stages intensifs sur la page Tarifs.',
       },
