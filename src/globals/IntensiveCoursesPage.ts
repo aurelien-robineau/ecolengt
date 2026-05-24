@@ -10,7 +10,7 @@ export const IntensiveCoursesPage: GlobalConfig = {
   admin: {
     group: adminGroups.pagesStages,
     description:
-      'Introduction, galerie et encadrés de la page. L’adresse et la section Accès sont gérées dans Paramètres du site.',
+      'Introduction, encadrés et galerie de la page. L’adresse et la section Accès sont gérées dans Paramètres du site.',
   },
   access: {
     read: () => true,
@@ -28,27 +28,6 @@ export const IntensiveCoursesPage: GlobalConfig = {
       admin: {
         description: 'Texte affiché sous le titre de la page.',
       },
-    },
-    {
-      name: 'gallery',
-      type: 'array',
-      label: 'Galerie photos',
-      labels: {
-        singular: 'Photo',
-        plural: 'Photos',
-      },
-      admin: {
-        description: 'Galerie sous l’introduction (grille responsive, 3 colonnes).',
-      },
-      fields: [
-        {
-          name: 'image',
-          type: 'upload',
-          relationTo: 'media',
-          label: 'Image',
-          required: true,
-        },
-      ],
     },
     {
       name: 'blocks',
@@ -74,6 +53,27 @@ export const IntensiveCoursesPage: GlobalConfig = {
           type: 'richText',
           label: 'Texte',
           editor: cmsRichTextEditor,
+        },
+      ],
+    },
+    {
+      name: 'gallery',
+      type: 'array',
+      label: 'Galerie photos',
+      labels: {
+        singular: 'Photo',
+        plural: 'Photos',
+      },
+      admin: {
+        description: 'Galerie sous les encadrés (grille responsive, 3 colonnes).',
+      },
+      fields: [
+        {
+          name: 'image',
+          type: 'upload',
+          relationTo: 'media',
+          label: 'Image',
+          required: true,
         },
       ],
     },
