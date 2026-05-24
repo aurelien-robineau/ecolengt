@@ -1,14 +1,13 @@
-import path from 'path'
-
 export function splitFilename(filename: string): { basename: string; extension: string } {
-  const ext = path.extname(filename)
-  if (!ext) {
+  const lastDot = filename.lastIndexOf('.')
+
+  if (lastDot <= 0) {
     return { basename: filename, extension: '' }
   }
 
   return {
-    basename: filename.slice(0, -ext.length),
-    extension: ext,
+    basename: filename.slice(0, lastDot),
+    extension: filename.slice(lastDot),
   }
 }
 
@@ -23,7 +22,8 @@ export function joinFilename(basename: string, extension: string): string {
 
 /** If `filename` has no extension, reuse the one from `referenceFilename` (e.g. original doc or upload). */
 export function ensureFilenameExtension(filename: string, referenceFilename: string): string {
-  if (!filename || path.extname(filename)) {
+  const { extension: existingExt } = splitFilename(filename)
+  if (!filename || existingExt) {
     return filename
   }
 
