@@ -21,6 +21,15 @@ export const IntensiveCoursesCalendarPage: GlobalConfig = {
   },
   fields: [
     {
+      name: 'introContent',
+      type: 'richText',
+      label: 'Texte d’introduction',
+      editor: pageRichTextEditor,
+      admin: {
+        description: 'Texte optionnel affiché sous le titre de la page.',
+      },
+    },
+    {
       name: 'schoolYears',
       type: 'array',
       label: 'Années scolaires',
@@ -37,10 +46,10 @@ export const IntensiveCoursesCalendarPage: GlobalConfig = {
         {
           name: 'title',
           type: 'text',
-          label: 'Année scolaire',
+          label: 'Période',
           required: true,
           admin: {
-            description: 'Ex. 2025-2026',
+            description: 'Ex. 2025-2026 (affiché sur le site comme « Année scolaire 2025-2026 »).',
           },
         },
         {

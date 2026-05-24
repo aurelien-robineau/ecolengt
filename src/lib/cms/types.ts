@@ -91,6 +91,7 @@ export type IntensiveCoursesCalendarSchoolYear = {
 }
 
 export type IntensiveCoursesCalendarPageData = {
+  intro: CmsRichTextContent | null
   schoolYears: IntensiveCoursesCalendarSchoolYear[]
 }
 

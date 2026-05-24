@@ -3,6 +3,7 @@ import { mapRichText } from '@/lib/cms/mapRichText'
 import type { IntensiveCoursesCalendarPageData } from '@/lib/cms/types'
 
 const emptyCalendarPage: IntensiveCoursesCalendarPageData = {
+  intro: null,
   schoolYears: [],
 }
 
@@ -14,6 +15,7 @@ export function mapIntensiveCoursesCalendarPage(
   }
 
   return {
+    intro: mapRichText(data.introContent),
     schoolYears: (data.schoolYears ?? []).map((year) => ({
       title: year.title?.trim() ?? '',
       content: mapRichText(year.content),
