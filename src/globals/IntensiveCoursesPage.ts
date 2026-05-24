@@ -1,7 +1,7 @@
 import type { GlobalConfig } from 'payload'
 
 import { adminGroups } from '@/lib/cms/adminGroups'
-import { pageRichTextEditor } from '@/lib/cms/pageRichTextEditor'
+import { cmsRichTextEditor } from '@/lib/cms/cmsRichTextEditor'
 import { revalidateSite } from '@/lib/cms/revalidateSite'
 
 export const IntensiveCoursesPage: GlobalConfig = {
@@ -24,7 +24,7 @@ export const IntensiveCoursesPage: GlobalConfig = {
       name: 'introContent',
       type: 'richText',
       label: 'Texte d’introduction',
-      editor: pageRichTextEditor,
+      editor: cmsRichTextEditor,
       admin: {
         description: 'Texte affiché sous le titre de la page.',
       },
@@ -73,7 +73,7 @@ export const IntensiveCoursesPage: GlobalConfig = {
           name: 'content',
           type: 'richText',
           label: 'Texte',
-          editor: pageRichTextEditor,
+          editor: cmsRichTextEditor,
         },
       ],
     },

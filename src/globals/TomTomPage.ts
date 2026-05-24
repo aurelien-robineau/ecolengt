@@ -2,7 +2,7 @@ import type { GlobalConfig } from 'payload'
 
 import { adminGroups } from '@/lib/cms/adminGroups'
 import { urlFieldDescription } from '@/lib/cms/urlFieldDescription'
-import { pageRichTextEditor } from '@/lib/cms/pageRichTextEditor'
+import { cmsRichTextEditor } from '@/lib/cms/cmsRichTextEditor'
 import { revalidateSite } from '@/lib/cms/revalidateSite'
 
 export const TomTomPage: GlobalConfig = {
@@ -52,7 +52,7 @@ export const TomTomPage: GlobalConfig = {
       admin: {
         description: 'Texte complet de la page Tom Tom.',
       },
-      editor: pageRichTextEditor,
+      editor: cmsRichTextEditor,
     },
   ],
 }
