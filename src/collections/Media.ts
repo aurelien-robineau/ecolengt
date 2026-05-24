@@ -23,10 +23,9 @@ export const Media: CollectionConfig = {
       name: 'alt',
       type: 'text',
       label: 'Description de l’image',
-      required: true,
       admin: {
         description:
-          'Courte description du contenu de l’image, pour l’accessibilité.',
+          'Courte description du contenu de l’image, pour l’accessibilité (optionnel). Si laissée vide, une description générique sera utilisée sur le site.',
       },
     },
   ],

@@ -154,9 +154,9 @@ export interface UserAuthOperations {
 export interface Media {
   id: string;
   /**
-   * Courte description du contenu de l’image, pour l’accessibilité.
+   * Courte description du contenu de l’image, pour l’accessibilité (optionnel). Si laissée vide, une description générique sera utilisée sur le site.
    */
-  alt: string;
+  alt?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
