@@ -21,7 +21,11 @@ export default async function LegalNoticePage() {
   return (
     <section className="bg-surface py-(--spacing-section-mobile) pt-28 md:py-(--spacing-section)">
       <Container>
-        <SectionHeader label={site.name} title="Mentions légales" titleAs="h1" />
+        <SectionHeader
+          label={site.name}
+          title="Mentions Légales & Politique de Confidentialité"
+          titleAs="h1"
+        />
         <LegalNoticeContent content={legalNotice.content} />
       </Container>
     </section>

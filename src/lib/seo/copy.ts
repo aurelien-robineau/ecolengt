@@ -72,8 +72,8 @@ export const seoCopy = {
   }),
 
   mentionsLegales: (site: SiteSettingsData) => ({
-    title: 'Mentions légales',
-    description: `Mentions légales du site ${schoolLabel(site)}, école de batterie à ${cityLabel(site)}.`,
+    title: 'Mentions Légales & Politique de Confidentialité',
+    description: `Mentions Légales & Politique de Confidentialité du site ${schoolLabel(site)}, école de batterie à ${cityLabel(site)}.`,
   }),
 
   notFound: (site: SiteSettingsData) => ({

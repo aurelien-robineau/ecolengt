@@ -6,10 +6,11 @@ import { revalidateSite } from '@/lib/cms/revalidateSite'
 
 export const LegalNoticePage: GlobalConfig = {
   slug: 'legal-notice-page',
-  label: 'Mentions légales',
+  label: 'Mentions Légales & Politique de Confidentialité',
   admin: {
     group: adminGroups.pagesOther,
-    description: 'Texte affiché sur la page Mentions légales du site.',
+    description:
+      'Texte affiché sur la page Mentions Légales & Politique de Confidentialité du site.',
   },
   access: {
     read: () => true,
@@ -25,7 +26,7 @@ export const LegalNoticePage: GlobalConfig = {
       label: 'Contenu',
       required: true,
       admin: {
-        description: 'Rédigez le texte des mentions légales.',
+        description: 'Rédigez le texte des mentions légales et de la politique de confidentialité.',
       },
       editor: cmsRichTextEditor,
     },
