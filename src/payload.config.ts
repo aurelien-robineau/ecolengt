@@ -22,6 +22,7 @@ import { PricingPage } from './globals/PricingPage'
 import { SiteSettings } from './globals/SiteSettings'
 import { TomTomPage } from './globals/TomTomPage'
 import { disableAdminAPIView } from './lib/cms/disableAdminAPIView'
+import { mediaBlobSyncPlugin } from './lib/cms/mediaBlobSyncPlugin'
 import { vercelBlobStoragePlugin } from './lib/cms/storage'
 import { siteFaviconMetadata } from './lib/site/favicon'
 import { getServerURL } from './lib/site/serverUrl'
@@ -78,7 +79,7 @@ export default buildConfig({
     url: process.env.DATABASE_URL || '',
   }),
   sharp,
-  plugins: [disableAdminAPIView, vercelBlobStoragePlugin],
+  plugins: [disableAdminAPIView, vercelBlobStoragePlugin, mediaBlobSyncPlugin],
   i18n: {
     supportedLanguages: { fr },
   },

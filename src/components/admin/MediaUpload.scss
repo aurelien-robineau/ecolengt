@@ -1,0 +1,20 @@
+.media-upload-root {
+  .file-field__filename.file-field__filename--locked,
+  .file-field__filename:disabled,
+  .file-field__filename[readonly] {
+    background-color: var(--theme-elevation-50) !important;
+    border-color: var(--theme-elevation-250) !important;
+    box-shadow: none;
+    color: var(--theme-elevation-600) !important;
+    cursor: not-allowed !important;
+    opacity: 1;
+    -webkit-text-fill-color: var(--theme-elevation-600);
+  }
+
+  .file-field__filename.file-field__filename--locked:focus,
+  .file-field__filename:disabled:focus,
+  .file-field__filename[readonly]:focus {
+    border-color: var(--theme-elevation-250) !important;
+    outline: none;
+  }
+}

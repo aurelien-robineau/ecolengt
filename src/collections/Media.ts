@@ -11,6 +11,11 @@ export const Media: CollectionConfig = {
   admin: {
     group: adminGroups.content,
     description: 'Photos et images utilisées sur le site.',
+    components: {
+      edit: {
+        Upload: '@/components/admin/MediaUpload#MediaUpload',
+      },
+    },
   },
   access: {
     read: () => true,
@@ -19,6 +24,19 @@ export const Media: CollectionConfig = {
     delete: ({ req }) => Boolean(req.user),
   },
   fields: [
+    {
+      name: 'filename',
+      type: 'text',
+      label: 'Nom du fichier',
+      admin: {
+        hidden: false,
+        description:
+          'Modifiez le nom sans l’extension (affichée à droite). Cliquez sur « Modifier » pour déverrouiller.',
+        components: {
+          Field: '@/components/admin/MediaFilenameField#MediaFilenameField',
+        },
+      },
+    },
     {
       name: 'alt',
       type: 'text',
@@ -29,5 +47,8 @@ export const Media: CollectionConfig = {
       },
     },
   ],
-  upload: true,
+  upload: {
+    mimeTypes: ['image/*'],
+    hideRemoveFile: false,
+  },
 }

@@ -1,3 +1,5 @@
+import { MediaFilenameField as MediaFilenameField_0949bb9a7d9a9e66f8e47ff7dca55c4a } from '@/components/admin/MediaFilenameField'
+import { MediaUpload as MediaUpload_52e77c52d4964a74462752f328706265 } from '@/components/admin/MediaUpload'
 import { SlugField as SlugField_2b8867833a34864a02ddf429b0728a40 } from '@payloadcms/next/client'
 import { RscEntryLexicalCell as RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
 import { RscEntryLexicalField as RscEntryLexicalField_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
@@ -24,12 +26,15 @@ import { NewsArticlesField as NewsArticlesField_b8b2220cd1e98940d27f82fefafdaaeb
 import { AdminNav as AdminNav_2623bc737c612ce9420322f2210a7f19 } from '@/components/admin/AdminNav'
 import { AdminIcon as AdminIcon_d500ae2ad98a0a33d640ae0ac1a3417c } from '@/components/admin/AdminIcon'
 import { AdminLogo as AdminLogo_b80a86fce1072afc84cd6a430a965697 } from '@/components/admin/AdminLogo'
-import { VercelBlobClientUploadHandler as VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e } from '@payloadcms/storage-vercel-blob/client'
+import { VercelBlobMediaClientUploadHandler as VercelBlobMediaClientUploadHandler_0fc58e47efc926bd677b678b16755705 } from '@/components/admin/VercelBlobMediaClientUploadHandler'
 import { DashboardCollectionCards as DashboardCollectionCards_2cb2e9808e8370f9c5c555a17e962aff } from '@/components/admin/DashboardCollectionCards'
 import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
+import { VercelBlobClientUploadHandler as VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e } from '@payloadcms/storage-vercel-blob/client'
 
 /** @type import('payload').ImportMap */
 export const importMap = {
+  "@/components/admin/MediaFilenameField#MediaFilenameField": MediaFilenameField_0949bb9a7d9a9e66f8e47ff7dca55c4a,
+  "@/components/admin/MediaUpload#MediaUpload": MediaUpload_52e77c52d4964a74462752f328706265,
   "@payloadcms/next/client#SlugField": SlugField_2b8867833a34864a02ddf429b0728a40,
   "@payloadcms/richtext-lexical/rsc#RscEntryLexicalCell": RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e,
   "@payloadcms/richtext-lexical/rsc#RscEntryLexicalField": RscEntryLexicalField_44fe37237e0ebf4470c9990d8cb7b07e,
@@ -56,7 +61,8 @@ export const importMap = {
   "@/components/admin/AdminNav#AdminNav": AdminNav_2623bc737c612ce9420322f2210a7f19,
   "@/components/admin/AdminIcon#AdminIcon": AdminIcon_d500ae2ad98a0a33d640ae0ac1a3417c,
   "@/components/admin/AdminLogo#AdminLogo": AdminLogo_b80a86fce1072afc84cd6a430a965697,
-  "@payloadcms/storage-vercel-blob/client#VercelBlobClientUploadHandler": VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e,
+  "@/components/admin/VercelBlobMediaClientUploadHandler#VercelBlobMediaClientUploadHandler": VercelBlobMediaClientUploadHandler_0fc58e47efc926bd677b678b16755705,
   "@/components/admin/DashboardCollectionCards#DashboardCollectionCards": DashboardCollectionCards_2cb2e9808e8370f9c5c555a17e962aff,
-  "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1
+  "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1,
+  "@payloadcms/storage-vercel-blob/client#VercelBlobClientUploadHandler": VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e
 }
