@@ -1,4 +1,5 @@
 import {
+  EXPERIMENTAL_TableFeature,
   HeadingFeature,
   LinkFeature,
   OrderedListFeature,
@@ -7,10 +8,11 @@ import {
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
 
-/** Rich text editor for article body (headings, lists, links, inline images). */
+/** Rich text editor for article body (headings, lists, links, tables, inline images). */
 export const articleRichTextEditor = lexicalEditor({
   features: ({ rootFeatures }) => [
     ...rootFeatures,
+    EXPERIMENTAL_TableFeature(),
     HeadingFeature({ enabledHeadingSizes: ['h3'] }),
     UnorderedListFeature(),
     OrderedListFeature(),
