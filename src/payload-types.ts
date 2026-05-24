@@ -59,91 +59,95 @@ export type SupportedTimezones =
   | 'Pacific/Guam'
   | 'Pacific/Noumea'
   | 'Pacific/Auckland'
-  | 'Pacific/Fiji';
+  | 'Pacific/Fiji'
 
 export interface Config {
   auth: {
-    users: UserAuthOperations;
-  };
-  blocks: {};
+    users: UserAuthOperations
+  }
+  blocks: {}
   collections: {
-    media: Media;
-    articles: Article;
-    eleves: Eleve;
-    users: User;
-    'payload-kv': PayloadKv;
-    'payload-locked-documents': PayloadLockedDocument;
-    'payload-preferences': PayloadPreference;
-    'payload-migrations': PayloadMigration;
-  };
-  collectionsJoins: {};
+    media: Media
+    articles: Article
+    eleves: Eleve
+    users: User
+    'payload-kv': PayloadKv
+    'payload-locked-documents': PayloadLockedDocument
+    'payload-preferences': PayloadPreference
+    'payload-migrations': PayloadMigration
+  }
+  collectionsJoins: {}
   collectionsSelect: {
-    media: MediaSelect<false> | MediaSelect<true>;
-    articles: ArticlesSelect<false> | ArticlesSelect<true>;
-    eleves: ElevesSelect<false> | ElevesSelect<true>;
-    users: UsersSelect<false> | UsersSelect<true>;
-    'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
-    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
-    'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
-    'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
-  };
+    media: MediaSelect<false> | MediaSelect<true>
+    articles: ArticlesSelect<false> | ArticlesSelect<true>
+    eleves: ElevesSelect<false> | ElevesSelect<true>
+    users: UsersSelect<false> | UsersSelect<true>
+    'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>
+    'payload-locked-documents':
+      | PayloadLockedDocumentsSelect<false>
+      | PayloadLockedDocumentsSelect<true>
+    'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>
+    'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>
+  }
   db: {
-    defaultIDType: string;
-  };
-  fallbackLocale: null;
+    defaultIDType: string
+  }
+  fallbackLocale: null
   globals: {
-    'home-page': HomePage;
-    'guestbook-page': GuestbookPage;
-    'news-page': NewsPage;
-    'alumni-page': AlumniPage;
-    'tom-tom-page': TomTomPage;
-    'intensive-courses-page': IntensiveCoursesPage;
-    'intensive-courses-calendar-page': IntensiveCoursesCalendarPage;
-    'contact-page': ContactPage;
-    'legal-notice-page': LegalNoticePage;
-    'pricing-page': PricingPage;
-    'site-settings': SiteSetting;
-  };
+    'home-page': HomePage
+    'guestbook-page': GuestbookPage
+    'news-page': NewsPage
+    'alumni-page': AlumniPage
+    'tom-tom-page': TomTomPage
+    'intensive-courses-page': IntensiveCoursesPage
+    'intensive-courses-calendar-page': IntensiveCoursesCalendarPage
+    'contact-page': ContactPage
+    'legal-notice-page': LegalNoticePage
+    'pricing-page': PricingPage
+    'site-settings': SiteSetting
+  }
   globalsSelect: {
-    'home-page': HomePageSelect<false> | HomePageSelect<true>;
-    'guestbook-page': GuestbookPageSelect<false> | GuestbookPageSelect<true>;
-    'news-page': NewsPageSelect<false> | NewsPageSelect<true>;
-    'alumni-page': AlumniPageSelect<false> | AlumniPageSelect<true>;
-    'tom-tom-page': TomTomPageSelect<false> | TomTomPageSelect<true>;
-    'intensive-courses-page': IntensiveCoursesPageSelect<false> | IntensiveCoursesPageSelect<true>;
-    'intensive-courses-calendar-page': IntensiveCoursesCalendarPageSelect<false> | IntensiveCoursesCalendarPageSelect<true>;
-    'contact-page': ContactPageSelect<false> | ContactPageSelect<true>;
-    'legal-notice-page': LegalNoticePageSelect<false> | LegalNoticePageSelect<true>;
-    'pricing-page': PricingPageSelect<false> | PricingPageSelect<true>;
-    'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
-  };
-  locale: null;
+    'home-page': HomePageSelect<false> | HomePageSelect<true>
+    'guestbook-page': GuestbookPageSelect<false> | GuestbookPageSelect<true>
+    'news-page': NewsPageSelect<false> | NewsPageSelect<true>
+    'alumni-page': AlumniPageSelect<false> | AlumniPageSelect<true>
+    'tom-tom-page': TomTomPageSelect<false> | TomTomPageSelect<true>
+    'intensive-courses-page': IntensiveCoursesPageSelect<false> | IntensiveCoursesPageSelect<true>
+    'intensive-courses-calendar-page':
+      | IntensiveCoursesCalendarPageSelect<false>
+      | IntensiveCoursesCalendarPageSelect<true>
+    'contact-page': ContactPageSelect<false> | ContactPageSelect<true>
+    'legal-notice-page': LegalNoticePageSelect<false> | LegalNoticePageSelect<true>
+    'pricing-page': PricingPageSelect<false> | PricingPageSelect<true>
+    'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>
+  }
+  locale: null
   widgets: {
-    collections: CollectionsWidget;
-  };
-  user: User;
+    collections: CollectionsWidget
+  }
+  user: User
   jobs: {
-    tasks: unknown;
-    workflows: unknown;
-  };
+    tasks: unknown
+    workflows: unknown
+  }
 }
 export interface UserAuthOperations {
   forgotPassword: {
-    email: string;
-    password: string;
-  };
+    email: string
+    password: string
+  }
   login: {
-    email: string;
-    password: string;
-  };
+    email: string
+    password: string
+  }
   registerFirstUser: {
-    email: string;
-    password: string;
-  };
+    email: string
+    password: string
+  }
   unlock: {
-    email: string;
-    password: string;
-  };
+    email: string
+    password: string
+  }
 }
 /**
  * Photos et images utilisées sur le site.
@@ -152,22 +156,25 @@ export interface UserAuthOperations {
  * via the `definition` "media".
  */
 export interface Media {
-  id: string;
+  id: string
   /**
    * Courte description du contenu de l’image, pour l’accessibilité (optionnel). Si laissée vide, une description générique sera utilisée sur le site.
    */
-  alt?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
+  alt?: string | null
+  updatedAt: string
+  createdAt: string
+  url?: string | null
+  thumbnailURL?: string | null
+  /**
+   * Nom du fichier sur l’espace de stockage.
+   */
+  filename?: string | null
+  mimeType?: string | null
+  filesize?: number | null
+  width?: number | null
+  height?: number | null
+  focalX?: number | null
+  focalY?: number | null
 }
 /**
  * Actualités du site. Chaque article a une page dédiée sous /actualite/… et apparaît sur la page Actualité.
@@ -176,38 +183,38 @@ export interface Media {
  * via the `definition` "articles".
  */
 export interface Article {
-  id: string;
-  title: string;
+  id: string
+  title: string
   /**
    * When enabled, the slug will auto-generate from the title field on save and autosave.
    */
-  generateSlug?: boolean | null;
-  slug: string;
+  generateSlug?: boolean | null
+  slug: string
   /**
    * Résumé affiché sur la page Actualité (liste des articles).
    */
-  shortDescription: string;
-  image: string | Media;
+  shortDescription: string
+  image: string | Media
   /**
    * Texte de l’article. Vous pouvez y insérer des images depuis la médiathèque.
    */
   content: {
     root: {
-      type: string;
+      type: string
       children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  updatedAt: string;
-  createdAt: string;
+        type: any
+        version: number
+        [k: string]: unknown
+      }[]
+      direction: ('ltr' | 'rtl') | null
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | ''
+      indent: number
+      version: number
+    }
+    [k: string]: unknown
+  }
+  updatedAt: string
+  createdAt: string
 }
 /**
  * Fiches élèves. Une page publique est créée automatiquement à partir du nom.
@@ -216,47 +223,47 @@ export interface Article {
  * via the `definition` "eleves".
  */
 export interface Eleve {
-  id: string;
-  name: string;
+  id: string
+  name: string
   /**
    * When enabled, the slug will auto-generate from the title field on save and autosave.
    */
-  generateSlug?: boolean | null;
-  slug?: string | null;
+  generateSlug?: boolean | null
+  slug?: string | null
   /**
    * Activité ou titre affiché sous le nom sur la page publique.
    */
-  jobTitle?: string | null;
+  jobTitle?: string | null
   /**
    * Courte citation affichée sous le titre (optionnel).
    */
-  quote?: string | null;
+  quote?: string | null
   photos?:
     | {
-        image: string | Media;
-        id?: string | null;
+        image: string | Media
+        id?: string | null
       }[]
-    | null;
+    | null
   /**
    * Texte de présentation affiché sur la page publique de l’élève.
    */
   description?: {
     root: {
-      type: string;
+      type: string
       children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  updatedAt: string;
-  createdAt: string;
+        type: any
+        version: number
+        [k: string]: unknown
+      }[]
+      direction: ('ltr' | 'rtl') | null
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | ''
+      indent: number
+      version: number
+    }
+    [k: string]: unknown
+  } | null
+  updatedAt: string
+  createdAt: string
 }
 /**
  * Comptes autorisés à modifier le contenu du site via cet espace d’administration.
@@ -265,221 +272,221 @@ export interface Eleve {
  * via the `definition` "users".
  */
 export interface User {
-  id: string;
-  updatedAt: string;
-  createdAt: string;
-  email: string;
-  resetPasswordToken?: string | null;
-  resetPasswordExpiration?: string | null;
-  salt?: string | null;
-  hash?: string | null;
-  loginAttempts?: number | null;
-  lockUntil?: string | null;
+  id: string
+  updatedAt: string
+  createdAt: string
+  email: string
+  resetPasswordToken?: string | null
+  resetPasswordExpiration?: string | null
+  salt?: string | null
+  hash?: string | null
+  loginAttempts?: number | null
+  lockUntil?: string | null
   sessions?:
     | {
-        id: string;
-        createdAt?: string | null;
-        expiresAt: string;
+        id: string
+        createdAt?: string | null
+        expiresAt: string
       }[]
-    | null;
-  password?: string | null;
-  collection: 'users';
+    | null
+  password?: string | null
+  collection: 'users'
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
-  id: string;
-  key: string;
+  id: string
+  key: string
   data:
     | {
-        [k: string]: unknown;
+        [k: string]: unknown
       }
     | unknown[]
     | string
     | number
     | boolean
-    | null;
+    | null
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
-  id: string;
+  id: string
   document?:
     | ({
-        relationTo: 'media';
-        value: string | Media;
+        relationTo: 'media'
+        value: string | Media
       } | null)
     | ({
-        relationTo: 'articles';
-        value: string | Article;
+        relationTo: 'articles'
+        value: string | Article
       } | null)
     | ({
-        relationTo: 'eleves';
-        value: string | Eleve;
+        relationTo: 'eleves'
+        value: string | Eleve
       } | null)
     | ({
-        relationTo: 'users';
-        value: string | User;
-      } | null);
-  globalSlug?: string | null;
+        relationTo: 'users'
+        value: string | User
+      } | null)
+  globalSlug?: string | null
   user: {
-    relationTo: 'users';
-    value: string | User;
-  };
-  updatedAt: string;
-  createdAt: string;
+    relationTo: 'users'
+    value: string | User
+  }
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
-  id: string;
+  id: string
   user: {
-    relationTo: 'users';
-    value: string | User;
-  };
-  key?: string | null;
+    relationTo: 'users'
+    value: string | User
+  }
+  key?: string | null
   value?:
     | {
-        [k: string]: unknown;
+        [k: string]: unknown
       }
     | unknown[]
     | string
     | number
     | boolean
-    | null;
-  updatedAt: string;
-  createdAt: string;
+    | null
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-migrations".
  */
 export interface PayloadMigration {
-  id: string;
-  name?: string | null;
-  batch?: number | null;
-  updatedAt: string;
-  createdAt: string;
+  id: string
+  name?: string | null
+  batch?: number | null
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
-  alt?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  url?: T;
-  thumbnailURL?: T;
-  filename?: T;
-  mimeType?: T;
-  filesize?: T;
-  width?: T;
-  height?: T;
-  focalX?: T;
-  focalY?: T;
+  alt?: T
+  updatedAt?: T
+  createdAt?: T
+  url?: T
+  thumbnailURL?: T
+  filename?: T
+  mimeType?: T
+  filesize?: T
+  width?: T
+  height?: T
+  focalX?: T
+  focalY?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "articles_select".
  */
 export interface ArticlesSelect<T extends boolean = true> {
-  title?: T;
-  generateSlug?: T;
-  slug?: T;
-  shortDescription?: T;
-  image?: T;
-  content?: T;
-  updatedAt?: T;
-  createdAt?: T;
+  title?: T
+  generateSlug?: T
+  slug?: T
+  shortDescription?: T
+  image?: T
+  content?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "eleves_select".
  */
 export interface ElevesSelect<T extends boolean = true> {
-  name?: T;
-  generateSlug?: T;
-  slug?: T;
-  jobTitle?: T;
-  quote?: T;
+  name?: T
+  generateSlug?: T
+  slug?: T
+  jobTitle?: T
+  quote?: T
   photos?:
     | T
     | {
-        image?: T;
-        id?: T;
-      };
-  description?: T;
-  updatedAt?: T;
-  createdAt?: T;
+        image?: T
+        id?: T
+      }
+  description?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
-  updatedAt?: T;
-  createdAt?: T;
-  email?: T;
-  resetPasswordToken?: T;
-  resetPasswordExpiration?: T;
-  salt?: T;
-  hash?: T;
-  loginAttempts?: T;
-  lockUntil?: T;
+  updatedAt?: T
+  createdAt?: T
+  email?: T
+  resetPasswordToken?: T
+  resetPasswordExpiration?: T
+  salt?: T
+  hash?: T
+  loginAttempts?: T
+  lockUntil?: T
   sessions?:
     | T
     | {
-        id?: T;
-        createdAt?: T;
-        expiresAt?: T;
-      };
+        id?: T
+        createdAt?: T
+        expiresAt?: T
+      }
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv_select".
  */
 export interface PayloadKvSelect<T extends boolean = true> {
-  key?: T;
-  data?: T;
+  key?: T
+  data?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents_select".
  */
 export interface PayloadLockedDocumentsSelect<T extends boolean = true> {
-  document?: T;
-  globalSlug?: T;
-  user?: T;
-  updatedAt?: T;
-  createdAt?: T;
+  document?: T
+  globalSlug?: T
+  user?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-preferences_select".
  */
 export interface PayloadPreferencesSelect<T extends boolean = true> {
-  user?: T;
-  key?: T;
-  value?: T;
-  updatedAt?: T;
-  createdAt?: T;
+  user?: T
+  key?: T
+  value?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-migrations_select".
  */
 export interface PayloadMigrationsSelect<T extends boolean = true> {
-  name?: T;
-  batch?: T;
-  updatedAt?: T;
-  createdAt?: T;
+  name?: T
+  batch?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * Textes et photos des différentes sections affichées sur la page d’accueil du site.
@@ -488,43 +495,43 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  * via the `definition` "home-page".
  */
 export interface HomePage {
-  id: string;
+  id: string
   /**
    * Courte phrase en italique affichée au-dessus du titre.
    */
-  heroTagline: string;
+  heroTagline: string
   /**
    * Première ligne du titre principal.
    */
-  heroName: string;
+  heroName: string
   /**
    * Deuxième ligne du titre, affichée en italique.
    */
-  heroSubtitle: string;
+  heroSubtitle: string
   /**
    * Libellé du bouton sous le titre de la bannière.
    */
-  heroCta: string;
+  heroCta: string
   /**
    * Chemin relatif (/page, /#ancre) ou URL absolue (https://…). Obligatoire pour afficher le bouton.
    */
-  heroCtaHref?: string | null;
+  heroCtaHref?: string | null
   /**
    * Image optionnelle affichée en arrière-plan de la bannière, sur toute la hauteur de la section.
    */
-  heroBackgroundImage?: (string | null) | Media;
+  heroBackgroundImage?: (string | null) | Media
   /**
    * Citation entre guillemets, sans les « » (ajoutés automatiquement sur le site).
    */
-  quoteText: string;
+  quoteText: string
   /**
    * Nom affiché sous la citation.
    */
-  quoteCite: string;
+  quoteCite: string
   /**
    * Portrait affiché à gauche de la citation. Créez d’abord le fichier dans Médias si besoin.
    */
-  quotePortrait?: (string | null) | Media;
+  quotePortrait?: (string | null) | Media
   /**
    * Ajoutez autant de sections que nécessaire. Seuls le sur-titre et le titre sont obligatoires.
    */
@@ -533,90 +540,90 @@ export interface HomePage {
         /**
          * Court texte en majuscules affiché au-dessus du titre de section.
          */
-        surtitle: string;
-        title: string;
+        surtitle: string
+        title: string
         /**
          * Texte d’introduction optionnel affiché sous le titre.
          */
         description?: {
           root: {
-            type: string;
+            type: string
             children: {
-              type: any;
-              version: number;
-              [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            version: number;
-          };
-          [k: string]: unknown;
-        } | null;
+              type: any
+              version: number
+              [k: string]: unknown
+            }[]
+            direction: ('ltr' | 'rtl') | null
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | ''
+            indent: number
+            version: number
+          }
+          [k: string]: unknown
+        } | null
         /**
          * Blocs titre + texte affichés en grille (deux colonnes sur grand écran).
          */
         items?:
           | {
-              title: string;
+              title: string
               description?: {
                 root: {
-                  type: string;
+                  type: string
                   children: {
-                    type: any;
-                    version: number;
-                    [k: string]: unknown;
-                  }[];
-                  direction: ('ltr' | 'rtl') | null;
-                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                  indent: number;
-                  version: number;
-                };
-                [k: string]: unknown;
-              } | null;
-              id?: string | null;
+                    type: any
+                    version: number
+                    [k: string]: unknown
+                  }[]
+                  direction: ('ltr' | 'rtl') | null
+                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | ''
+                  indent: number
+                  version: number
+                }
+                [k: string]: unknown
+              } | null
+              id?: string | null
             }[]
-          | null;
+          | null
         highlight?: {
-          title?: string | null;
+          title?: string | null
           description?: {
             root: {
-              type: string;
+              type: string
               children: {
-                type: any;
-                version: number;
-                [k: string]: unknown;
-              }[];
-              direction: ('ltr' | 'rtl') | null;
-              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-              indent: number;
-              version: number;
-            };
-            [k: string]: unknown;
-          } | null;
+                type: any
+                version: number
+                [k: string]: unknown
+              }[]
+              direction: ('ltr' | 'rtl') | null
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | ''
+              indent: number
+              version: number
+            }
+            [k: string]: unknown
+          } | null
           /**
            * Libellé du bouton optionnel en bas de l’encadré.
            */
-          buttonLabel?: string | null;
+          buttonLabel?: string | null
           /**
            * Chemin relatif (/page, /#ancre) ou URL absolue (https://…). Obligatoire pour afficher le bouton.
            */
-          buttonHref?: string | null;
-        };
+          buttonHref?: string | null
+        }
         /**
          * Galerie optionnelle en bas de section (grille responsive, 3 colonnes).
          */
         gallery?:
           | {
-              image: string | Media;
-              id?: string | null;
+              image: string | Media
+              id?: string | null
             }[]
-          | null;
-        id?: string | null;
+          | null
+        id?: string | null
       }[]
-    | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
+    | null
+  updatedAt?: string | null
+  createdAt?: string | null
 }
 /**
  * Introduction et témoignages affichés sur la page Livre d’or.
@@ -625,52 +632,52 @@ export interface HomePage {
  * via the `definition` "guestbook-page".
  */
 export interface GuestbookPage {
-  id: string;
+  id: string
   introduction?: {
     root: {
-      type: string;
+      type: string
       children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
+        type: any
+        version: number
+        [k: string]: unknown
+      }[]
+      direction: ('ltr' | 'rtl') | null
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | ''
+      indent: number
+      version: number
+    }
+    [k: string]: unknown
+  } | null
   testimonials?:
     | {
         /**
          * Optionnel. Si la fiche a une page publique, le nom de l’auteur devient un lien.
          */
-        student?: (string | null) | Eleve;
+        student?: (string | null) | Eleve
         content: {
           root: {
-            type: string;
+            type: string
             children: {
-              type: any;
-              version: number;
-              [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            version: number;
-          };
-          [k: string]: unknown;
-        };
+              type: any
+              version: number
+              [k: string]: unknown
+            }[]
+            direction: ('ltr' | 'rtl') | null
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | ''
+            indent: number
+            version: number
+          }
+          [k: string]: unknown
+        }
         /**
          * Nom affiché sous le témoignage.
          */
-        author: string;
-        id?: string | null;
+        author: string
+        id?: string | null
       }[]
-    | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
+    | null
+  updatedAt?: string | null
+  createdAt?: string | null
 }
 /**
  * Encadré optionnel en haut de la page Actualité. Les articles se gèrent dans Contenu → Articles.
@@ -679,27 +686,27 @@ export interface GuestbookPage {
  * via the `definition` "news-page".
  */
 export interface NewsPage {
-  id: string;
+  id: string
   /**
    * Encadré jaune optionnel en haut de la page Actualité (prochains événements, dates, etc.). Laisser vide pour ne rien afficher.
    */
   upcomingEventsAlert?: {
     root: {
-      type: string;
+      type: string
       children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
+        type: any
+        version: number
+        [k: string]: unknown
+      }[]
+      direction: ('ltr' | 'rtl') | null
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | ''
+      indent: number
+      version: number
+    }
+    [k: string]: unknown
+  } | null
+  updatedAt?: string | null
+  createdAt?: string | null
 }
 /**
  * Texte d’introduction et liste des anciens élèves affichés sur la page dédiée.
@@ -708,41 +715,41 @@ export interface NewsPage {
  * via the `definition` "alumni-page".
  */
 export interface AlumniPage {
-  id: string;
+  id: string
   introContent?: {
     root: {
-      type: string;
+      type: string
       children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
+        type: any
+        version: number
+        [k: string]: unknown
+      }[]
+      direction: ('ltr' | 'rtl') | null
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | ''
+      indent: number
+      version: number
+    }
+    [k: string]: unknown
+  } | null
   alumniList?:
     | {
         /**
          * Liez une fiche Élève pour activer le lien vers la page dédiée.
          */
-        student?: (string | null) | Eleve;
+        student?: (string | null) | Eleve
         /**
          * Utilisé si aucune fiche n’est liée, ou si le nom doit différer de la fiche.
          */
-        name?: string | null;
+        name?: string | null
         /**
          * Texte libre (une ligne par élément ou texte continu) affiché sous le nom.
          */
-        projects?: string | null;
-        id?: string | null;
+        projects?: string | null
+        id?: string | null
       }[]
-    | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
+    | null
+  updatedAt?: string | null
+  createdAt?: string | null
 }
 /**
  * Contenu de la page Tom Tom (association).
@@ -751,37 +758,37 @@ export interface AlumniPage {
  * via the `definition` "tom-tom-page".
  */
 export interface TomTomPage {
-  id: string;
+  id: string
   /**
    * Bouton affiché juste sous le titre de la page. Laisser vide pour ne rien afficher.
    */
   callout?: {
-    label?: string | null;
+    label?: string | null
     /**
      * Chemin relatif (/page, /#ancre) ou URL absolue (https://…). Obligatoire pour afficher le lien.
      */
-    href?: string | null;
-  };
+    href?: string | null
+  }
   /**
    * Texte complet de la page Tom Tom.
    */
   content: {
     root: {
-      type: string;
+      type: string
       children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  updatedAt?: string | null;
-  createdAt?: string | null;
+        type: any
+        version: number
+        [k: string]: unknown
+      }[]
+      direction: ('ltr' | 'rtl') | null
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | ''
+      indent: number
+      version: number
+    }
+    [k: string]: unknown
+  }
+  updatedAt?: string | null
+  createdAt?: string | null
 }
 /**
  * Introduction, encadrés et galerie de la page. L’adresse et la section Accès sont gérées dans Paramètres du site.
@@ -790,60 +797,60 @@ export interface TomTomPage {
  * via the `definition` "intensive-courses-page".
  */
 export interface IntensiveCoursesPage {
-  id: string;
+  id: string
   /**
    * Texte affiché sous le titre de la page.
    */
   introContent?: {
     root: {
-      type: string;
+      type: string
       children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
+        type: any
+        version: number
+        [k: string]: unknown
+      }[]
+      direction: ('ltr' | 'rtl') | null
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | ''
+      indent: number
+      version: number
+    }
+    [k: string]: unknown
+  } | null
   /**
    * Blocs titre + texte affichés deux par ligne ; un bloc seul sur la dernière ligne prend toute la largeur.
    */
   blocks?:
     | {
-        title: string;
+        title: string
         content?: {
           root: {
-            type: string;
+            type: string
             children: {
-              type: any;
-              version: number;
-              [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            version: number;
-          };
-          [k: string]: unknown;
-        } | null;
-        id?: string | null;
+              type: any
+              version: number
+              [k: string]: unknown
+            }[]
+            direction: ('ltr' | 'rtl') | null
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | ''
+            indent: number
+            version: number
+          }
+          [k: string]: unknown
+        } | null
+        id?: string | null
       }[]
-    | null;
+    | null
   /**
    * Galerie sous les encadrés (grille responsive, 3 colonnes).
    */
   gallery?:
     | {
-        image: string | Media;
-        id?: string | null;
+        image: string | Media
+        id?: string | null
       }[]
-    | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
+    | null
+  updatedAt?: string | null
+  createdAt?: string | null
 }
 /**
  * Une entrée par année scolaire : titre (ex. 2025-2026) et dates pour cette période.
@@ -852,25 +859,25 @@ export interface IntensiveCoursesPage {
  * via the `definition` "intensive-courses-calendar-page".
  */
 export interface IntensiveCoursesCalendarPage {
-  id: string;
+  id: string
   /**
    * Texte optionnel affiché sous le titre de la page.
    */
   introContent?: {
     root: {
-      type: string;
+      type: string
       children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
+        type: any
+        version: number
+        [k: string]: unknown
+      }[]
+      direction: ('ltr' | 'rtl') | null
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | ''
+      indent: number
+      version: number
+    }
+    [k: string]: unknown
+  } | null
   /**
    * Ajoutez une entrée par année scolaire, avec les dates des stages pour cette période.
    */
@@ -879,27 +886,27 @@ export interface IntensiveCoursesCalendarPage {
         /**
          * Ex. 2025-2026 (affiché sur le site comme « Année scolaire 2025-2026 »).
          */
-        title: string;
+        title: string
         content?: {
           root: {
-            type: string;
+            type: string
             children: {
-              type: any;
-              version: number;
-              [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            version: number;
-          };
-          [k: string]: unknown;
-        } | null;
-        id?: string | null;
+              type: any
+              version: number
+              [k: string]: unknown
+            }[]
+            direction: ('ltr' | 'rtl') | null
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | ''
+            indent: number
+            version: number
+          }
+          [k: string]: unknown
+        } | null
+        id?: string | null
       }[]
-    | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
+    | null
+  updatedAt?: string | null
+  createdAt?: string | null
 }
 /**
  * Texte d’introduction de la page Contact. L’adresse, la carte, les instructions et les photos d’accès sont gérées dans Paramètres du site.
@@ -908,27 +915,27 @@ export interface IntensiveCoursesCalendarPage {
  * via the `definition` "contact-page".
  */
 export interface ContactPage {
-  id: string;
+  id: string
   /**
    * Texte affiché sous le titre de la page Contact.
    */
   introContent?: {
     root: {
-      type: string;
+      type: string
       children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
+        type: any
+        version: number
+        [k: string]: unknown
+      }[]
+      direction: ('ltr' | 'rtl') | null
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | ''
+      indent: number
+      version: number
+    }
+    [k: string]: unknown
+  } | null
+  updatedAt?: string | null
+  createdAt?: string | null
 }
 /**
  * Texte affiché sur la page Mentions légales du site.
@@ -937,27 +944,27 @@ export interface ContactPage {
  * via the `definition` "legal-notice-page".
  */
 export interface LegalNoticePage {
-  id: string;
+  id: string
   /**
    * Rédigez le texte des mentions légales.
    */
   content: {
     root: {
-      type: string;
+      type: string
       children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  updatedAt?: string | null;
-  createdAt?: string | null;
+        type: any
+        version: number
+        [k: string]: unknown
+      }[]
+      direction: ('ltr' | 'rtl') | null
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | ''
+      indent: number
+      version: number
+    }
+    [k: string]: unknown
+  }
+  updatedAt?: string | null
+  createdAt?: string | null
 }
 /**
  * Tarifs des cours et des stages intensifs.
@@ -966,45 +973,45 @@ export interface LegalNoticePage {
  * via the `definition` "pricing-page".
  */
 export interface PricingPage {
-  id: string;
+  id: string
   /**
    * Contenu de la section Cours sur la page Tarifs.
    */
   classesContent?: {
     root: {
-      type: string;
+      type: string
       children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
+        type: any
+        version: number
+        [k: string]: unknown
+      }[]
+      direction: ('ltr' | 'rtl') | null
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | ''
+      indent: number
+      version: number
+    }
+    [k: string]: unknown
+  } | null
   /**
    * Contenu de la section Stages intensifs sur la page Tarifs.
    */
   intensiveCoursesContent?: {
     root: {
-      type: string;
+      type: string
       children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
+        type: any
+        version: number
+        [k: string]: unknown
+      }[]
+      direction: ('ltr' | 'rtl') | null
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | ''
+      indent: number
+      version: number
+    }
+    [k: string]: unknown
+  } | null
+  updatedAt?: string | null
+  createdAt?: string | null
 }
 /**
  * Coordonnées, réseaux sociaux et textes affichés dans l’en-tête et le pied de page.
@@ -1013,105 +1020,105 @@ export interface PricingPage {
  * via the `definition` "site-settings".
  */
 export interface SiteSetting {
-  id: string;
+  id: string
   /**
    * Forme abrégée du nom. Utilisée dans l’en-tête, le pied de page et les titres de page.
    */
-  schoolNameShort: string;
+  schoolNameShort: string
   /**
    * Affichée sur la bannière d’accueil (« Depuis … »). Laisser vide pour ne rien afficher.
    */
-  foundedYear?: number | null;
+  foundedYear?: number | null
   /**
    * Première ligne de l’adresse affichée sur le site (nom du lieu ou du bâtiment).
    */
-  addressStreetLine2?: string | null;
+  addressStreetLine2?: string | null
   /**
    * Deuxième ligne de l’adresse. Affichée dans le pied de page, la page Contact et les encadrés adresse.
    */
-  addressStreet: string;
-  addressPostalCode: string;
-  addressCity: string;
+  addressStreet: string
+  addressPostalCode: string
+  addressCity: string
   /**
    * URL de la fiche Google Maps (bouton « Partager » → « Lien »). Utilisée lorsque l’on clique sur l’adresse sur le site.
    */
-  addressMapsUrl?: string | null;
+  addressMapsUrl?: string | null
   /**
    * Collez le code iframe fourni par Google Maps (« Partager » → « Intégrer une carte »), ou uniquement l’URL src du iframe.
    */
-  addressMapsEmbed?: string | null;
+  addressMapsEmbed?: string | null
   /**
    * Indications optionnelles affichées sur la page Contact, sous le titre « Accès », avant les photos.
    */
   addressAccessDirectionsContent?: {
     root: {
-      type: string;
+      type: string
       children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
+        type: any
+        version: number
+        [k: string]: unknown
+      }[]
+      direction: ('ltr' | 'rtl') | null
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | ''
+      indent: number
+      version: number
+    }
+    [k: string]: unknown
+  } | null
   /**
    * Galerie affichée sur la page Contact, sous les instructions d’accès.
    */
   addressAccessGallery?:
     | {
-        image: string | Media;
-        id?: string | null;
+        image: string | Media
+        id?: string | null
       }[]
-    | null;
+    | null
   /**
    * Première ligne de l’adresse affichée sur le site (nom du lieu ou du bâtiment).
    */
-  intensiveCoursesAddressStreetLine2?: string | null;
+  intensiveCoursesAddressStreetLine2?: string | null
   /**
    * Deuxième ligne de l’adresse. Affichée dans la section Accès de la page Stages intensifs.
    */
-  intensiveCoursesAddressStreet?: string | null;
-  intensiveCoursesAddressPostalCode?: string | null;
-  intensiveCoursesAddressCity?: string | null;
+  intensiveCoursesAddressStreet?: string | null
+  intensiveCoursesAddressPostalCode?: string | null
+  intensiveCoursesAddressCity?: string | null
   /**
    * URL de la fiche Google Maps (bouton « Partager » → « Lien »). Utilisée lorsque l’on clique sur l’adresse sur le site.
    */
-  intensiveCoursesAddressMapsUrl?: string | null;
+  intensiveCoursesAddressMapsUrl?: string | null
   /**
    * Collez le code iframe fourni par Google Maps (« Partager » → « Intégrer une carte »), ou uniquement l’URL src du iframe.
    */
-  intensiveCoursesAddressMapsEmbed?: string | null;
+  intensiveCoursesAddressMapsEmbed?: string | null
   /**
    * Indications optionnelles affichées dans la section Accès de la page Stages intensifs, sous l’adresse.
    */
   intensiveCoursesAccessDirectionsContent?: {
     root: {
-      type: string;
+      type: string
       children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
+        type: any
+        version: number
+        [k: string]: unknown
+      }[]
+      direction: ('ltr' | 'rtl') | null
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | ''
+      indent: number
+      version: number
+    }
+    [k: string]: unknown
+  } | null
   /**
    * Galerie affichée sur la page Stages intensifs, sous la carte (2 photos par ligne).
    */
   intensiveCoursesAccessGallery?:
     | {
-        image: string | Media;
-        id?: string | null;
+        image: string | Media
+        id?: string | null
       }[]
-    | null;
+    | null
   /**
    * Liste des téléphones affichés dans le pied de page.
    */
@@ -1120,122 +1127,122 @@ export interface SiteSetting {
         /**
          * Numéro tel qu’affiché sur le site. Le lien d’appel est généré automatiquement.
          */
-        number: string;
-        id?: string | null;
+        number: string
+        id?: string | null
       }[]
-    | null;
+    | null
   /**
    * Toutes les adresses affichées dans le pied de page.
    */
   emails?:
     | {
-        address: string;
-        id?: string | null;
+        address: string
+        id?: string | null
       }[]
-    | null;
+    | null
   /**
    * URL complète de la page ou du profil Instagram.
    */
-  instagramUrl?: string | null;
+  instagramUrl?: string | null
   /**
    * URL complète de la page Facebook.
    */
-  facebookUrl?: string | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
+  facebookUrl?: string | null
+  updatedAt?: string | null
+  createdAt?: string | null
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "home-page_select".
  */
 export interface HomePageSelect<T extends boolean = true> {
-  heroTagline?: T;
-  heroName?: T;
-  heroSubtitle?: T;
-  heroCta?: T;
-  heroCtaHref?: T;
-  heroBackgroundImage?: T;
-  quoteText?: T;
-  quoteCite?: T;
-  quotePortrait?: T;
+  heroTagline?: T
+  heroName?: T
+  heroSubtitle?: T
+  heroCta?: T
+  heroCtaHref?: T
+  heroBackgroundImage?: T
+  quoteText?: T
+  quoteCite?: T
+  quotePortrait?: T
   sections?:
     | T
     | {
-        surtitle?: T;
-        title?: T;
-        description?: T;
+        surtitle?: T
+        title?: T
+        description?: T
         items?:
           | T
           | {
-              title?: T;
-              description?: T;
-              id?: T;
-            };
+              title?: T
+              description?: T
+              id?: T
+            }
         highlight?:
           | T
           | {
-              title?: T;
-              description?: T;
-              buttonLabel?: T;
-              buttonHref?: T;
-            };
+              title?: T
+              description?: T
+              buttonLabel?: T
+              buttonHref?: T
+            }
         gallery?:
           | T
           | {
-              image?: T;
-              id?: T;
-            };
-        id?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
+              image?: T
+              id?: T
+            }
+        id?: T
+      }
+  updatedAt?: T
+  createdAt?: T
+  globalType?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "guestbook-page_select".
  */
 export interface GuestbookPageSelect<T extends boolean = true> {
-  introduction?: T;
+  introduction?: T
   testimonials?:
     | T
     | {
-        student?: T;
-        content?: T;
-        author?: T;
-        id?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
+        student?: T
+        content?: T
+        author?: T
+        id?: T
+      }
+  updatedAt?: T
+  createdAt?: T
+  globalType?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "news-page_select".
  */
 export interface NewsPageSelect<T extends boolean = true> {
-  upcomingEventsAlert?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
+  upcomingEventsAlert?: T
+  updatedAt?: T
+  createdAt?: T
+  globalType?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "alumni-page_select".
  */
 export interface AlumniPageSelect<T extends boolean = true> {
-  introContent?: T;
+  introContent?: T
   alumniList?:
     | T
     | {
-        student?: T;
-        name?: T;
-        projects?: T;
-        id?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
+        student?: T
+        name?: T
+        projects?: T
+        id?: T
+      }
+  updatedAt?: T
+  createdAt?: T
+  globalType?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1245,135 +1252,135 @@ export interface TomTomPageSelect<T extends boolean = true> {
   callout?:
     | T
     | {
-        label?: T;
-        href?: T;
-      };
-  content?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
+        label?: T
+        href?: T
+      }
+  content?: T
+  updatedAt?: T
+  createdAt?: T
+  globalType?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "intensive-courses-page_select".
  */
 export interface IntensiveCoursesPageSelect<T extends boolean = true> {
-  introContent?: T;
+  introContent?: T
   blocks?:
     | T
     | {
-        title?: T;
-        content?: T;
-        id?: T;
-      };
+        title?: T
+        content?: T
+        id?: T
+      }
   gallery?:
     | T
     | {
-        image?: T;
-        id?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
+        image?: T
+        id?: T
+      }
+  updatedAt?: T
+  createdAt?: T
+  globalType?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "intensive-courses-calendar-page_select".
  */
 export interface IntensiveCoursesCalendarPageSelect<T extends boolean = true> {
-  introContent?: T;
+  introContent?: T
   schoolYears?:
     | T
     | {
-        title?: T;
-        content?: T;
-        id?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
+        title?: T
+        content?: T
+        id?: T
+      }
+  updatedAt?: T
+  createdAt?: T
+  globalType?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "contact-page_select".
  */
 export interface ContactPageSelect<T extends boolean = true> {
-  introContent?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
+  introContent?: T
+  updatedAt?: T
+  createdAt?: T
+  globalType?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "legal-notice-page_select".
  */
 export interface LegalNoticePageSelect<T extends boolean = true> {
-  content?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
+  content?: T
+  updatedAt?: T
+  createdAt?: T
+  globalType?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "pricing-page_select".
  */
 export interface PricingPageSelect<T extends boolean = true> {
-  classesContent?: T;
-  intensiveCoursesContent?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
+  classesContent?: T
+  intensiveCoursesContent?: T
+  updatedAt?: T
+  createdAt?: T
+  globalType?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "site-settings_select".
  */
 export interface SiteSettingsSelect<T extends boolean = true> {
-  schoolNameShort?: T;
-  foundedYear?: T;
-  addressStreetLine2?: T;
-  addressStreet?: T;
-  addressPostalCode?: T;
-  addressCity?: T;
-  addressMapsUrl?: T;
-  addressMapsEmbed?: T;
-  addressAccessDirectionsContent?: T;
+  schoolNameShort?: T
+  foundedYear?: T
+  addressStreetLine2?: T
+  addressStreet?: T
+  addressPostalCode?: T
+  addressCity?: T
+  addressMapsUrl?: T
+  addressMapsEmbed?: T
+  addressAccessDirectionsContent?: T
   addressAccessGallery?:
     | T
     | {
-        image?: T;
-        id?: T;
-      };
-  intensiveCoursesAddressStreetLine2?: T;
-  intensiveCoursesAddressStreet?: T;
-  intensiveCoursesAddressPostalCode?: T;
-  intensiveCoursesAddressCity?: T;
-  intensiveCoursesAddressMapsUrl?: T;
-  intensiveCoursesAddressMapsEmbed?: T;
-  intensiveCoursesAccessDirectionsContent?: T;
+        image?: T
+        id?: T
+      }
+  intensiveCoursesAddressStreetLine2?: T
+  intensiveCoursesAddressStreet?: T
+  intensiveCoursesAddressPostalCode?: T
+  intensiveCoursesAddressCity?: T
+  intensiveCoursesAddressMapsUrl?: T
+  intensiveCoursesAddressMapsEmbed?: T
+  intensiveCoursesAccessDirectionsContent?: T
   intensiveCoursesAccessGallery?:
     | T
     | {
-        image?: T;
-        id?: T;
-      };
+        image?: T
+        id?: T
+      }
   phones?:
     | T
     | {
-        number?: T;
-        id?: T;
-      };
+        number?: T
+        id?: T
+      }
   emails?:
     | T
     | {
-        address?: T;
-        id?: T;
-      };
-  instagramUrl?: T;
-  facebookUrl?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
+        address?: T
+        id?: T
+      }
+  instagramUrl?: T
+  facebookUrl?: T
+  updatedAt?: T
+  createdAt?: T
+  globalType?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1381,18 +1388,17 @@ export interface SiteSettingsSelect<T extends boolean = true> {
  */
 export interface CollectionsWidget {
   data?: {
-    [k: string]: unknown;
-  };
-  width: 'full';
+    [k: string]: unknown
+  }
+  width: 'full'
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "auth".
  */
 export interface Auth {
-  [k: string]: unknown;
+  [k: string]: unknown
 }
-
 
 declare module 'payload' {
   export interface GeneratedTypes extends Config {}
