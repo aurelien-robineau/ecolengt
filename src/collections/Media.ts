@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
 import { adminGroups } from '@/lib/cms/adminGroups'
+import { deleteMediaBlob } from '@/lib/cms/deleteMediaBlob'
 
 export const Media: CollectionConfig = {
   slug: 'media',
@@ -17,6 +18,9 @@ export const Media: CollectionConfig = {
     create: ({ req }) => Boolean(req.user),
     update: ({ req }) => Boolean(req.user),
     delete: ({ req }) => Boolean(req.user),
+  },
+  hooks: {
+    afterDelete: [deleteMediaBlob],
   },
   fields: [
     {
