@@ -2,7 +2,6 @@ import type { CollectionConfig } from 'payload'
 
 import { adminGroups } from '@/lib/cms/adminGroups'
 import { deleteMediaBlob } from '@/lib/cms/deleteMediaBlob'
-import { renameMediaBlob } from '@/lib/cms/renameMediaBlob'
 
 export const Media: CollectionConfig = {
   slug: 'media',
@@ -21,22 +20,9 @@ export const Media: CollectionConfig = {
     delete: ({ req }) => Boolean(req.user),
   },
   hooks: {
-    beforeChange: [renameMediaBlob],
     afterDelete: [deleteMediaBlob],
   },
   fields: [
-    {
-      name: 'filename',
-      type: 'text',
-      label: 'Nom du fichier',
-      admin: {
-        readOnly: false,
-        hidden: false,
-        disableBulkEdit: true,
-        description:
-          'Renomme le fichier sur Vercel Blob à l’enregistrement. Si vous omettez l’extension, celle d’origine est conservée.',
-      },
-    },
     {
       name: 'alt',
       type: 'text',
