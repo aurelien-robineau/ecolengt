@@ -38,8 +38,10 @@ export default async function StagesIntensifsPage() {
           </div>
         : null}
 
+        <IntensiveCoursesBlocks blocks={intensiveCourses.blocks} />
+
         {hasGallery ?
-          <div className={intensiveCourses.blocks.length ? 'mb-20' : undefined}>
+          <div className={intensiveCourses.blocks.length ? 'mt-20' : undefined}>
             <Gallery
               items={intensiveCourses.gallery}
               columns={3}
@@ -47,8 +49,6 @@ export default async function StagesIntensifsPage() {
             />
           </div>
         : null}
-
-        <IntensiveCoursesBlocks blocks={intensiveCourses.blocks} />
         <IntensiveCoursesAccess
           siteName={site.name}
           address={site.intensiveCoursesAddress}

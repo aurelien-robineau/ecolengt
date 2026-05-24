@@ -784,7 +784,7 @@ export interface TomTomPage {
   createdAt?: string | null;
 }
 /**
- * Introduction, galerie et encadrés de la page. L’adresse et la section Accès sont gérées dans Paramètres du site.
+ * Introduction, encadrés et galerie de la page. L’adresse et la section Accès sont gérées dans Paramètres du site.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "intensive-courses-page".
@@ -810,15 +810,6 @@ export interface IntensiveCoursesPage {
     [k: string]: unknown;
   } | null;
   /**
-   * Galerie sous l’introduction (grille responsive, 3 colonnes).
-   */
-  gallery?:
-    | {
-        image: string | Media;
-        id?: string | null;
-      }[]
-    | null;
-  /**
    * Blocs titre + texte affichés deux par ligne ; un bloc seul sur la dernière ligne prend toute la largeur.
    */
   blocks?:
@@ -839,6 +830,15 @@ export interface IntensiveCoursesPage {
           };
           [k: string]: unknown;
         } | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Galerie sous les encadrés (grille responsive, 3 colonnes).
+   */
+  gallery?:
+    | {
+        image: string | Media;
         id?: string | null;
       }[]
     | null;
@@ -1259,17 +1259,17 @@ export interface TomTomPageSelect<T extends boolean = true> {
  */
 export interface IntensiveCoursesPageSelect<T extends boolean = true> {
   introContent?: T;
-  gallery?:
-    | T
-    | {
-        image?: T;
-        id?: T;
-      };
   blocks?:
     | T
     | {
         title?: T;
         content?: T;
+        id?: T;
+      };
+  gallery?:
+    | T
+    | {
+        image?: T;
         id?: T;
       };
   updatedAt?: T;
