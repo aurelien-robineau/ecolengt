@@ -10,9 +10,16 @@ type StudentProfileProps = {
 export function StudentProfile({ student }: StudentProfileProps) {
   return (
     <article>
-      <h1 className="mb-10 font-serif text-[clamp(1.75rem,4vw,2.75rem)] leading-[1.1] font-light text-foreground">
-        {student.name}
-      </h1>
+      <header className="mb-10">
+        <h1 className="font-serif text-[clamp(1.75rem,4vw,2.75rem)] leading-[1.1] font-light text-foreground">
+          {student.name}
+        </h1>
+        {student.jobTitle ?
+          <p className="mt-3 text-base leading-snug tracking-[0.04em] text-foreground md:text-lg">
+            {student.jobTitle}
+          </p>
+        : null}
+      </header>
 
       {student.quote ?
         <blockquote className="mb-10 max-w-2xl border-l-2 border-brand pl-6">
@@ -23,12 +30,6 @@ export function StudentProfile({ student }: StudentProfileProps) {
       : null}
 
       <StudentPhotos photos={student.photos} />
-
-      {student.jobTitle ?
-        <p className="mb-3 text-base leading-snug tracking-[0.04em] text-foreground md:text-lg">
-          {student.jobTitle}
-        </p>
-      : null}
 
       {student.description ?
         <CmsRichText data={student.description} />
