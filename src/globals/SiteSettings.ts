@@ -11,7 +11,8 @@ export const SiteSettings: GlobalConfig = {
   label: 'Paramètres du site',
   admin: {
     group: adminGroups.config,
-    description: 'Coordonnées, réseaux sociaux et textes affichés dans l’en-tête et le pied de page.',
+    description:
+      'Coordonnées, réseaux sociaux et textes affichés dans l’en-tête et le pied de page.',
   },
   access: {
     read: () => true,
@@ -51,7 +52,7 @@ export const SiteSettings: GlobalConfig = {
           ],
         },
         {
-          label: 'Adresse',
+          label: 'Adresses',
           description: 'Adresses et cartes affichées sur le site.',
           fields: [
             {
