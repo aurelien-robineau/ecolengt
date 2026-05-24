@@ -21,7 +21,8 @@ export function mapAlumniPage(data: AlumniPageDoc | null | undefined): AlumniPag
         return {
           name,
           pageHref,
-          projects: entry.projects?.trim() || null,
+          projects:
+            typeof entry.projects === 'string' ? entry.projects.trim() || null : null,
         }
       })
       .filter((entry) => entry.name) ?? []
