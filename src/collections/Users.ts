@@ -13,7 +13,11 @@ export const Users: CollectionConfig = {
     description: 'Comptes autorisés à modifier le contenu du site via cet espace d’administration.',
     useAsTitle: 'email',
   },
-  auth: true,
+  auth: {
+    cookies: {
+      secure: process.env.NEXT_PUBLIC_SERVER_URL?.startsWith('https://') ?? false,
+    },
+  },
   fields: [
     // Email added by default
     // Add more fields as needed
