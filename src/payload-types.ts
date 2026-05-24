@@ -161,6 +161,9 @@ export interface Media {
   createdAt: string;
   url?: string | null;
   thumbnailURL?: string | null;
+  /**
+   * Renomme le fichier sur Vercel Blob à l’enregistrement. Si vous omettez l’extension, celle d’origine est conservée.
+   */
   filename?: string | null;
   mimeType?: string | null;
   filesize?: number | null;
@@ -859,12 +862,30 @@ export interface IntensiveCoursesPage {
 export interface IntensiveCoursesCalendarPage {
   id: string;
   /**
+   * Texte optionnel affiché sous le titre de la page.
+   */
+  introContent?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
    * Ajoutez une entrée par année scolaire, avec les dates des stages pour cette période.
    */
   schoolYears?:
     | {
         /**
-         * Ex. 2025-2026
+         * Ex. 2025-2026 (affiché sur le site comme « Année scolaire 2025-2026 »).
          */
         title: string;
         content?: {
@@ -1273,6 +1294,7 @@ export interface IntensiveCoursesPageSelect<T extends boolean = true> {
  * via the `definition` "intensive-courses-calendar-page_select".
  */
 export interface IntensiveCoursesCalendarPageSelect<T extends boolean = true> {
+  introContent?: T;
   schoolYears?:
     | T
     | {

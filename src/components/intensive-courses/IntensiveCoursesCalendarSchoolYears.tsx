@@ -1,7 +1,11 @@
 import { CmsRichText } from '@/components/cms/CmsRichText'
 import { hasLexicalContent } from '@/lib/cms/hasLexicalContent'
 import type { IntensiveCoursesCalendarSchoolYear } from '@/lib/cms/types'
-import { pageSectionTitleClassName, sectionLabelClassName } from '@/lib/ui/typography'
+import { pageSectionTitleClassName } from '@/lib/ui/typography'
+
+function formatSchoolYearTitle(title: string): string {
+  return `Année scolaire ${title}`
+}
 
 type IntensiveCoursesCalendarSchoolYearsProps = {
   schoolYears: IntensiveCoursesCalendarSchoolYear[]
@@ -24,8 +28,7 @@ export function IntensiveCoursesCalendarSchoolYears({
         <section key={`${year.title}-${index}`} className="py-12 md:py-16">
           {year.title ?
             <header className="mb-8 md:mb-10">
-              <p className={`mb-3 ${sectionLabelClassName}`}>Année scolaire</p>
-              <h2 className={pageSectionTitleClassName}>{year.title}</h2>
+              <h2 className={pageSectionTitleClassName}>{formatSchoolYearTitle(year.title)}</h2>
             </header>
           : null}
           {year.content && hasLexicalContent(year.content) ?
