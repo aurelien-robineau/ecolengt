@@ -3,7 +3,7 @@ import path from 'path'
 
 import { getBlobFileKey } from './blobFileKey'
 
-export const MEDIA_STAGING_DIR = '_payload-replace'
+export { MEDIA_STAGING_DIR } from './mediaStaging'
 
 export type VercelBlobMediaConfig = {
   baseUrl: string
@@ -22,8 +22,7 @@ export function getVercelBlobMediaConfig(): VercelBlobMediaConfig | null {
   }
 
   const baseUrl =
-    process.env.STORAGE_VERCEL_BLOB_BASE_URL ||
-    `https://${storeId}.public.blob.vercel-storage.com`
+    process.env.STORAGE_VERCEL_BLOB_BASE_URL || `https://${storeId}.public.blob.vercel-storage.com`
 
   return { baseUrl, token }
 }
@@ -57,7 +56,10 @@ export function getBlobUrlForFile({
   return `${baseUrl}/${fileKeyWithEncodedFilename}`
 }
 
-async function fetchBlobBuffer(blobUrl: string, token: string): Promise<{
+async function fetchBlobBuffer(
+  blobUrl: string,
+  token: string,
+): Promise<{
   buffer: Buffer
   contentType: string | undefined
 }> {
@@ -137,8 +139,7 @@ export async function promoteStagingBlob({
 }): Promise<void> {
   const dir = path.posix.dirname(stagingFileKey)
   const encodedFilename = encodeURIComponent(path.posix.basename(stagingFileKey))
-  const stagingPath =
-    dir === '.' ? encodedFilename : path.posix.join(dir, encodedFilename)
+  const stagingPath = dir === '.' ? encodedFilename : path.posix.join(dir, encodedFilename)
   const stagingUrl = `${config.baseUrl}/${stagingPath}`
 
   const { buffer, contentType } = await fetchBlobBuffer(stagingUrl, config.token)
@@ -159,13 +160,4 @@ export async function promoteStagingBlob({
   await del(stagingUrl, { token: config.token })
 }
 
-export function buildStagingFilename({
-  mediaId,
-  originalUploadName,
-}: {
-  mediaId: string
-  originalUploadName: string
-}): string {
-  const safeName = originalUploadName.replace(/[^\w.\-()+ ]/g, '_')
-  return path.posix.join(MEDIA_STAGING_DIR, mediaId, `${Date.now()}-${safeName}`)
-}
+export { buildStagingFilename } from './mediaStaging'

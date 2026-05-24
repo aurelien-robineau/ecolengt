@@ -1,4 +1,3 @@
-import path from 'path'
 import { sanitizeFilename } from 'payload/shared'
 
 /**
@@ -27,6 +26,10 @@ export function sanitizePrefix(prefix: string): string {
     .replace(/[\x00-\x1f\x80-\x9f]/g, '')
 }
 
+function posixJoin(...segments: string[]): string {
+  return segments.filter(Boolean).join('/').replace(/\/+/g, '/').replace(/^\/+/, '')
+}
+
 /** Mirrors @payloadcms/plugin-cloud-storage/utilities getFileKey. */
 export function getBlobFileKey({
   collectionPrefix,
@@ -47,8 +50,8 @@ export function getBlobFileKey({
   const safeFilename = sanitizeFilename(filename)
 
   const fileKey = useCompositePrefixes
-    ? path.posix.join(safeCollectionPrefix, safeDocPrefix, safeFilename)
-    : path.posix.join(safeDocPrefix || safeCollectionPrefix, safeFilename)
+    ? posixJoin(safeCollectionPrefix, safeDocPrefix, safeFilename)
+    : posixJoin(safeDocPrefix || safeCollectionPrefix, safeFilename)
 
   return {
     fileKey,

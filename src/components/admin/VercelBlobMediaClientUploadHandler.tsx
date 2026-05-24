@@ -1,12 +1,12 @@
 'use client'
 
-import { useConfig, useDocumentInfo, useEffectEvent, useUploadHandlers } from '@payloadcms/ui'
+import { useConfig, useEffectEvent, useUploadHandlers } from '@payloadcms/ui'
 import { upload } from '@vercel/blob/client'
 import { formatAdminURL } from 'payload/shared'
 import { Fragment, useEffect } from 'react'
 
 import { getBlobFileKey } from '@/lib/cms/blobFileKey'
-import { buildStagingFilename } from '@/lib/cms/vercelBlobMedia'
+import { buildStagingFilename, getMediaIdFromAdminPathname } from '@/lib/cms/mediaStaging'
 
 type ClientUploadHandlerProps = {
   children: React.ReactNode
@@ -30,6 +30,8 @@ function posixBasename(key: string): string {
  * Vercel Blob client uploads for media. When replacing a file on an existing document,
  * uploads to a staging path so the cloud-storage plugin can delete the previous blob
  * before we promote the new bytes to the preserved filename on save.
+ *
+ * Must not use useDocumentInfo — this runs as a root admin provider outside document views.
  */
 export function VercelBlobMediaClientUploadHandler({
   children,
@@ -46,7 +48,6 @@ export function VercelBlobMediaClientUploadHandler({
       serverURL,
     },
   } = useConfig()
-  const { data, id } = useDocumentInfo()
 
   const addRandomSuffix = Boolean(extra?.addRandomSuffix)
   const useCompositePrefixes = Boolean(extra?.useCompositePrefixes)
@@ -65,18 +66,17 @@ export function VercelBlobMediaClientUploadHandler({
           serverURL,
         })
 
-        const preservedFilename =
-          id && typeof data?.filename === 'string' && data.filename.length > 0
-            ? data.filename
+        const mediaId =
+          typeof window !== 'undefined'
+            ? getMediaIdFromAdminPathname(window.location.pathname)
             : undefined
 
-        const uploadFilename =
-          id && preservedFilename
-            ? buildStagingFilename({
-                mediaId: String(id),
-                originalUploadName: file.name,
-              })
-            : file.name
+        const uploadFilename = mediaId
+          ? buildStagingFilename({
+              mediaId,
+              originalUploadName: file.name,
+            })
+          : file.name
 
         const { fileKey: pathname, sanitizedDocPrefix } = getBlobFileKey({
           collectionPrefix: prefix,
@@ -93,13 +93,12 @@ export function VercelBlobMediaClientUploadHandler({
         })
 
         if (addRandomSuffix) {
-          const basename = decodeURIComponent(posixBasename(pathname))
-          updateFilename(basename)
+          updateFilename(decodeURIComponent(posixBasename(pathname)))
         }
 
         return {
           prefix: sanitizedDocPrefix,
-          ...(id && preservedFilename ? { stagingFileKey: pathname } : {}),
+          ...(mediaId ? { stagingFileKey: pathname } : {}),
         }
       },
     })
