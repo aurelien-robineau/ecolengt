@@ -21,7 +21,6 @@ import { NewsPage } from './globals/NewsPage'
 import { PricingPage } from './globals/PricingPage'
 import { SiteSettings } from './globals/SiteSettings'
 import { TomTomPage } from './globals/TomTomPage'
-import { disableAdminAPIView } from './lib/cms/disableAdminAPIView'
 import { mediaBlobSyncPlugin } from './lib/cms/mediaBlobSyncPlugin'
 import { vercelBlobStoragePlugin } from './lib/cms/storage'
 import { siteFaviconMetadata } from './lib/site/favicon'
@@ -79,7 +78,7 @@ export default buildConfig({
     url: process.env.DATABASE_URL || '',
   }),
   sharp,
-  plugins: [disableAdminAPIView, vercelBlobStoragePlugin, mediaBlobSyncPlugin],
+  plugins: [vercelBlobStoragePlugin, mediaBlobSyncPlugin],
   i18n: {
     supportedLanguages: { fr },
   },
