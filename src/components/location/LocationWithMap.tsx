@@ -1,9 +1,15 @@
 import { CmsRichText } from '@/components/cms/CmsRichText'
+import { LocationMap } from '@/components/location/LocationMap'
 import { AddressContent } from '@/components/ui/AddressContent'
 import type { CmsRichTextContent, SiteAddressData } from '@/lib/cms/types'
 import { cn } from '@/lib/cn'
 import { hasLexicalContent } from '@/lib/cms/hasLexicalContent'
-import { contactLinkValueClassName, contactValueClassName, sectionLabelClassName } from '@/lib/ui/typography'
+import { hasMapCoordinates } from '@/lib/maps/hasMapCoordinates'
+import {
+  contactLinkValueClassName,
+  contactValueClassName,
+  sectionLabelClassName,
+} from '@/lib/ui/typography'
 
 type LocationWithMapProps = {
   address: SiteAddressData
@@ -22,7 +28,7 @@ export function LocationWithMap({
     address.street || address.streetLine2 || address.postalCode || address.city,
   )
   const hasDirections = directions && hasLexicalContent(directions)
-  const hasMap = Boolean(address.mapsEmbedSrc)
+  const hasMap = hasMapCoordinates(address)
   const hasAside = hasAddress || hasDirections
 
   if (!hasAside && !hasMap) {
@@ -37,9 +43,9 @@ export function LocationWithMap({
         className,
       )}
     >
-      {hasAside ?
+      {hasAside ? (
         <aside className="border border-brand-border bg-brand-dim p-6 md:p-8">
-          {hasAddress ?
+          {hasAddress ? (
             <>
               <h3 className={cn(sectionLabelClassName, 'mb-4')}>Adresse</h3>
               <AddressContent
@@ -52,30 +58,26 @@ export function LocationWithMap({
                 linkClassName={contactLinkValueClassName}
               />
             </>
-          : null}
-          {hasDirections ?
+          ) : null}
+          {hasDirections ? (
             <div className={cn(hasAddress && 'mt-8 border-t border-brand-border/50 pt-8')}>
-              {hasAddress ?
+              {hasAddress ? (
                 <h3 className={cn(sectionLabelClassName, 'mb-4')}>Comment s’y rendre</h3>
-              : null}
+              ) : null}
               <CmsRichText data={directions} />
             </div>
-          : null}
+          ) : null}
         </aside>
-      : null}
+      ) : null}
 
-      {hasMap ?
-        <div className="relative aspect-4/3 w-full overflow-hidden bg-surface-muted lg:aspect-auto lg:min-h-112">
-          <iframe
-            src={address.mapsEmbedSrc}
-            title={mapTitle}
-            className="absolute inset-0 h-full w-full border-0"
-            loading="lazy"
-            allowFullScreen
-            referrerPolicy="no-referrer-when-downgrade"
-          />
-        </div>
-      : null}
+      {hasMap ? (
+        <LocationMap
+          title={mapTitle}
+          latitude={address.mapLatitude!}
+          longitude={address.mapLongitude!}
+          googleMapsUrl={address.mapsUrl || undefined}
+        />
+      ) : null}
     </div>
   )
 }

@@ -13,7 +13,8 @@ const emptySiteAddress = {
   postalCode: '',
   city: '',
   mapsUrl: '',
-  mapsEmbedSrc: '',
+  mapLatitude: null,
+  mapLongitude: null,
 }
 
 export const defaultSiteSettings: SiteSettingsData = {
@@ -79,4 +80,3 @@ export const defaultLandingPage: LandingPageData = {
   },
   sections: [],
 }
-
