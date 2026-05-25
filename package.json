@@ -11,7 +11,7 @@
     "devsafe": "rm -rf .next && cross-env NODE_OPTIONS=--no-deprecation next dev",
     "docker:db": "docker compose up mongo -d",
     "generate:importmap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
-    "generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types",
+    "generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types && prettier --write src/payload-types.ts",
     "lint": "cross-env NODE_OPTIONS=--no-deprecation eslint .",
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
@@ -19,13 +19,6 @@
     "test:e2e": "cross-env NODE_OPTIONS=\"--no-deprecation --import=tsx/esm\" playwright test --config=playwright.config.ts",
     "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts",
     "prepare": "husky"
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx,mjs,cjs}": [
-      "prettier --write",
-      "eslint --fix"
-    ],
-    "*.{json,css,scss,md,yml,yaml}": "prettier --write"
   },
   "dependencies": {
     "@payloadcms/db-mongodb": "3.84.1",
