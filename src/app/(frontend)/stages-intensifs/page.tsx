@@ -15,15 +15,20 @@ import { seoCopy } from '@/lib/seo/copy'
 
 export async function generateMetadata(): Promise<Metadata> {
   const { site } = await getSiteContent()
-  const { title, description } = seoCopy.stagesIntensifs(site)
+  const { documentTitle, title, description } = seoCopy.stagesIntensifs(site)
 
-  return buildPageMetadata({ site, pathname: routes.stagesIntensifs, title, description })
+  return buildPageMetadata({
+    site,
+    pathname: routes.stagesIntensifs,
+    pageTitle: documentTitle,
+    seoTitle: title,
+    description,
+  })
 }
 
 export default async function StagesIntensifsPage() {
   const { site, intensiveCourses } = await getSiteContent()
-  const hasIntro =
-    intensiveCourses.intro && hasLexicalContent(intensiveCourses.intro)
+  const hasIntro = intensiveCourses.intro && hasLexicalContent(intensiveCourses.intro)
   const hasGallery = intensiveCourses.gallery.length > 0
 
   return (
@@ -32,23 +37,19 @@ export default async function StagesIntensifsPage() {
         <SectionHeader label={site.name} title="Stages intensifs" titleAs="h1" />
         <IntensiveCoursesPageActions />
 
-        {hasIntro ?
+        {hasIntro ? (
           <div className="mb-12 max-w-xl">
             <CmsRichText data={intensiveCourses.intro} />
           </div>
-        : null}
+        ) : null}
 
         <IntensiveCoursesBlocks blocks={intensiveCourses.blocks} />
 
-        {hasGallery ?
+        {hasGallery ? (
           <div className={intensiveCourses.blocks.length ? 'mt-20' : undefined}>
-            <Gallery
-              items={intensiveCourses.gallery}
-              columns={3}
-              priorityFirstImage
-            />
+            <Gallery items={intensiveCourses.gallery} columns={3} priorityFirstImage />
           </div>
-        : null}
+        ) : null}
         <IntensiveCoursesAccess
           siteName={site.name}
           address={site.intensiveCoursesAddress}

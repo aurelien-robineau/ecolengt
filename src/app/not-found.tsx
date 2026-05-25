@@ -8,7 +8,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const { site } = await getSiteContent()
 
   return {
-    title: `Page introuvable — ${site.name}`,
+    title: 'Page introuvable | École NGT',
     description: 'Cette page n’existe pas ou a été déplacée.',
   }
 }

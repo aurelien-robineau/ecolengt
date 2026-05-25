@@ -12,12 +12,13 @@ import { seoCopy } from '@/lib/seo/copy'
 
 export async function generateMetadata(): Promise<Metadata> {
   const { site } = await getSiteContent()
-  const { title, description } = seoCopy.stagesCalendrier(site)
+  const { documentTitle, title, description } = seoCopy.stagesCalendrier(site)
 
   return buildPageMetadata({
     site,
     pathname: routes.stagesIntensifsCalendar,
-    title,
+    pageTitle: documentTitle,
+    seoTitle: title,
     description,
   })
 }
@@ -31,14 +32,12 @@ export default async function StagesIntensifsCalendarPage() {
     <section className="bg-surface py-(--spacing-section-mobile) pt-28 md:py-(--spacing-section)">
       <Container>
         <SectionHeader label={site.name} title="Calendrier des stages intensifs" titleAs="h1" />
-        {hasIntro ?
+        {hasIntro ? (
           <div className="mb-12 max-w-xl">
             <CmsRichText data={intensiveCoursesCalendar.intro} />
           </div>
-        : null}
-        <IntensiveCoursesCalendarSchoolYears
-          schoolYears={intensiveCoursesCalendar.schoolYears}
-        />
+        ) : null}
+        <IntensiveCoursesCalendarSchoolYears schoolYears={intensiveCoursesCalendar.schoolYears} />
       </Container>
     </section>
   )

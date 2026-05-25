@@ -1,3 +1,9 @@
+/** Browser tab title on the homepage. */
+export const DOCUMENT_TITLE_HOME = 'École de Batterie Nadia & Gilles Touché'
+
+/** Suffix appended to inner page tab titles (`{pageTitle} | …`). */
+export const DOCUMENT_TITLE_SUFFIX = 'École NGT'
+
 /** Founder of the Dante Agostini drum-teaching network (brand association for SEO/GEO). */
 export const DANTE_AGOSTINI_FOUNDER = 'Dante Agostini'
 

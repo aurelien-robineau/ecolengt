@@ -4,6 +4,8 @@ import type { SiteSettingsData } from '@/lib/cms/types'
 import {
   DANTE_AGOSTINI_FOUNDER,
   DANTE_AGOSTINI_NETWORK,
+  DOCUMENT_TITLE_HOME,
+  DOCUMENT_TITLE_SUFFIX,
   SEO_DEFAULT_OG_IMAGE_PATH,
   SEO_KEYWORDS,
 } from '@/lib/seo/constants'
@@ -14,7 +16,10 @@ import { siteFaviconMetadata } from '@/lib/site/favicon'
 type BuildPageMetadataInput = {
   site: SiteSettingsData
   pathname: string
-  title: string
+  /** Browser tab title (layout template adds `| École NGT` on inner pages). */
+  pageTitle: string
+  /** Open Graph / Twitter title; defaults to `pageTitle`. */
+  seoTitle?: string
   description: string
   keywords?: readonly string[]
   noIndex?: boolean
@@ -33,8 +38,8 @@ export function buildSiteRootMetadata(site: SiteSettingsData): Metadata {
   return {
     metadataBase: getMetadataBase(),
     title: {
-      default: title,
-      template: `%s · ${school}`,
+      default: DOCUMENT_TITLE_HOME,
+      template: `%s | ${DOCUMENT_TITLE_SUFFIX}`,
     },
     description,
     keywords: [...SEO_KEYWORDS],
@@ -79,7 +84,8 @@ export function buildSiteRootMetadata(site: SiteSettingsData): Metadata {
 export function buildPageMetadata({
   site,
   pathname,
-  title,
+  pageTitle,
+  seoTitle,
   description,
   keywords,
   noIndex = false,
@@ -89,9 +95,10 @@ export function buildPageMetadata({
   const school = site.name.trim() || 'École de Batterie NGT'
   const url = absoluteUrl(pathname)
   const pageKeywords = keywords ?? SEO_KEYWORDS
+  const socialTitle = seoTitle ?? pageTitle
 
   return {
-    title,
+    title: pageTitle,
     description,
     keywords: [...pageKeywords],
     alternates: {
@@ -103,35 +110,39 @@ export function buildPageMetadata({
       locale: 'fr_FR',
       url,
       siteName: school,
-      title,
+      title: socialTitle,
       description,
-      images: [{ url: ogImagePath, alt: title }],
+      images: [{ url: ogImagePath, alt: socialTitle }],
     },
     twitter: {
       card: 'summary_large_image',
-      title,
+      title: socialTitle,
       description,
       images: [ogImagePath],
     },
-    robots: noIndex ?
-      { index: false, follow: false }
-    : {
-        index: true,
-        follow: true,
-        googleBot: { index: true, follow: true },
-      },
+    robots: noIndex
+      ? { index: false, follow: false }
+      : {
+          index: true,
+          follow: true,
+          googleBot: { index: true, follow: true },
+        },
   }
 }
 
 export function buildHomeMetadata(site: SiteSettingsData): Metadata {
-  const { title, description } = seoCopy.home(site)
+  const { documentTitle, title, description } = seoCopy.home(site)
 
-  return buildPageMetadata({
-    site,
-    pathname: '/',
-    title,
-    description,
-  })
+  return {
+    ...buildPageMetadata({
+      site,
+      pathname: '/',
+      pageTitle: documentTitle,
+      seoTitle: title,
+      description,
+    }),
+    title: { absolute: documentTitle },
+  }
 }
 
 export function buildArticleMetadata(
@@ -140,10 +151,13 @@ export function buildArticleMetadata(
   articleTitle: string,
   description: string,
 ): Metadata {
+  const city = site.address.city.trim() || 'Aix-en-Provence'
+
   return buildPageMetadata({
     site,
     pathname,
-    title: `${articleTitle} — actualité batterie ${site.address.city.trim() || 'Aix-en-Provence'}`,
+    pageTitle: articleTitle,
+    seoTitle: `${articleTitle} — actualité batterie ${city}`,
     description,
     ogType: 'article',
     keywords: [...SEO_KEYWORDS, articleTitle],
@@ -156,10 +170,13 @@ export function buildStudentMetadata(
   studentName: string,
   description: string,
 ): Metadata {
+  const school = site.name.trim() || 'École de Batterie NGT'
+
   return buildPageMetadata({
     site,
     pathname,
-    title: `${studentName} — ancien élève ${site.name.trim() || 'École de Batterie NGT'}`,
+    pageTitle: studentName,
+    seoTitle: `${studentName} — ancien élève ${school}`,
     description,
     keywords: [...SEO_KEYWORDS, studentName],
   })

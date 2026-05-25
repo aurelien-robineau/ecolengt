@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
   const [article, { site }] = await Promise.all([getArticleBySlug(slug), getSiteContent()])
 
   if (!article) {
-    return { title: site.name }
+    return { title: 'Page introuvable' }
   }
 
   const pathname = articlePageHref(slug) ?? `/actualite/${slug}`

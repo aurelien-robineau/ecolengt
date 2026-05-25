@@ -13,9 +13,15 @@ import { seoCopy } from '@/lib/seo/copy'
 
 export async function generateMetadata(): Promise<Metadata> {
   const { site } = await getSiteContent()
-  const { title, description } = seoCopy.contact(site)
+  const { documentTitle, title, description } = seoCopy.contact(site)
 
-  return buildPageMetadata({ site, pathname: routes.contact, title, description })
+  return buildPageMetadata({
+    site,
+    pathname: routes.contact,
+    pageTitle: documentTitle,
+    seoTitle: title,
+    description,
+  })
 }
 
 export default async function ContactPage() {
