@@ -21,6 +21,7 @@ import { NewsPage } from './globals/NewsPage'
 import { PricingPage } from './globals/PricingPage'
 import { SiteSettings } from './globals/SiteSettings'
 import { TomTomPage } from './globals/TomTomPage'
+import { resendEmailAdapter } from './lib/email/config'
 import { mediaBlobSyncPlugin } from './lib/cms/mediaBlobSyncPlugin'
 import { vercelBlobStoragePlugin } from './lib/cms/storage'
 import { siteFaviconMetadata } from './lib/site/favicon'
@@ -31,6 +32,7 @@ const dirname = path.dirname(filename)
 
 export default buildConfig({
   serverURL: getServerURL(),
+  email: resendEmailAdapter,
   admin: {
     user: Users.slug,
     meta: siteFaviconMetadata,
