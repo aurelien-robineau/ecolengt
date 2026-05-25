@@ -12,9 +12,15 @@ import { seoCopy } from '@/lib/seo/copy'
 
 export async function generateMetadata(): Promise<Metadata> {
   const { site } = await getSiteContent()
-  const { title, description } = seoCopy.actualite(site)
+  const { documentTitle, title, description } = seoCopy.actualite(site)
 
-  return buildPageMetadata({ site, pathname: routes.news, title, description })
+  return buildPageMetadata({
+    site,
+    pathname: routes.news,
+    pageTitle: documentTitle,
+    seoTitle: title,
+    description,
+  })
 }
 
 export default async function NewsPage() {

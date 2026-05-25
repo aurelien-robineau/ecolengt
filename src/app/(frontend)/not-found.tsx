@@ -7,12 +7,13 @@ import { seoCopy } from '@/lib/seo/copy'
 
 export async function generateMetadata(): Promise<Metadata> {
   const { site } = await getSiteContent()
-  const { title, description } = seoCopy.notFound(site)
+  const { documentTitle, title, description } = seoCopy.notFound(site)
 
   return buildPageMetadata({
     site,
     pathname: '/404',
-    title,
+    pageTitle: documentTitle,
+    seoTitle: title,
     description,
     noIndex: true,
   })

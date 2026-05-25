@@ -23,13 +23,12 @@ export async function generateMetadata({ params }: StudentPageProps): Promise<Me
   const [student, { site }] = await Promise.all([getStudentBySlug(slug), getSiteContent()])
 
   if (!student) {
-    return { title: site.name }
+    return { title: 'Page introuvable' }
   }
 
   const pathname = `${routes.students}/${slug}`
-  const description =
-    student.jobTitle ?
-      `${student.name} — ${student.jobTitle}. Ancien élève de ${site.name}, école de batterie à ${site.address.city}.`
+  const description = student.jobTitle
+    ? `${student.name} — ${student.jobTitle}. Ancien élève de ${site.name}, école de batterie à ${site.address.city}.`
     : `${student.name}, ancien élève de ${site.name}, formation batterie à ${site.address.city}.`
 
   return buildStudentMetadata(site, pathname, student.name, description)
