@@ -28,9 +28,9 @@ export function mapSiteSettings(data: SiteSetting | null | undefined): SiteSetti
       })) ?? []
 
   const foundedYear =
-    typeof data.foundedYear === 'number' && Number.isInteger(data.foundedYear) ?
-      data.foundedYear
-    : null
+    typeof data.foundedYear === 'number' && Number.isInteger(data.foundedYear)
+      ? data.foundedYear
+      : null
 
   return {
     name: data.schoolNameShort ?? '',
@@ -41,7 +41,8 @@ export function mapSiteSettings(data: SiteSetting | null | undefined): SiteSetti
       postalCode: data.addressPostalCode,
       city: data.addressCity,
       mapsUrl: data.addressMapsUrl,
-      mapsEmbed: data.addressMapsEmbed,
+      mapLatitude: data.addressMapLatitude,
+      mapLongitude: data.addressMapLongitude,
     }),
     addressAccess: {
       directions: mapRichText(data.addressAccessDirectionsContent),
@@ -53,7 +54,8 @@ export function mapSiteSettings(data: SiteSetting | null | undefined): SiteSetti
       postalCode: data.intensiveCoursesAddressPostalCode,
       city: data.intensiveCoursesAddressCity,
       mapsUrl: data.intensiveCoursesAddressMapsUrl,
-      mapsEmbed: data.intensiveCoursesAddressMapsEmbed,
+      mapLatitude: data.intensiveCoursesAddressMapLatitude,
+      mapLongitude: data.intensiveCoursesAddressMapLongitude,
     }),
     intensiveCoursesAccess: {
       directions: mapRichText(data.intensiveCoursesAccessDirectionsContent),

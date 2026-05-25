@@ -2,6 +2,7 @@ import { LocationWithMap } from '@/components/location/LocationWithMap'
 import { Gallery } from '@/components/ui/Gallery'
 import { hasLexicalContent } from '@/lib/cms/hasLexicalContent'
 import type { SiteAddressData, SiteMainAccessData } from '@/lib/cms/types'
+import { hasMapCoordinates } from '@/lib/maps/hasMapCoordinates'
 import { pageSectionTitleClassName } from '@/lib/ui/typography'
 
 type IntensiveCoursesAccessProps = {
@@ -15,11 +16,11 @@ export function IntensiveCoursesAccess({ siteName, address, access }: IntensiveC
   const hasGallery = access.gallery.length > 0
   const hasLocation = Boolean(
     address.street ||
-      address.streetLine2 ||
-      address.postalCode ||
-      address.city ||
-      address.mapsEmbedSrc ||
-      hasDirections,
+    address.streetLine2 ||
+    address.postalCode ||
+    address.city ||
+    hasMapCoordinates(address) ||
+    hasDirections,
   )
 
   if (!hasLocation && !hasGallery) {
@@ -37,9 +38,7 @@ export function IntensiveCoursesAccess({ siteName, address, access }: IntensiveC
         className={hasGallery ? 'mb-12' : undefined}
       />
 
-      {hasGallery ?
-        <Gallery items={access.gallery} columns={2} />
-      : null}
+      {hasGallery ? <Gallery items={access.gallery} columns={2} /> : null}
     </section>
   )
 }

@@ -1,4 +1,4 @@
-import { extractMapsEmbedSrc } from '@/lib/cms/extractMapsEmbedSrc'
+import { parseMapCoordinate } from '@/lib/cms/parseMapCoordinate'
 import type { SiteAddressData } from '@/lib/cms/types'
 
 type SiteAddressFields = {
@@ -7,7 +7,8 @@ type SiteAddressFields = {
   postalCode?: string | null
   city?: string | null
   mapsUrl?: string | null
-  mapsEmbed?: string | null
+  mapLatitude?: number | null
+  mapLongitude?: number | null
 }
 
 export function mapSiteAddress(fields: SiteAddressFields): SiteAddressData {
@@ -17,6 +18,7 @@ export function mapSiteAddress(fields: SiteAddressFields): SiteAddressData {
     postalCode: fields.postalCode?.trim() ?? '',
     city: fields.city?.trim() ?? '',
     mapsUrl: fields.mapsUrl?.trim() ?? '',
-    mapsEmbedSrc: extractMapsEmbedSrc(fields.mapsEmbed) ?? '',
+    mapLatitude: parseMapCoordinate(fields.mapLatitude),
+    mapLongitude: parseMapCoordinate(fields.mapLongitude),
   }
 }

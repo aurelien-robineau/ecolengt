@@ -26,7 +26,8 @@ export const LegalNoticePage: GlobalConfig = {
       label: 'Contenu',
       required: true,
       admin: {
-        description: 'Rédigez le texte des mentions légales et de la politique de confidentialité.',
+        description:
+          'Rédigez le texte des mentions légales et de la politique de confidentialité. Référence : src/lib/cms/defaultLegalNoticeContent.ts',
       },
       editor: cmsRichTextEditor,
     },

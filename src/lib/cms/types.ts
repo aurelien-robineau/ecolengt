@@ -10,7 +10,8 @@ export type SiteAddressData = {
   postalCode: string
   city: string
   mapsUrl: string
-  mapsEmbedSrc: string
+  mapLatitude: number | null
+  mapLongitude: number | null
 }
 
 export type SiteMainAccessData = {

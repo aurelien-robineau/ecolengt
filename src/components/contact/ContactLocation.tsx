@@ -1,8 +1,10 @@
 import type { ReactNode } from 'react'
 
+import { LocationMap } from '@/components/location/LocationMap'
 import { AddressContent } from '@/components/ui/AddressContent'
 import type { SiteSettingsData } from '@/lib/cms/types'
 import { cn } from '@/lib/cn'
+import { hasMapCoordinates } from '@/lib/maps/hasMapCoordinates'
 import {
   contactLinkValueClassName,
   contactValueClassName,
@@ -21,7 +23,9 @@ type ContactInfoBlockProps = {
 
 function ContactInfoBlock({ label, children, className }: ContactInfoBlockProps) {
   return (
-    <div className={cn('border-b border-brand-border/50 py-6 last:border-b-0 last:pb-0', className)}>
+    <div
+      className={cn('border-b border-brand-border/50 py-6 last:border-b-0 last:pb-0', className)}
+    >
       <h2 className={cn(sectionLabelClassName, 'mb-4')}>{label}</h2>
       {children}
     </div>
@@ -29,7 +33,8 @@ function ContactInfoBlock({ label, children, className }: ContactInfoBlockProps)
 }
 
 export function ContactLocation({ site }: ContactLocationProps) {
-  const hasMap = Boolean(site.address.mapsEmbedSrc)
+  const { address } = site
+  const hasMap = hasMapCoordinates(address)
 
   return (
     <div
@@ -65,29 +70,26 @@ export function ContactLocation({ site }: ContactLocationProps) {
 
         <ContactInfoBlock label="Adresse">
           <AddressContent
-            street={site.address.street}
-            streetLine2={site.address.streetLine2}
-            postalCode={site.address.postalCode}
-            city={site.address.city}
-            mapsUrl={site.address.mapsUrl}
+            street={address.street}
+            streetLine2={address.streetLine2}
+            postalCode={address.postalCode}
+            city={address.city}
+            mapsUrl={address.mapsUrl}
             className={contactValueClassName}
             linkClassName={contactLinkValueClassName}
           />
         </ContactInfoBlock>
       </aside>
 
-      {hasMap ?
-        <div className="relative aspect-4/3 w-full overflow-hidden bg-surface-muted lg:aspect-auto lg:min-h-[28rem]">
-          <iframe
-            src={site.address.mapsEmbedSrc}
-            title={`Plan d’accès — ${site.name}`}
-            className="absolute inset-0 h-full w-full border-0"
-            loading="lazy"
-            allowFullScreen
-            referrerPolicy="no-referrer-when-downgrade"
-          />
-        </div>
-      : null}
+      {hasMap ? (
+        <LocationMap
+          title={`Plan d’accès — ${site.name}`}
+          latitude={address.mapLatitude!}
+          longitude={address.mapLongitude!}
+          googleMapsUrl={address.mapsUrl || undefined}
+          embedClassName="lg:min-h-[28rem]"
+        />
+      ) : null}
     </div>
   )
 }
