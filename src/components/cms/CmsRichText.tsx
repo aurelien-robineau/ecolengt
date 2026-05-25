@@ -26,7 +26,7 @@ const proseClassName = [
   '[&_li]:leading-[1.65]',
   '[&_li>p]:mb-0',
   '[&_li>ul]:mt-1',
-  '[&_a]:text-foreground-muted [&_a]:no-underline [&_a]:transition-colors hover:[&_a]:text-brand',
+  '[&_a]:text-foreground [&_a]:underline [&_a]:underline-offset-2 [&_a]:decoration-brand [&_a]:decoration-2 [&_a]:transition-colors [&_a:hover]:decoration-foreground',
   '[&_picture]:my-8 [&_picture]:block [&_img]:h-auto [&_img]:max-w-full',
   '[&_table]:w-full [&_table]:min-w-[20rem] [&_table]:border-collapse [&_table]:text-sm',
   '[&_th]:border [&_th]:border-border [&_th]:bg-surface-muted [&_th]:px-3 [&_th]:py-2 [&_th]:text-left [&_th]:font-medium',
@@ -78,7 +78,5 @@ export function CmsRichText({ data, className }: CmsRichTextProps) {
     return null
   }
 
-  return (
-    <RichText className={cn(proseClassName, className)} converters={converters} data={data} />
-  )
+  return <RichText className={cn(proseClassName, className)} converters={converters} data={data} />
 }
