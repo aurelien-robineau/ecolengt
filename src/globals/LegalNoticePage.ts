@@ -17,9 +17,28 @@ export const LegalNoticePage: GlobalConfig = {
     update: ({ req }) => Boolean(req.user),
   },
   hooks: {
+    beforeChange: [
+      ({ data, originalDoc }) => {
+        const contentChanged = JSON.stringify(data.content) !== JSON.stringify(originalDoc?.content)
+
+        // For Globals, infer create vs update from whether we have an existing doc.
+        if (!originalDoc || contentChanged) {
+          data.lastUpdatedAt = new Date().toISOString()
+        }
+
+        return data
+      },
+    ],
     afterChange: [() => revalidateSite()],
   },
   fields: [
+    {
+      name: 'lastUpdatedAt',
+      type: 'date',
+      admin: {
+        hidden: true,
+      },
+    },
     {
       name: 'content',
       type: 'richText',

@@ -109,6 +109,7 @@ export type IntensiveCoursesPageData = {
 
 export type LegalNoticePageData = {
   content: CmsRichTextContent | null
+  lastUpdatedAt: string | null
 }
 
 export type NewsPageData = {
