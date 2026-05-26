@@ -1,5 +1,5 @@
 import { CmsRichText } from '@/components/cms/CmsRichText'
-import type { CmsRichTextContent } from '@/lib/cms/richText'
+import type { CmsRichTextContent } from '@/lib/content'
 
 type GuestbookIntroductionProps = {
   introduction: CmsRichTextContent | null

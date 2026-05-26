@@ -1,7 +1,7 @@
 import { CmsImage } from '@/components/cms/CmsImage'
 import { CmsRichText } from '@/components/cms/CmsRichText'
 import { Container } from '@/components/ui/Container'
-import type { ArticleDetailData } from '@/lib/cms/types'
+import type { ArticleDetailData } from '@/lib/content'
 
 type ArticleDetailProps = {
   article: ArticleDetailData
@@ -15,7 +15,7 @@ export function ArticleDetail({ article }: ArticleDetailProps) {
           {article.title}
         </h1>
 
-        {article.image ?
+        {article.image ? (
           <div className="relative mb-8 aspect-16/10 w-full overflow-hidden bg-foreground/5 md:mb-10 md:aspect-12/5">
             <CmsImage
               image={article.image}
@@ -25,7 +25,7 @@ export function ArticleDetail({ article }: ArticleDetailProps) {
               fetchPriority="high"
             />
           </div>
-        : null}
+        ) : null}
 
         <div className="border-t border-foreground/10 pt-10">
           <CmsRichText data={article.content} />

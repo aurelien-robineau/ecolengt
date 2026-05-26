@@ -5,7 +5,7 @@ import { Footer } from '@/components/layout/Footer'
 import { Header } from '@/components/layout/Header'
 import { SiteStructuredData } from '@/components/seo/SiteStructuredData'
 import { SkipLink } from '@/components/ui/SkipLink'
-import { getSiteContent } from '@/lib/cms/getSiteContent'
+import { getSiteContent } from '@/lib/content'
 import { mainContentId } from '@/lib/a11y/mainContent'
 
 import '@/app/(frontend)/globals.css'

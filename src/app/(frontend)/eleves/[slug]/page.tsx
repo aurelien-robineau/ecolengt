@@ -4,8 +4,8 @@ import { notFound } from 'next/navigation'
 import { StudentProfile } from '@/components/students/StudentProfile'
 import { Container } from '@/components/ui/Container'
 import { routes } from '@/config/routes'
-import { getStudentBySlug, getStudentSlugs } from '@/lib/cms/getStudentBySlug'
-import { getSiteContent } from '@/lib/cms/getSiteContent'
+import { getStudentBySlug, getStudentSlugs } from '@/lib/content'
+import { getSiteContent } from '@/lib/content'
 import { buildStudentMetadata } from '@/lib/seo/metadata'
 
 type StudentPageProps = {

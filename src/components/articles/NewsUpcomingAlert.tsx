@@ -1,6 +1,6 @@
 import { CmsRichText } from '@/components/cms/CmsRichText'
-import { hasLexicalContent } from '@/lib/cms/hasLexicalContent'
-import type { NewsPageData } from '@/lib/cms/types'
+import { hasLexicalContent } from '@/lib/content'
+import type { NewsPageData } from '@/lib/content'
 
 type NewsUpcomingAlertProps = {
   alert: NewsPageData['upcomingEventsAlert']

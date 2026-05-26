@@ -1,9 +1,9 @@
 import { CmsImage } from '@/components/cms/CmsImage'
 import { Button } from '@/components/ui/Button'
 import { Container } from '@/components/ui/Container'
-import { formatFoundedSince } from '@/lib/cms/formatAddress'
+import { formatFoundedSince } from '@/lib/content'
 import { cn } from '@/lib/cn'
-import type { LandingPageData, SiteSettingsData } from '@/lib/cms/types'
+import type { LandingPageData, SiteSettingsData } from '@/lib/content'
 
 type HeroSectionProps = {
   hero: LandingPageData['hero']
@@ -20,7 +20,7 @@ export function HeroSection({ hero, city, foundedYear }: HeroSectionProps) {
       id="home"
       className="relative flex flex-col overflow-hidden bg-surface-muted pt-28 pb-12 md:min-h-screen md:justify-end md:pb-32"
     >
-      {hero.backgroundImage ?
+      {hero.backgroundImage ? (
         <div className="pointer-events-none absolute inset-0" aria-hidden>
           <CmsImage
             image={hero.backgroundImage}
@@ -30,13 +30,13 @@ export function HeroSection({ hero, city, foundedYear }: HeroSectionProps) {
             decorative
           />
         </div>
-      : null}
+      ) : null}
       <div
         className={cn(
           'pointer-events-none absolute inset-0',
-          hero.backgroundImage ?
-            'bg-[radial-gradient(ellipse_55%_55%_at_72%_38%,rgba(255,221,0,0.08)_0%,transparent_70%),radial-gradient(ellipse_40%_50%_at_15%_65%,rgba(255,221,0,0.04)_0%,transparent_60%),linear-gradient(160deg,rgba(244,244,244,0.92)_0%,rgba(240,240,240,0.88)_100%)]'
-          : 'bg-[radial-gradient(ellipse_55%_55%_at_72%_38%,rgba(255,221,0,0.06)_0%,transparent_70%),radial-gradient(ellipse_40%_50%_at_15%_65%,rgba(255,221,0,0.03)_0%,transparent_60%),linear-gradient(160deg,#f4f4f4_0%,#f0f0f0_100%)]',
+          hero.backgroundImage
+            ? 'bg-[radial-gradient(ellipse_55%_55%_at_72%_38%,rgba(255,221,0,0.08)_0%,transparent_70%),radial-gradient(ellipse_40%_50%_at_15%_65%,rgba(255,221,0,0.04)_0%,transparent_60%),linear-gradient(160deg,rgba(244,244,244,0.92)_0%,rgba(240,240,240,0.88)_100%)]'
+            : 'bg-[radial-gradient(ellipse_55%_55%_at_72%_38%,rgba(255,221,0,0.06)_0%,transparent_70%),radial-gradient(ellipse_40%_50%_at_15%_65%,rgba(255,221,0,0.03)_0%,transparent_60%),linear-gradient(160deg,#f4f4f4_0%,#f0f0f0_100%)]',
         )}
         aria-hidden
       />
@@ -56,23 +56,21 @@ export function HeroSection({ hero, city, foundedYear }: HeroSectionProps) {
           </em>
         </h1>
 
-        {cityLabel || founded ?
+        {cityLabel || founded ? (
           <p className="animate-fade-up-delay-2 mb-12 text-[13px] tracking-[0.2em] text-foreground-subtle uppercase">
             {cityLabel}
-            {cityLabel && founded ?
-              <span className="mx-3 opacity-50">·</span>
-            : null}
+            {cityLabel && founded ? <span className="mx-3 opacity-50">·</span> : null}
             {founded}
           </p>
-        : (
+        ) : (
           <div className="mb-12" />
         )}
 
-        {hero.cta && hero.ctaHref ?
+        {hero.cta && hero.ctaHref ? (
           <div className="animate-fade-up-delay-3">
             <Button href={hero.ctaHref}>{hero.cta}</Button>
           </div>
-        : null}
+        ) : null}
       </Container>
     </section>
   )

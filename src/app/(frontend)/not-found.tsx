@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
 import { NotFoundSection } from '@/components/errors/NotFoundSection'
-import { getSiteContent } from '@/lib/cms/getSiteContent'
+import { getSiteContent } from '@/lib/content'
 import { buildPageMetadata } from '@/lib/seo/metadata'
 import { seoCopy } from '@/lib/seo/copy'
 

@@ -5,7 +5,7 @@ import { useDocumentInfo, useField, useForm } from '@payloadcms/ui'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 
 import { BasenameExtensionInput } from '@/components/admin/BasenameExtensionInput'
-import { renameUploadFile } from '@/lib/cms/renameUploadFile'
+import { renameUploadFile } from '@/lib/media/renameUploadFile'
 
 export const MediaFilenameField: TextFieldClientComponent = ({
   field,

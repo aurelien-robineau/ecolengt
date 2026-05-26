@@ -1,10 +1,7 @@
 import type { GlobalConfig } from 'payload'
 
-import { adminGroups } from '@/lib/cms/adminGroups'
-import { siteAddressFields } from '@/lib/cms/siteAddressFields'
-import { siteAccessFields } from '@/lib/cms/siteAccessFields'
-import { revalidateSite } from '@/lib/cms/revalidateSite'
-import { validateFoundedYear } from '@/lib/cms/validateFoundedYear'
+import { adminGroups, siteAccessFields, siteAddressFields, validateFoundedYear } from '@/fields'
+import { revalidateSite } from '@/lib/content/revalidateSite'
 
 export const SiteSettings: GlobalConfig = {
   slug: 'site-settings',

@@ -1,9 +1,9 @@
 import type { MetadataRoute } from 'next'
 
 import { routes } from '@/config/routes'
-import { getArticleSlugs } from '@/lib/cms/getArticleBySlug'
-import { getStudentSlugs } from '@/lib/cms/getStudentBySlug'
-import { articlePageHref } from '@/lib/cms/articlePageHref'
+import { getArticleSlugs } from '@/lib/content'
+import { getStudentSlugs } from '@/lib/content'
+import { articlePageHref } from '@/lib/content'
 import { absoluteUrl } from '@/lib/seo/urls'
 
 const staticPaths = [

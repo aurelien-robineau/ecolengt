@@ -1,5 +1,5 @@
 import { externalLinkAriaLabel } from '@/lib/a11y/externalLink'
-import { formatPostalCityLine } from '@/lib/cms/formatAddress'
+import { formatPostalCityLine } from '@/lib/content'
 import { cn } from '@/lib/cn'
 
 type AddressContentProps = {
@@ -26,9 +26,7 @@ export function AddressContent({
 
   const lines = addressLines.map((line, index) => (
     <span key={index}>
-      {index > 0 ?
-        <br />
-      : null}
+      {index > 0 ? <br /> : null}
       {line}
     </span>
   ))

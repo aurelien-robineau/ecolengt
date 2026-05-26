@@ -1,7 +1,7 @@
 import { CmsImage } from '@/components/cms/CmsImage'
 import { Container } from '@/components/ui/Container'
 import { PortraitPlaceholder } from '@/components/landing/PortraitPlaceholder'
-import type { LandingPageData } from '@/lib/cms/types'
+import type { LandingPageData } from '@/lib/content'
 
 type QuoteBandProps = {
   quote: LandingPageData['quote']
@@ -16,9 +16,11 @@ export function QuoteBand({ quote }: QuoteBandProps) {
       <Container>
         <div className="mx-auto grid max-w-4xl items-center gap-12 lg:grid-cols-[minmax(0,14rem)_1fr] lg:gap-16">
           <div className={portraitFrameClassName}>
-            {quote.portrait ?
+            {quote.portrait ? (
               <CmsImage image={quote.portrait} fill sizes="14rem" priority />
-            : <PortraitPlaceholder alt={quote.imageAlt} embedded />}
+            ) : (
+              <PortraitPlaceholder alt={quote.imageAlt} embedded />
+            )}
           </div>
 
           <blockquote className="text-center lg:text-left">

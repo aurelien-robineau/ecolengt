@@ -1,5 +1,5 @@
 import { CmsRichText } from '@/components/cms/CmsRichText'
-import type { LegalNoticePageData } from '@/lib/cms/types'
+import type { LegalNoticePageData } from '@/lib/content'
 
 type LegalNoticeContentProps = {
   content: LegalNoticePageData['content']

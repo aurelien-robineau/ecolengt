@@ -5,8 +5,8 @@ import { IntensiveCoursesCalendarSchoolYears } from '@/components/intensive-cour
 import { Container } from '@/components/ui/Container'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import { routes } from '@/config/routes'
-import { getSiteContent } from '@/lib/cms/getSiteContent'
-import { hasLexicalContent } from '@/lib/cms/hasLexicalContent'
+import { getSiteContent } from '@/lib/content'
+import { hasLexicalContent } from '@/lib/content'
 import { buildPageMetadata } from '@/lib/seo/metadata'
 import { seoCopy } from '@/lib/seo/copy'
 

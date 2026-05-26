@@ -8,7 +8,7 @@ import { EntityType, getAccessResults } from 'payload'
 import { formatAdminURL } from 'payload/shared'
 import React from 'react'
 
-import { sortAdminNavGroups } from '@/lib/cms/sortAdminNavGroups'
+import { sortAdminNavGroups } from '@/lib/content'
 
 import './DashboardCollectionCards.scss'
 

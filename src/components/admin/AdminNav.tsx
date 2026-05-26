@@ -5,8 +5,8 @@ import { getNavGroups } from '@payloadcms/ui/shared'
 import type { NavPreferences, PayloadRequest, ServerProps } from 'payload'
 import React from 'react'
 
-import { getNavPrefs } from '@/lib/cms/getNavPrefs'
-import { sortAdminNavGroups } from '@/lib/cms/sortAdminNavGroups'
+import { getNavPrefs } from '@/lib/content'
+import { sortAdminNavGroups } from '@/lib/content'
 
 import { SettingsMenuButton } from './SettingsMenuButton'
 

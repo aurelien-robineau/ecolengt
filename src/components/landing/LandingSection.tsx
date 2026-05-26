@@ -5,7 +5,7 @@ import { Gallery } from '@/components/ui/Gallery'
 import { Reveal } from '@/components/ui/Reveal'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import { cn } from '@/lib/cn'
-import type { LandingSection as LandingSectionData } from '@/lib/cms/types'
+import type { LandingSection as LandingSectionData } from '@/lib/content'
 
 type LandingSectionProps = {
   section: LandingSectionData
@@ -30,19 +30,17 @@ export function LandingSection({ section }: LandingSectionProps) {
         <Reveal>
           <SectionHeader label={section.surtitle} title={section.title} />
 
-          {description ?
+          {description ? (
             <div
               className={cn(
-                hasItems || hasHighlight ? 'mb-20 max-w-3xl' : (
-                  hasGallery && 'mb-12 max-w-xl'
-                ),
+                hasItems || hasHighlight ? 'mb-20 max-w-3xl' : hasGallery && 'mb-12 max-w-xl',
               )}
             >
               <CmsRichText data={description} />
             </div>
-          : null}
+          ) : null}
 
-          {hasItems ?
+          {hasItems ? (
             <div className="mb-16 grid gap-px bg-border lg:grid-cols-2">
               {items.map((item, index) => (
                 <article key={`${item.title}-${index}`} className="bg-surface-card p-8">
@@ -53,9 +51,9 @@ export function LandingSection({ section }: LandingSectionProps) {
                 </article>
               ))}
             </div>
-          : null}
+          ) : null}
 
-          {hasHighlight ?
+          {hasHighlight ? (
             <div
               className={cn(
                 'border border-brand-border bg-brand-dim p-8 md:p-12',
@@ -66,17 +64,15 @@ export function LandingSection({ section }: LandingSectionProps) {
                 {highlight.title}
               </h3>
               <CmsRichText data={highlight.description} />
-              {highlight.button ?
+              {highlight.button ? (
                 <div className="mt-8">
                   <Button href={highlight.button.href}>{highlight.button.label}</Button>
                 </div>
-              : null}
+              ) : null}
             </div>
-          : null}
+          ) : null}
 
-          {hasGallery ?
-            <Gallery items={gallery} columns={3} />
-          : null}
+          {hasGallery ? <Gallery items={gallery} columns={3} /> : null}
         </Reveal>
       </Container>
     </section>

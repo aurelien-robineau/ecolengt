@@ -1,8 +1,8 @@
 import type { GlobalConfig } from 'payload'
 
-import { adminGroups } from '@/lib/cms/adminGroups'
-import { cmsRichTextEditor } from '@/lib/cms/cmsRichTextEditor'
-import { revalidateSite } from '@/lib/cms/revalidateSite'
+import { adminGroups } from '@/fields'
+import { cmsRichTextEditor } from '@/fields'
+import { revalidateSite } from '@/lib/content/revalidateSite'
 
 export const PricingPage: GlobalConfig = {
   slug: 'pricing-page',

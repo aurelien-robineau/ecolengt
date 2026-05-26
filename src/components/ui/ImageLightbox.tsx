@@ -5,7 +5,7 @@ import { useCallback, useEffect, useId, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 
 import { useFocusTrap } from '@/lib/a11y/focus'
-import type { CmsImageData } from '@/lib/cms/types'
+import type { CmsImageData } from '@/lib/content'
 import { cn } from '@/lib/cn'
 
 export type LightboxSlide = {
@@ -59,11 +59,11 @@ export function ImageLightbox({ slides, initialIndex, onClose }: ImageLightboxPr
   }, [slides.length])
 
   useEffect(() => {
-    setMounted(true)
+    queueMicrotask(() => setMounted(true))
   }, [])
 
   useEffect(() => {
-    setIndex(initialIndex)
+    queueMicrotask(() => setIndex(initialIndex))
   }, [initialIndex])
 
   useFocusTrap({
@@ -137,7 +137,7 @@ export function ImageLightbox({ slides, initialIndex, onClose }: ImageLightboxPr
       </div>
 
       <div className="relative flex min-h-0 flex-1 items-center justify-center">
-        {hasMultiple ?
+        {hasMultiple ? (
           <button
             type="button"
             className="absolute top-1/2 left-0 z-10 flex size-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition-colors hover:bg-white/20 sm:left-2 sm:size-11"
@@ -149,9 +149,9 @@ export function ImageLightbox({ slides, initialIndex, onClose }: ImageLightboxPr
           >
             <ChevronIcon direction="left" />
           </button>
-        : null}
+        ) : null}
 
-        {hasMultiple ?
+        {hasMultiple ? (
           <button
             type="button"
             className="absolute top-1/2 right-0 z-10 flex size-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition-colors hover:bg-white/20 sm:right-2 sm:size-11"
@@ -163,7 +163,7 @@ export function ImageLightbox({ slides, initialIndex, onClose }: ImageLightboxPr
           >
             <ChevronIcon direction="right" />
           </button>
-        : null}
+        ) : null}
 
         <figure
           className={cn(
@@ -182,7 +182,7 @@ export function ImageLightbox({ slides, initialIndex, onClose }: ImageLightboxPr
               priority
             />
           </div>
-          {hasMultiple ?
+          {hasMultiple ? (
             <p
               id={statusId}
               className="mt-3 shrink-0 text-xs tracking-[0.12em] text-white/50 uppercase"
@@ -191,7 +191,7 @@ export function ImageLightbox({ slides, initialIndex, onClose }: ImageLightboxPr
             >
               {index + 1} / {slides.length}
             </p>
-          : null}
+          ) : null}
         </figure>
       </div>
     </div>,

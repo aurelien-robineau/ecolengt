@@ -1,9 +1,7 @@
 import type { GlobalConfig } from 'payload'
 
-import { adminGroups } from '@/lib/cms/adminGroups'
-import { urlFieldDescription } from '@/lib/cms/urlFieldDescription'
-import { cmsRichTextEditor } from '@/lib/cms/cmsRichTextEditor'
-import { revalidateSite } from '@/lib/cms/revalidateSite'
+import { adminGroups, cmsRichTextEditor, urlFieldDescription } from '@/fields'
+import { revalidateSite } from '@/lib/content/revalidateSite'
 
 export const TomTomPage: GlobalConfig = {
   slug: 'tom-tom-page',

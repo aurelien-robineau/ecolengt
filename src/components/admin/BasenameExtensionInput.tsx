@@ -3,7 +3,7 @@
 import { FieldDescription, FieldError, FieldLabel } from '@payloadcms/ui'
 import React, { useId } from 'react'
 
-import { joinFilename, splitFilename } from '@/lib/cms/filename'
+import { joinFilename, splitFilename } from '@/lib/media/filename'
 
 import './BasenameExtensionInput.scss'
 
@@ -69,19 +69,14 @@ export function BasenameExtensionInput({
           value={basename}
         />
         {extension ? (
-          <span
-            className="basename-extension-input__extension"
-            title={`Extension : ${extension}`}
-          >
+          <span className="basename-extension-input__extension" title={`Extension : ${extension}`}>
             {extension}
           </span>
         ) : null}
       </div>
 
       {showError && path ? <FieldError path={path} showError={showError} /> : null}
-      {description && path ? (
-        <FieldDescription description={description} path={path} />
-      ) : null}
+      {description && path ? <FieldDescription description={description} path={path} /> : null}
     </div>
   )
 }
