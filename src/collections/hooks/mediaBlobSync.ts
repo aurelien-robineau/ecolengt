@@ -48,7 +48,7 @@ function getClientUploadContext(
  */
 export const normalizeMediaFilenameBeforeChange: CollectionBeforeChangeHook = async ({
   data,
-  operation,
+  operation: _operation,
   originalDoc,
   req,
 }) => {

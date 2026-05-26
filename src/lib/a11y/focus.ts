@@ -5,7 +5,8 @@ const FOCUSABLE_SELECTOR =
 
 export function getFocusableElements(container: HTMLElement): HTMLElement[] {
   return Array.from(container.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR)).filter(
-    (element) => !element.hasAttribute('disabled') && element.getAttribute('aria-hidden') !== 'true',
+    (element) =>
+      !element.hasAttribute('disabled') && element.getAttribute('aria-hidden') !== 'true',
   )
 }
 
@@ -37,6 +38,7 @@ export function useFocusTrap({
     }
 
     const previouslyFocused = document.activeElement
+    const restoreFocusOnDeactivate = restoreFocusRef?.current ?? null
 
     // Only move focus when explicitly requested (e.g. modal close button).
     // Avoids a visible focus ring for pointer users opening overlays.
@@ -72,7 +74,7 @@ export function useFocusTrap({
 
     return () => {
       document.removeEventListener('keydown', onKeyDown)
-      const restoreTarget = restoreFocusRef?.current ?? previouslyFocused
+      const restoreTarget = restoreFocusOnDeactivate ?? previouslyFocused
       if (restoreTarget instanceof HTMLElement) {
         restoreTarget.focus()
       }
