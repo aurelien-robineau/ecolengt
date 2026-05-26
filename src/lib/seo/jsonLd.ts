@@ -1,4 +1,4 @@
-import type { SiteAddressData, SiteSettingsData } from '@/lib/content'
+import type { SiteAddressData, SiteSettingsData } from '@/lib/content/types'
 import {
   DANTE_AGOSTINI_FOUNDER,
   DANTE_AGOSTINI_METHOD,

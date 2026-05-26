@@ -2,7 +2,7 @@ import { CmsRichText } from '@/components/cms/CmsRichText'
 import { ScrollToHash } from '@/components/pricing/ScrollToHash'
 import { pricingIntensiveCoursesSectionId } from '@/config/pricingSections'
 import { hasLexicalContent } from '@/lib/content'
-import type { PricingPageData } from '@/lib/content'
+import type { PricingPageData } from '@/lib/content/types'
 import { pageSectionTitleClassName } from '@/lib/ui/typography'
 
 type PricingPageContentProps = {

@@ -1,6 +1,6 @@
 import Image from 'next/image'
 
-import type { CmsImageData } from '@/lib/content'
+import type { CmsImageData } from '@/lib/content/types'
 import { cn } from '@/lib/cn'
 
 type CmsImageProps = {

@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 
 import { LocationMap } from '@/components/location/LocationMap'
 import { AddressContent } from '@/components/ui/AddressContent'
-import type { SiteSettingsData } from '@/lib/content'
+import type { SiteSettingsData } from '@/lib/content/types'
 import { cn } from '@/lib/cn'
 import { hasMapCoordinates } from '@/lib/maps/hasMapCoordinates'
 import {

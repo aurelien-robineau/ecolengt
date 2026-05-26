@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/Button'
 import { Container } from '@/components/ui/Container'
 import { routes } from '@/config/routes'
-import type { SiteSettingsData } from '@/lib/content'
+import type { SiteSettingsData } from '@/lib/content/types'
 
 type NotFoundSectionProps = {
   site: SiteSettingsData

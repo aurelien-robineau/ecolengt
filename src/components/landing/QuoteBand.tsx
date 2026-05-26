@@ -1,7 +1,7 @@
 import { CmsImage } from '@/components/cms/CmsImage'
 import { Container } from '@/components/ui/Container'
 import { PortraitPlaceholder } from '@/components/landing/PortraitPlaceholder'
-import type { LandingPageData } from '@/lib/content'
+import type { LandingPageData } from '@/lib/content/types'
 
 type QuoteBandProps = {
   quote: LandingPageData['quote']

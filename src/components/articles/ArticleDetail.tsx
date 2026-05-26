@@ -1,7 +1,7 @@
 import { CmsImage } from '@/components/cms/CmsImage'
 import { CmsRichText } from '@/components/cms/CmsRichText'
 import { Container } from '@/components/ui/Container'
-import type { ArticleDetailData } from '@/lib/content'
+import type { ArticleDetailData } from '@/lib/content/types'
 
 type ArticleDetailProps = {
   article: ArticleDetailData

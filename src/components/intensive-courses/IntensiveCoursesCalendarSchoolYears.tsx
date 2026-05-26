@@ -1,6 +1,6 @@
 import { CmsRichText } from '@/components/cms/CmsRichText'
 import { hasLexicalContent } from '@/lib/content'
-import type { IntensiveCoursesCalendarSchoolYear } from '@/lib/content'
+import type { IntensiveCoursesCalendarSchoolYear } from '@/lib/content/types'
 import { pageSectionTitleClassName } from '@/lib/ui/typography'
 
 function formatSchoolYearTitle(title: string): string {

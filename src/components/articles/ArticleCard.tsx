@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
 import { CmsImage } from '@/components/cms/CmsImage'
-import type { ArticleListItem } from '@/lib/content'
+import type { ArticleListItem } from '@/lib/content/types'
 
 type ArticleCardProps = {
   article: ArticleListItem

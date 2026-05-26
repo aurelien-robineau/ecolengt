@@ -1,7 +1,7 @@
 'use client'
 
 import { Gallery } from '@/components/ui/Gallery'
-import type { CmsImageData } from '@/lib/content'
+import type { CmsImageData } from '@/lib/content/types'
 
 type StudentPhotosProps = {
   photos: CmsImageData[]

@@ -1,7 +1,7 @@
 import { CmsRichText } from '@/components/cms/CmsRichText'
 import { StudentPhotos } from '@/components/students/StudentPhotos'
 import { FormattedParagraph } from '@/components/ui/FormattedParagraph'
-import type { StudentProfileData } from '@/lib/content'
+import type { StudentProfileData } from '@/lib/content/types'
 
 type StudentProfileProps = {
   student: StudentProfileData

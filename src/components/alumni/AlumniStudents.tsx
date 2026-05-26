@@ -1,5 +1,5 @@
 import { PersonName } from '@/components/ui/PersonName'
-import type { AlumniStudent } from '@/lib/content'
+import type { AlumniStudent } from '@/lib/content/types'
 
 type AlumniStudentsProps = {
   students: AlumniStudent[]

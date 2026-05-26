@@ -1,6 +1,6 @@
 import { CmsRichText } from '@/components/cms/CmsRichText'
 import { PersonName } from '@/components/ui/PersonName'
-import type { GuestbookTestimonial } from '@/lib/content'
+import type { GuestbookTestimonial } from '@/lib/content/types'
 import { sectionLabelClassName } from '@/lib/ui/typography'
 
 type GuestbookTestimonialsProps = {

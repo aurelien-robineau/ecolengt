@@ -1,6 +1,6 @@
 import { CmsRichText } from '@/components/cms/CmsRichText'
 import { cn } from '@/lib/cn'
-import type { IntensiveCoursesBlock } from '@/lib/content'
+import type { IntensiveCoursesBlock } from '@/lib/content/types'
 
 type IntensiveCoursesBlocksProps = {
   blocks: IntensiveCoursesBlock[]
