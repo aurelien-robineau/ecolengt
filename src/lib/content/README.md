@@ -33,3 +33,7 @@ Files under `src/fields/*` should import shared field helpers via **relative** p
 ## Query depth
 
 Per-global `depth` is defined in `queries/payload.ts` (`globalQueryDepth`). Increase depth only when a mapper reads populated upload or relationship objects (see `mapMedia`, `mapGallery`, `resolveListedPerson`).
+
+## Tests
+
+Pure mappers and utilities are covered by Vitest unit tests in `tests/unit/` (`pnpm test:unit`).
