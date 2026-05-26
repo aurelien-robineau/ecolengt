@@ -1,9 +1,7 @@
 import type { GlobalConfig } from 'payload'
 
-import { adminGroups } from '@/lib/cms/adminGroups'
-import { landingSectionFields } from '@/lib/cms/landingSectionFields'
-import { buttonUrlFieldDescription } from '@/lib/cms/urlFieldDescription'
-import { revalidateSite } from '@/lib/cms/revalidateSite'
+import { adminGroups, buttonUrlFieldDescription, landingSectionFields } from '@/fields'
+import { revalidateSite } from '@/lib/content/revalidateSite'
 
 export const HomePage: GlobalConfig = {
   slug: 'home-page',

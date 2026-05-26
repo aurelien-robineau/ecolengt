@@ -1,5 +1,5 @@
 import { JsonLd } from '@/components/seo/JsonLd'
-import { getSiteContent } from '@/lib/cms/getSiteContent'
+import { getSiteContent } from '@/lib/content'
 import { buildSiteJsonLd } from '@/lib/seo/jsonLd'
 
 /** Global structured data for search engines and LLM crawlers. */

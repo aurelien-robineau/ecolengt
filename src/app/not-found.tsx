@@ -2,11 +2,9 @@ import type { Metadata } from 'next'
 
 import { NotFoundSection } from '@/components/errors/NotFoundSection'
 import { FrontendShell } from '@/components/layout/FrontendShell'
-import { getSiteContent } from '@/lib/cms/getSiteContent'
+import { getSiteContent } from '@/lib/content'
 
 export async function generateMetadata(): Promise<Metadata> {
-  const { site } = await getSiteContent()
-
   return {
     title: 'Page introuvable | École NGT',
     description: 'Cette page n’existe pas ou a été déplacée.',

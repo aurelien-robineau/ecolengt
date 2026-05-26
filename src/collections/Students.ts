@@ -1,9 +1,9 @@
 import type { CollectionConfig } from 'payload'
 
-import { adminGroups } from '@/lib/cms/adminGroups'
-import { cmsRichTextEditor } from '@/lib/cms/cmsRichTextEditor'
-import { hiddenSlugField } from '@/lib/cms/hiddenSlugField'
-import { revalidateSite } from '@/lib/cms/revalidateSite'
+import { adminGroups } from '@/fields'
+import { cmsRichTextEditor } from '@/fields'
+import { hiddenSlugField } from '@/fields/hiddenSlug'
+import { revalidateSite } from '@/lib/content/revalidateSite'
 import { slugifyName } from '@/lib/slugifyName'
 
 export const Students: CollectionConfig = {
@@ -15,8 +15,7 @@ export const Students: CollectionConfig = {
   admin: {
     group: adminGroups.content,
     useAsTitle: 'name',
-    description:
-      'Fiches élèves. Une page publique est créée automatiquement à partir du nom.',
+    description: 'Fiches élèves. Une page publique est créée automatiquement à partir du nom.',
     defaultColumns: ['name', 'jobTitle', 'updatedAt'],
   },
   access: {

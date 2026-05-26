@@ -1,11 +1,11 @@
 import type { CollectionAfterChangeHook, CollectionBeforeChangeHook } from 'payload'
 
-import { ensureFilenameExtension } from '@/lib/cms/filename'
+import { ensureFilenameExtension } from '@/lib/media/filename'
 import {
   copyBlobToFilename,
   getVercelBlobMediaConfig,
   promoteStagingBlob,
-} from '@/lib/cms/vercelBlobMedia'
+} from '@/lib/media/vercelBlobMedia'
 
 type MediaClientUploadContext = {
   prefix?: string

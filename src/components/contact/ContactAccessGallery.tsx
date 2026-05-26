@@ -1,7 +1,7 @@
 import { CmsRichText } from '@/components/cms/CmsRichText'
 import { Gallery } from '@/components/ui/Gallery'
-import { hasLexicalContent } from '@/lib/cms/hasLexicalContent'
-import type { CmsRichTextContent, GalleryItem } from '@/lib/cms/types'
+import { hasLexicalContent } from '@/lib/content'
+import type { CmsRichTextContent, GalleryItem } from '@/lib/content'
 import { pageSectionTitleClassName } from '@/lib/ui/typography'
 
 type ContactAccessGalleryProps = {
@@ -21,15 +21,13 @@ export function ContactAccessGallery({ directions, items }: ContactAccessGallery
     <div className="mb-16">
       <h2 className={`mb-10 ${pageSectionTitleClassName}`}>Accès</h2>
 
-      {hasDirections ?
+      {hasDirections ? (
         <div className="mb-10 max-w-xl">
           <CmsRichText data={directions} />
         </div>
-      : null}
+      ) : null}
 
-      {hasGallery ?
-        <Gallery items={items} columns={2} />
-      : null}
+      {hasGallery ? <Gallery items={items} columns={2} /> : null}
     </div>
   )
 }

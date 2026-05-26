@@ -1,8 +1,8 @@
 import type { GlobalConfig } from 'payload'
 
-import { adminGroups } from '@/lib/cms/adminGroups'
-import { cmsRichTextEditor } from '@/lib/cms/cmsRichTextEditor'
-import { revalidateSite } from '@/lib/cms/revalidateSite'
+import { adminGroups } from '@/fields'
+import { cmsRichTextEditor } from '@/fields'
+import { revalidateSite } from '@/lib/content/revalidateSite'
 
 export const AlumniPage: GlobalConfig = {
   slug: 'alumni-page',
@@ -51,8 +51,7 @@ export const AlumniPage: GlobalConfig = {
                   relationTo: 'eleves',
                   label: 'Fiche élève',
                   admin: {
-                    description:
-                      'Liez une fiche Élève pour activer le lien vers la page dédiée.',
+                    description: 'Liez une fiche Élève pour activer le lien vers la page dédiée.',
                   },
                 },
                 {

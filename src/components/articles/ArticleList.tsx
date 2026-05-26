@@ -1,5 +1,5 @@
 import { ArticleCard } from '@/components/articles/ArticleCard'
-import type { ArticleListItem } from '@/lib/cms/types'
+import type { ArticleListItem } from '@/lib/content'
 
 type ArticleListProps = {
   articles: ArticleListItem[]

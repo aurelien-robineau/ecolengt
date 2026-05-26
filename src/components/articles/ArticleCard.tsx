@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
 import { CmsImage } from '@/components/cms/CmsImage'
-import type { ArticleListItem } from '@/lib/cms/types'
+import type { ArticleListItem } from '@/lib/content'
 
 type ArticleCardProps = {
   article: ArticleListItem
@@ -17,7 +17,7 @@ export function ArticleCard({ article }: ArticleCardProps) {
         className="mb-5 block overflow-hidden"
         aria-label={article.image ? `${articleLabel} — voir l’image` : articleLabel}
       >
-        {article.image ?
+        {article.image ? (
           <div className="aspect-[16/10] overflow-hidden bg-foreground/5">
             <CmsImage
               image={article.image}
@@ -26,7 +26,7 @@ export function ArticleCard({ article }: ArticleCardProps) {
               decorative
             />
           </div>
-        : null}
+        ) : null}
       </Link>
 
       <h2 className="mb-2 font-serif text-[1.25rem] leading-snug font-light">

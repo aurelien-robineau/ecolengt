@@ -1,6 +1,6 @@
 import { CmsRichText } from '@/components/cms/CmsRichText'
 import { cn } from '@/lib/cn'
-import type { IntensiveCoursesBlock } from '@/lib/cms/types'
+import type { IntensiveCoursesBlock } from '@/lib/content'
 
 type IntensiveCoursesBlocksProps = {
   blocks: IntensiveCoursesBlock[]
@@ -24,11 +24,11 @@ export function IntensiveCoursesBlocks({ blocks }: IntensiveCoursesBlocksProps) 
             lastAlone && index === lastIndex && 'lg:col-span-2',
           )}
         >
-          {block.title ?
+          {block.title ? (
             <h2 className="mb-6 font-serif text-[1.375rem] font-normal text-foreground">
               {block.title}
             </h2>
-          : null}
+          ) : null}
           <CmsRichText data={block.content} />
         </article>
       ))}

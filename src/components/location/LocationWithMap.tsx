@@ -1,9 +1,9 @@
 import { CmsRichText } from '@/components/cms/CmsRichText'
 import { LocationMap } from '@/components/location/LocationMap'
 import { AddressContent } from '@/components/ui/AddressContent'
-import type { CmsRichTextContent, SiteAddressData } from '@/lib/cms/types'
+import type { CmsRichTextContent, SiteAddressData } from '@/lib/content'
 import { cn } from '@/lib/cn'
-import { hasLexicalContent } from '@/lib/cms/hasLexicalContent'
+import { hasLexicalContent } from '@/lib/content'
 import { hasMapCoordinates } from '@/lib/maps/hasMapCoordinates'
 import {
   contactLinkValueClassName,

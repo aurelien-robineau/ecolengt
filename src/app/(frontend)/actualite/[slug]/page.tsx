@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
 import { ArticleDetail } from '@/components/articles/ArticleDetail'
-import { articlePageHref } from '@/lib/cms/articlePageHref'
-import { getArticleBySlug, getArticleSlugs } from '@/lib/cms/getArticleBySlug'
-import { getSiteContent } from '@/lib/cms/getSiteContent'
+import { articlePageHref } from '@/lib/content'
+import { getArticleBySlug, getArticleSlugs } from '@/lib/content'
+import { getSiteContent } from '@/lib/content'
 import { buildArticleMetadata } from '@/lib/seo/metadata'
 
 type ArticlePageProps = {

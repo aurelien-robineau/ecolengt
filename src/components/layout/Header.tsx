@@ -9,7 +9,7 @@ import { Container } from '@/components/ui/Container'
 import { Logo } from '@/components/ui/Logo'
 import { routes } from '@/config/routes'
 import { getFocusableElements, useFocusTrap } from '@/lib/a11y/focus'
-import type { SiteSettingsData } from '@/lib/cms/types'
+import type { SiteSettingsData } from '@/lib/content'
 import { cn } from '@/lib/cn'
 import { resolveHashHref } from '@/lib/resolveHashHref'
 
@@ -27,17 +27,18 @@ function MenuIcon({ open }: { open: boolean }) {
       strokeWidth="1.5"
       aria-hidden
     >
-      {open ?
+      {open ? (
         <>
           <path d="M6 6l12 12" strokeLinecap="round" />
           <path d="M18 6L6 18" strokeLinecap="round" />
         </>
-      : <>
+      ) : (
+        <>
           <path d="M4 7h16" strokeLinecap="round" />
           <path d="M4 12h16" strokeLinecap="round" />
           <path d="M4 17h16" strokeLinecap="round" />
         </>
-      }
+      )}
     </svg>
   )
 }
@@ -82,7 +83,7 @@ export function Header({ site }: HeaderProps) {
   const mobileNavRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
-    setMounted(true)
+    queueMicrotask(() => setMounted(true))
   }, [])
 
   useEffect(() => {
@@ -149,62 +150,58 @@ export function Header({ site }: HeaderProps) {
   })
 
   const mobileMenu =
-    mounted && menuMounted ?
-      createPortal(
-        <>
-          <div
-            className={cn(
-              'fixed inset-0 z-90 bg-foreground/25 transition-opacity duration-300 ease-out lg:hidden',
-              menuOpen ? 'opacity-100' : 'pointer-events-none opacity-0',
-            )}
-            aria-hidden
-            onClick={closeMenu}
-          />
-          <nav
-            ref={mobileNavRef}
-            id="mobile-nav"
-            className={cn(
-              'fixed top-0 right-0 z-95 flex h-dvh w-[min(100%,20rem)] flex-col border-l border-border bg-surface px-8 pt-17.5 pb-10 shadow-xl transition-transform duration-300 ease-out lg:hidden',
-              menuOpen ? 'translate-x-0' : 'pointer-events-none translate-x-full',
-            )}
-            aria-label="Navigation mobile"
-            aria-hidden={!menuOpen}
-            inert={menuOpen ? undefined : true}
-          >
-            <ul className="mt-8 flex list-none flex-col gap-1">
-              {site.navigation.map((item) => {
-                const isActive = isNavItemActive(pathname, item.href)
+    mounted && menuMounted
+      ? createPortal(
+          <>
+            <div
+              className={cn(
+                'fixed inset-0 z-90 bg-foreground/25 transition-opacity duration-300 ease-out lg:hidden',
+                menuOpen ? 'opacity-100' : 'pointer-events-none opacity-0',
+              )}
+              aria-hidden
+              onClick={closeMenu}
+            />
+            <nav
+              ref={mobileNavRef}
+              id="mobile-nav"
+              className={cn(
+                'fixed top-0 right-0 z-95 flex h-dvh w-[min(100%,20rem)] flex-col border-l border-border bg-surface px-8 pt-17.5 pb-10 shadow-xl transition-transform duration-300 ease-out lg:hidden',
+                menuOpen ? 'translate-x-0' : 'pointer-events-none translate-x-full',
+              )}
+              aria-label="Navigation mobile"
+              aria-hidden={!menuOpen}
+              inert={menuOpen ? undefined : true}
+            >
+              <ul className="mt-8 flex list-none flex-col gap-1">
+                {site.navigation.map((item) => {
+                  const isActive = isNavItemActive(pathname, item.href)
 
-                return (
-                  <li key={item.href}>
-                    <a
-                      href={resolveHashHref(item.href)}
-                      className={navLinkClassName(isActive, 'mobile')}
-                      aria-current={isActive ? 'page' : undefined}
-                      onClick={closeMenu}
-                      tabIndex={menuOpen ? 0 : -1}
-                    >
-                      {item.label}
-                    </a>
-                  </li>
-                )
-              })}
-            </ul>
+                  return (
+                    <li key={item.href}>
+                      <a
+                        href={resolveHashHref(item.href)}
+                        className={navLinkClassName(isActive, 'mobile')}
+                        aria-current={isActive ? 'page' : undefined}
+                        onClick={closeMenu}
+                        tabIndex={menuOpen ? 0 : -1}
+                      >
+                        {item.label}
+                      </a>
+                    </li>
+                  )
+                })}
+              </ul>
 
-            <div className="mt-auto pt-10">
-              <Button
-                href={routes.contact}
-                className="w-full text-center"
-                onClick={closeMenu}
-              >
-                Contact
-              </Button>
-            </div>
-          </nav>
-        </>,
-        document.body,
-      )
-    : null
+              <div className="mt-auto pt-10">
+                <Button href={routes.contact} className="w-full text-center" onClick={closeMenu}>
+                  Contact
+                </Button>
+              </div>
+            </nav>
+          </>,
+          document.body,
+        )
+      : null
 
   return (
     <>
@@ -216,11 +213,7 @@ export function Header({ site }: HeaderProps) {
         )}
       >
         <Container className="flex h-[70px] items-center justify-between gap-4">
-          <Logo
-            priority
-            className="max-h-9 md:max-h-10"
-            linkLabel={`${site.name} — Accueil`}
-          />
+          <Logo priority className="max-h-9 md:max-h-10" linkLabel={`${site.name} — Accueil`} />
 
           <nav className="hidden items-center gap-8 lg:flex" aria-label="Navigation principale">
             <ul className="flex list-none gap-8">

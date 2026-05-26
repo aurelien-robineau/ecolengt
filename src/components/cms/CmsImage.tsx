@@ -1,6 +1,6 @@
 import Image from 'next/image'
 
-import type { CmsImageData } from '@/lib/cms/types'
+import type { CmsImageData } from '@/lib/content'
 import { cn } from '@/lib/cn'
 
 type CmsImageProps = {
@@ -33,26 +33,25 @@ export function CmsImage({
     return null
   }
 
-  const objectFitClass =
-    fit === 'contain' ? 'object-contain' : 'object-cover'
+  const objectFitClass = fit === 'contain' ? 'object-contain' : 'object-cover'
 
   return (
     <Image
       src={image.src}
       alt={decorative ? '' : image.alt}
       {...(decorative ? { role: 'presentation' } : {})}
-      {...(fill ?
-        { fill: true }
-      : {
-          width: image.width ?? 1200,
-          height: image.height ?? 800,
-        })}
+      {...(fill
+        ? { fill: true }
+        : {
+            width: image.width ?? 1200,
+            height: image.height ?? 800,
+          })}
       className={cn(
-        fill ?
-          objectFitClass
-        : fit === 'contain' ?
-          'h-auto w-auto max-w-full object-contain'
-        : 'h-full w-full object-cover',
+        fill
+          ? objectFitClass
+          : fit === 'contain'
+            ? 'h-auto w-auto max-w-full object-contain'
+            : 'h-full w-full object-cover',
         className,
       )}
       sizes={sizes}

@@ -1,7 +1,7 @@
 import { LocationWithMap } from '@/components/location/LocationWithMap'
 import { Gallery } from '@/components/ui/Gallery'
-import { hasLexicalContent } from '@/lib/cms/hasLexicalContent'
-import type { SiteAddressData, SiteMainAccessData } from '@/lib/cms/types'
+import { hasLexicalContent } from '@/lib/content'
+import type { SiteAddressData, SiteMainAccessData } from '@/lib/content'
 import { hasMapCoordinates } from '@/lib/maps/hasMapCoordinates'
 import { pageSectionTitleClassName } from '@/lib/ui/typography'
 

@@ -1,9 +1,9 @@
 import type { CollectionConfig } from 'payload'
 
-import { cmsRichTextEditor } from '@/lib/cms/cmsRichTextEditor'
-import { adminGroups } from '@/lib/cms/adminGroups'
-import { hiddenSlugField } from '@/lib/cms/hiddenSlugField'
-import { revalidateSite } from '@/lib/cms/revalidateSite'
+import { cmsRichTextEditor } from '@/fields'
+import { adminGroups } from '@/fields'
+import { hiddenSlugField } from '@/fields/hiddenSlug'
+import { revalidateSite } from '@/lib/content/revalidateSite'
 import { slugifyName } from '@/lib/slugifyName'
 
 export const Articles: CollectionConfig = {

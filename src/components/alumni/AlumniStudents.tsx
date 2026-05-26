@@ -1,5 +1,5 @@
 import { PersonName } from '@/components/ui/PersonName'
-import type { AlumniStudent } from '@/lib/cms/types'
+import type { AlumniStudent } from '@/lib/content'
 
 type AlumniStudentsProps = {
   students: AlumniStudent[]
@@ -22,11 +22,11 @@ export function AlumniStudents({ students }: AlumniStudentsProps) {
                 className="text-[1.0625rem] leading-snug"
               />
             </h2>
-            {student.projects ?
+            {student.projects ? (
               <p className="whitespace-pre-line text-[0.8125rem] leading-[1.75] text-foreground-muted">
                 {student.projects}
               </p>
-            : null}
+            ) : null}
           </li>
         ))}
       </ul>

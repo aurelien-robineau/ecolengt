@@ -7,7 +7,7 @@ import {
   UploadJSXConverter,
 } from '@payloadcms/richtext-lexical/react'
 
-import type { CmsRichTextContent } from '@/lib/cms/richText'
+import type { CmsRichTextContent } from '@/lib/content'
 import { cn } from '@/lib/cn'
 import { bodyTextClassName } from '@/lib/ui/typography'
 

@@ -1,6 +1,6 @@
 import type { CollectionConfig } from 'payload'
 
-import { adminGroups } from '@/lib/cms/adminGroups'
+import { adminGroups } from '@/fields'
 
 export const Media: CollectionConfig = {
   slug: 'media',

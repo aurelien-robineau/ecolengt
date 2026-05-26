@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 
 import { CmsImage } from '@/components/cms/CmsImage'
 import { ImageLightbox, type LightboxSlide } from '@/components/ui/ImageLightbox'
-import type { GalleryItem } from '@/lib/cms/types'
+import type { GalleryItem } from '@/lib/content'
 import { cn } from '@/lib/cn'
 
 type GalleryProps = {
@@ -47,7 +47,7 @@ function useGalleryInView(loadImmediately = false) {
     if (!node) return
 
     if (typeof IntersectionObserver === 'undefined') {
-      setShouldLoad(true)
+      queueMicrotask(() => setShouldLoad(true))
       return
     }
 
@@ -107,7 +107,7 @@ export function Gallery({
     return (
       <>
         <figure className={cn('mb-12', singleFigureClassName)}>
-          {singleLightbox ?
+          {singleLightbox ? (
             <button
               type="button"
               className="block w-full cursor-zoom-in focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
@@ -116,11 +116,17 @@ export function Gallery({
             >
               {image}
             </button>
-          : image}
+          ) : (
+            image
+          )}
         </figure>
-        {singleLightbox && openIndex !== null ?
-          <ImageLightbox slides={slides} initialIndex={openIndex} onClose={() => setOpenIndex(null)} />
-        : null}
+        {singleLightbox && openIndex !== null ? (
+          <ImageLightbox
+            slides={slides}
+            initialIndex={openIndex}
+            onClose={() => setOpenIndex(null)}
+          />
+        ) : null}
       </>
     )
   }
@@ -139,7 +145,7 @@ export function Gallery({
                 layout.itemClassName,
               )}
             >
-              {shouldLoad || isPriorityImage ?
+              {shouldLoad || isPriorityImage ? (
                 <>
                   <CmsImage
                     image={item.image}
@@ -156,14 +162,20 @@ export function Gallery({
                     aria-label={`Agrandir la photo${item.image.alt ? ` : ${item.image.alt}` : ''}`}
                   />
                 </>
-              : <div className="min-h-48 w-full" aria-hidden />}
+              ) : (
+                <div className="min-h-48 w-full" aria-hidden />
+              )}
             </figure>
           )
         })}
       </div>
-      {openIndex !== null ?
-        <ImageLightbox slides={slides} initialIndex={openIndex} onClose={() => setOpenIndex(null)} />
-      : null}
+      {openIndex !== null ? (
+        <ImageLightbox
+          slides={slides}
+          initialIndex={openIndex}
+          onClose={() => setOpenIndex(null)}
+        />
+      ) : null}
     </>
   )
 }

@@ -4,8 +4,8 @@ import { createClientUploadHandler } from '@payloadcms/plugin-cloud-storage/clie
 import { upload } from '@vercel/blob/client'
 import { formatAdminURL } from 'payload/shared'
 
-import { getBlobFileKey } from '@/lib/cms/blobFileKey'
-import { buildStagingFilename, getMediaIdFromAdminPathname } from '@/lib/cms/mediaStaging'
+import { getBlobFileKey } from '@/lib/media/blobFileKey'
+import { buildStagingFilename, getMediaIdFromAdminPathname } from '@/lib/media/mediaStaging'
 
 function posixBasename(key: string): string {
   const normalized = key.replace(/^\/+/, '')

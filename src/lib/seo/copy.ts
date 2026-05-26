@@ -5,7 +5,7 @@ import {
   DOCUMENT_TITLE_HOME,
   SEO_INTENSIVE_VENUE,
 } from '@/lib/seo/constants'
-import type { SiteSettingsData } from '@/lib/cms/types'
+import type { SiteSettingsData } from '@/lib/content'
 
 const pacaLabel = 'Provence-Alpes-Côte d’Azur (PACA)'
 
