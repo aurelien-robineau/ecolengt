@@ -4,12 +4,12 @@ import { LegalNoticeContent } from '@/components/legal/LegalNoticeContent'
 import { Container } from '@/components/ui/Container'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import { routes } from '@/config/routes'
-import { getSiteContent } from '@/lib/content'
+import { getLegalNoticePage, getSiteSettings } from '@/lib/content'
 import { buildPageMetadata } from '@/lib/seo/metadata'
 import { seoCopy } from '@/lib/seo/copy'
 
 export async function generateMetadata(): Promise<Metadata> {
-  const { site } = await getSiteContent()
+  const site = await getSiteSettings()
   const { documentTitle, title, description } = seoCopy.mentionsLegales(site)
 
   return buildPageMetadata({
@@ -30,7 +30,7 @@ function formatLegalNoticeLastUpdated(isoDate: string): string {
 }
 
 export default async function LegalNoticePage() {
-  const { site, legalNotice } = await getSiteContent()
+  const [site, legalNotice] = await Promise.all([getSiteSettings(), getLegalNoticePage()])
 
   return (
     <section className="bg-surface py-(--spacing-section-mobile) pt-28 md:py-(--spacing-section)">

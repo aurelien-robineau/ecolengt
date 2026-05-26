@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation'
 import { ArticleDetail } from '@/components/articles/ArticleDetail'
 import { articlePageHref } from '@/lib/content'
 import { getArticleBySlug, getArticleSlugs } from '@/lib/content'
-import { getSiteContent } from '@/lib/content'
+import { getSiteSettings } from '@/lib/content'
 import { buildArticleMetadata } from '@/lib/seo/metadata'
 
 type ArticlePageProps = {
@@ -19,7 +19,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: ArticlePageProps): Promise<Metadata> {
   const { slug } = await params
-  const [article, { site }] = await Promise.all([getArticleBySlug(slug), getSiteContent()])
+  const [article, site] = await Promise.all([getArticleBySlug(slug), getSiteSettings()])
 
   if (!article) {
     return { title: 'Page introuvable' }

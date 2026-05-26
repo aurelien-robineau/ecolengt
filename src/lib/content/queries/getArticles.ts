@@ -1,11 +1,11 @@
 import { cache } from 'react'
-import { getPayload } from 'payload'
-import config from '@payload-config'
 
 import { mapArticleListItem } from '@/lib/content/mappers/collections/mapArticle'
 
+import { getPayloadClient } from './payload'
+
 export const getArticles = cache(async () => {
-  const payload = await getPayload({ config })
+  const payload = await getPayloadClient()
 
   const result = await payload.find({
     collection: 'articles',

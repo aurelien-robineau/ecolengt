@@ -1,11 +1,11 @@
 import React from 'react'
 
 import { FrontendShell } from '@/components/layout/FrontendShell'
-import { getSiteContent } from '@/lib/content'
+import { getSiteSettings } from '@/lib/content'
 import { buildSiteRootMetadata } from '@/lib/seo/metadata'
 
 export async function generateMetadata() {
-  const { site } = await getSiteContent()
+  const site = await getSiteSettings()
 
   return buildSiteRootMetadata(site)
 }

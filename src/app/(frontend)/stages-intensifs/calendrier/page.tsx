@@ -5,13 +5,12 @@ import { IntensiveCoursesCalendarSchoolYears } from '@/components/intensive-cour
 import { Container } from '@/components/ui/Container'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import { routes } from '@/config/routes'
-import { getSiteContent } from '@/lib/content'
-import { hasLexicalContent } from '@/lib/content'
+import { getIntensiveCoursesCalendarPage, getSiteSettings, hasLexicalContent } from '@/lib/content'
 import { buildPageMetadata } from '@/lib/seo/metadata'
 import { seoCopy } from '@/lib/seo/copy'
 
 export async function generateMetadata(): Promise<Metadata> {
-  const { site } = await getSiteContent()
+  const site = await getSiteSettings()
   const { documentTitle, title, description } = seoCopy.stagesCalendrier(site)
 
   return buildPageMetadata({
@@ -24,7 +23,10 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function StagesIntensifsCalendarPage() {
-  const { site, intensiveCoursesCalendar } = await getSiteContent()
+  const [site, intensiveCoursesCalendar] = await Promise.all([
+    getSiteSettings(),
+    getIntensiveCoursesCalendarPage(),
+  ])
   const hasIntro =
     intensiveCoursesCalendar.intro && hasLexicalContent(intensiveCoursesCalendar.intro)
 

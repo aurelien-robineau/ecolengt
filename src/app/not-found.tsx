@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 
 import { NotFoundSection } from '@/components/errors/NotFoundSection'
 import { FrontendShell } from '@/components/layout/FrontendShell'
-import { getSiteContent } from '@/lib/content'
+import { getSiteSettings } from '@/lib/content'
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -12,7 +12,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function NotFound() {
-  const { site } = await getSiteContent()
+  const site = await getSiteSettings()
 
   return (
     <FrontendShell>

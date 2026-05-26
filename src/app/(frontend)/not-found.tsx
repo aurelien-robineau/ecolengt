@@ -1,12 +1,12 @@
 import type { Metadata } from 'next'
 
 import { NotFoundSection } from '@/components/errors/NotFoundSection'
-import { getSiteContent } from '@/lib/content'
+import { getSiteSettings } from '@/lib/content'
 import { buildPageMetadata } from '@/lib/seo/metadata'
 import { seoCopy } from '@/lib/seo/copy'
 
 export async function generateMetadata(): Promise<Metadata> {
-  const { site } = await getSiteContent()
+  const site = await getSiteSettings()
   const { documentTitle, title, description } = seoCopy.notFound(site)
 
   return buildPageMetadata({
@@ -20,7 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function NotFound() {
-  const { site } = await getSiteContent()
+  const site = await getSiteSettings()
 
   return <NotFoundSection site={site} />
 }

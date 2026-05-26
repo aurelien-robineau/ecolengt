@@ -1,11 +1,11 @@
 import { cache } from 'react'
-import { getPayload } from 'payload'
-import config from '@payload-config'
 
 import { mapStudent } from '@/lib/content/mappers/collections/mapStudent'
 
+import { getPayloadClient } from './payload'
+
 export const getStudentBySlug = cache(async (slug: string) => {
-  const payload = await getPayload({ config })
+  const payload = await getPayloadClient()
 
   const result = await payload.find({
     collection: 'eleves',
@@ -28,7 +28,7 @@ export const getStudentBySlug = cache(async (slug: string) => {
 })
 
 export const getStudentSlugs = cache(async () => {
-  const payload = await getPayload({ config })
+  const payload = await getPayloadClient()
 
   const result = await payload.find({
     collection: 'eleves',

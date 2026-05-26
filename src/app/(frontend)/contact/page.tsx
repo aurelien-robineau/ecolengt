@@ -7,12 +7,12 @@ import { ContactLocation } from '@/components/contact/ContactLocation'
 import { Container } from '@/components/ui/Container'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import { routes } from '@/config/routes'
-import { getSiteContent } from '@/lib/content'
+import { getContactPage, getSiteSettings } from '@/lib/content'
 import { buildPageMetadata } from '@/lib/seo/metadata'
 import { seoCopy } from '@/lib/seo/copy'
 
 export async function generateMetadata(): Promise<Metadata> {
-  const { site } = await getSiteContent()
+  const site = await getSiteSettings()
   const { documentTitle, title, description } = seoCopy.contact(site)
 
   return buildPageMetadata({
@@ -25,7 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function ContactPage() {
-  const { site, contact } = await getSiteContent()
+  const [site, contact] = await Promise.all([getSiteSettings(), getContactPage()])
 
   return (
     <section className="bg-surface py-(--spacing-section-mobile) pt-28 md:py-(--spacing-section)">

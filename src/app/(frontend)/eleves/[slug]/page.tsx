@@ -5,7 +5,7 @@ import { StudentProfile } from '@/components/students/StudentProfile'
 import { Container } from '@/components/ui/Container'
 import { routes } from '@/config/routes'
 import { getStudentBySlug, getStudentSlugs } from '@/lib/content'
-import { getSiteContent } from '@/lib/content'
+import { getSiteSettings } from '@/lib/content'
 import { buildStudentMetadata } from '@/lib/seo/metadata'
 
 type StudentPageProps = {
@@ -20,7 +20,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: StudentPageProps): Promise<Metadata> {
   const { slug } = await params
-  const [student, { site }] = await Promise.all([getStudentBySlug(slug), getSiteContent()])
+  const [student, site] = await Promise.all([getStudentBySlug(slug), getSiteSettings()])
 
   if (!student) {
     return { title: 'Page introuvable' }
