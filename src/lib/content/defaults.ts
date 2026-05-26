@@ -3,8 +3,14 @@ import type {
   AlumniPageData,
   ContactPageData,
   GuestbookPageData,
+  IntensiveCoursesCalendarPageData,
+  IntensiveCoursesPageData,
   LandingPageData,
+  LegalNoticePageData,
+  NewsPageData,
+  PricingPageData,
   SiteSettingsData,
+  TomTomPageData,
 } from './types'
 
 const emptySiteAddress = {
@@ -79,4 +85,34 @@ export const defaultLandingPage: LandingPageData = {
     portrait: null,
   },
   sections: [],
+}
+
+export const defaultNewsPage: NewsPageData = {
+  upcomingEventsAlert: null,
+}
+
+export const defaultPricingPage: PricingPageData = {
+  classes: null,
+  intensiveCourses: null,
+}
+
+export const defaultIntensiveCoursesPage: IntensiveCoursesPageData = {
+  intro: null,
+  gallery: [],
+  blocks: [],
+}
+
+export const defaultIntensiveCoursesCalendarPage: IntensiveCoursesCalendarPageData = {
+  intro: null,
+  schoolYears: [],
+}
+
+export const defaultLegalNoticePage: LegalNoticePageData = {
+  content: null,
+  lastUpdatedAt: null,
+}
+
+export const defaultTomTomPage: TomTomPageData = {
+  callout: null,
+  content: null,
 }

@@ -1,15 +1,11 @@
 import type { PricingPage as PricingPageDoc } from '@/payload-types'
+import { defaultPricingPage } from '../../defaults'
 import { mapRichText } from '../shared/mapRichText'
 import type { PricingPageData } from '@/lib/content/types'
 
-const emptyPricingPage: PricingPageData = {
-  classes: null,
-  intensiveCourses: null,
-}
-
 export function mapPricingPage(data: PricingPageDoc | null | undefined): PricingPageData {
   if (!data) {
-    return emptyPricingPage
+    return defaultPricingPage
   }
 
   return {

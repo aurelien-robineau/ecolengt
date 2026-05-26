@@ -1,14 +1,13 @@
 import type { Eleve } from '@/payload-types'
 import { buildLexicalContent } from '@/lib/content/richtext/buildLexicalContent'
-import { hasLexicalContent } from '@/lib/content/richtext/hasLexicalContent'
-import { mapMedia } from '../shared/mapMedia'
+import type { CmsRichTextContent } from '@/lib/content/richtext/types'
 import { studentPageHref } from '@/lib/content/utils/studentPageHref'
 import type { StudentProfileData } from '@/lib/content/types'
 import { splitParagraphs } from '@/lib/splitParagraphs'
+import { mapMedia } from '../shared/mapMedia'
+import { mapRichText } from '../shared/mapRichText'
 
-type StudentDescription = NonNullable<Eleve['description']>
-
-function mapDescription(raw: Eleve['description']): StudentDescription | null {
+function mapDescription(raw: Eleve['description']): CmsRichTextContent | null {
   if (!raw) {
     return null
   }
@@ -20,10 +19,10 @@ function mapDescription(raw: Eleve['description']): StudentDescription | null {
       return null
     }
 
-    return buildLexicalContent(paragraphs.map((text) => ({ type: 'paragraph', text })))
+    return mapRichText(buildLexicalContent(paragraphs.map((text) => ({ type: 'paragraph', text }))))
   }
 
-  return hasLexicalContent(raw) ? raw : null
+  return mapRichText(raw)
 }
 
 export function mapStudent(doc: Eleve): StudentProfileData | null {

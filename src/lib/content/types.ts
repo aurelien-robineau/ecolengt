@@ -1,4 +1,4 @@
-import type { Article, Eleve } from '@/payload-types'
+import type { Eleve } from '@/payload-types'
 
 import type { CmsRichTextContent } from '@/lib/content/richtext/types'
 
@@ -64,7 +64,7 @@ export type StudentProfileData = {
   quote: string | null
   photos: Array<NonNullable<CmsImageData>>
   jobTitle: string | null
-  description: NonNullable<Eleve['description']> | null
+  description: CmsRichTextContent | null
   pageHref: string
 }
 
@@ -125,7 +125,7 @@ export type ArticleListItem = {
 }
 
 export type ArticleDetailData = ArticleListItem & {
-  content: NonNullable<Article['content']>
+  content: CmsRichTextContent | null
 }
 
 export type CmsImageData = {
