@@ -1,7 +1,8 @@
 import type { Article } from '@/payload-types'
 import { articlePageHref } from '@/lib/content/utils/articlePageHref'
-import { mapMedia } from '../shared/mapMedia'
 import type { ArticleDetailData, ArticleListItem } from '@/lib/content/types'
+import { mapMedia } from '../shared/mapMedia'
+import { mapRichText } from '../shared/mapRichText'
 
 export function mapArticleListItem(doc: Article): ArticleListItem {
   return {
@@ -16,6 +17,6 @@ export function mapArticleListItem(doc: Article): ArticleListItem {
 export function mapArticleDetail(doc: Article): ArticleDetailData {
   return {
     ...mapArticleListItem(doc),
-    content: doc.content,
+    content: mapRichText(doc.content),
   }
 }

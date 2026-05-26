@@ -1,19 +1,14 @@
 import type { IntensiveCoursesPage as IntensiveCoursesPageDoc } from '@/payload-types'
+import { defaultIntensiveCoursesPage } from '../../defaults'
 import { mapGallery } from '../shared/mapGallery'
 import { mapRichText } from '../shared/mapRichText'
 import type { IntensiveCoursesPageData } from '@/lib/content/types'
-
-const emptyIntensiveCoursesPage: IntensiveCoursesPageData = {
-  intro: null,
-  gallery: [],
-  blocks: [],
-}
 
 export function mapIntensiveCoursesPage(
   data: IntensiveCoursesPageDoc | null | undefined,
 ): IntensiveCoursesPageData {
   if (!data) {
-    return emptyIntensiveCoursesPage
+    return defaultIntensiveCoursesPage
   }
 
   return {

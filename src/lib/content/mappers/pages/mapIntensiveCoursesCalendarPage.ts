@@ -1,17 +1,13 @@
 import type { IntensiveCoursesCalendarPage as IntensiveCoursesCalendarPageDoc } from '@/payload-types'
+import { defaultIntensiveCoursesCalendarPage } from '../../defaults'
 import { mapRichText } from '../shared/mapRichText'
 import type { IntensiveCoursesCalendarPageData } from '@/lib/content/types'
-
-const emptyCalendarPage: IntensiveCoursesCalendarPageData = {
-  intro: null,
-  schoolYears: [],
-}
 
 export function mapIntensiveCoursesCalendarPage(
   data: IntensiveCoursesCalendarPageDoc | null | undefined,
 ): IntensiveCoursesCalendarPageData {
   if (!data) {
-    return emptyCalendarPage
+    return defaultIntensiveCoursesCalendarPage
   }
 
   return {
