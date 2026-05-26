@@ -1,13 +1,6 @@
-import { test, expect, Page } from '@playwright/test'
+import { test, expect } from '@playwright/test'
 
 test.describe('Frontend', () => {
-  let page: Page
-
-  test.beforeAll(async ({ browser }, testInfo) => {
-    const context = await browser.newContext()
-    page = await context.newPage()
-  })
-
   test('can go on homepage', async ({ page }) => {
     await page.goto('/')
 
@@ -48,9 +41,7 @@ test.describe('Frontend', () => {
     await page.keyboard.press('Tab')
     const focusedInNav = await page
       .locator('#mobile-nav a, #mobile-nav button')
-      .evaluateAll((elements) =>
-        elements.some((element) => element === document.activeElement),
-      )
+      .evaluateAll((elements) => elements.some((element) => element === document.activeElement))
     expect(focusedInNav).toBe(true)
   })
 })

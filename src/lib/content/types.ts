@@ -1,5 +1,3 @@
-import type { Eleve } from '@/payload-types'
-
 import type { CmsRichTextContent } from '@/lib/content/richtext/types'
 
 export type { CmsRichTextContent }
