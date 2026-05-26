@@ -5,12 +5,12 @@ import { Button } from '@/components/ui/Button'
 import { Container } from '@/components/ui/Container'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import { routes } from '@/config/routes'
-import { getSiteContent } from '@/lib/content'
+import { getSiteSettings, getTomTomPage } from '@/lib/content'
 import { buildPageMetadata } from '@/lib/seo/metadata'
 import { seoCopy } from '@/lib/seo/copy'
 
 export async function generateMetadata(): Promise<Metadata> {
-  const { site } = await getSiteContent()
+  const site = await getSiteSettings()
   const { documentTitle, title, description } = seoCopy.tomTom(site)
 
   return buildPageMetadata({
@@ -23,7 +23,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function TomTomPage() {
-  const { site, tomTom } = await getSiteContent()
+  const [site, tomTom] = await Promise.all([getSiteSettings(), getTomTomPage()])
 
   return (
     <section className="bg-surface py-(--spacing-section-mobile) pt-28 md:py-(--spacing-section)">

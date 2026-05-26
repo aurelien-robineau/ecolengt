@@ -1,17 +1,17 @@
 import { HeroSection } from '@/components/landing/HeroSection'
 import { LandingSection } from '@/components/landing/LandingSection'
 import { QuoteBand } from '@/components/landing/QuoteBand'
-import { getSiteContent } from '@/lib/content'
+import { getLandingPage, getSiteSettings } from '@/lib/content'
 import { buildHomeMetadata } from '@/lib/seo/metadata'
 
 export async function generateMetadata() {
-  const { site } = await getSiteContent()
+  const site = await getSiteSettings()
 
   return buildHomeMetadata(site)
 }
 
 export default async function HomePage() {
-  const { site, landing } = await getSiteContent()
+  const [site, landing] = await Promise.all([getSiteSettings(), getLandingPage()])
 
   return (
     <>

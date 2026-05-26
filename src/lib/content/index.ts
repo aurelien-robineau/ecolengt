@@ -8,6 +8,19 @@ export * from './types'
 export { revalidateSite } from './revalidateSite'
 export { sortAdminNavGroups } from './admin/sortAdminNavGroups'
 
+export {
+  getAlumniPage,
+  getContactPage,
+  getGuestbookPage,
+  getIntensiveCoursesCalendarPage,
+  getIntensiveCoursesPage,
+  getLandingPage,
+  getLegalNoticePage,
+  getNewsPage,
+  getPricingPage,
+  getSiteSettings,
+  getTomTomPage,
+} from './queries/globals'
 export { getSiteContent } from './queries/getSiteContent'
 export { getArticles } from './queries/getArticles'
 export { getArticleBySlug, getArticleSlugs } from './queries/getArticleBySlug'

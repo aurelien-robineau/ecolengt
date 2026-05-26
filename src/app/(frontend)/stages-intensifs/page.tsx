@@ -9,12 +9,12 @@ import { Container } from '@/components/ui/Container'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import { hasLexicalContent } from '@/lib/content'
 import { routes } from '@/config/routes'
-import { getSiteContent } from '@/lib/content'
+import { getIntensiveCoursesPage, getSiteSettings } from '@/lib/content'
 import { buildPageMetadata } from '@/lib/seo/metadata'
 import { seoCopy } from '@/lib/seo/copy'
 
 export async function generateMetadata(): Promise<Metadata> {
-  const { site } = await getSiteContent()
+  const site = await getSiteSettings()
   const { documentTitle, title, description } = seoCopy.stagesIntensifs(site)
 
   return buildPageMetadata({
@@ -27,7 +27,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function StagesIntensifsPage() {
-  const { site, intensiveCourses } = await getSiteContent()
+  const [site, intensiveCourses] = await Promise.all([getSiteSettings(), getIntensiveCoursesPage()])
   const hasIntro = intensiveCourses.intro && hasLexicalContent(intensiveCourses.intro)
   const hasGallery = intensiveCourses.gallery.length > 0
 
