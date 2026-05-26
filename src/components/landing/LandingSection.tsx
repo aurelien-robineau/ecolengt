@@ -5,7 +5,7 @@ import { Gallery } from '@/components/ui/Gallery'
 import { Reveal } from '@/components/ui/Reveal'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import { cn } from '@/lib/cn'
-import type { LandingSection as LandingSectionData } from '@/lib/content'
+import type { LandingSection as LandingSectionData } from '@/lib/content/types'
 
 type LandingSectionProps = {
   section: LandingSectionData

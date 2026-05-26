@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 
 import { CmsImage } from '@/components/cms/CmsImage'
 import { ImageLightbox, type LightboxSlide } from '@/components/ui/ImageLightbox'
-import type { GalleryItem } from '@/lib/content'
+import type { GalleryItem } from '@/lib/content/types'
 import { cn } from '@/lib/cn'
 
 type GalleryProps = {

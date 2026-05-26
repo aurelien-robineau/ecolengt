@@ -21,7 +21,6 @@ export {
   getSiteSettings,
   getTomTomPage,
 } from './queries/globals'
-export { getSiteContent } from './queries/getSiteContent'
 export { getArticles } from './queries/getArticles'
 export { getArticleBySlug, getArticleSlugs } from './queries/getArticleBySlug'
 export { getStudentBySlug, getStudentSlugs } from './queries/getStudentBySlug'

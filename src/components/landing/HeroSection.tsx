@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/Button'
 import { Container } from '@/components/ui/Container'
 import { formatFoundedSince } from '@/lib/content'
 import { cn } from '@/lib/cn'
-import type { LandingPageData, SiteSettingsData } from '@/lib/content'
+import type { LandingPageData, SiteSettingsData } from '@/lib/content/types'
 
 type HeroSectionProps = {
   hero: LandingPageData['hero']

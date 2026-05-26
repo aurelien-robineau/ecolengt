@@ -1,7 +1,7 @@
 import { CmsRichText } from '@/components/cms/CmsRichText'
 import { LocationMap } from '@/components/location/LocationMap'
 import { AddressContent } from '@/components/ui/AddressContent'
-import type { CmsRichTextContent, SiteAddressData } from '@/lib/content'
+import type { CmsRichTextContent, SiteAddressData } from '@/lib/content/types'
 import { cn } from '@/lib/cn'
 import { hasLexicalContent } from '@/lib/content'
 import { hasMapCoordinates } from '@/lib/maps/hasMapCoordinates'

@@ -1,4 +1,4 @@
-import type { SiteAddressData } from '@/lib/content'
+import type { SiteAddressData } from '@/lib/content/types'
 
 export function hasMapCoordinates(address: SiteAddressData): boolean {
   const { mapLatitude, mapLongitude } = address

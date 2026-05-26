@@ -9,7 +9,7 @@ import { Container } from '@/components/ui/Container'
 import { Logo } from '@/components/ui/Logo'
 import { routes } from '@/config/routes'
 import { getFocusableElements, useFocusTrap } from '@/lib/a11y/focus'
-import type { SiteSettingsData } from '@/lib/content'
+import type { SiteSettingsData } from '@/lib/content/types'
 import { cn } from '@/lib/cn'
 import { resolveHashHref } from '@/lib/resolveHashHref'
 

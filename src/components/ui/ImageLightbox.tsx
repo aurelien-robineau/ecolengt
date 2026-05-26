@@ -5,7 +5,7 @@ import { useCallback, useEffect, useId, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 
 import { useFocusTrap } from '@/lib/a11y/focus'
-import type { CmsImageData } from '@/lib/content'
+import type { CmsImageData } from '@/lib/content/types'
 import { cn } from '@/lib/cn'
 
 export type LightboxSlide = {

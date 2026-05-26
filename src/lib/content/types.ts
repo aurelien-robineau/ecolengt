@@ -178,17 +178,3 @@ export type LandingPageData = {
   }
   sections: LandingSection[]
 }
-
-export type SiteContent = {
-  site: SiteSettingsData
-  landing: LandingPageData
-  contact: ContactPageData
-  news: NewsPageData
-  guestbook: GuestbookPageData
-  alumni: AlumniPageData
-  tomTom: TomTomPageData
-  intensiveCourses: IntensiveCoursesPageData
-  pricing: PricingPageData
-  intensiveCoursesCalendar: IntensiveCoursesCalendarPageData
-  legalNotice: LegalNoticePageData
-}

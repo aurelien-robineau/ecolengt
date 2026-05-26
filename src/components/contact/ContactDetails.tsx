@@ -1,5 +1,5 @@
 import { ExternalLink } from '@/lib/a11y/externalLink'
-import type { SiteSettingsData } from '@/lib/content'
+import type { SiteSettingsData } from '@/lib/content/types'
 import { pageSectionTitleClassName } from '@/lib/ui/typography'
 
 type ContactDetailsProps = {

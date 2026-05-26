@@ -1,5 +1,5 @@
 import { CmsRichText } from '@/components/cms/CmsRichText'
-import type { TomTomPageData } from '@/lib/content'
+import type { TomTomPageData } from '@/lib/content/types'
 
 type TomTomContentProps = {
   content: TomTomPageData['content']

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-import type { SiteSettingsData } from '@/lib/content'
+import type { SiteSettingsData } from '@/lib/content/types'
 import {
   DANTE_AGOSTINI_FOUNDER,
   DANTE_AGOSTINI_NETWORK,

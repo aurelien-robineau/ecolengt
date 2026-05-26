@@ -1,7 +1,7 @@
 import { CmsRichText } from '@/components/cms/CmsRichText'
 import { Gallery } from '@/components/ui/Gallery'
 import { hasLexicalContent } from '@/lib/content'
-import type { CmsRichTextContent, GalleryItem } from '@/lib/content'
+import type { CmsRichTextContent, GalleryItem } from '@/lib/content/types'
 import { pageSectionTitleClassName } from '@/lib/ui/typography'
 
 type ContactAccessGalleryProps = {
