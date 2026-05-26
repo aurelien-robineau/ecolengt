@@ -21,17 +21,33 @@ export async function generateMetadata(): Promise<Metadata> {
   })
 }
 
+function formatLegalNoticeLastUpdated(isoDate: string): string {
+  return new Intl.DateTimeFormat('fr-FR', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  }).format(new Date(isoDate))
+}
+
 export default async function LegalNoticePage() {
   const { site, legalNotice } = await getSiteContent()
 
   return (
     <section className="bg-surface py-(--spacing-section-mobile) pt-28 md:py-(--spacing-section)">
       <Container>
-        <SectionHeader
-          label={site.name}
-          title="Mentions Légales & Politique de Confidentialité"
-          titleAs="h1"
-        />
+        <div className="mb-12">
+          <SectionHeader
+            label={site.name}
+            title="Mentions Légales & Politique de Confidentialité"
+            titleAs="h1"
+            className="mb-3"
+          />
+          {legalNotice.lastUpdatedAt ? (
+            <p className="text-sm text-foreground-muted">
+              Dernière mise à jour le {formatLegalNoticeLastUpdated(legalNotice.lastUpdatedAt)}
+            </p>
+          ) : null}
+        </div>
         <LegalNoticeContent content={legalNotice.content} />
       </Container>
     </section>

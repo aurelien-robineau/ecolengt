@@ -7,5 +7,6 @@ export function mapLegalNoticePage(
 ): LegalNoticePageData {
   return {
     content: mapRichText(data?.content),
+    lastUpdatedAt: data?.lastUpdatedAt ?? null,
   }
 }
