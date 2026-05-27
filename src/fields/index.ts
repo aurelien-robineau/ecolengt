@@ -16,3 +16,4 @@ export { landingSectionFields, landingSectionGalleryFields } from './landingSect
 export { hiddenSlugField } from './hiddenSlug'
 export { orderMediaFields } from './orderMedia'
 export { validateFoundedYear } from './validateFoundedYear'
+export { validateHeroOverlayOpacity } from './validateHeroOverlayOpacity'

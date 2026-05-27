@@ -169,6 +169,7 @@ export type LandingPageData = {
     cta: string
     ctaHref: string
     backgroundImage: CmsImageData
+    overlayOpacity: number
   }
   quote: {
     text: string

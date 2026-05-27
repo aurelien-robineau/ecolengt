@@ -2,7 +2,6 @@ import { CmsImage } from '@/components/cms/CmsImage'
 import { Button } from '@/components/ui/Button'
 import { Container } from '@/components/ui/Container'
 import { formatFoundedSince } from '@/lib/content'
-import { cn } from '@/lib/cn'
 import type { LandingPageData, SiteSettingsData } from '@/lib/content/types'
 
 type HeroSectionProps = {
@@ -31,15 +30,13 @@ export function HeroSection({ hero, city, foundedYear }: HeroSectionProps) {
           />
         </div>
       ) : null}
-      <div
-        className={cn(
-          'pointer-events-none absolute inset-0',
-          hero.backgroundImage
-            ? 'bg-[radial-gradient(ellipse_55%_55%_at_72%_38%,rgba(255,221,0,0.08)_0%,transparent_70%),radial-gradient(ellipse_40%_50%_at_15%_65%,rgba(255,221,0,0.04)_0%,transparent_60%),linear-gradient(160deg,rgba(244,244,244,0.92)_0%,rgba(240,240,240,0.88)_100%)]'
-            : 'bg-[radial-gradient(ellipse_55%_55%_at_72%_38%,rgba(255,221,0,0.06)_0%,transparent_70%),radial-gradient(ellipse_40%_50%_at_15%_65%,rgba(255,221,0,0.03)_0%,transparent_60%),linear-gradient(160deg,#f4f4f4_0%,#f0f0f0_100%)]',
-        )}
-        aria-hidden
-      />
+      {hero.backgroundImage ? (
+        <div
+          className="pointer-events-none absolute inset-0 bg-surface-muted"
+          style={{ opacity: hero.overlayOpacity / 100 }}
+          aria-hidden
+        />
+      ) : null}
 
       <Container className="relative">
         <p className="animate-fade-up mb-6 flex items-center gap-4 font-serif text-lg text-foreground-muted italic md:text-xl">

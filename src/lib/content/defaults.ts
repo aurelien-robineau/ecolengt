@@ -77,6 +77,7 @@ export const defaultLandingPage: LandingPageData = {
     cta: '',
     ctaHref: '',
     backgroundImage: null,
+    overlayOpacity: 92,
   },
   quote: {
     text: '',
