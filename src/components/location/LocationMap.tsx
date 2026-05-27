@@ -1,5 +1,6 @@
 import Image from 'next/image'
 
+import { MapEmbed } from '@/components/location/MapEmbed'
 import { ExternalLink, externalLinkAriaLabel } from '@/lib/a11y/externalLink'
 import { buildOpenStreetMapEmbedUrl } from '@/lib/maps/buildOpenStreetMapEmbedUrl'
 import { cn } from '@/lib/cn'
@@ -53,13 +54,7 @@ export function LocationMap({
           </ExternalLink>
         ) : null}
 
-        <iframe
-          src={embedSrc}
-          title={title}
-          className="absolute inset-0 h-full w-full border-0"
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-        />
+        <MapEmbed src={embedSrc} title={title} />
       </div>
     </div>
   )

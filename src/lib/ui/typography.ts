@@ -15,3 +15,7 @@ export const contactValueClassName =
   'font-sans text-lg leading-snug font-normal text-foreground md:text-xl lg:text-lg'
 
 export const contactLinkValueClassName = `${contactValueClassName} block no-underline transition-colors hover:text-brand`
+
+/** Optional label above a phone or email on the contact page. */
+export const contactItemLabelClassName =
+  'mb-1 block text-[10px] font-medium tracking-[0.18em] text-foreground-subtle uppercase md:text-[11px]'

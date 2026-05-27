@@ -1128,6 +1128,10 @@ export interface SiteSetting {
   phones?:
     | {
         /**
+         * Court libellé optionnel (ex. « Standard », « Nadia », « Stages intensifs »). Affiché au-dessus du numéro.
+         */
+        label?: string | null;
+        /**
          * Numéro tel qu’affiché sur le site. Le lien d’appel est généré automatiquement.
          */
         number: string;
@@ -1139,6 +1143,10 @@ export interface SiteSetting {
    */
   emails?:
     | {
+        /**
+         * Court libellé optionnel (ex. « Contact général », « Nadia »). Affiché au-dessus de l’adresse.
+         */
+        label?: string | null;
         address: string;
         id?: string | null;
       }[]
@@ -1374,12 +1382,14 @@ export interface SiteSettingsSelect<T extends boolean = true> {
   phones?:
     | T
     | {
+        label?: T;
         number?: T;
         id?: T;
       };
   emails?:
     | T
     | {
+        label?: T;
         address?: T;
         id?: T;
       };

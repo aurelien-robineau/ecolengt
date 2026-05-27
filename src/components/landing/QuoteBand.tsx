@@ -8,16 +8,21 @@ type QuoteBandProps = {
 }
 
 const portraitFrameClassName =
-  'relative mx-auto aspect-4/5 w-full max-w-[14rem] overflow-hidden bg-foreground/8 ring-1 ring-foreground/10 lg:mx-0 lg:max-w-none'
+  'relative mx-auto aspect-4/5 w-full max-w-[18rem] overflow-hidden bg-foreground/8 ring-1 ring-foreground/10 sm:max-w-[20rem] lg:mx-0 lg:max-w-none'
 
 export function QuoteBand({ quote }: QuoteBandProps) {
   return (
-    <section className="bg-brand py-20">
+    <section className="bg-brand py-14 md:py-20">
       <Container>
-        <div className="mx-auto grid max-w-4xl items-center gap-12 lg:grid-cols-[minmax(0,14rem)_1fr] lg:gap-16">
+        <div className="mx-auto grid max-w-4xl items-center gap-8 md:gap-12 lg:grid-cols-[minmax(0,14rem)_1fr] lg:gap-16">
           <div className={portraitFrameClassName}>
             {quote.portrait ? (
-              <CmsImage image={quote.portrait} fill sizes="14rem" priority />
+              <CmsImage
+                image={quote.portrait}
+                fill
+                sizes="(max-width: 640px) 20rem, 14rem"
+                priority
+              />
             ) : (
               <PortraitPlaceholder alt={quote.imageAlt} embedded />
             )}

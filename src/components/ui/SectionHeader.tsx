@@ -10,7 +10,7 @@ type SectionHeaderProps = {
 }
 
 const titleClassName =
-  'font-serif text-[clamp(1.625rem,3vw,2.375rem)] leading-[1.15] font-light text-balance text-foreground-muted'
+  'font-serif text-[clamp(1.625rem,3vw,2.375rem)] leading-[1.15] font-light text-balance text-foreground'
 
 export function SectionHeader({ label, title, titleAs = 'h2', className }: SectionHeaderProps) {
   const TitleTag = titleAs
@@ -18,9 +18,7 @@ export function SectionHeader({ label, title, titleAs = 'h2', className }: Secti
   return (
     <header className={cn('mb-12', className)}>
       {label ? (
-        <p className={cn('mb-3 tracking-[0.22em]', sectionLabelClassName)}>
-          {label}
-        </p>
+        <p className={cn('mb-3 tracking-[0.22em]', sectionLabelClassName)}>{label}</p>
       ) : null}
       <TitleTag className={titleClassName}>{title}</TitleTag>
     </header>
