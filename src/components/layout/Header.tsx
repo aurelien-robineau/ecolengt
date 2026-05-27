@@ -59,13 +59,25 @@ function isNavItemActive(pathname: string, href: string): boolean {
   return pathname === path || pathname.startsWith(`${path}/`)
 }
 
+function getNavDisplayLabel(
+  item: SiteSettingsData['navigation'][number],
+  variant: 'desktop' | 'mobile',
+): string {
+  if (variant === 'desktop' && item.shortLabel) {
+    return item.shortLabel
+  }
+
+  return item.label
+}
+
 function navLinkClassName(isActive: boolean, variant: 'desktop' | 'mobile'): string {
   if (variant === 'desktop') {
     return cn(
-      'inline-block border-b-2 pb-0.5 text-[11px] tracking-[0.12em] uppercase no-underline transition-colors',
+      'relative inline-flex items-center whitespace-nowrap py-1 text-[10px] tracking-[0.08em] uppercase no-underline transition-colors xl:text-[11px] xl:tracking-[0.1em]',
+      'after:absolute after:inset-x-0 after:-bottom-px after:h-0.5 after:transition-colors',
       isActive
-        ? 'border-brand text-foreground'
-        : 'border-transparent text-foreground-muted hover:border-brand/40 hover:text-foreground',
+        ? 'text-foreground after:bg-brand'
+        : 'text-foreground-muted after:bg-transparent hover:text-foreground hover:after:bg-brand/35',
     )
   }
 
@@ -232,22 +244,33 @@ export function Header({ site }: HeaderProps) {
           menuOpen ? 'bg-surface' : scrolled && 'bg-surface/97 backdrop-blur-sm',
         )}
       >
-        <Container className="flex h-[70px] items-center justify-between gap-4">
-          <Logo priority className="max-h-9 md:max-h-10" linkLabel={`${site.name} — Accueil`} />
+        <Container className="flex h-[70px] items-center gap-3 xl:gap-5">
+          <Logo
+            priority
+            className="max-h-8 shrink-0 xl:max-h-10"
+            linkLabel={`${site.name} — Accueil`}
+          />
 
-          <nav className="hidden items-center gap-8 lg:flex" aria-label="Navigation principale">
-            <ul className="flex list-none gap-8">
+          <nav
+            className="hidden min-w-0 flex-1 justify-center lg:flex"
+            aria-label="Navigation principale"
+          >
+            <ul className="flex list-none items-center gap-x-3.5 xl:gap-x-5 2xl:gap-x-6">
               {site.navigation.map((item) => {
                 const isActive = isNavItemActive(pathname, item.href)
+                const displayLabel = getNavDisplayLabel(item, 'desktop')
+                const ariaLabel =
+                  item.shortLabel && item.shortLabel !== item.label ? item.label : undefined
 
                 return (
-                  <li key={item.href}>
+                  <li key={item.href} className="shrink-0">
                     <a
                       href={resolveHashHref(item.href)}
                       className={navLinkClassName(isActive, 'desktop')}
                       aria-current={isActive ? 'page' : undefined}
+                      aria-label={ariaLabel}
                     >
-                      {item.label}
+                      {displayLabel}
                     </a>
                   </li>
                 )
@@ -255,7 +278,7 @@ export function Header({ site }: HeaderProps) {
             </ul>
           </nav>
 
-          <div className="flex items-center gap-3">
+          <div className="flex shrink-0 items-center gap-3">
             <button
               ref={menuButtonRef}
               type="button"
@@ -268,7 +291,10 @@ export function Header({ site }: HeaderProps) {
               <MenuIcon open={menuOpen} />
             </button>
 
-            <Button href={headerContactAction.href} className="hidden sm:inline-flex">
+            <Button
+              href={headerContactAction.href}
+              className="hidden shrink-0 whitespace-nowrap px-5 sm:inline-flex xl:px-7"
+            >
               {headerContactAction.label}
             </Button>
           </div>

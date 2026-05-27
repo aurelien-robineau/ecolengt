@@ -50,7 +50,7 @@ export const defaultSiteSettings: SiteSettingsData = {
     { label: 'Stages intensifs', href: routes.stagesIntensifs },
     { label: 'Livre d’or', href: routes.guestbook },
     { label: 'Anciens élèves', href: routes.alumni },
-    { label: 'Association Tom Tom', href: routes.tomTom },
+    { label: 'Association Tom Tom', shortLabel: 'Asso. Tom Tom', href: routes.tomTom },
     { label: 'Tarifs', href: routes.pricing },
   ],
 }

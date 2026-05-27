@@ -28,7 +28,7 @@ export default async function TomTomPage() {
   return (
     <section className="bg-surface py-(--spacing-section-mobile) pt-28 md:py-(--spacing-section)">
       <Container>
-        <SectionHeader label={site.name} title="Tom Tom" titleAs="h1" />
+        <SectionHeader label={site.name} title="Association Tom Tom" titleAs="h1" />
         {tomTom.callout ? (
           <div className="mb-12">
             <Button href={tomTom.callout.href}>{tomTom.callout.label}</Button>

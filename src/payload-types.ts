@@ -752,7 +752,7 @@ export interface AlumniPage {
   createdAt?: string | null;
 }
 /**
- * Contenu de la page Tom Tom (association).
+ * Contenu de la page Association Tom Tom.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "tom-tom-page".
@@ -770,7 +770,7 @@ export interface TomTomPage {
     href?: string | null;
   };
   /**
-   * Texte complet de la page Tom Tom.
+   * Texte complet de la page Association Tom Tom.
    */
   content: {
     root: {

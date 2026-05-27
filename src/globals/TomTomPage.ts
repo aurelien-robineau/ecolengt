@@ -5,10 +5,10 @@ import { revalidateSite } from '@/lib/content/revalidateSite'
 
 export const TomTomPage: GlobalConfig = {
   slug: 'tom-tom-page',
-  label: 'Tom Tom',
+  label: 'Association Tom Tom',
   admin: {
     group: adminGroups.pagesGeneral,
-    description: 'Contenu de la page Tom Tom (association).',
+    description: 'Contenu de la page Association Tom Tom.',
   },
   access: {
     read: () => true,
@@ -48,7 +48,7 @@ export const TomTomPage: GlobalConfig = {
       label: 'Contenu',
       required: true,
       admin: {
-        description: 'Texte complet de la page Tom Tom.',
+        description: 'Texte complet de la page Association Tom Tom.',
       },
       editor: cmsRichTextEditor,
     },
