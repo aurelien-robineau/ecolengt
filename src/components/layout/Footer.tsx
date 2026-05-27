@@ -38,36 +38,54 @@ export function Footer({ site }: FooterProps) {
 
           <div>
             <h2 className="mb-6 text-[11px] tracking-[0.2em] text-brand uppercase">Contact</h2>
-            {site.contact.phones.map((phone, index) => (
-              <div key={`${phone.href}-${index}`} className="leading-8">
-                {phone.label ? (
-                  <span className="block text-[10px] tracking-[0.15em] text-[#606060] uppercase">
-                    {phone.label}
-                  </span>
+
+            {site.contact.phones.length > 0 ? (
+              <div className={site.contact.emails.length > 0 ? 'mb-6' : undefined}>
+                {site.contact.emails.length > 0 ? (
+                  <p className="mb-3 text-[10px] tracking-[0.15em] text-[#606060] uppercase">
+                    Téléphone
+                  </p>
                 ) : null}
-                <a
-                  href={phone.href}
-                  className="block text-sm text-foreground-subtle no-underline transition-colors hover:text-brand"
-                >
-                  {phone.display}
-                </a>
+                {site.contact.phones.map((phone, index) => (
+                  <div key={`${phone.href}-${index}`} className="leading-8">
+                    {phone.label ? (
+                      <span className="block text-[10px] tracking-[0.15em] text-[#606060] uppercase">
+                        {phone.label}
+                      </span>
+                    ) : null}
+                    <a
+                      href={phone.href}
+                      className="block text-sm text-foreground-subtle no-underline transition-colors hover:text-brand"
+                    >
+                      {phone.display}
+                    </a>
+                  </div>
+                ))}
               </div>
-            ))}
-            {site.contact.emails.map((email, index) => (
-              <div key={`${email.href}-${index}`} className="leading-8">
-                {email.label ? (
-                  <span className="block text-[10px] tracking-[0.15em] text-[#606060] uppercase">
-                    {email.label}
-                  </span>
-                ) : null}
-                <a
-                  href={email.href}
-                  className="block text-sm text-foreground-subtle no-underline transition-colors hover:text-brand"
-                >
-                  {email.display}
-                </a>
+            ) : null}
+
+            {site.contact.emails.length > 0 ? (
+              <div>
+                <p className="mb-3 text-[10px] tracking-[0.15em] text-[#606060] uppercase">
+                  E-mail
+                </p>
+                {site.contact.emails.map((email, index) => (
+                  <div key={`${email.href}-${index}`} className="leading-8">
+                    {email.label ? (
+                      <span className="block text-[10px] tracking-[0.15em] text-[#606060] uppercase">
+                        {email.label}
+                      </span>
+                    ) : null}
+                    <a
+                      href={email.href}
+                      className="block text-sm text-foreground-subtle no-underline transition-colors hover:text-brand"
+                    >
+                      {email.display}
+                    </a>
+                  </div>
+                ))}
               </div>
-            ))}
+            ) : null}
           </div>
 
           {(site.social.instagram || site.social.facebook) && (

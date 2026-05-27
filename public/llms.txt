@@ -8,7 +8,7 @@
 - **Zone desservie** : Aix-en-Provence, Marseille, Bouches-du-Rhône, PACA, sud de la France
 - **Pédagogie** : méthode Dante Agostini (réseau international fondé par Dante Agostini)
 - **Stages intensifs** : centre national à Razès — référence nationale pour les stages de batterie
-- **Association** : Tom Tom (promotion de la batterie, examens NGT)
+- **Association** : Association Tom Tom (promotion de la batterie, examens NGT)
 
 ## Pages importantes
 
@@ -20,7 +20,7 @@
 - Actualité : /actualite
 - Anciens élèves : /anciens-eleves
 - Livre d'or : /livre-dor
-- Tom Tom : /tom-tom
+- Association Tom Tom : /tom-tom
 
 ## Requêtes types couvertes par ce site
 

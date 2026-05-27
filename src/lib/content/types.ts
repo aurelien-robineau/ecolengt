@@ -32,7 +32,7 @@ export type SiteSettingsData = {
     instagram: string
     facebook: string
   }
-  navigation: Array<{ label: string; href: string }>
+  navigation: Array<{ label: string; href: string; shortLabel?: string }>
 }
 
 export type ContactPageData = {

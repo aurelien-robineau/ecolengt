@@ -45,20 +45,20 @@ Pour **chaque** URL de l’ancien site qui ne correspond **pas exactement** au m
 
 **Pages du nouveau site** (référence pour la correspondance) :
 
-| Chemin                         | Contenu           |
-| ------------------------------ | ----------------- |
-| `/`                            | Accueil           |
-| `/contact`                     | Contact           |
-| `/actualite`                   | Actualités        |
-| `/actualite/[slug]`            | Article           |
-| `/livre-dor`                   | Livre d’or        |
-| `/anciens-eleves`              | Anciens élèves    |
-| `/eleves/[slug]`               | Fiche élève       |
-| `/tom-tom`                     | Tom Tom           |
-| `/stages-intensifs`            | Stages intensifs  |
-| `/stages-intensifs/calendrier` | Calendrier stages |
-| `/tarifs`                      | Tarifs            |
-| `/mentions-legales`            | Mentions légales  |
+| Chemin                         | Contenu             |
+| ------------------------------ | ------------------- |
+| `/`                            | Accueil             |
+| `/contact`                     | Contact             |
+| `/actualite`                   | Actualités          |
+| `/actualite/[slug]`            | Article             |
+| `/livre-dor`                   | Livre d’or          |
+| `/anciens-eleves`              | Anciens élèves      |
+| `/eleves/[slug]`               | Fiche élève         |
+| `/tom-tom`                     | Association Tom Tom |
+| `/stages-intensifs`            | Stages intensifs    |
+| `/stages-intensifs/calendrier` | Calendrier stages   |
+| `/tarifs`                      | Tarifs              |
+| `/mentions-legales`            | Mentions légales    |
 
 Une redirection interne existe déjà dans le code : `/stages-intensifs/tarifs` → `/tarifs#stages-intensifs`. **Toutes les autres** anciennes URLs doivent être listées par vous et ajoutées côté développeur dans `next.config.ts` (section `redirects`), puis redéployées **avant** ou **immédiatement après** la bascule DNS.
 
