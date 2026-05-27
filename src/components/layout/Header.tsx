@@ -81,11 +81,12 @@ function navLinkClassName(isActive: boolean, variant: 'desktop' | 'mobile'): str
     )
   }
 
+  // Drawer nav: full-width rows, left accent on active — not underlines (inline-link pattern).
   return cn(
-    'block border-b-2 py-3 font-serif text-2xl font-light no-underline transition-colors',
+    'block -mx-8 border-l-[3px] px-8 py-3.5 font-serif text-[1.625rem] leading-snug no-underline transition-[color,background-color,border-color]',
     isActive
-      ? 'border-brand text-foreground'
-      : 'border-transparent text-foreground-muted hover:text-foreground',
+      ? 'border-brand bg-brand-dim font-normal text-foreground'
+      : 'border-transparent font-light text-foreground-muted active:bg-surface-muted hover:bg-surface-muted/70 hover:text-foreground',
   )
 }
 
@@ -200,7 +201,7 @@ export function Header({ site }: HeaderProps) {
               aria-hidden={!menuOpen}
               inert={menuOpen ? undefined : true}
             >
-              <ul className="mt-8 flex list-none flex-col gap-1">
+              <ul className="mt-6 flex list-none flex-col">
                 {site.navigation.map((item) => {
                   const isActive = isNavItemActive(pathname, item.href)
 
@@ -220,7 +221,7 @@ export function Header({ site }: HeaderProps) {
                 })}
               </ul>
 
-              <div className="mt-auto pt-10">
+              <div className="mt-auto border-t border-border pt-8">
                 <Button
                   href={headerContactAction.href}
                   className="w-full text-center"
@@ -278,7 +279,7 @@ export function Header({ site }: HeaderProps) {
             </ul>
           </nav>
 
-          <div className="flex shrink-0 items-center gap-3">
+          <div className="ml-auto flex shrink-0 items-center gap-3">
             <button
               ref={menuButtonRef}
               type="button"
