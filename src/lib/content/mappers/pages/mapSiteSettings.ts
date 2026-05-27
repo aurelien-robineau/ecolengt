@@ -17,6 +17,7 @@ export function mapSiteSettings(data: SiteSetting | null | undefined): SiteSetti
       .map((phone) => ({
         display: phone.number!,
         href: formatPhoneHref(phone.number!),
+        label: phone.label?.trim() || null,
       })) ?? []
 
   const emails =
@@ -25,6 +26,7 @@ export function mapSiteSettings(data: SiteSetting | null | undefined): SiteSetti
       .map((entry) => ({
         display: entry.address!,
         href: `mailto:${entry.address}`,
+        label: entry.label?.trim() || null,
       })) ?? []
 
   const foundedYear =

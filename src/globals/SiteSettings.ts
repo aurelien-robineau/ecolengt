@@ -92,6 +92,15 @@ export const SiteSettings: GlobalConfig = {
               },
               fields: [
                 {
+                  name: 'label',
+                  type: 'text',
+                  label: 'Libellé',
+                  admin: {
+                    description:
+                      'Court libellé optionnel (ex. « Standard », « Nadia », « Stages intensifs »). Affiché au-dessus du numéro.',
+                  },
+                },
+                {
                   name: 'number',
                   type: 'text',
                   label: 'Numéro à afficher',
@@ -115,6 +124,15 @@ export const SiteSettings: GlobalConfig = {
                 description: 'Toutes les adresses affichées dans le pied de page.',
               },
               fields: [
+                {
+                  name: 'label',
+                  type: 'text',
+                  label: 'Libellé',
+                  admin: {
+                    description:
+                      'Court libellé optionnel (ex. « Contact général », « Nadia »). Affiché au-dessus de l’adresse.',
+                  },
+                },
                 {
                   name: 'address',
                   type: 'email',

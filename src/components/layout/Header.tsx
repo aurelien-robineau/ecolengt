@@ -62,15 +62,29 @@ function isNavItemActive(pathname: string, href: string): boolean {
 function navLinkClassName(isActive: boolean, variant: 'desktop' | 'mobile'): string {
   if (variant === 'desktop') {
     return cn(
-      'text-[11px] tracking-[0.12em] uppercase no-underline transition-colors',
-      isActive ? 'text-foreground' : 'text-foreground-muted hover:text-foreground',
+      'inline-block border-b-2 pb-0.5 text-[11px] tracking-[0.12em] uppercase no-underline transition-colors',
+      isActive
+        ? 'border-brand text-foreground'
+        : 'border-transparent text-foreground-muted hover:border-brand/40 hover:text-foreground',
     )
   }
 
   return cn(
-    'block py-3 font-serif text-2xl font-light no-underline transition-colors',
-    isActive ? 'text-foreground' : 'text-foreground-muted hover:text-foreground',
+    'block border-b-2 py-3 font-serif text-2xl font-light no-underline transition-colors',
+    isActive
+      ? 'border-brand text-foreground'
+      : 'border-transparent text-foreground-muted hover:text-foreground',
   )
+}
+
+function getHeaderContactAction(pathname: string, site: SiteSettingsData) {
+  const firstPhone = site.contact.phones[0]
+
+  if (pathname === routes.contact && firstPhone) {
+    return { href: firstPhone.href, label: 'Nous appeler' }
+  }
+
+  return { href: routes.contact, label: 'Contact' }
 }
 
 export function Header({ site }: HeaderProps) {
@@ -149,6 +163,8 @@ export function Header({ site }: HeaderProps) {
     restoreFocusRef: menuButtonRef,
   })
 
+  const headerContactAction = getHeaderContactAction(pathname, site)
+
   const mobileMenu =
     mounted && menuMounted
       ? createPortal(
@@ -193,8 +209,12 @@ export function Header({ site }: HeaderProps) {
               </ul>
 
               <div className="mt-auto pt-10">
-                <Button href={routes.contact} className="w-full text-center" onClick={closeMenu}>
-                  Contact
+                <Button
+                  href={headerContactAction.href}
+                  className="w-full text-center"
+                  onClick={closeMenu}
+                >
+                  {headerContactAction.label}
                 </Button>
               </div>
             </nav>
@@ -248,8 +268,8 @@ export function Header({ site }: HeaderProps) {
               <MenuIcon open={menuOpen} />
             </button>
 
-            <Button href={routes.contact} className="hidden sm:inline-flex">
-              Contact
+            <Button href={headerContactAction.href} className="hidden sm:inline-flex">
+              {headerContactAction.label}
             </Button>
           </div>
         </Container>

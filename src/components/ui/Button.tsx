@@ -22,24 +22,19 @@ const variants = {
     'border border-brand-border px-5 text-[11px] tracking-[0.12em] text-foreground-muted uppercase hover:border-foreground hover:text-foreground',
 } as const
 
-export function Button({
-  href,
-  children,
-  variant = 'primary',
-  className,
-  onClick,
-}: ButtonProps) {
+export function Button({ href, children, variant = 'primary', className, onClick }: ButtonProps) {
   const classNames = cn(base, variants[variant], className)
   const resolvedHref = resolveHashHref(href)
+  const trimmedHref = href.trim()
   const external = isExternalHref(href)
+  const isSpecialScheme = /^(mailto:|tel:|sms:)/i.test(trimmedHref)
   const childText = typeof children === 'string' ? children : undefined
-  const externalLabel =
-    external && childText ? externalLinkAriaLabel(childText, href) : undefined
+  const externalLabel = external && childText ? externalLinkAriaLabel(childText, href) : undefined
 
-  if (resolvedHref.includes('#') || external) {
+  if (resolvedHref.includes('#') || external || isSpecialScheme) {
     return (
       <a
-        href={external ? href : resolvedHref}
+        href={isSpecialScheme ? trimmedHref : external ? href : resolvedHref}
         className={classNames}
         onClick={onClick}
         aria-label={externalLabel}

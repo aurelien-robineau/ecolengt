@@ -6,6 +6,7 @@ import type { SiteSettingsData } from '@/lib/content/types'
 import { cn } from '@/lib/cn'
 import { hasMapCoordinates } from '@/lib/maps/hasMapCoordinates'
 import {
+  contactItemLabelClassName,
   contactLinkValueClassName,
   contactValueClassName,
   sectionLabelClassName,
@@ -45,9 +46,12 @@ export function ContactLocation({ site }: ContactLocationProps) {
     >
       <aside className="border border-brand-border bg-brand-dim p-6 md:p-8">
         <ContactInfoBlock label="Téléphone" className="pt-0">
-          <ul className="list-none space-y-3">
+          <ul className="list-none space-y-4">
             {site.contact.phones.map((phone) => (
               <li key={phone.href}>
+                {phone.label ? (
+                  <span className={contactItemLabelClassName}>{phone.label}</span>
+                ) : null}
                 <a href={phone.href} className={contactLinkValueClassName}>
                   {phone.display}
                 </a>
@@ -57,9 +61,12 @@ export function ContactLocation({ site }: ContactLocationProps) {
         </ContactInfoBlock>
 
         <ContactInfoBlock label="E-mail">
-          <ul className="list-none space-y-3">
+          <ul className="list-none space-y-4">
             {site.contact.emails.map((email) => (
               <li key={email.href}>
+                {email.label ? (
+                  <span className={contactItemLabelClassName}>{email.label}</span>
+                ) : null}
                 <a href={email.href} className={contactLinkValueClassName}>
                   {email.display}
                 </a>

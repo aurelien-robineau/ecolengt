@@ -25,8 +25,8 @@ export type SiteSettingsData = {
   intensiveCoursesAddress: SiteAddressData
   intensiveCoursesAccess: SiteMainAccessData
   contact: {
-    phones: Array<{ href: string; display: string }>
-    emails: Array<{ href: string; display: string }>
+    phones: Array<{ href: string; display: string; label: string | null }>
+    emails: Array<{ href: string; display: string; label: string | null }>
   }
   social: {
     instagram: string
