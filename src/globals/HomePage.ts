@@ -1,6 +1,11 @@
 import type { GlobalConfig } from 'payload'
 
-import { adminGroups, buttonUrlFieldDescription, landingSectionFields } from '@/fields'
+import {
+  adminGroups,
+  buttonUrlFieldDescription,
+  landingSectionFields,
+  validateHeroOverlayOpacity,
+} from '@/fields'
 import { revalidateSite } from '@/lib/content/revalidateSite'
 
 export const HomePage: GlobalConfig = {
@@ -79,6 +84,21 @@ export const HomePage: GlobalConfig = {
               admin: {
                 description:
                   'Image optionnelle affichée en arrière-plan de la bannière, sur toute la hauteur de la section.',
+              },
+            },
+            {
+              name: 'heroOverlayOpacity',
+              type: 'number',
+              label: 'Opacité du voile',
+              required: true,
+              defaultValue: 92,
+              min: 0,
+              max: 100,
+              validate: validateHeroOverlayOpacity,
+              admin: {
+                description:
+                  'Opacité du voile clair appliqué sur l’image de fond (0 = transparent, 100 = opaque). Valeur entière entre 0 et 100.',
+                step: 1,
               },
             },
           ],

@@ -40,6 +40,16 @@ function mapSectionHighlight(
   }
 }
 
+function mapHeroOverlayOpacity(value: unknown): number {
+  const opacity = typeof value === 'number' ? value : Number(value)
+
+  if (!Number.isFinite(opacity)) {
+    return defaultLandingPage.hero.overlayOpacity
+  }
+
+  return Math.min(100, Math.max(0, Math.round(opacity)))
+}
+
 function mapSection(section: HomePageSectionDoc, index: number): LandingSection {
   return {
     id: `section-${index + 1}`,
@@ -65,6 +75,7 @@ export function mapHomePage(data: HomePageDoc | null | undefined): LandingPageDa
       cta: data.heroCta ?? '',
       ctaHref: data.heroCtaHref?.trim() ?? '',
       backgroundImage: mapMedia(data.heroBackgroundImage, ''),
+      overlayOpacity: mapHeroOverlayOpacity(data.heroOverlayOpacity),
     },
     quote: {
       text: data.quoteText ?? '',

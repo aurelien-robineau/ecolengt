@@ -517,6 +517,10 @@ export interface HomePage {
    */
   heroBackgroundImage?: (string | null) | Media;
   /**
+   * Opacité du voile clair appliqué sur l’image de fond (0 = transparent, 100 = opaque). Valeur entière entre 0 et 100.
+   */
+  heroOverlayOpacity: number;
+  /**
    * Citation entre guillemets, sans les « » (ajoutés automatiquement sur le site).
    */
   quoteText: string;
@@ -1161,6 +1165,7 @@ export interface HomePageSelect<T extends boolean = true> {
   heroCta?: T;
   heroCtaHref?: T;
   heroBackgroundImage?: T;
+  heroOverlayOpacity?: T;
   quoteText?: T;
   quoteCite?: T;
   quotePortrait?: T;
