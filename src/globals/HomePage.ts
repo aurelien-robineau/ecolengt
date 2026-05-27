@@ -101,6 +101,15 @@ export const HomePage: GlobalConfig = {
                 step: 1,
               },
             },
+            {
+              name: 'heroBannerPreview',
+              type: 'ui',
+              admin: {
+                components: {
+                  Field: '@/components/admin/HeroBannerPreviewField#HeroBannerPreviewField',
+                },
+              },
+            },
           ],
         },
         {
