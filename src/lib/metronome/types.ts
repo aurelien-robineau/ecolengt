@@ -6,6 +6,9 @@ export type SequenceSegment = {
 
 export type BpmType = 'start' | 'max'
 
+export const COUNT_IN_BAR_OPTIONS = [0, 1, 2, 4] as const
+export const DEFAULT_COUNT_IN_BARS = 2
+
 export type MetronomeConfig = {
   bpm: number
   bpmType: BpmType

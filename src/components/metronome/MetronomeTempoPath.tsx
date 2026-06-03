@@ -152,32 +152,38 @@ export function MetronomeTempoPath({
       <p className="mb-4 text-center text-[10px] tracking-[0.2em] text-foreground-muted uppercase">
         Parcours tempo calculé
       </p>
-      <p className="flex flex-nowrap items-center justify-center gap-x-0 text-center leading-relaxed">
-        {ascent.map((milestone, index) => (
-          <span
-            key={`up-${index}-${milestone.exact}`}
-            className="inline-flex shrink-0 items-center"
-          >
-            {index > 0 ? (
-              <TempoSeparator previous={ascent[index - 1]} current={milestone} compact={compact} />
-            ) : null}
-            <TempoValue milestone={milestone} compact={compact} />
-          </span>
-        ))}
-        {descent.map((milestone, index) => (
-          <span
-            key={`down-${index}-${milestone.exact}`}
-            className="inline-flex shrink-0 items-center"
-          >
-            <TempoSeparator
-              previous={index === 0 ? ascent[ascent.length - 1] : descent[index - 1]}
-              current={milestone}
-              compact={compact}
-            />
-            <TempoValue milestone={milestone} compact={compact} />
-          </span>
-        ))}
-      </p>
+      <div className="-mx-5 overflow-x-auto overscroll-x-contain px-5 md:-mx-7 md:px-7">
+        <p className="mx-auto flex w-max min-w-full flex-nowrap items-center justify-center gap-x-0 text-center leading-relaxed">
+          {ascent.map((milestone, index) => (
+            <span
+              key={`up-${index}-${milestone.exact}`}
+              className="inline-flex shrink-0 items-center"
+            >
+              {index > 0 ? (
+                <TempoSeparator
+                  previous={ascent[index - 1]}
+                  current={milestone}
+                  compact={compact}
+                />
+              ) : null}
+              <TempoValue milestone={milestone} compact={compact} />
+            </span>
+          ))}
+          {descent.map((milestone, index) => (
+            <span
+              key={`down-${index}-${milestone.exact}`}
+              className="inline-flex shrink-0 items-center"
+            >
+              <TempoSeparator
+                previous={index === 0 ? ascent[ascent.length - 1] : descent[index - 1]}
+                current={milestone}
+                compact={compact}
+              />
+              <TempoValue milestone={milestone} compact={compact} />
+            </span>
+          ))}
+        </p>
+      </div>
     </div>
   )
 }

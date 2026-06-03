@@ -1,6 +1,7 @@
 import { getBpmInputLimits } from './bpmLimits'
 import { DEFAULT_SAMPLE_RATE } from './audioGenerator'
 import { MECHANICAL_METRONOME_MAX_BPM, MECHANICAL_METRONOME_MIN_BPM } from './mechanicalTempos'
+import { COUNT_IN_BAR_OPTIONS } from './types'
 import type { BpmType, MetronomeConfig, MetronomeGeneratePayload } from './types'
 const MIN_SUBDIVISION = 1
 const MAX_SUBDIVISION = 8
@@ -29,8 +30,7 @@ export function validateMetronomeConfig(body: unknown): MetronomeConfig | null {
     bpm < minBpm ||
     bpm > maxBpm ||
     !Number.isInteger(countInBars) ||
-    countInBars < 1 ||
-    countInBars > 32 ||
+    !(COUNT_IN_BAR_OPTIONS as readonly number[]).includes(countInBars) ||
     !Number.isInteger(subdivision) ||
     subdivision < MIN_SUBDIVISION ||
     subdivision > MAX_SUBDIVISION ||

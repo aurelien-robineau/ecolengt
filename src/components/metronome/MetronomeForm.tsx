@@ -5,10 +5,14 @@ import { useCallback, useEffect, useId, useRef, useState } from 'react'
 import { MetronomePlayer } from '@/components/metronome/MetronomePlayer'
 import { MetronomeTempoPath } from '@/components/metronome/MetronomeTempoPath'
 import { cn } from '@/lib/cn'
-import { clampBpmToInputLimits, getBpmInputLimits } from '@/lib/metronome/bpmLimits'
+import {
+  clampBpmToInputLimits,
+  clampBpmWhileEditing,
+  getBpmInputLimits,
+} from '@/lib/metronome/bpmLimits'
 import { DEFAULT_SAMPLE_RATE, findFinaleStartSeconds } from '@/lib/metronome/audioGenerator'
 import { buildMetronomeDownloadFilename, buildSequence } from '@/lib/metronome/sequenceBuilder'
-import type { BpmType } from '@/lib/metronome/types'
+import { COUNT_IN_BAR_OPTIONS, DEFAULT_COUNT_IN_BARS, type BpmType } from '@/lib/metronome/types'
 
 const REQUEST_TIMEOUT_MS = 55_000
 
@@ -30,7 +34,7 @@ const defaultForm: FormState = {
   subdivision: 1,
   accentFirst: false,
   mechanicalTempos: false,
-  countInBars: 4,
+  countInBars: DEFAULT_COUNT_IN_BARS,
 }
 
 function SectionLabel({ children, className }: { children: React.ReactNode; className?: string }) {
@@ -71,7 +75,17 @@ function BpmInputWithType({
           max={max}
           required
           value={bpm}
-          onChange={(e) => onBpmChange(Number(e.target.value))}
+          onChange={(e) => {
+            const raw = e.target.value
+            if (raw === '') return
+            const parsed = Number(raw)
+            if (!Number.isFinite(parsed)) return
+            onBpmChange(clampBpmWhileEditing(parsed, bpmType))
+          }}
+          onBlur={(e) => {
+            const parsed = Number(e.target.value)
+            onBpmChange(clampBpmToInputLimits(Number.isFinite(parsed) ? parsed : bpm, bpmType))
+          }}
           className="min-w-0 flex-1 border-0 bg-transparent py-3 text-center font-serif text-2xl tabular-nums text-foreground outline-none"
           aria-label="Tempo en BPM"
         />
@@ -142,6 +156,11 @@ export function MetronomeForm() {
     setFinaleStartTime(null)
     setLoading(true)
 
+    const bpm = clampBpmToInputLimits(form.bpm, form.bpmType)
+    if (bpm !== form.bpm) {
+      setForm((s) => ({ ...s, bpm }))
+    }
+
     const controller = new AbortController()
     const timeoutId = window.setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS)
 
@@ -150,7 +169,7 @@ export function MetronomeForm() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          bpm: form.bpm,
+          bpm,
           bpmType: form.bpmType,
           countInBars: form.countInBars,
           subdivision: form.subdivision,
@@ -178,7 +197,7 @@ export function MetronomeForm() {
       }
 
       const sequenceConfig = {
-        bpm: form.bpm,
+        bpm,
         bpmType: form.bpmType,
         countInBars: form.countInBars,
         mechanicalTempos: form.mechanicalTempos,
@@ -241,6 +260,15 @@ export function MetronomeForm() {
                   }))
                 }
               />
+              <label className="flex cursor-pointer items-center justify-center gap-3 rounded-sm border border-brand-border/70 bg-surface-muted/40 px-3 py-3 text-center">
+                <input
+                  type="checkbox"
+                  checked={form.mechanicalTempos}
+                  onChange={(e) => setForm((s) => ({ ...s, mechanicalTempos: e.target.checked }))}
+                  className="size-4 accent-brand"
+                />
+                <span className="text-sm text-foreground">Tempos métronome mécanique</span>
+              </label>
             </div>
 
             <div className="grid gap-5 sm:grid-cols-2">
@@ -266,16 +294,18 @@ export function MetronomeForm() {
                 <label htmlFor={`${formId}-count-in`} className="block">
                   <SectionLabel>Intro (mesures)</SectionLabel>
                 </label>
-                <input
+                <select
                   id={`${formId}-count-in`}
-                  type="number"
-                  min={1}
-                  max={32}
-                  required
                   value={form.countInBars}
                   onChange={(e) => setForm((s) => ({ ...s, countInBars: Number(e.target.value) }))}
                   className={cn(fieldClass, 'text-center')}
-                />
+                >
+                  {COUNT_IN_BAR_OPTIONS.map((value) => (
+                    <option key={value} value={value}>
+                      {value === 0 ? 'Aucune' : value}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
 
@@ -290,15 +320,6 @@ export function MetronomeForm() {
                 <span className="text-sm text-foreground">
                   Accent sur le 1<sup>er</sup> temps
                 </span>
-              </label>
-              <label className="flex cursor-pointer items-center justify-center gap-3 rounded-sm border border-brand-border/70 bg-surface-muted/40 px-3 py-3 text-center">
-                <input
-                  type="checkbox"
-                  checked={form.mechanicalTempos}
-                  onChange={(e) => setForm((s) => ({ ...s, mechanicalTempos: e.target.checked }))}
-                  className="size-4 accent-brand"
-                />
-                <span className="text-sm text-foreground">Tempos métronome mécanique</span>
               </label>
             </div>
 

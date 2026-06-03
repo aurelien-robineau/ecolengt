@@ -53,11 +53,22 @@ describe('sequenceBuilder', () => {
     const sequence = buildSequence({
       bpm: 92,
       bpmType: 'max',
-      countInBars: 6,
+      countInBars: 2,
       mechanicalTempos: false,
     })
-    expect(sequence[0].bars).toBe(6)
+    expect(sequence[0].bars).toBe(2)
     expect(sequence.length).toBe(REFERENCE_BODY_SEQUENCE.length + 1)
+  })
+
+  it('omits count-in when intro bars is 0', () => {
+    const sequence = buildSequence({
+      bpm: 92,
+      bpmType: 'max',
+      countInBars: 0,
+      mechanicalTempos: false,
+    })
+    expect(sequence.length).toBe(REFERENCE_BODY_SEQUENCE.length)
+    expect(sequence[0].bars).toBe(REFERENCE_BODY_SEQUENCE[0].bars)
   })
 
   it('builds the reference tempo path for max BPM 92', () => {

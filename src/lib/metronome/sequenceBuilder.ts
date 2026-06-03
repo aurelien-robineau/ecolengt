@@ -37,19 +37,24 @@ export function scaleRatio(bpm: number, bpmType: BpmType): number {
 export function buildSequence(config: MetronomeSequenceConfig): SequenceSegment[] {
   const ratio = scaleRatio(config.bpm, config.bpmType)
 
-  const countIn: SequenceSegment = {
-    bars: config.countInBars,
-    bpmStart: roundBpm(REFERENCE_COUNT_IN_BPM * ratio),
-    bpmEnd: roundBpm(REFERENCE_COUNT_IN_BPM * ratio),
-  }
-
   const body = REFERENCE_BODY_SEQUENCE.map((segment) => ({
     bars: segment.bars,
     bpmStart: roundBpm(segment.bpmStart * ratio),
     bpmEnd: roundBpm(segment.bpmEnd * ratio),
   }))
 
-  const sequence = [countIn, ...body]
+  const sequence =
+    config.countInBars > 0
+      ? [
+          {
+            bars: config.countInBars,
+            bpmStart: roundBpm(REFERENCE_COUNT_IN_BPM * ratio),
+            bpmEnd: roundBpm(REFERENCE_COUNT_IN_BPM * ratio),
+          },
+          ...body,
+        ]
+      : body
+
   return config.mechanicalTempos ? applyMechanicalTemposToSequence(sequence) : sequence
 }
 
@@ -96,7 +101,7 @@ type ScaledSegment = {
 
 function buildScaledBodySegments(config: MetronomeSequenceConfig): ScaledSegment[] {
   const ratio = scaleRatio(config.bpm, config.bpmType)
-  const displayBody = buildSequence(config).slice(1)
+  const displayBody = buildSequence(config).slice(config.countInBars > 0 ? 1 : 0)
 
   return REFERENCE_BODY_SEQUENCE.map((segment, index) => ({
     exact: {
