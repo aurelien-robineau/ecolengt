@@ -81,6 +81,12 @@ export const seoCopy = {
     description: `Association Tom Tom : promotion de la batterie, examens publics NGT et actions culturelles à ${cityLabel(site)}. Liée à ${schoolLabel(site)} et au ${DANTE_AGOSTINI_NETWORK}.`,
   }),
 
+  leTrainMetronome: (site: SiteSettingsData) => ({
+    documentTitle: 'Le Train – Métronome',
+    title: `Le Train – métronome progressif — ${schoolLabel(site)}`,
+    description: `Générez un métronome « Le Train » personnalisé (tempo, subdivisions, introduction) pour vos répétitions de batterie avec ${schoolLabel(site)}.`,
+  }),
+
   mentionsLegales: (site: SiteSettingsData) => ({
     documentTitle: 'Mentions Légales & Politique de Confidentialité',
     title: 'Mentions Légales & Politique de Confidentialité',

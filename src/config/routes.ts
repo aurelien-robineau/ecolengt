@@ -10,4 +10,5 @@ export const routes = {
   pricing: '/tarifs',
   students: '/eleves',
   legalNotice: '/mentions-legales',
+  leTrainMetronome: '/le-train-metronome',
 } as const

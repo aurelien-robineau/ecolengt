@@ -22,7 +22,7 @@ export function Footer({ site }: FooterProps) {
           <p className="font-serif text-base text-surface-muted">{site.name}</p>
         </div>
 
-        <div className="mb-16 grid gap-12 sm:grid-cols-2 lg:grid-cols-3 lg:gap-16">
+        <div className="mb-16 grid gap-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-16">
           <div>
             <h2 className="mb-6 text-[11px] tracking-[0.2em] text-brand uppercase">Adresse</h2>
             <AddressContent
@@ -86,6 +86,16 @@ export function Footer({ site }: FooterProps) {
                 ))}
               </div>
             ) : null}
+          </div>
+
+          <div>
+            <h2 className="mb-6 text-[11px] tracking-[0.2em] text-brand uppercase">Ressources</h2>
+            <Link
+              href={routes.leTrainMetronome}
+              className="block text-sm leading-8 text-foreground-subtle no-underline transition-colors hover:text-brand"
+            >
+              Le Train – Métronome
+            </Link>
           </div>
 
           {(site.social.instagram || site.social.facebook) && (
