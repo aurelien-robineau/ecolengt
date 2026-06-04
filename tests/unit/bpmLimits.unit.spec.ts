@@ -15,7 +15,7 @@ describe('bpmLimits', () => {
 
   it('uses max-specific bounds', () => {
     expect(getBpmInputLimits('max')).toEqual(BPM_INPUT_LIMITS.max)
-    expect(BPM_INPUT_LIMITS.max).toEqual({ min: 26, max: 240 })
+    expect(BPM_INPUT_LIMITS.max).toEqual({ min: 26, max: 92 })
   })
 
   it('clamps BPM when switching interpretation', () => {
@@ -24,13 +24,13 @@ describe('bpmLimits', () => {
   })
 
   it('clamps out-of-range values', () => {
-    expect(clampBpmToInputLimits(2340, 'max')).toBe(240)
+    expect(clampBpmToInputLimits(2340, 'max')).toBe(92)
     expect(clampBpmToInputLimits(9, 'max')).toBe(26)
   })
 
   it('steps BPM within limits', () => {
-    expect(stepBpm(92, 5, 'max')).toBe(97)
+    expect(stepBpm(87, 5, 'max')).toBe(92)
     expect(stepBpm(26, -1, 'max')).toBe(26)
-    expect(stepBpm(240, 5, 'max')).toBe(240)
+    expect(stepBpm(92, 5, 'max')).toBe(92)
   })
 })

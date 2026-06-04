@@ -6,9 +6,10 @@ import { cn } from '@/lib/cn'
 import {
   buildTempoPathDisplay,
   formatTempoBpm,
+  REFERENCE_MAX_BPM,
   type TempoMilestone,
 } from '@/lib/metronome/sequenceBuilder'
-import type { BpmType } from '@/lib/metronome/types'
+import type { BpmType, MetronomeSequenceConfig } from '@/lib/metronome/types'
 
 type MetronomeTempoPathProps = {
   bpm: number
@@ -18,107 +19,16 @@ type MetronomeTempoPathProps = {
   className?: string
 }
 
-function TempoValue({ milestone, compact }: { milestone: TempoMilestone; compact?: boolean }) {
-  return (
-    <span
-      className={cn(
-        'font-serif font-light tabular-nums text-foreground transition-colors duration-300',
-        compact ? 'text-sm md:text-base' : 'text-lg md:text-xl',
-      )}
-    >
-      {formatTempoBpm(milestone.display)}
-    </span>
-  )
+const REFERENCE_TEMPO_CONFIG: MetronomeSequenceConfig = {
+  bpm: REFERENCE_MAX_BPM,
+  bpmType: 'max',
+  countInBars: 0,
+  mechanicalTempos: false,
 }
 
-function HorizontalArrow({ compact }: { compact?: boolean }) {
-  return (
-    <svg
-      className={cn(
-        compact ? 'size-3.5 md:size-4' : 'size-4 md:size-[1.125rem]',
-        'shrink-0 text-foreground',
-      )}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.75"
-      aria-hidden
-    >
-      <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14m0 0l-4-4m4 4l-4 4" />
-    </svg>
-  )
-}
-
-function CrescendoArrow({ compact }: { compact?: boolean }) {
-  return (
-    <svg
-      className={cn(
-        compact ? 'size-3.5 md:size-4' : 'size-4 md:size-[1.125rem]',
-        'shrink-0 text-foreground',
-      )}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.75"
-      aria-hidden
-    >
-      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6m0 0H12m6 0v6" />
-    </svg>
-  )
-}
-
-function DecrescendoArrow({ compact }: { compact?: boolean }) {
-  return (
-    <svg
-      className={cn(
-        compact ? 'size-3.5 md:size-4' : 'size-4 md:size-[1.125rem]',
-        'shrink-0 text-foreground',
-      )}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.75"
-      aria-hidden
-    >
-      <path strokeLinecap="round" strokeLinejoin="round" d="M6 6l12 12m0 0H12m6 0v-6" />
-    </svg>
-  )
-}
-
-function separatorForMilestones(previous: TempoMilestone, current: TempoMilestone) {
-  if (current.display === previous.display) return 'horizontal' as const
-  if (current.display > previous.display) return 'crescendo' as const
-  return 'decrescendo' as const
-}
-
-function TempoSeparator({
-  previous,
-  current,
-  compact,
-}: {
-  previous: TempoMilestone
-  current: TempoMilestone
-  compact?: boolean
-}) {
-  const kind = separatorForMilestones(previous, current)
-  const Arrow =
-    kind === 'horizontal'
-      ? HorizontalArrow
-      : kind === 'crescendo'
-        ? CrescendoArrow
-        : DecrescendoArrow
-
-  return (
-    <span
-      className={cn(
-        'inline-flex items-center self-center',
-        compact ? 'mx-0.5 md:mx-1' : 'mx-1 md:mx-1.5',
-      )}
-      aria-hidden
-    >
-      <Arrow compact={compact} />
-    </span>
-  )
+function buildMilestones(config: MetronomeSequenceConfig): TempoMilestone[] {
+  const { ascent, descent } = buildTempoPathDisplay(config)
+  return [...ascent, ...descent]
 }
 
 export function MetronomeTempoPath({
@@ -128,16 +38,11 @@ export function MetronomeTempoPath({
   mechanicalTempos,
   className,
 }: MetronomeTempoPathProps) {
-  const { ascent, descent } = useMemo(
-    () => buildTempoPathDisplay({ bpm, bpmType, countInBars, mechanicalTempos }),
+  const referenceMilestones = useMemo(() => buildMilestones(REFERENCE_TEMPO_CONFIG), [])
+
+  const calculatedMilestones = useMemo(
+    () => buildMilestones({ bpm, bpmType, countInBars, mechanicalTempos }),
     [bpm, bpmType, countInBars, mechanicalTempos],
-  )
-
-  const milestones = useMemo(() => [...ascent, ...descent], [ascent, descent])
-
-  const compact = useMemo(
-    () => milestones.some((milestone) => formatTempoBpm(milestone.display).length >= 3),
-    [milestones],
   )
 
   return (
@@ -150,39 +55,33 @@ export function MetronomeTempoPath({
       aria-atomic="true"
     >
       <p className="mb-4 text-center text-[10px] tracking-[0.2em] text-foreground-muted uppercase">
-        Parcours tempo calculé
+        Tempos
       </p>
       <div className="-mx-5 overflow-x-auto overscroll-x-contain px-5 md:-mx-7 md:px-7">
-        <p className="mx-auto flex w-max min-w-full flex-nowrap items-center justify-center gap-x-0 text-center leading-relaxed">
-          {ascent.map((milestone, index) => (
-            <span
-              key={`up-${index}-${milestone.exact}`}
-              className="inline-flex shrink-0 items-center"
-            >
-              {index > 0 ? (
-                <TempoSeparator
-                  previous={ascent[index - 1]}
-                  current={milestone}
-                  compact={compact}
-                />
-              ) : null}
-              <TempoValue milestone={milestone} compact={compact} />
-            </span>
-          ))}
-          {descent.map((milestone, index) => (
-            <span
-              key={`down-${index}-${milestone.exact}`}
-              className="inline-flex shrink-0 items-center"
-            >
-              <TempoSeparator
-                previous={index === 0 ? ascent[ascent.length - 1] : descent[index - 1]}
-                current={milestone}
-                compact={compact}
-              />
-              <TempoValue milestone={milestone} compact={compact} />
-            </span>
-          ))}
-        </p>
+        <table className="mx-auto w-max min-w-full border-collapse" aria-label="Tempos">
+          <tbody>
+            <tr>
+              {referenceMilestones.map((milestone, index) => (
+                <td
+                  key={`ref-${index}-${milestone.exact}`}
+                  className="px-2 py-1.5 text-center font-serif text-sm font-light tabular-nums text-foreground-muted transition-colors duration-300 md:text-base"
+                >
+                  {formatTempoBpm(milestone.display)}
+                </td>
+              ))}
+            </tr>
+            <tr>
+              {calculatedMilestones.map((milestone, index) => (
+                <td
+                  key={`calc-${index}-${milestone.exact}`}
+                  className="px-2 py-1.5 text-center font-serif text-base font-light tabular-nums text-foreground transition-colors duration-300 md:text-lg"
+                >
+                  {formatTempoBpm(milestone.display)}
+                </td>
+              ))}
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   )
