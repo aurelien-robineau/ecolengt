@@ -5,11 +5,7 @@ import { useCallback, useEffect, useId, useRef, useState } from 'react'
 import { MetronomePlayer } from '@/components/metronome/MetronomePlayer'
 import { MetronomeTempoPath } from '@/components/metronome/MetronomeTempoPath'
 import { cn } from '@/lib/cn'
-import {
-  clampBpmToInputLimits,
-  clampBpmWhileEditing,
-  getBpmInputLimits,
-} from '@/lib/metronome/bpmLimits'
+import { clampBpmToInputLimits, getBpmInputLimits, stepBpm } from '@/lib/metronome/bpmLimits'
 import { DEFAULT_SAMPLE_RATE, findFinaleStartSeconds } from '@/lib/metronome/audioGenerator'
 import { buildMetronomeDownloadFilename, buildSequence } from '@/lib/metronome/sequenceBuilder'
 import { COUNT_IN_BAR_OPTIONS, DEFAULT_COUNT_IN_BARS, type BpmType } from '@/lib/metronome/types'
@@ -50,6 +46,44 @@ function SectionLabel({ children, className }: { children: React.ReactNode; clas
   )
 }
 
+const bpmStepButtonClass = cn(
+  'flex min-w-11 items-center justify-center border-brand-border px-2 py-3 text-xs font-medium tabular-nums transition-colors',
+  'bg-surface-muted/50 text-foreground hover:bg-surface-muted',
+  'disabled:cursor-not-allowed disabled:opacity-40',
+)
+
+function BpmStepButton({
+  label,
+  delta,
+  bpm,
+  bpmType,
+  onBpmChange,
+  className,
+}: {
+  label: string
+  delta: number
+  bpm: number
+  bpmType: BpmType
+  onBpmChange: (bpm: number) => void
+  className?: string
+}) {
+  const { min, max } = getBpmInputLimits(bpmType)
+  const next = stepBpm(bpm, delta, bpmType)
+  const disabled = delta < 0 ? bpm <= min : bpm >= max
+
+  return (
+    <button
+      type="button"
+      disabled={disabled}
+      aria-label={label}
+      onClick={() => onBpmChange(next)}
+      className={cn(bpmStepButtonClass, className)}
+    >
+      {delta > 0 ? `+${delta}` : String(delta)}
+    </button>
+  )
+}
+
 function BpmInputWithType({
   formId,
   bpm,
@@ -66,35 +100,57 @@ function BpmInputWithType({
   const { min, max } = getBpmInputLimits(bpmType)
 
   return (
-    <div className="flex overflow-hidden rounded-sm border border-brand-border bg-surface-card">
-      <div className="flex min-w-0 flex-1 items-center gap-2 px-3">
-        <input
+    <div className="overflow-hidden rounded-sm border border-brand-border bg-surface-card">
+      <div className="flex items-stretch">
+        <div className="flex border-r border-brand-border">
+          <BpmStepButton
+            label="Diminuer le tempo de 5 BPM"
+            delta={-5}
+            bpm={bpm}
+            bpmType={bpmType}
+            onBpmChange={onBpmChange}
+            className="border-r"
+          />
+          <BpmStepButton
+            label="Diminuer le tempo de 1 BPM"
+            delta={-1}
+            bpm={bpm}
+            bpmType={bpmType}
+            onBpmChange={onBpmChange}
+          />
+        </div>
+        <div
           id={`${formId}-bpm`}
-          type="number"
-          min={min}
-          max={max}
-          required
-          value={bpm}
-          onChange={(e) => {
-            const raw = e.target.value
-            if (raw === '') return
-            const parsed = Number(raw)
-            if (!Number.isFinite(parsed)) return
-            onBpmChange(clampBpmWhileEditing(parsed, bpmType))
-          }}
-          onBlur={(e) => {
-            const parsed = Number(e.target.value)
-            onBpmChange(clampBpmToInputLimits(Number.isFinite(parsed) ? parsed : bpm, bpmType))
-          }}
-          className="min-w-0 flex-1 border-0 bg-transparent py-3 text-center font-serif text-2xl tabular-nums text-foreground outline-none"
+          role="spinbutton"
+          aria-valuenow={bpm}
+          aria-valuemin={min}
+          aria-valuemax={max}
           aria-label="Tempo en BPM"
-        />
-        <span className="shrink-0 text-[10px] tracking-[0.15em] text-foreground-muted uppercase">
-          BPM
-        </span>
+          className="flex min-w-0 flex-1 flex-col items-center justify-center gap-0.5 px-3 py-3"
+        >
+          <span className="font-serif text-2xl tabular-nums text-foreground">{bpm}</span>
+          <span className="text-[10px] tracking-[0.15em] text-foreground-muted uppercase">BPM</span>
+        </div>
+        <div className="flex border-l border-brand-border">
+          <BpmStepButton
+            label="Augmenter le tempo de 1 BPM"
+            delta={1}
+            bpm={bpm}
+            bpmType={bpmType}
+            onBpmChange={onBpmChange}
+            className="border-r"
+          />
+          <BpmStepButton
+            label="Augmenter le tempo de 5 BPM"
+            delta={5}
+            bpm={bpm}
+            bpmType={bpmType}
+            onBpmChange={onBpmChange}
+          />
+        </div>
       </div>
       <div
-        className="flex shrink-0 flex-col border-l border-brand-border sm:flex-row"
+        className="flex border-t border-brand-border"
         role="group"
         aria-label="Interprétation du tempo"
       >
@@ -103,18 +159,18 @@ function BpmInputWithType({
             { id: 'max' as const, label: 'Max.' },
             { id: 'start' as const, label: 'Départ' },
           ] as const
-        ).map((option) => (
+        ).map((option, index) => (
           <button
             key={option.id}
             type="button"
             onClick={() => onBpmTypeChange(option.id)}
             aria-pressed={bpmType === option.id}
             className={cn(
-              'px-3 py-2.5 text-[10px] tracking-[0.08em] uppercase transition-colors sm:py-3',
+              'flex-1 px-3 py-2.5 text-[10px] tracking-[0.08em] uppercase transition-colors',
               bpmType === option.id
                 ? 'bg-foreground text-surface'
                 : 'bg-surface-muted/50 text-foreground-muted hover:bg-surface-muted hover:text-foreground',
-              option.id === 'max' && 'sm:border-r sm:border-brand-border',
+              index === 0 && 'border-r border-brand-border',
             )}
           >
             {option.label}

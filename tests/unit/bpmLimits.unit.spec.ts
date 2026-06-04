@@ -3,8 +3,8 @@ import { describe, expect, it } from 'vitest'
 import {
   BPM_INPUT_LIMITS,
   clampBpmToInputLimits,
-  clampBpmWhileEditing,
   getBpmInputLimits,
+  stepBpm,
 } from '@/lib/metronome/bpmLimits'
 
 describe('bpmLimits', () => {
@@ -23,14 +23,14 @@ describe('bpmLimits', () => {
     expect(clampBpmToInputLimits(22, 'max')).toBe(26)
   })
 
-  it('clamps only above max while editing so values below min remain typable', () => {
-    expect(clampBpmWhileEditing(2340, 'max')).toBe(240)
-    expect(clampBpmWhileEditing(9, 'max')).toBe(9)
-    expect(clampBpmWhileEditing(92, 'max')).toBe(92)
-  })
-
-  it('clamps below min on full clamp', () => {
+  it('clamps out-of-range values', () => {
     expect(clampBpmToInputLimits(2340, 'max')).toBe(240)
     expect(clampBpmToInputLimits(9, 'max')).toBe(26)
+  })
+
+  it('steps BPM within limits', () => {
+    expect(stepBpm(92, 5, 'max')).toBe(97)
+    expect(stepBpm(26, -1, 'max')).toBe(26)
+    expect(stepBpm(240, 5, 'max')).toBe(240)
   })
 })

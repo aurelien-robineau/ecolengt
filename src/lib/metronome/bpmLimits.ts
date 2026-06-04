@@ -15,10 +15,6 @@ export function clampBpmToInputLimits(bpm: number, bpmType: BpmType): number {
   return Math.min(max, Math.max(min, Math.round(bpm)))
 }
 
-/** Clamps only when above max so multi-digit values below min can still be typed (e.g. 92). */
-export function clampBpmWhileEditing(bpm: number, bpmType: BpmType): number {
-  const { max } = getBpmInputLimits(bpmType)
-  if (!Number.isFinite(bpm)) return bpm
-  const rounded = Math.round(bpm)
-  return rounded > max ? max : rounded
+export function stepBpm(bpm: number, delta: number, bpmType: BpmType): number {
+  return clampBpmToInputLimits(bpm + delta, bpmType)
 }
