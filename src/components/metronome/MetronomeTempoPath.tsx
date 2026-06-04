@@ -4,7 +4,7 @@ import { useMemo } from 'react'
 
 import { cn } from '@/lib/cn'
 import {
-  buildTempoPathDisplay,
+  buildTempoTableMilestones,
   formatTempoBpm,
   REFERENCE_MAX_BPM,
   type TempoMilestone,
@@ -26,11 +26,6 @@ const REFERENCE_TEMPO_CONFIG: MetronomeSequenceConfig = {
   mechanicalTempos: false,
 }
 
-function buildMilestones(config: MetronomeSequenceConfig): TempoMilestone[] {
-  const { ascent, descent } = buildTempoPathDisplay(config)
-  return [...ascent, ...descent]
-}
-
 export function MetronomeTempoPath({
   bpm,
   bpmType,
@@ -38,10 +33,10 @@ export function MetronomeTempoPath({
   mechanicalTempos,
   className,
 }: MetronomeTempoPathProps) {
-  const referenceMilestones = useMemo(() => buildMilestones(REFERENCE_TEMPO_CONFIG), [])
+  const referenceMilestones = useMemo(() => buildTempoTableMilestones(REFERENCE_TEMPO_CONFIG), [])
 
   const calculatedMilestones = useMemo(
-    () => buildMilestones({ bpm, bpmType, countInBars, mechanicalTempos }),
+    () => buildTempoTableMilestones({ bpm, bpmType, countInBars, mechanicalTempos }),
     [bpm, bpmType, countInBars, mechanicalTempos],
   )
 

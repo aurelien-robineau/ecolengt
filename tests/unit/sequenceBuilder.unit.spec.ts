@@ -7,6 +7,7 @@ import {
   buildMetronomeDownloadFilename,
   buildSequence,
   buildTempoPathDisplay,
+  buildTempoTableMilestones,
   peakBpmFromSequence,
   roundBpm,
   scaleRatio,
@@ -40,13 +41,13 @@ describe('sequenceBuilder', () => {
   it('anchors start BPM type to reference start tempo', () => {
     expect(scaleRatio(72, 'start')).toBe(1)
     const sequence = buildSequence({
-      bpm: 80,
+      bpm: 72,
       bpmType: 'start',
       countInBars: 4,
       mechanicalTempos: false,
     })
-    const ratio = 80 / REFERENCE_START_BPM
-    expect(sequence[1]?.bpmStart).toBe(roundBpm(72 * ratio))
+    expect(sequence[1]?.bpmStart).toBe(72)
+    expect(peakBpmFromSequence(sequence)).toBe(REFERENCE_MAX_BPM)
   })
 
   it('prepends configurable count-in bars', () => {
@@ -120,6 +121,52 @@ describe('sequenceBuilder', () => {
       mechanicalTempos: false,
     })
     expect(buildMetronomeDownloadFilename(sequence)).toBe('Le Train - Métronome de 72 à 92.wav')
+  })
+
+  it('builds the tempo table with fixed columns for mechanical max BPM 78', () => {
+    const reference = buildTempoTableMilestones({
+      bpm: REFERENCE_MAX_BPM,
+      bpmType: 'max',
+      countInBars: 0,
+      mechanicalTempos: false,
+    })
+    const scaled = buildTempoTableMilestones({
+      bpm: 78,
+      bpmType: 'max',
+      countInBars: 0,
+      mechanicalTempos: true,
+    })
+
+    expect(reference.map((m) => m.display)).toEqual([72, 76, 80, 84, 88, 92, 88, 72, 42])
+    expect(scaled.length).toBe(reference.length)
+    expect(scaled.map((m) => m.display)).toEqual([60, 63, 69, 72, 76, 76, 76, 60, 36])
+  })
+
+  it('keeps tempo table column count aligned with reference across max BPM range', () => {
+    const referenceCount = buildTempoTableMilestones({
+      bpm: REFERENCE_MAX_BPM,
+      bpmType: 'max',
+      countInBars: 0,
+      mechanicalTempos: false,
+    }).length
+
+    const mismatches: Array<{ bpm: number; mechanical: boolean; count: number }> = []
+
+    for (let bpm = 26; bpm <= 92; bpm++) {
+      for (const mechanicalTempos of [false, true]) {
+        const count = buildTempoTableMilestones({
+          bpm,
+          bpmType: 'max',
+          countInBars: 0,
+          mechanicalTempos,
+        }).length
+        if (count !== referenceCount) {
+          mismatches.push({ bpm, mechanical: mechanicalTempos, count })
+        }
+      }
+    }
+
+    expect(mismatches).toEqual([])
   })
 
   it('rounds scaled tempos to integers', () => {

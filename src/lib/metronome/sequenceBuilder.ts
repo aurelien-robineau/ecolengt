@@ -154,6 +154,37 @@ export type TempoPathDisplay = {
   peak: number
 }
 
+type TempoTableAnchor = {
+  segmentIndex: number
+  field: 'bpmStart' | 'bpmEnd'
+}
+
+/** Fixed workout anchors so the tempo table always has one column per reference step. */
+const TEMPO_TABLE_ANCHORS: readonly TempoTableAnchor[] = [
+  { segmentIndex: 0, field: 'bpmStart' },
+  { segmentIndex: 1, field: 'bpmEnd' },
+  { segmentIndex: 3, field: 'bpmEnd' },
+  { segmentIndex: 5, field: 'bpmEnd' },
+  { segmentIndex: 7, field: 'bpmEnd' },
+  { segmentIndex: 9, field: 'bpmEnd' },
+  { segmentIndex: 11, field: 'bpmEnd' },
+  { segmentIndex: 12, field: 'bpmEnd' },
+  { segmentIndex: 14, field: 'bpmEnd' },
+] as const
+
+/** Milestones for the two-row tempo table (count-in excluded). */
+export function buildTempoTableMilestones(config: MetronomeSequenceConfig): TempoMilestone[] {
+  const segments = buildScaledBodySegments(config)
+
+  return TEMPO_TABLE_ANCHORS.map(({ segmentIndex, field }) => {
+    const segment = segments[segmentIndex]
+    return {
+      exact: segment.exact[field],
+      display: segment.display[field],
+    }
+  })
+}
+
 /** Workout body only (count-in excluded). */
 export function buildTempoPathDisplay(config: MetronomeSequenceConfig): TempoPathDisplay {
   const segments = buildScaledBodySegments(config)

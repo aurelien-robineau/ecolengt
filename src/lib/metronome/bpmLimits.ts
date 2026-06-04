@@ -1,8 +1,10 @@
+import { REFERENCE_MAX_BPM, REFERENCE_START_BPM } from './sequenceBuilder'
 import type { BpmType } from './types'
 
+/** Start mode scales the whole workout from the opening tempo; cap at reference start so peak stays ≤ 92. */
 export const BPM_INPUT_LIMITS = {
-  start: { min: 20, max: 188 },
-  max: { min: 26, max: 92 },
+  start: { min: 20, max: REFERENCE_START_BPM },
+  max: { min: 26, max: REFERENCE_MAX_BPM },
 } as const
 
 export function getBpmInputLimits(bpmType: BpmType): { min: number; max: number } {
