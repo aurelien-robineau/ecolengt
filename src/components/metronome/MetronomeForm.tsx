@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useId, useRef, useState } from 'react'
 
+import { MetronomeOptionToggle } from '@/components/metronome/MetronomeOptionToggle'
 import { MetronomePlayer } from '@/components/metronome/MetronomePlayer'
 import { MetronomeTempoPath } from '@/components/metronome/MetronomeTempoPath'
 import { cn } from '@/lib/cn'
@@ -316,15 +317,16 @@ export function MetronomeForm() {
                   }))
                 }
               />
-              <label className="flex cursor-pointer items-center justify-center gap-3 rounded-sm border border-brand-border/70 bg-surface-muted/40 px-3 py-3 text-center">
-                <input
-                  type="checkbox"
-                  checked={form.mechanicalTempos}
-                  onChange={(e) => setForm((s) => ({ ...s, mechanicalTempos: e.target.checked }))}
-                  className="size-4 accent-brand"
-                />
-                <span className="text-sm text-foreground">Tempos métronome mécanique</span>
-              </label>
+              <MetronomeOptionToggle
+                id={`${formId}-mechanical`}
+                icon="mechanical"
+                checked={form.mechanicalTempos}
+                onChange={(mechanicalTempos) => setForm((s) => ({ ...s, mechanicalTempos }))}
+                description="Ajuste chaque tempo aux marques d’un métronome mécanique."
+              >
+                <span className="sm:hidden">Tempos mécaniques</span>
+                <span className="hidden sm:inline">Tempos métronome mécanique</span>
+              </MetronomeOptionToggle>
             </div>
 
             <div className="grid gap-5 sm:grid-cols-2">
@@ -365,19 +367,15 @@ export function MetronomeForm() {
               </div>
             </div>
 
-            <div className="space-y-3">
-              <label className="flex cursor-pointer items-center justify-center gap-3 rounded-sm border border-brand-border/70 bg-surface-muted/40 px-3 py-3 text-center">
-                <input
-                  type="checkbox"
-                  checked={form.accentFirst}
-                  onChange={(e) => setForm((s) => ({ ...s, accentFirst: e.target.checked }))}
-                  className="size-4 accent-brand"
-                />
-                <span className="text-sm text-foreground">
-                  Accent sur le 1<sup>er</sup> temps
-                </span>
-              </label>
-            </div>
+            <MetronomeOptionToggle
+              id={`${formId}-accent-first`}
+              icon="accentFirst"
+              checked={form.accentFirst}
+              onChange={(accentFirst) => setForm((s) => ({ ...s, accentFirst }))}
+              description="Renforce le premier temps de chaque mesure."
+            >
+              Accent sur le 1<sup>er</sup> temps
+            </MetronomeOptionToggle>
 
             <button
               type="submit"
