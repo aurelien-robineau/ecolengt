@@ -34,10 +34,11 @@ export function MetronomeOptionToggle({
     <label
       htmlFor={id}
       className={cn(
-        'group flex cursor-pointer items-center gap-3 rounded-sm border px-3 py-2.5 transition-[border-color,background-color,box-shadow] sm:gap-3.5 sm:px-3.5 sm:py-3.5',
+        'group flex cursor-pointer items-center gap-3 rounded-xl border px-3.5 py-3 transition-[border-color,background-color,box-shadow]',
+        'sm:gap-4 sm:px-4 sm:py-3.5',
         checked
-          ? 'border-brand-border bg-brand-dim shadow-[inset_0_0_0_1px_rgb(255_221_0_/_0.15)]'
-          : 'border-brand-border/60 bg-surface-card hover:border-brand-border/90 hover:bg-surface-muted/50',
+          ? 'border-[var(--metro-border-strong)] bg-[var(--metro-brand-dim)] shadow-[inset_0_0_0_1px_var(--metro-brand-glow)]'
+          : 'border-[var(--metro-border)] bg-[var(--metro-panel)] hover:border-[var(--metro-border-strong)] hover:bg-[var(--metro-hover)]',
       )}
     >
       <input
@@ -49,11 +50,11 @@ export function MetronomeOptionToggle({
       />
       <span
         className={cn(
-          'flex shrink-0 items-center justify-center rounded-sm border transition-colors',
+          'flex shrink-0 items-center justify-center rounded-lg border transition-colors',
           isAccentIcon ? 'size-9 p-0.5 sm:size-10 sm:p-1' : 'size-9 sm:size-10',
           checked
-            ? 'border-brand-border bg-brand text-foreground'
-            : 'border-brand-border/40 bg-surface-muted text-foreground-muted group-hover:text-foreground',
+            ? 'border-[var(--metro-border-strong)] bg-[var(--metro-brand)] text-[var(--metro-on-brand)]'
+            : 'border-[var(--metro-border)] bg-[var(--metro-panel)] text-[var(--metro-muted)] group-hover:text-[var(--metro-text)]',
         )}
         aria-hidden
       >
@@ -63,28 +64,28 @@ export function MetronomeOptionToggle({
         />
       </span>
       <span className="min-w-0 flex-1 text-left">
-        <span className="block text-[13px] leading-tight text-foreground sm:text-sm sm:leading-snug">
+        <span className="block text-[13px] leading-tight text-[var(--metro-text)] sm:text-sm sm:leading-snug">
           {children}
         </span>
         {description ? (
-          <span className="mt-0.5 hidden text-xs leading-relaxed text-foreground-muted sm:block">
+          <span className="mt-1 hidden text-xs leading-relaxed text-[var(--metro-muted)] sm:block">
             {description}
           </span>
         ) : null}
       </span>
       <span
         className={cn(
-          'relative h-6 w-10 shrink-0 rounded-full border transition-colors',
+          'relative h-6 w-11 shrink-0 rounded-full border transition-colors',
           checked
-            ? 'border-foreground/20 bg-foreground'
-            : 'border-brand-border/50 bg-surface-muted',
+            ? 'border-[var(--metro-brand)]/40 bg-[var(--metro-brand)]'
+            : 'border-[var(--metro-border)] bg-[var(--metro-hover)]',
         )}
         aria-hidden
       >
         <span
           className={cn(
-            'absolute top-0.5 left-0.5 size-[1.125rem] rounded-full bg-surface-card shadow-sm transition-transform',
-            checked && 'translate-x-4',
+            'absolute top-0.5 left-0.5 size-[1.125rem] rounded-full shadow-sm transition-transform',
+            checked ? 'translate-x-5 bg-[var(--metro-on-brand)]' : 'bg-[var(--metro-panel)]',
           )}
         />
       </span>

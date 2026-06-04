@@ -1,0 +1,47 @@
+/* Scoped to `.metronome-feature` — light studio theme, brand yellow retained. */
+
+.metronome-feature {
+  --metro-panel: #ffffff;
+  --metro-panel-soft: #ffffff;
+  --metro-hover: #f4f4f4;
+  --metro-border: rgb(255 221 0 / 50%);
+  --metro-border-strong: rgb(255 221 0 / 72%);
+  --metro-text: #181818;
+  --metro-muted: #555555;
+  --metro-subtle: #909090;
+  --metro-on-brand: #181818;
+  --metro-brand: #ffdd00;
+  --metro-brand-hover: #ffe633;
+  --metro-brand-dim: rgb(255 221 0 / 12%);
+  --metro-brand-glow: rgb(255 221 0 / 28%);
+
+  color: var(--metro-text);
+  font-family: var(--font-metronome-body), system-ui, sans-serif;
+}
+
+.metronome-feature .font-metronome-display {
+  font-family: var(--font-metronome-display), system-ui, sans-serif;
+}
+
+.metronome-feature .font-metronome-mono {
+  font-family: var(--font-metronome-mono), ui-monospace, monospace;
+}
+
+.metronome-feature .metro-play-ring {
+  box-shadow:
+    0 0 0 1px rgb(255 221 0 / 45%),
+    0 0 32px var(--metro-brand-glow),
+    0 12px 32px rgb(24 24 24 / 12%);
+}
+
+.metronome-feature .metro-submit-glow {
+  box-shadow:
+    0 0 0 1px rgb(255 221 0 / 55%),
+    0 6px 22px var(--metro-brand-glow);
+}
+
+.metronome-feature .metro-submit-glow:hover {
+  box-shadow:
+    0 0 0 1px rgb(255 221 0 / 70%),
+    0 10px 28px rgb(255 221 0 / 35%);
+}

@@ -2,7 +2,6 @@
 
 import { useMemo } from 'react'
 
-import { cn } from '@/lib/cn'
 import {
   buildTempoTableMilestones,
   formatTempoBpm,
@@ -39,33 +38,46 @@ export function MetronomeTempoPath({
 
   return (
     <div
-      className={cn(
-        'rounded-sm border border-brand-border/80 bg-surface-muted/40 px-3 py-4 md:px-7 md:py-8',
-        'border-brand-border/60 bg-surface-muted/60',
-      )}
+      className="relative overflow-hidden rounded-xl border border-[var(--metro-border)] bg-[var(--metro-panel)] px-3 py-5 md:px-5 md:py-6"
       aria-live="polite"
       aria-atomic="true"
     >
-      <p className="mb-2 text-center text-[10px] tracking-[0.2em] text-foreground-muted uppercase md:mb-4">
+      <p className="font-metronome-mono mb-4 text-center text-[10px] tracking-[0.22em] text-[var(--metro-muted)] uppercase">
         Tempos
       </p>
+
       <table className="w-full border-collapse" aria-label="Tempos">
+        <caption className="sr-only">
+          Ligne de référence et ligne calculée pour la séquence Le Train
+        </caption>
         <tbody>
           <tr>
+            <th
+              scope="row"
+              className="font-metronome-mono w-16 pr-2 text-left text-[9px] tracking-[0.12em] text-[var(--metro-subtle)] uppercase md:w-20 md:text-[10px]"
+            >
+              Réf.
+            </th>
             {referenceMilestones.map((tempoBpm, index) => (
               <td
                 key={`ref-${index}-${tempoBpm}`}
-                className="px-1 py-1 text-center font-serif text-xs font-light tabular-nums text-foreground-muted transition-colors duration-300 md:px-2 md:py-1.5 md:text-base"
+                className="px-0.5 py-2 text-center font-metronome-mono text-xs tabular-nums text-[var(--metro-subtle)] md:px-1 md:text-sm"
               >
                 {formatTempoBpm(tempoBpm)}
               </td>
             ))}
           </tr>
           <tr>
+            <th
+              scope="row"
+              className="font-metronome-mono pr-2 text-left text-[9px] tracking-[0.12em] text-[var(--metro-text)] uppercase md:text-[10px]"
+            >
+              Vous
+            </th>
             {calculatedMilestones.map((tempoBpm, index) => (
               <td
                 key={`calc-${index}-${tempoBpm}`}
-                className="px-1 py-1 text-center font-serif text-sm font-light tabular-nums text-foreground transition-colors duration-300 md:px-2 md:py-1.5 md:text-lg"
+                className="px-0.5 py-2 text-center font-metronome-mono text-sm tabular-nums text-[var(--metro-text)] md:px-1 md:text-base"
               >
                 {formatTempoBpm(tempoBpm)}
               </td>

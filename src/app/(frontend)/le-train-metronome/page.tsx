@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
+import { MetronomeFeature } from '@/components/metronome/MetronomeFeature'
 import { MetronomeForm } from '@/components/metronome/MetronomeForm'
-import { Container } from '@/components/ui/Container'
 import { routes } from '@/config/routes'
 import { getSiteSettings } from '@/lib/content'
 import { buildPageMetadata } from '@/lib/seo/metadata'
@@ -23,9 +23,9 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function LeTrainMetronomePage() {
   return (
     <section className="bg-surface py-(--spacing-section-mobile) pt-28 md:py-(--spacing-section)">
-      <Container className="flex flex-col items-center">
+      <MetronomeFeature className="mx-auto flex max-w-(--width-content) flex-col items-center px-4 md:px-6">
         <MetronomeForm />
-      </Container>
+      </MetronomeFeature>
     </section>
   )
 }
