@@ -12,6 +12,7 @@
     "docker:db": "docker compose up mongo -d",
     "check-types": "tsc --noEmit",
     "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "format:staged": "lint-staged",
     "generate:importmap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
     "generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types && prettier --write src/payload-types.ts",
