@@ -7,7 +7,6 @@ import {
   buildTempoTableMilestones,
   formatTempoBpm,
   REFERENCE_MAX_BPM,
-  type TempoMilestone,
 } from '@/lib/metronome/sequenceBuilder'
 import type { BpmType, MetronomeSequenceConfig } from '@/lib/metronome/types'
 
@@ -55,22 +54,22 @@ export function MetronomeTempoPath({
       <table className="w-full border-collapse" aria-label="Tempos">
         <tbody>
           <tr>
-            {referenceMilestones.map((milestone, index) => (
+            {referenceMilestones.map((tempoBpm, index) => (
               <td
-                key={`ref-${index}-${milestone.exact}`}
+                key={`ref-${index}-${tempoBpm}`}
                 className="px-1 py-1 text-center font-serif text-xs font-light tabular-nums text-foreground-muted transition-colors duration-300 md:px-2 md:py-1.5 md:text-base"
               >
-                {formatTempoBpm(milestone.display)}
+                {formatTempoBpm(tempoBpm)}
               </td>
             ))}
           </tr>
           <tr>
-            {calculatedMilestones.map((milestone, index) => (
+            {calculatedMilestones.map((tempoBpm, index) => (
               <td
-                key={`calc-${index}-${milestone.exact}`}
+                key={`calc-${index}-${tempoBpm}`}
                 className="px-1 py-1 text-center font-serif text-sm font-light tabular-nums text-foreground transition-colors duration-300 md:px-2 md:py-1.5 md:text-lg"
               >
-                {formatTempoBpm(milestone.display)}
+                {formatTempoBpm(tempoBpm)}
               </td>
             ))}
           </tr>

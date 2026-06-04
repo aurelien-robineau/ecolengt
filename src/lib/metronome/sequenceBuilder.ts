@@ -1,5 +1,5 @@
 import { applyMechanicalTemposToSequence } from './mechanicalTempos'
-import type { BpmType, MetronomeConfig, MetronomeSequenceConfig, SequenceSegment } from './types'
+import type { BpmType, MetronomeSequenceConfig, SequenceSegment } from './types'
 
 /** Canonical workout body (count-in is prepended separately). */
 export const REFERENCE_BODY_SEQUENCE: readonly SequenceSegment[] = [
@@ -77,83 +77,6 @@ export function buildMetronomeDownloadFilename(sequence: SequenceSegment[]): str
   return `Le Train - Métronome de ${formatTempoBpm(bpmFirst)} à ${formatTempoBpm(bpmMax)}.wav`
 }
 
-export type TempoMilestone = {
-  /** Unscaled-scaled BPM before display rounding (used for deduplication). */
-  exact: number
-  /** Integer BPM shown in the UI and used in audio. */
-  display: number
-}
-
-function sameExactBpm(a: number, b: number): boolean {
-  return Math.abs(a - b) < 1e-9
-}
-
-function pushMilestone(milestones: TempoMilestone[], exact: number, display: number): void {
-  const last = milestones[milestones.length - 1]
-  if (last && sameExactBpm(last.exact, exact)) return
-  milestones.push({ exact, display })
-}
-
-type ScaledSegment = {
-  exact: SequenceSegment
-  display: SequenceSegment
-}
-
-function buildScaledBodySegments(config: MetronomeSequenceConfig): ScaledSegment[] {
-  const ratio = scaleRatio(config.bpm, config.bpmType)
-  const displayBody = buildSequence(config).slice(config.countInBars > 0 ? 1 : 0)
-
-  return REFERENCE_BODY_SEQUENCE.map((segment, index) => ({
-    exact: {
-      bars: segment.bars,
-      bpmStart: segment.bpmStart * ratio,
-      bpmEnd: segment.bpmEnd * ratio,
-    },
-    display: displayBody[index],
-  }))
-}
-
-function extractAscentMilestones(segments: ScaledSegment[]): TempoMilestone[] {
-  const milestones: TempoMilestone[] = []
-
-  for (const { exact, display } of segments) {
-    if (milestones.length === 0) {
-      pushMilestone(milestones, exact.bpmStart, display.bpmStart)
-      if (display.bpmEnd !== display.bpmStart) {
-        pushMilestone(milestones, exact.bpmEnd, display.bpmEnd)
-      }
-      continue
-    }
-
-    if (display.bpmStart === display.bpmEnd) {
-      pushMilestone(milestones, exact.bpmStart, display.bpmStart)
-      continue
-    }
-
-    if (display.bpmEnd > display.bpmStart) {
-      pushMilestone(milestones, exact.bpmEnd, display.bpmEnd)
-    }
-  }
-
-  return milestones
-}
-
-function extractDescentMilestones(segments: ScaledSegment[]): TempoMilestone[] {
-  const milestones: TempoMilestone[] = []
-
-  for (const { exact, display } of segments) {
-    pushMilestone(milestones, exact.bpmEnd, display.bpmEnd)
-  }
-
-  return milestones
-}
-
-export type TempoPathDisplay = {
-  ascent: TempoMilestone[]
-  descent: TempoMilestone[]
-  peak: number
-}
-
 type TempoTableAnchor = {
   segmentIndex: number
   field: 'bpmStart' | 'bpmEnd'
@@ -172,34 +95,9 @@ const TEMPO_TABLE_ANCHORS: readonly TempoTableAnchor[] = [
   { segmentIndex: 14, field: 'bpmEnd' },
 ] as const
 
-/** Milestones for the two-row tempo table (count-in excluded). */
-export function buildTempoTableMilestones(config: MetronomeSequenceConfig): TempoMilestone[] {
-  const segments = buildScaledBodySegments(config)
+/** Display BPMs for the two-row tempo table (count-in excluded). */
+export function buildTempoTableMilestones(config: MetronomeSequenceConfig): number[] {
+  const displayBody = buildSequence(config).slice(config.countInBars > 0 ? 1 : 0)
 
-  return TEMPO_TABLE_ANCHORS.map(({ segmentIndex, field }) => {
-    const segment = segments[segmentIndex]
-    return {
-      exact: segment.exact[field],
-      display: segment.display[field],
-    }
-  })
-}
-
-/** Workout body only (count-in excluded). */
-export function buildTempoPathDisplay(config: MetronomeSequenceConfig): TempoPathDisplay {
-  const segments = buildScaledBodySegments(config)
-  const peak = peakBpmFromSequence(segments.map((segment) => segment.display))
-  const descentStartIdx = segments.findIndex(
-    (segment) => segment.display.bpmEnd < segment.display.bpmStart,
-  )
-
-  if (descentStartIdx === -1) {
-    return { ascent: extractAscentMilestones(segments), descent: [], peak }
-  }
-
-  return {
-    ascent: extractAscentMilestones(segments.slice(0, descentStartIdx)),
-    descent: extractDescentMilestones(segments.slice(descentStartIdx)),
-    peak,
-  }
+  return TEMPO_TABLE_ANCHORS.map(({ segmentIndex, field }) => displayBody[segmentIndex][field])
 }

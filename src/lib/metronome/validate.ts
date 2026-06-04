@@ -2,7 +2,7 @@ import { getBpmInputLimits } from './bpmLimits'
 import { DEFAULT_SAMPLE_RATE } from './audioGenerator'
 import { MECHANICAL_METRONOME_MAX_BPM, MECHANICAL_METRONOME_MIN_BPM } from './mechanicalTempos'
 import { COUNT_IN_BAR_OPTIONS } from './types'
-import type { BpmType, MetronomeConfig, MetronomeGeneratePayload } from './types'
+import type { MetronomeConfig, MetronomeGeneratePayload } from './types'
 const MIN_SUBDIVISION = 1
 const MAX_SUBDIVISION = 8
 

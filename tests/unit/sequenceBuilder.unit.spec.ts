@@ -3,10 +3,8 @@ import { describe, expect, it } from 'vitest'
 import {
   REFERENCE_BODY_SEQUENCE,
   REFERENCE_MAX_BPM,
-  REFERENCE_START_BPM,
   buildMetronomeDownloadFilename,
   buildSequence,
-  buildTempoPathDisplay,
   buildTempoTableMilestones,
   peakBpmFromSequence,
   roundBpm,
@@ -72,45 +70,32 @@ describe('sequenceBuilder', () => {
     expect(sequence[0].bars).toBe(REFERENCE_BODY_SEQUENCE[0].bars)
   })
 
-  it('builds the reference tempo path for max BPM 92', () => {
-    const path = buildTempoPathDisplay({
+  it('builds the reference tempo table for max BPM 92', () => {
+    const tempos = buildTempoTableMilestones({
       bpm: 92,
       bpmType: 'max',
-      countInBars: 4,
+      countInBars: 0,
       mechanicalTempos: false,
     })
-    expect(path.ascent.map((m) => m.display)).toEqual([72, 76, 80, 84, 88, 92])
-    expect(path.descent.map((m) => m.display)).toEqual([88, 72, 42])
-    expect(path.peak).toBe(92)
+    expect(tempos).toEqual([72, 76, 80, 84, 88, 92, 88, 72, 42])
   })
 
-  it('keeps separate milestones that round to the same BPM but differ before rounding', () => {
-    const path = buildTempoPathDisplay({
-      bpm: 86,
-      bpmType: 'max',
-      countInBars: 4,
-      mechanicalTempos: true,
-    })
-    const all = [...path.ascent, ...path.descent]
-    const pair = all.find(
-      (milestone, index) =>
-        index > 0 &&
-        milestone.display === all[index - 1].display &&
-        milestone.exact !== all[index - 1].exact,
-    )
-
-    expect(pair).toBeDefined()
-  })
-
-  it('scales the tempo path with max BPM type', () => {
-    const path = buildTempoPathDisplay({
+  it('scales the tempo table peak with max BPM type', () => {
+    const sequence = buildSequence({
       bpm: 110,
       bpmType: 'max',
       countInBars: 4,
       mechanicalTempos: false,
     })
-    expect(path.ascent[path.ascent.length - 1].display).toBe(110)
-    expect(path.peak).toBe(110)
+    const tempos = buildTempoTableMilestones({
+      bpm: 110,
+      bpmType: 'max',
+      countInBars: 0,
+      mechanicalTempos: false,
+    })
+
+    expect(tempos[tempos.length - 4]).toBe(110)
+    expect(peakBpmFromSequence(sequence)).toBe(110)
   })
 
   it('builds download filename from count-in start and peak BPM', () => {
@@ -137,9 +122,9 @@ describe('sequenceBuilder', () => {
       mechanicalTempos: true,
     })
 
-    expect(reference.map((m) => m.display)).toEqual([72, 76, 80, 84, 88, 92, 88, 72, 42])
+    expect(reference).toEqual([72, 76, 80, 84, 88, 92, 88, 72, 42])
     expect(scaled.length).toBe(reference.length)
-    expect(scaled.map((m) => m.display)).toEqual([60, 63, 69, 72, 76, 76, 76, 60, 36])
+    expect(scaled).toEqual([60, 63, 69, 72, 76, 76, 76, 60, 36])
   })
 
   it('keeps tempo table column count aligned with reference across max BPM range', () => {
