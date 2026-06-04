@@ -12,7 +12,7 @@ export function emptyLexicalContent() {
       type: 'root' as const,
       children: [],
       direction: 'ltr' as const,
-      format: '',
+      format: '' as const,
       indent: 0,
       version: 1,
     },

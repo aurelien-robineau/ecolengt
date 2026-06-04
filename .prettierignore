@@ -1,3 +1,19 @@
+# Dependencies and build output
+node_modules
+pnpm-lock.yaml
+.husky
+.next
+out
+dist
+coverage
+
+# Tooling / agent assets (match eslint.config.mjs)
+.agents
+
+# Test and report artifacts
+playwright-report
+test-results
+
 # Payload-generated — formatted once via `pnpm generate:types`, not on every save/commit
 src/payload-types.ts
 src/payload-generated-schema.ts

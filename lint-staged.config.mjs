@@ -6,11 +6,12 @@ const lintStagedConfig = {
     const sourceFiles = files.filter((file) => !GENERATED_TS.has(file.replace(/\\/g, '/')))
     if (sourceFiles.length === 0) return []
     return [
-      `prettier --write ${sourceFiles.join(' ')}`,
-      `eslint --fix --max-warnings=-1 ${sourceFiles.join(' ')}`,
+      `prettier --write ${sourceFiles.map((file) => `"${file}"`).join(' ')}`,
+      `eslint --fix --max-warnings=-1 ${sourceFiles.map((file) => `"${file}"`).join(' ')}`,
     ]
   },
-  '*.{json,css,scss,md,yml,yaml}': 'prettier --write',
+  '*.{json,css,scss,md,yml,yaml}': (files) =>
+    `prettier --write ${files.map((file) => `"${file}"`).join(' ')}`,
 }
 
 export default lintStagedConfig

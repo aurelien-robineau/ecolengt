@@ -42,12 +42,12 @@ vercel env pull .env.vercel.local   # optional, for local preview
 
 In the Vercel project → **Settings** → **Environment Variables**, add:
 
-| Variable | Environments | Value |
-|----------|--------------|--------|
-| `DATABASE_URL` | Production, Preview | MongoDB Atlas URI from step 1 |
-| `PAYLOAD_SECRET` | Production, Preview | `openssl rand -hex 32` |
-| `NEXT_PUBLIC_SERVER_URL` | Production | `https://your-project.vercel.app` (or custom domain) |
-| `NEXT_PUBLIC_SERVER_URL` | Preview | `https://$VERCEL_URL` is fine; or leave unset (falls back to `VERCEL_URL`) |
+| Variable                 | Environments        | Value                                                                      |
+| ------------------------ | ------------------- | -------------------------------------------------------------------------- |
+| `DATABASE_URL`           | Production, Preview | MongoDB Atlas URI from step 1                                              |
+| `PAYLOAD_SECRET`         | Production, Preview | `openssl rand -hex 32`                                                     |
+| `NEXT_PUBLIC_SERVER_URL` | Production          | `https://your-project.vercel.app` (or custom domain)                       |
+| `NEXT_PUBLIC_SERVER_URL` | Preview             | `https://$VERCEL_URL` is fine; or leave unset (falls back to `VERCEL_URL`) |
 
 `BLOB_READ_WRITE_TOKEN` is added automatically when you enable Blob (step 4).
 
@@ -91,13 +91,13 @@ pnpm dev
 
 ## Troubleshooting
 
-| Issue | Fix |
-|-------|-----|
-| Build fails on `DATABASE_URL` | Set `DATABASE_URL` in Vercel env for **Production** and **Preview**. |
-| Admin works, uploads fail | Enable **Blob** storage; confirm `BLOB_READ_WRITE_TOKEN` exists. Redeploy after enabling Blob so the build runs `payload generate:importmap` with the token (adds `VercelBlobClientUploadHandler` to the admin import map). |
-| Images broken on frontend | Redeploy after Blob is enabled; new uploads get `*.blob.vercel-storage.com` URLs. |
-| Cannot connect to MongoDB | Atlas network access `0.0.0.0/0` or Vercel ↔ Atlas integration; check user/password in URI. |
-| `PAYLOAD_SECRET` errors | Must be set and identical across instances; use a long random string. |
+| Issue                         | Fix                                                                                                                                                                                                                         |
+| ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Build fails on `DATABASE_URL` | Set `DATABASE_URL` in Vercel env for **Production** and **Preview**.                                                                                                                                                        |
+| Admin works, uploads fail     | Enable **Blob** storage; confirm `BLOB_READ_WRITE_TOKEN` exists. Redeploy after enabling Blob so the build runs `payload generate:importmap` with the token (adds `VercelBlobClientUploadHandler` to the admin import map). |
+| Images broken on frontend     | Redeploy after Blob is enabled; new uploads get `*.blob.vercel-storage.com` URLs.                                                                                                                                           |
+| Cannot connect to MongoDB     | Atlas network access `0.0.0.0/0` or Vercel ↔ Atlas integration; check user/password in URI.                                                                                                                                 |
+| `PAYLOAD_SECRET` errors       | Must be set and identical across instances; use a long random string.                                                                                                                                                       |
 
 ## Free plan limits (summary)
 

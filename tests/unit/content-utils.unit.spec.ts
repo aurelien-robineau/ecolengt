@@ -81,7 +81,7 @@ describe('resolveListedPerson', () => {
   it('prefers student name and href when populated', () => {
     expect(
       resolveListedPerson(
-        { id: 1, name: 'Marie', slug: 'marie', updatedAt: '', createdAt: '' },
+        { id: '1', name: 'Marie', slug: 'marie', updatedAt: '', createdAt: '' },
         'Fallback',
       ),
     ).toEqual({

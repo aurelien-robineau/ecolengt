@@ -19,7 +19,11 @@ function lockDefaultFilenameInput(input: HTMLInputElement, displayName: string):
   }
 }
 
-export function MediaUploadDefaultFilename({ rootRef }: { rootRef: RefObject<HTMLDivElement | null> }) {
+export function MediaUploadDefaultFilename({
+  rootRef,
+}: {
+  rootRef: RefObject<HTMLDivElement | null>
+}) {
   const patchedInputsRef = useRef<WeakSet<HTMLInputElement>>(new WeakSet())
   const { value: fileValue } = useField<File>({ path: 'file' })
   const { value: filenameValue } = useField<string>({ path: 'filename' })
