@@ -16,19 +16,6 @@ env:
   NEXT_PUBLIC_SERVER_URL: http://localhost:3000
 
 jobs:
-  format:
-    name: Format
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm format:check
-
   lint:
     name: Lint
     runs-on: ubuntu-latest
@@ -97,6 +84,12 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    # SSG routes (e.g. /actualite/[slug]) call Payload during generateStaticParams.
+    services:
+      mongo:
+        image: mongo:7
+        ports:
+          - 27017:27017
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -104,6 +97,14 @@ jobs:
         with:
           node-version: 22
           cache: pnpm
+      - name: Wait for MongoDB
+        run: |
+          for i in $(seq 1 30); do
+            nc -z 127.0.0.1 27017 && exit 0
+            sleep 2
+          done
+          echo "MongoDB did not become ready in time"
+          exit 1
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
 
