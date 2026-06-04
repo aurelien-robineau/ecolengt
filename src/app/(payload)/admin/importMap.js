@@ -34,64 +34,37 @@ import { VercelBlobClientUploadHandler as VercelBlobClientUploadHandler_16c82c5e
 
 /** @type import('payload').ImportMap */
 export const importMap = {
-  '@/components/admin/MediaFilenameField#MediaFilenameField':
-    MediaFilenameField_0949bb9a7d9a9e66f8e47ff7dca55c4a,
-  '@/components/admin/MediaUpload#MediaUpload': MediaUpload_52e77c52d4964a74462752f328706265,
-  '@payloadcms/next/client#SlugField': SlugField_2b8867833a34864a02ddf429b0728a40,
-  '@payloadcms/richtext-lexical/rsc#RscEntryLexicalCell':
-    RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e,
-  '@payloadcms/richtext-lexical/rsc#RscEntryLexicalField':
-    RscEntryLexicalField_44fe37237e0ebf4470c9990d8cb7b07e,
-  '@payloadcms/richtext-lexical/rsc#LexicalDiffComponent':
-    LexicalDiffComponent_44fe37237e0ebf4470c9990d8cb7b07e,
-  '@payloadcms/richtext-lexical/client#FixedToolbarFeatureClient':
-    FixedToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
-  '@payloadcms/richtext-lexical/client#InlineToolbarFeatureClient':
-    InlineToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
-  '@payloadcms/richtext-lexical/client#UploadFeatureClient':
-    UploadFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
-  '@payloadcms/richtext-lexical/client#TableFeatureClient':
-    TableFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
-  '@payloadcms/richtext-lexical/client#HorizontalRuleFeatureClient':
-    HorizontalRuleFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
-  '@payloadcms/richtext-lexical/client#LinkFeatureClient':
-    LinkFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
-  '@payloadcms/richtext-lexical/client#ChecklistFeatureClient':
-    ChecklistFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
-  '@payloadcms/richtext-lexical/client#OrderedListFeatureClient':
-    OrderedListFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
-  '@payloadcms/richtext-lexical/client#UnorderedListFeatureClient':
-    UnorderedListFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
-  '@payloadcms/richtext-lexical/client#IndentFeatureClient':
-    IndentFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
-  '@payloadcms/richtext-lexical/client#AlignFeatureClient':
-    AlignFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
-  '@payloadcms/richtext-lexical/client#BlockquoteFeatureClient':
-    BlockquoteFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
-  '@payloadcms/richtext-lexical/client#HeadingFeatureClient':
-    HeadingFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
-  '@payloadcms/richtext-lexical/client#StrikethroughFeatureClient':
-    StrikethroughFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
-  '@payloadcms/richtext-lexical/client#UnderlineFeatureClient':
-    UnderlineFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
-  '@payloadcms/richtext-lexical/client#BoldFeatureClient':
-    BoldFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
-  '@payloadcms/richtext-lexical/client#ItalicFeatureClient':
-    ItalicFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
-  '@payloadcms/richtext-lexical/client#ParagraphFeatureClient':
-    ParagraphFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
-  '@/components/admin/HeroBannerPreviewField#HeroBannerPreviewField':
-    HeroBannerPreviewField_ccbc719a5df54371dc36714df57e5ea4,
-  '@/components/admin/NewsArticlesField#NewsArticlesField':
-    NewsArticlesField_b8b2220cd1e98940d27f82fefafdaaeb,
-  '@/components/admin/AdminNav#AdminNav': AdminNav_2623bc737c612ce9420322f2210a7f19,
-  '@/components/admin/AdminIcon#AdminIcon': AdminIcon_d500ae2ad98a0a33d640ae0ac1a3417c,
-  '@/components/admin/AdminLogo#AdminLogo': AdminLogo_b80a86fce1072afc84cd6a430a965697,
-  '@/components/admin/VercelBlobMediaClientUploadHandler#VercelBlobMediaClientUploadHandler':
-    VercelBlobMediaClientUploadHandler_0fc58e47efc926bd677b678b16755705,
-  '@/components/admin/DashboardCollectionCards#DashboardCollectionCards':
-    DashboardCollectionCards_2cb2e9808e8370f9c5c555a17e962aff,
-  '@payloadcms/next/rsc#CollectionCards': CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1,
-  '@payloadcms/storage-vercel-blob/client#VercelBlobClientUploadHandler':
-    VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e,
+  "@/components/admin/MediaFilenameField#MediaFilenameField": MediaFilenameField_0949bb9a7d9a9e66f8e47ff7dca55c4a,
+  "@/components/admin/MediaUpload#MediaUpload": MediaUpload_52e77c52d4964a74462752f328706265,
+  "@payloadcms/next/client#SlugField": SlugField_2b8867833a34864a02ddf429b0728a40,
+  "@payloadcms/richtext-lexical/rsc#RscEntryLexicalCell": RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e,
+  "@payloadcms/richtext-lexical/rsc#RscEntryLexicalField": RscEntryLexicalField_44fe37237e0ebf4470c9990d8cb7b07e,
+  "@payloadcms/richtext-lexical/rsc#LexicalDiffComponent": LexicalDiffComponent_44fe37237e0ebf4470c9990d8cb7b07e,
+  "@payloadcms/richtext-lexical/client#FixedToolbarFeatureClient": FixedToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@payloadcms/richtext-lexical/client#InlineToolbarFeatureClient": InlineToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@payloadcms/richtext-lexical/client#UploadFeatureClient": UploadFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@payloadcms/richtext-lexical/client#TableFeatureClient": TableFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@payloadcms/richtext-lexical/client#HorizontalRuleFeatureClient": HorizontalRuleFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@payloadcms/richtext-lexical/client#LinkFeatureClient": LinkFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@payloadcms/richtext-lexical/client#ChecklistFeatureClient": ChecklistFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@payloadcms/richtext-lexical/client#OrderedListFeatureClient": OrderedListFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@payloadcms/richtext-lexical/client#UnorderedListFeatureClient": UnorderedListFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@payloadcms/richtext-lexical/client#IndentFeatureClient": IndentFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@payloadcms/richtext-lexical/client#AlignFeatureClient": AlignFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@payloadcms/richtext-lexical/client#BlockquoteFeatureClient": BlockquoteFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@payloadcms/richtext-lexical/client#HeadingFeatureClient": HeadingFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@payloadcms/richtext-lexical/client#StrikethroughFeatureClient": StrikethroughFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@payloadcms/richtext-lexical/client#UnderlineFeatureClient": UnderlineFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@payloadcms/richtext-lexical/client#BoldFeatureClient": BoldFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@payloadcms/richtext-lexical/client#ItalicFeatureClient": ItalicFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@payloadcms/richtext-lexical/client#ParagraphFeatureClient": ParagraphFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@/components/admin/HeroBannerPreviewField#HeroBannerPreviewField": HeroBannerPreviewField_ccbc719a5df54371dc36714df57e5ea4,
+  "@/components/admin/NewsArticlesField#NewsArticlesField": NewsArticlesField_b8b2220cd1e98940d27f82fefafdaaeb,
+  "@/components/admin/AdminNav#AdminNav": AdminNav_2623bc737c612ce9420322f2210a7f19,
+  "@/components/admin/AdminIcon#AdminIcon": AdminIcon_d500ae2ad98a0a33d640ae0ac1a3417c,
+  "@/components/admin/AdminLogo#AdminLogo": AdminLogo_b80a86fce1072afc84cd6a430a965697,
+  "@/components/admin/VercelBlobMediaClientUploadHandler#VercelBlobMediaClientUploadHandler": VercelBlobMediaClientUploadHandler_0fc58e47efc926bd677b678b16755705,
+  "@/components/admin/DashboardCollectionCards#DashboardCollectionCards": DashboardCollectionCards_2cb2e9808e8370f9c5c555a17e962aff,
+  "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1,
+  "@payloadcms/storage-vercel-blob/client#VercelBlobClientUploadHandler": VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e
 }
