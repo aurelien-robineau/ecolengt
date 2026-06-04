@@ -9,7 +9,7 @@ import {
   peakBpmFromSequence,
   roundBpm,
   scaleRatio,
-} from '@/lib/metronome/sequenceBuilder'
+} from '@/features/le-train-metronome/lib/sequenceBuilder'
 
 describe('sequenceBuilder', () => {
   it('keeps reference peak at 92 BPM when bpmType is max and bpm is 92', () => {

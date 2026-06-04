@@ -2,14 +2,15 @@
 
 import type { ReactNode } from 'react'
 
-import { Icon } from '@/components/icons/Icon'
 import { cn } from '@/lib/cn'
-import type { IconName } from '@/lib/icons'
+
+import { FeatureIcon } from './FeatureIcon'
+import type { MetronomeIconName } from './icons'
 
 const optionIconNames = {
   mechanical: 'metronome',
   accentFirst: 'accentBeats',
-} as const satisfies Record<string, IconName>
+} as const satisfies Record<string, MetronomeIconName>
 
 type MetronomeOptionToggleProps = {
   id: string
@@ -58,7 +59,7 @@ export function MetronomeOptionToggle({
         )}
         aria-hidden
       >
-        <Icon
+        <FeatureIcon
           name={optionIconNames[icon]}
           className={isAccentIcon ? 'size-5.5 sm:size-6' : 'size-5'}
         />

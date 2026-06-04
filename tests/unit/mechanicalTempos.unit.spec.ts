@@ -6,8 +6,8 @@ import {
   MECHANICAL_METRONOME_MIN_BPM,
   applyMechanicalTemposToSequence,
   snapToMechanicalMetronomeBpm,
-} from '@/lib/metronome/mechanicalTempos'
-import { buildSequence } from '@/lib/metronome/sequenceBuilder'
+} from '@/features/le-train-metronome/lib/mechanicalTempos'
+import { buildSequence } from '@/features/le-train-metronome/lib/sequenceBuilder'
 
 describe('mechanicalTempos', () => {
   it('spans 10–240 with discrete markings', () => {

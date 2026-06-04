@@ -6,8 +6,8 @@ import {
   buildTempoTableMilestones,
   formatTempoBpm,
   REFERENCE_MAX_BPM,
-} from '@/lib/metronome/sequenceBuilder'
-import type { BpmType, MetronomeSequenceConfig } from '@/lib/metronome/types'
+} from '../lib/sequenceBuilder'
+import type { BpmType, MetronomeSequenceConfig } from '../lib/types'
 
 type MetronomeTempoPathProps = {
   bpm: number

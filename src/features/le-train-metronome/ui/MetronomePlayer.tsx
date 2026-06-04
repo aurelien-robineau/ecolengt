@@ -2,8 +2,9 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 
-import { Icon } from '@/components/icons/Icon'
 import { cn } from '@/lib/cn'
+
+import { FeatureIcon } from './FeatureIcon'
 
 type MetronomePlayerProps = {
   src: string
@@ -167,7 +168,7 @@ export function MetronomePlayer({ src, downloadFilename, finaleStartTime }: Metr
         aria-label="Arrêt — revenir au début"
         className="absolute top-4 right-4 flex size-10 items-center justify-center rounded-full border border-[var(--metro-border)] bg-[var(--metro-panel)] text-[var(--metro-text)] shadow-sm transition-[transform,background-color] hover:bg-[var(--metro-brand-dim)] active:scale-95 disabled:cursor-not-allowed disabled:opacity-35 md:top-5 md:right-5"
       >
-        <Icon name="stop" className="size-4.5" />
+        <FeatureIcon name="stop" className="size-4.5" />
       </button>
 
       <div className="relative flex flex-col items-center gap-7 text-center">
@@ -192,9 +193,9 @@ export function MetronomePlayer({ src, downloadFilename, finaleStartTime }: Metr
             )}
           >
             {isPlaying ? (
-              <Icon name="pause" className="size-9 md:size-10" />
+              <FeatureIcon name="pause" className="size-9 md:size-10" />
             ) : (
-              <Icon name="play" className="size-10 md:size-11" />
+              <FeatureIcon name="play" className="size-10 md:size-11" />
             )}
           </button>
         </div>
@@ -289,7 +290,7 @@ export function MetronomePlayer({ src, downloadFilename, finaleStartTime }: Metr
             download={downloadFilename}
             className="inline-flex items-center justify-center gap-2 font-metronome-mono text-[11px] tracking-[0.14em] text-[var(--metro-muted)] uppercase no-underline transition-colors hover:text-[var(--metro-brand)]"
           >
-            <Icon name="download" className="size-4" />
+            <FeatureIcon name="download" className="size-4" />
             Télécharger le fichier
           </a>
         </div>

@@ -45,3 +45,41 @@
     0 0 0 1px rgb(255 221 0 / 70%),
     0 10px 28px rgb(255 221 0 / 35%);
 }
+
+.metronome-feature .animate-metronome-bar {
+  animation: metronome-bar 0.9s ease-in-out infinite;
+}
+
+.metronome-feature .animate-play-ready {
+  animation: play-ready-pulse 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes metronome-bar {
+  0%,
+  100% {
+    transform: scaleY(0.45);
+  }
+
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes play-ready-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.65;
+  }
+
+  100% {
+    transform: scale(1.38);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .metronome-feature .animate-metronome-bar,
+  .metronome-feature .animate-play-ready {
+    animation: none !important;
+  }
+}

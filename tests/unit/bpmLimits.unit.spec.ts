@@ -1,12 +1,12 @@
 import { describe, expect, it } from 'vitest'
 
-import { REFERENCE_START_BPM } from '@/lib/metronome/sequenceBuilder'
+import { REFERENCE_START_BPM } from '@/features/le-train-metronome/lib/sequenceBuilder'
 import {
   BPM_INPUT_LIMITS,
   clampBpmToInputLimits,
   getBpmInputLimits,
   stepBpm,
-} from '@/lib/metronome/bpmLimits'
+} from '@/features/le-train-metronome/lib/bpmLimits'
 
 describe('bpmLimits', () => {
   it('uses start-specific bounds capped so peak BPM never exceeds 92', () => {

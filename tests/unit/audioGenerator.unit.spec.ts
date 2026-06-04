@@ -10,9 +10,9 @@ import {
   generateWavBuffer,
   parseWavHeader,
   sequenceDurationSeconds,
-} from '@/lib/metronome/audioGenerator'
-import { buildSequence } from '@/lib/metronome/sequenceBuilder'
-import type { SequenceSegment } from '@/lib/metronome/types'
+} from '@/features/le-train-metronome/lib/audioGenerator'
+import { buildSequence } from '@/features/le-train-metronome/lib/sequenceBuilder'
+import type { SequenceSegment } from '@/features/le-train-metronome/lib/types'
 
 /** Reference Python click placement: float timeline, rounded sample index. */
 function referenceDownbeatOnsetsSeconds(

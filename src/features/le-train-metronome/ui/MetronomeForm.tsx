@@ -2,19 +2,20 @@
 
 import { useCallback, useEffect, useId, useRef, useState } from 'react'
 
-import { MetronomeOptionToggle } from '@/components/metronome/MetronomeOptionToggle'
-import { MetronomePlayer } from '@/components/metronome/MetronomePlayer'
-import { MetronomeTempoPath } from '@/components/metronome/MetronomeTempoPath'
-import { cn } from '@/lib/cn'
-import { clampBpmToInputLimits, getBpmInputLimits, stepBpm } from '@/lib/metronome/bpmLimits'
-import { DEFAULT_SAMPLE_RATE, findFinaleStartSeconds } from '@/lib/metronome/audioGenerator'
-import { buildMetronomeDownloadFilename, buildSequence } from '@/lib/metronome/sequenceBuilder'
+import { LE_TRAIN_METRONOME_API_PATH } from '../constants'
+import { clampBpmToInputLimits, getBpmInputLimits, stepBpm } from '../lib/bpmLimits'
+import { DEFAULT_SAMPLE_RATE, findFinaleStartSeconds } from '../lib/audioGenerator'
+import { buildMetronomeDownloadFilename, buildSequence } from '../lib/sequenceBuilder'
 import {
   COUNT_IN_BAR_OPTIONS,
   DEFAULT_COUNT_IN_BARS,
   SUBDIVISION_OPTIONS,
   type BpmType,
-} from '@/lib/metronome/types'
+} from '../lib/types'
+import { cn } from '@/lib/cn'
+import { MetronomeOptionToggle } from './MetronomeOptionToggle'
+import { MetronomePlayer } from './MetronomePlayer'
+import { MetronomeTempoPath } from './MetronomeTempoPath'
 
 const REQUEST_TIMEOUT_MS = 55_000
 
@@ -242,7 +243,7 @@ export function MetronomeForm() {
     const timeoutId = window.setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS)
 
     try {
-      const response = await fetch('/api/metronome', {
+      const response = await fetch(LE_TRAIN_METRONOME_API_PATH, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
