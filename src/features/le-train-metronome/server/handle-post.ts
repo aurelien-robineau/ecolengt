@@ -2,9 +2,6 @@ import { generateWavBuffer, DEFAULT_SAMPLE_RATE } from '../lib/audioGenerator'
 import { buildSequence } from '../lib/sequenceBuilder'
 import { validateGeneratePayload, validateMetronomeConfig } from '../lib/validate'
 
-export const runtime = 'nodejs'
-export const maxDuration = 60
-
 export async function handleLeTrainMetronomePost(request: Request) {
   let body: unknown
   try {
