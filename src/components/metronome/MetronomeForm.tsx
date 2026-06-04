@@ -292,10 +292,15 @@ export function MetronomeForm() {
   return (
     <div className="mx-auto w-full max-w-lg">
       <div className="overflow-hidden rounded-md border border-brand-border bg-surface-card shadow-[0_12px_48px_-16px_rgb(24_24_24_/_0.12)]">
-        <div className="border-b border-brand-border bg-foreground px-5 py-4 text-center md:px-6">
-          <p className="text-[10px] tracking-[0.22em] text-brand uppercase">Le Train</p>
-          <p className="font-serif text-xl text-surface md:text-2xl">Métronome</p>
-        </div>
+        <header className="border-b border-brand-border bg-foreground px-5 py-4 text-center md:px-6 md:py-5">
+          <p className="text-[10px] tracking-[0.16em] text-brand uppercase">
+            Le Train - Dante Agostini
+          </p>
+          <p className="mt-1.5 text-[10px] tracking-[0.12em] text-surface/65 uppercase">
+            Volume V, page 14
+          </p>
+          <p className="mt-2 font-serif text-xl text-surface md:mt-2.5 md:text-2xl">Métronome</p>
+        </header>
 
         <div className="space-y-8 p-5 md:p-6">
           <MetronomeTempoPath
