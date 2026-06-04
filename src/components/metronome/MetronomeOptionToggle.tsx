@@ -2,50 +2,20 @@
 
 import type { ReactNode } from 'react'
 
+import { Icon } from '@/components/icons/Icon'
 import { cn } from '@/lib/cn'
+import type { IconName } from '@/lib/icons'
 
-function MetronomeIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden
-    >
-      <path d="M12 3v2" />
-      <path d="M8 5h8l3 15H5L8 5z" />
-      <path d="M12 9.5l3.5 6.5" />
-      <circle cx="12" cy="9.5" r="1" fill="currentColor" stroke="none" />
-    </svg>
-  )
-}
-
-/** Four-beat row: emphasized downbeat (common accent pattern). */
-function AccentBeatIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden>
-      <circle cx="5" cy="12" r="3" fill="currentColor" />
-      <circle cx="10.5" cy="12" r="2" stroke="currentColor" strokeWidth="1.5" />
-      <circle cx="16" cy="12" r="2" stroke="currentColor" strokeWidth="1.5" />
-      <circle cx="21.5" cy="12" r="2" stroke="currentColor" strokeWidth="1.5" />
-    </svg>
-  )
-}
-
-const optionIcons = {
-  mechanical: MetronomeIcon,
-  accentFirst: AccentBeatIcon,
-} as const
+const optionIconNames = {
+  mechanical: 'metronome',
+  accentFirst: 'accentBeats',
+} as const satisfies Record<string, IconName>
 
 type MetronomeOptionToggleProps = {
   id: string
   checked: boolean
   onChange: (checked: boolean) => void
-  icon: keyof typeof optionIcons
+  icon: keyof typeof optionIconNames
   children: ReactNode
   description?: string
 }
@@ -58,7 +28,7 @@ export function MetronomeOptionToggle({
   children,
   description,
 }: MetronomeOptionToggleProps) {
-  const Icon = optionIcons[icon]
+  const isAccentIcon = icon === 'accentFirst'
 
   return (
     <label
@@ -79,14 +49,18 @@ export function MetronomeOptionToggle({
       />
       <span
         className={cn(
-          'flex size-9 shrink-0 items-center justify-center rounded-sm border transition-colors sm:size-10',
+          'flex shrink-0 items-center justify-center rounded-sm border transition-colors',
+          isAccentIcon ? 'size-9 p-0.5 sm:size-10 sm:p-1' : 'size-9 sm:size-10',
           checked
             ? 'border-brand-border bg-brand text-foreground'
             : 'border-brand-border/40 bg-surface-muted text-foreground-muted group-hover:text-foreground',
         )}
         aria-hidden
       >
-        <Icon className="size-5" />
+        <Icon
+          name={optionIconNames[icon]}
+          className={isAccentIcon ? 'size-5.5 sm:size-6' : 'size-5'}
+        />
       </span>
       <span className="min-w-0 flex-1 text-left">
         <span className="block text-[13px] leading-tight text-foreground sm:text-sm sm:leading-snug">

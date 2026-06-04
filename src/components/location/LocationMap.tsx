@@ -1,5 +1,4 @@
-import Image from 'next/image'
-
+import { Icon } from '@/components/icons/Icon'
 import { MapEmbed } from '@/components/location/MapEmbed'
 import { ExternalLink, externalLinkAriaLabel } from '@/lib/a11y/externalLink'
 import { buildOpenStreetMapEmbedUrl } from '@/lib/maps/buildOpenStreetMapEmbedUrl'
@@ -41,14 +40,7 @@ export function LocationMap({
             className="absolute top-3 left-3 z-10 inline-flex items-center gap-2.5 border border-white/15 bg-foreground/90 px-3.5 py-2.5 text-sm font-medium text-surface shadow-md backdrop-blur-sm transition-colors hover:bg-foreground"
           >
             <span>Ouvrir dans Google Maps</span>
-            <Image
-              src="/icons/open-in-new.svg"
-              alt=""
-              width={18}
-              height={18}
-              className="size-4.5 shrink-0"
-              aria-hidden
-            />
+            <Icon name="openInNew" className="size-4.5 shrink-0" />
           </ExternalLink>
         ) : null}
 

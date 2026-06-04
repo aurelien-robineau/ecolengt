@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { useCallback, useEffect, useId, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 
+import { Icon } from '@/components/icons/Icon'
 import { useFocusTrap } from '@/lib/a11y/focus'
 import type { CmsImageData } from '@/lib/content/types'
 import { cn } from '@/lib/cn'
@@ -16,27 +17,6 @@ type ImageLightboxProps = {
   slides: LightboxSlide[]
   initialIndex: number
   onClose: () => void
-}
-
-function ChevronIcon({ direction }: { direction: 'left' | 'right' }) {
-  return (
-    <svg
-      width="20"
-      height="20"
-      viewBox="0 0 20 20"
-      fill="none"
-      aria-hidden
-      className={direction === 'left' ? 'rotate-180' : undefined}
-    >
-      <path
-        d="M7 4l6 6-6 6"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  )
 }
 
 export function ImageLightbox({ slides, initialIndex, onClose }: ImageLightboxProps) {
@@ -125,14 +105,7 @@ export function ImageLightbox({ slides, initialIndex, onClose }: ImageLightboxPr
           }}
           aria-label="Fermer"
         >
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
-            <path
-              d="M4 4l10 10M14 4L4 14"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-            />
-          </svg>
+          <Icon name="close" className="size-4.5" />
         </button>
       </div>
 
@@ -147,7 +120,7 @@ export function ImageLightbox({ slides, initialIndex, onClose }: ImageLightboxPr
             }}
             aria-label="Photo précédente"
           >
-            <ChevronIcon direction="left" />
+            <Icon name="chevronLeft" className="size-5" />
           </button>
         ) : null}
 
@@ -161,7 +134,7 @@ export function ImageLightbox({ slides, initialIndex, onClose }: ImageLightboxPr
             }}
             aria-label="Photo suivante"
           >
-            <ChevronIcon direction="right" />
+            <Icon name="chevronRight" className="size-5" />
           </button>
         ) : null}
 

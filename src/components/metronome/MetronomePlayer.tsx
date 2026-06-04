@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 
+import { Icon } from '@/components/icons/Icon'
 import { cn } from '@/lib/cn'
 
 type MetronomePlayerProps = {
@@ -17,49 +18,6 @@ function formatTime(seconds: number): string {
   const mins = Math.floor(total / 60)
   const secs = total % 60
   return `${mins}:${secs.toString().padStart(2, '0')}`
-}
-
-function PlayIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-      <path d="M8 5.14v13.72L19 12 8 5.14z" />
-    </svg>
-  )
-}
-
-function PauseIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-      <path d="M6 5h4v14H6V5zm8 0h4v14h-4V5z" />
-    </svg>
-  )
-}
-
-function StopIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-      <rect x="5.5" y="5.5" width="13" height="13" rx="2.5" ry="2.5" />
-    </svg>
-  )
-}
-
-function DownloadIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      aria-hidden
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M12 4v10m0 0l3.5-3.5M12 14l-3.5-3.5M5 18h14"
-      />
-    </svg>
-  )
 }
 
 function MeterBars({ active }: { active: boolean }) {
@@ -209,7 +167,7 @@ export function MetronomePlayer({ src, downloadFilename, finaleStartTime }: Metr
         aria-label="Arrêt — revenir au début"
         className="absolute top-4 right-4 flex size-9 items-center justify-center rounded-full border border-brand-border bg-surface text-foreground shadow-sm transition-transform hover:scale-105 active:scale-95 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:scale-100 md:top-5 md:right-5 md:size-10"
       >
-        <StopIcon className="size-5 md:size-5" />
+        <Icon name="stop" className="size-5 md:size-5" />
       </button>
 
       <div className="flex flex-col items-center gap-6 text-center">
@@ -231,9 +189,9 @@ export function MetronomePlayer({ src, downloadFilename, finaleStartTime }: Metr
             )}
           >
             {isPlaying ? (
-              <PauseIcon className="size-8 md:size-9" />
+              <Icon name="pause" className="size-9 md:size-10" />
             ) : (
-              <PlayIcon className="ml-1 size-9 md:size-10" />
+              <Icon name="play" className="size-10 md:size-11" />
             )}
           </button>
         </div>
@@ -328,7 +286,7 @@ export function MetronomePlayer({ src, downloadFilename, finaleStartTime }: Metr
             download={downloadFilename}
             className="inline-flex items-center justify-center gap-2 text-[11px] tracking-[0.12em] text-foreground-muted uppercase no-underline transition-colors hover:text-foreground"
           >
-            <DownloadIcon className="size-4" />
+            <Icon name="download" className="size-4" />
             Télécharger le fichier
           </a>
         </div>

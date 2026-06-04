@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 
+import { Icon } from '@/components/icons/Icon'
 import { Button } from '@/components/ui/Button'
 import { Container } from '@/components/ui/Container'
 import { Logo } from '@/components/ui/Logo'
@@ -15,32 +16,6 @@ import { resolveHashHref } from '@/lib/resolveHashHref'
 
 type HeaderProps = {
   site: SiteSettingsData
-}
-
-function MenuIcon({ open }: { open: boolean }) {
-  return (
-    <svg
-      className="h-5 w-5"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      aria-hidden
-    >
-      {open ? (
-        <>
-          <path d="M6 6l12 12" strokeLinecap="round" />
-          <path d="M18 6L6 18" strokeLinecap="round" />
-        </>
-      ) : (
-        <>
-          <path d="M4 7h16" strokeLinecap="round" />
-          <path d="M4 12h16" strokeLinecap="round" />
-          <path d="M4 17h16" strokeLinecap="round" />
-        </>
-      )}
-    </svg>
-  )
 }
 
 const MENU_TRANSITION_MS = 300
@@ -289,7 +264,7 @@ export function Header({ site }: HeaderProps) {
               aria-label={menuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
               onClick={toggleMenu}
             >
-              <MenuIcon open={menuOpen} />
+              <Icon name={menuOpen ? 'close' : 'menu'} className="size-5" />
             </button>
 
             <Button
