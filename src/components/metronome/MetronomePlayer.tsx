@@ -39,7 +39,7 @@ function PauseIcon({ className }: { className?: string }) {
 function StopIcon({ className }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-      <path d="M7 7h10v10H7V7z" />
+      <rect x="5.5" y="5.5" width="13" height="13" rx="2.5" ry="2.5" />
     </svg>
   )
 }
@@ -89,8 +89,10 @@ export function MetronomePlayer({
   className,
 }: MetronomePlayerProps) {
   const audioRef = useRef<HTMLAudioElement>(null)
+  const seekTrackRef = useRef<HTMLButtonElement>(null)
   const [isPlaying, setIsPlaying] = useState(false)
   const [isReady, setIsReady] = useState(false)
+  const [isScrubbing, setIsScrubbing] = useState(false)
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
 
@@ -182,6 +184,22 @@ export function MetronomePlayer({
     [clampTime],
   )
 
+  const seekFromClientX = useCallback(
+    (clientX: number) => {
+      const track = seekTrackRef.current
+      if (!track) return
+      seek(clientX, track.getBoundingClientRect())
+    },
+    [seek],
+  )
+
+  const endScrub = useCallback((target: HTMLButtonElement, pointerId: number) => {
+    if (target.hasPointerCapture(pointerId)) {
+      target.releasePointerCapture(pointerId)
+    }
+    setIsScrubbing(false)
+  }, [])
+
   const progress = duration > 0 ? (currentTime / duration) * 100 : 0
   const isFinale = isPlaying && currentTime >= finaleStartTime
   const canStop = isReady && (isPlaying || currentTime > 0)
@@ -202,14 +220,14 @@ export function MetronomePlayer({
         aria-label="Arrêt — revenir au début"
         className="absolute top-4 right-4 flex size-9 items-center justify-center rounded-full border border-brand-border bg-surface text-foreground shadow-sm transition-transform hover:scale-105 active:scale-95 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:scale-100 md:top-5 md:right-5 md:size-10"
       >
-        <StopIcon className="size-3.5 md:size-4" />
+        <StopIcon className="size-5 md:size-5" />
       </button>
 
       <div className="flex flex-col items-center gap-6 text-center">
         <div className="relative shrink-0">
           {isReady && !isPlaying ? (
             <span
-              className="absolute inset-0 animate-play-ready rounded-full bg-brand/25"
+              className="absolute inset-0 z-0 animate-play-ready rounded-full bg-brand/60"
               aria-hidden
             />
           ) : null}
@@ -219,7 +237,7 @@ export function MetronomePlayer({
             disabled={!isReady}
             aria-label={isPlaying ? 'Pause' : 'Lecture'}
             className={cn(
-              'relative flex size-20 items-center justify-center rounded-full border-2 border-foreground bg-foreground text-surface shadow-md transition-transform hover:scale-105 active:scale-95 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:scale-100 md:size-24',
+              'relative z-10 flex size-20 items-center justify-center rounded-full border-2 border-foreground bg-foreground text-surface shadow-md transition-transform hover:scale-105 active:scale-95 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:scale-100 md:size-24',
               isPlaying && 'bg-brand border-brand text-foreground',
             )}
           >
@@ -247,17 +265,35 @@ export function MetronomePlayer({
 
           <div className="space-y-2 text-left">
             <button
+              ref={seekTrackRef}
               type="button"
+              role="slider"
               tabIndex={0}
               disabled={!isReady}
               aria-label="Position dans la piste"
               aria-valuemin={0}
-              aria-valuemax={duration}
-              aria-valuenow={currentTime}
-              className="group relative h-2 w-full cursor-pointer disabled:cursor-not-allowed"
-              onClick={(event) => {
-                const rect = event.currentTarget.getBoundingClientRect()
-                seek(event.clientX, rect)
+              aria-valuemax={Math.floor(duration)}
+              aria-valuenow={Math.floor(currentTime)}
+              className={cn(
+                'group relative flex h-6 w-full touch-none items-center disabled:cursor-not-allowed',
+                isReady && 'cursor-pointer',
+              )}
+              onPointerDown={(event) => {
+                if (!isReady) return
+                event.preventDefault()
+                event.currentTarget.setPointerCapture(event.pointerId)
+                setIsScrubbing(true)
+                seekFromClientX(event.clientX)
+              }}
+              onPointerMove={(event) => {
+                if (!event.currentTarget.hasPointerCapture(event.pointerId)) return
+                seekFromClientX(event.clientX)
+              }}
+              onPointerUp={(event) => {
+                endScrub(event.currentTarget, event.pointerId)
+              }}
+              onPointerCancel={(event) => {
+                endScrub(event.currentTarget, event.pointerId)
               }}
               onKeyDown={(event) => {
                 const audio = audioRef.current
@@ -274,13 +310,21 @@ export function MetronomePlayer({
                 }
               }}
             >
-              <span className="absolute inset-0 rounded-full bg-brand-border/60" />
+              <span className="absolute inset-x-0 top-1/2 h-2 -translate-y-1/2 rounded-full bg-brand-border/60" />
               <span
-                className="absolute inset-y-0 left-0 rounded-full bg-brand transition-[width] duration-150"
+                className={cn(
+                  'absolute top-1/2 left-0 h-2 -translate-y-1/2 rounded-full bg-brand',
+                  !isScrubbing && 'transition-[width] duration-150',
+                )}
                 style={{ width: `${progress}%` }}
               />
               <span
-                className="absolute top-1/2 size-3.5 -translate-y-1/2 rounded-full border-2 border-foreground bg-surface opacity-0 shadow-sm transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100"
+                className={cn(
+                  'absolute top-1/2 size-3.5 -translate-y-1/2 rounded-full border-2 border-foreground bg-surface shadow-sm',
+                  isScrubbing
+                    ? 'opacity-100'
+                    : 'opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100',
+                )}
                 style={{ left: `calc(${progress}% - 7px)` }}
               />
             </button>

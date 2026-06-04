@@ -9,7 +9,12 @@ import { cn } from '@/lib/cn'
 import { clampBpmToInputLimits, getBpmInputLimits, stepBpm } from '@/lib/metronome/bpmLimits'
 import { DEFAULT_SAMPLE_RATE, findFinaleStartSeconds } from '@/lib/metronome/audioGenerator'
 import { buildMetronomeDownloadFilename, buildSequence } from '@/lib/metronome/sequenceBuilder'
-import { COUNT_IN_BAR_OPTIONS, DEFAULT_COUNT_IN_BARS, type BpmType } from '@/lib/metronome/types'
+import {
+  COUNT_IN_BAR_OPTIONS,
+  DEFAULT_COUNT_IN_BARS,
+  SUBDIVISION_OPTIONS,
+  type BpmType,
+} from '@/lib/metronome/types'
 
 const REQUEST_TIMEOUT_MS = 55_000
 
@@ -340,9 +345,9 @@ export function MetronomeForm() {
                   onChange={(e) => setForm((s) => ({ ...s, subdivision: Number(e.target.value) }))}
                   className={cn(fieldClass, 'text-center')}
                 >
-                  {[1, 2, 3, 4, 5, 6, 7, 8].map((value) => (
+                  {SUBDIVISION_OPTIONS.map(({ value, label }) => (
                     <option key={value} value={value}>
-                      {value} / temps
+                      {label}
                     </option>
                   ))}
                 </select>
