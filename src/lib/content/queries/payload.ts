@@ -21,5 +21,3 @@ export const globalQueryDepth = {
   'intensive-courses-calendar-page': 0,
   'legal-notice-page': 0,
 } as const
-
-export type GlobalSlug = keyof typeof globalQueryDepth

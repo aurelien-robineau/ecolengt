@@ -5,7 +5,6 @@ import { cn } from '@/lib/cn'
 
 type RevealProps = {
   children: React.ReactNode
-  className?: string
 }
 
 function prefersReducedMotion(): boolean {
@@ -14,7 +13,7 @@ function prefersReducedMotion(): boolean {
   )
 }
 
-export function Reveal({ children, className }: RevealProps) {
+export function Reveal({ children }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null)
   const [visible, setVisible] = useState(false)
   const [reduceMotion, setReduceMotion] = useState(false)
@@ -51,7 +50,6 @@ export function Reveal({ children, className }: RevealProps) {
       className={cn(
         !reduceMotion && 'transition-[opacity,transform] duration-700',
         showContent ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0',
-        className,
       )}
     >
       {children}

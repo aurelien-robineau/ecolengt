@@ -27,7 +27,7 @@ type BuildPageMetadataInput = {
   ogType?: 'website' | 'article'
 }
 
-export function getMetadataBase(): URL {
+function getMetadataBase(): URL {
   return new URL(getSiteOrigin())
 }
 

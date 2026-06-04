@@ -4,7 +4,7 @@ import { sanitizeFilename } from 'payload/shared'
  * Normalizes a storage prefix for use in object keys and URLs.
  * Mirrors @payloadcms/plugin-cloud-storage/utilities sanitizePrefix.
  */
-export function sanitizePrefix(prefix: string): string {
+function sanitizePrefix(prefix: string): string {
   let decodedPrefix: string
 
   try {

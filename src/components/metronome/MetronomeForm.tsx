@@ -308,7 +308,6 @@ export function MetronomeForm() {
             bpmType={form.bpmType}
             countInBars={form.countInBars}
             mechanicalTempos={form.mechanicalTempos}
-            className="border-brand-border/60 bg-surface-muted/60"
           />
 
           <form id={formId} onSubmit={handleSubmit} className="space-y-7">

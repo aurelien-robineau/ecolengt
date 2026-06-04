@@ -8,10 +8,10 @@ export {
   adminNavPagesOtherOrder,
   adminNavPagesStagesOrder,
 } from './shared/adminGroups'
-export { cmsRichTextEditor, cmsRichTextFeatures } from './shared/cmsRichTextEditor'
+export { cmsRichTextEditor } from './shared/cmsRichTextEditor'
 export { buttonUrlFieldDescription, urlFieldDescription } from './shared/urlFieldDescription'
-export { siteAddressFields, type SiteAddressFieldPrefix } from './siteAddress'
-export { siteAccessFields, type SiteAccessFieldPrefix } from './siteAccess'
+export { siteAddressFields } from './siteAddress'
+export { siteAccessFields } from './siteAccess'
 export { landingSectionFields, landingSectionGalleryFields } from './landingSection'
 export { hiddenSlugField } from './hiddenSlug'
 export { orderMediaFields } from './orderMedia'

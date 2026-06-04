@@ -1,25 +1,9 @@
-import { cn } from '@/lib/cn'
-
 type PortraitPlaceholderProps = {
   alt: string
-  className?: string
-  variant?: 'default' | 'onBrand'
-  /** Render only inner content inside a parent frame. */
-  embedded?: boolean
 }
 
-const backgrounds = {
-  default: 'bg-[#e8e0d0]',
-  onBrand: 'bg-foreground/8 ring-1 ring-foreground/10',
-}
-
-export function PortraitPlaceholder({
-  alt,
-  className,
-  variant = 'default',
-  embedded = false,
-}: PortraitPlaceholderProps) {
-  const content = (
+export function PortraitPlaceholder({ alt }: PortraitPlaceholderProps) {
+  return (
     <>
       <div className="absolute inset-0 flex items-center justify-center">
         <svg
@@ -35,17 +19,5 @@ export function PortraitPlaceholder({
       </div>
       <span className="sr-only">{alt}</span>
     </>
-  )
-
-  if (embedded) {
-    return content
-  }
-
-  return (
-    <figure
-      className={cn('relative aspect-4/5 w-full max-w-md overflow-hidden', backgrounds[variant], className)}
-    >
-      {content}
-    </figure>
   )
 }

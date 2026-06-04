@@ -15,7 +15,6 @@ type MetronomeTempoPathProps = {
   bpmType: BpmType
   countInBars: number
   mechanicalTempos: boolean
-  className?: string
 }
 
 const REFERENCE_TEMPO_CONFIG: MetronomeSequenceConfig = {
@@ -30,7 +29,6 @@ export function MetronomeTempoPath({
   bpmType,
   countInBars,
   mechanicalTempos,
-  className,
 }: MetronomeTempoPathProps) {
   const referenceMilestones = useMemo(() => buildTempoTableMilestones(REFERENCE_TEMPO_CONFIG), [])
 
@@ -43,7 +41,7 @@ export function MetronomeTempoPath({
     <div
       className={cn(
         'rounded-sm border border-brand-border/80 bg-surface-muted/40 px-3 py-4 md:px-7 md:py-8',
-        className,
+        'border-brand-border/60 bg-surface-muted/60',
       )}
       aria-live="polite"
       aria-atomic="true"

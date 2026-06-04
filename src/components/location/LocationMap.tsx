@@ -10,7 +10,6 @@ type LocationMapProps = {
   latitude: number
   longitude: number
   googleMapsUrl?: string
-  className?: string
   /** Classes for the iframe wrapper (aspect ratio / min-height). */
   embedClassName?: string
 }
@@ -20,7 +19,6 @@ export function LocationMap({
   latitude,
   longitude,
   googleMapsUrl,
-  className,
   embedClassName,
 }: LocationMapProps) {
   const embedSrc = buildOpenStreetMapEmbedUrl(latitude, longitude)
@@ -29,7 +27,7 @@ export function LocationMap({
     : undefined
 
   return (
-    <div className={cn('flex flex-col', className)}>
+    <div className="flex flex-col">
       <div
         className={cn(
           'relative aspect-4/3 w-full overflow-hidden bg-surface-muted lg:aspect-auto lg:min-h-112',

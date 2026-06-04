@@ -9,7 +9,6 @@ type ButtonProps = {
   children: React.ReactNode
   variant?: 'primary' | 'ghost'
   className?: string
-  onClick?: () => void
 }
 
 const base =
@@ -22,7 +21,7 @@ const variants = {
     'border border-brand-border px-5 text-[11px] tracking-[0.12em] text-foreground-muted uppercase hover:border-foreground hover:text-foreground',
 } as const
 
-export function Button({ href, children, variant = 'primary', className, onClick }: ButtonProps) {
+export function Button({ href, children, variant = 'primary', className }: ButtonProps) {
   const classNames = cn(base, variants[variant], className)
   const resolvedHref = resolveHashHref(href)
   const trimmedHref = href.trim()
@@ -36,7 +35,6 @@ export function Button({ href, children, variant = 'primary', className, onClick
       <a
         href={isSpecialScheme ? trimmedHref : external ? href : resolvedHref}
         className={classNames}
-        onClick={onClick}
         aria-label={externalLabel}
         {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
       >
@@ -46,7 +44,7 @@ export function Button({ href, children, variant = 'primary', className, onClick
   }
 
   return (
-    <Link href={href} className={classNames} onClick={onClick}>
+    <Link href={href} className={classNames}>
       {children}
     </Link>
   )

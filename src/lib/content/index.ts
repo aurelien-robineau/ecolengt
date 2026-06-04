@@ -5,7 +5,6 @@
 
 export * from './types'
 
-export { revalidateSite } from './revalidateSite'
 export { sortAdminNavGroups } from './admin/sortAdminNavGroups'
 
 export {
@@ -27,11 +26,7 @@ export { getStudentBySlug, getStudentSlugs } from './queries/getStudentBySlug'
 export { getNavPrefs } from './queries/getNavPrefs'
 
 export { hasLexicalContent } from './richtext/hasLexicalContent'
-export { buildLexicalContent } from './richtext/buildLexicalContent'
 export type { CmsRichTextContent } from './richtext/types'
 
 export { formatPostalCityLine, formatFoundedSince } from './utils/formatAddress'
-export { formatPhoneHref } from './utils/formatPhoneHref'
 export { articlePageHref } from './utils/articlePageHref'
-export { studentPageHref, resolveListedPerson } from './utils/studentPageHref'
-export { parseMapCoordinate } from './utils/parseMapCoordinate'

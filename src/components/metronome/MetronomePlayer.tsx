@@ -9,7 +9,6 @@ type MetronomePlayerProps = {
   downloadFilename: string
   /** Playback time (s) when the slow finale begins — status switches to “Arrivée en gare…”. */
   finaleStartTime: number
-  className?: string
 }
 
 function formatTime(seconds: number): string {
@@ -82,12 +81,7 @@ function MeterBars({ active }: { active: boolean }) {
   )
 }
 
-export function MetronomePlayer({
-  src,
-  downloadFilename,
-  finaleStartTime,
-  className,
-}: MetronomePlayerProps) {
+export function MetronomePlayer({ src, downloadFilename, finaleStartTime }: MetronomePlayerProps) {
   const audioRef = useRef<HTMLAudioElement>(null)
   const seekTrackRef = useRef<HTMLButtonElement>(null)
   const [isPlaying, setIsPlaying] = useState(false)
@@ -205,12 +199,7 @@ export function MetronomePlayer({
   const canStop = isReady && (isPlaying || currentTime > 0)
 
   return (
-    <div
-      className={cn(
-        'relative rounded-sm border border-brand-border bg-gradient-to-b from-surface-muted/50 to-surface px-5 py-6 md:px-7 md:py-8',
-        className,
-      )}
-    >
+    <div className="relative rounded-sm border border-brand-border bg-gradient-to-b from-surface-muted/50 to-surface px-5 py-6 md:px-7 md:py-8">
       <audio ref={audioRef} src={src} preload="auto" className="sr-only" />
 
       <button

@@ -142,7 +142,7 @@ export type LandingSectionItem = {
   description: CmsRichTextContent | null
 }
 
-export type LandingSectionHighlight = {
+type LandingSectionHighlight = {
   title: string
   description: CmsRichTextContent | null
   button: {

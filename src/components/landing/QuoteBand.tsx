@@ -24,7 +24,7 @@ export function QuoteBand({ quote }: QuoteBandProps) {
                 priority
               />
             ) : (
-              <PortraitPlaceholder alt={quote.imageAlt} embedded />
+              <PortraitPlaceholder alt={quote.imageAlt} />
             )}
           </div>
 
