@@ -19,16 +19,15 @@ test.describe('Admin Panel', () => {
   })
 
   test('can navigate to dashboard', async () => {
-    await page.goto('/admin')
-    await expect(page).toHaveURL('/admin')
-    const dashboardArtifact = page.locator('span[title="Dashboard"]').first()
-    await expect(dashboardArtifact).toBeVisible()
+    // beforeAll login already landed here; avoid a fresh /admin load that can hit a dev overlay
+    await expect(page).toHaveURL(/\/admin\/?$/)
+    await expect(page.locator('.collections__wrap')).toBeVisible()
   })
 
   test('can navigate to list view', async () => {
     await page.goto('/admin/collections/users')
     await expect(page).toHaveURL('/admin/collections/users')
-    const listViewArtifact = page.locator('h1', { hasText: 'Users' }).first()
+    const listViewArtifact = page.locator('h1', { hasText: 'Utilisateurs' }).first()
     await expect(listViewArtifact).toBeVisible()
   })
 

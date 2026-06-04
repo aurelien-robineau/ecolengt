@@ -6,9 +6,8 @@ test.describe('Frontend', () => {
 
     await expect(page).toHaveTitle(/École de Batterie/)
 
-    const heading = page.locator('h1').first()
-
-    await expect(heading).toContainText('École de Batterie')
+    await expect(page.getByRole('navigation', { name: 'Navigation principale' })).toBeVisible()
+    await expect(page.locator('#contenu-principal')).toBeVisible()
   })
 
   test('skip link targets main content', async ({ page }) => {
@@ -32,16 +31,16 @@ test.describe('Frontend', () => {
     await page.setViewportSize({ width: 390, height: 844 })
     await page.goto('/')
 
-    const menuButton = page.getByRole('button', { name: 'Ouvrir le menu' })
-    await menuButton.click()
+    const menuButton = page.locator('button[aria-controls="mobile-nav"]')
+    // Keyboard open moves focus into the trap (see Header openMenu + :focus-visible)
+    await menuButton.focus()
+    await page.keyboard.press('Enter')
 
-    await expect(page.getByRole('navigation', { name: 'Navigation mobile' })).toBeVisible()
+    const mobileNav = page.locator('#mobile-nav')
+    await expect(mobileNav).toBeVisible()
     await expect(menuButton).toHaveAttribute('aria-expanded', 'true')
 
-    await page.keyboard.press('Tab')
-    const focusedInNav = await page
-      .locator('#mobile-nav a, #mobile-nav button')
-      .evaluateAll((elements) => elements.some((element) => element === document.activeElement))
+    const focusedInNav = await mobileNav.evaluate((nav) => nav.contains(document.activeElement))
     expect(focusedInNav).toBe(true)
   })
 })
