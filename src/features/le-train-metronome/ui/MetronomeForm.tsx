@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useId, useRef, useState } from 'react'
+import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
 
 import { LE_TRAIN_METRONOME_API_PATH } from '../constants'
 import { clampBpmToInputLimits, getBpmInputLimits, stepBpm } from '../lib/bpmLimits'
@@ -41,6 +41,37 @@ const defaultForm: FormState = {
   accentFirst: false,
   mechanicalTempos: false,
   countInBars: DEFAULT_COUNT_IN_BARS,
+}
+
+type GeneratedAudioConfig = {
+  bpm: number
+  bpmType: BpmType
+  countInBars: number
+  subdivision: number
+  accentFirst: boolean
+  mechanicalTempos: boolean
+}
+
+function buildGenerationConfig(form: FormState): GeneratedAudioConfig {
+  return {
+    bpm: clampBpmToInputLimits(form.bpm, form.bpmType),
+    bpmType: form.bpmType,
+    countInBars: form.countInBars,
+    subdivision: form.subdivision,
+    accentFirst: form.accentFirst,
+    mechanicalTempos: form.mechanicalTempos,
+  }
+}
+
+function generationConfigsMatch(a: GeneratedAudioConfig, b: GeneratedAudioConfig): boolean {
+  return (
+    a.bpm === b.bpm &&
+    a.bpmType === b.bpmType &&
+    a.countInBars === b.countInBars &&
+    a.subdivision === b.subdivision &&
+    a.accentFirst === b.accentFirst &&
+    a.mechanicalTempos === b.mechanicalTempos
+  )
 }
 
 function SectionLabel({ children, className }: { children: React.ReactNode; className?: string }) {
@@ -208,10 +239,18 @@ export function MetronomeForm() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [view, setView] = useState<'settings' | 'session'>('settings')
+  const [playback, setPlayback] = useState({ isPlaying: false, currentTime: 0 })
+  const [generatedConfig, setGeneratedConfig] = useState<GeneratedAudioConfig | null>(null)
   const blobUrlRef = useRef<string | null>(null)
+  const cardRef = useRef<HTMLDivElement>(null)
 
   const sessionReady = blobUrl !== null && downloadFilename !== null && finaleStartTime !== null
   const showSession = view === 'session' && sessionReady
+  const currentConfig = useMemo(() => buildGenerationConfig(form), [form])
+  const canReuseAudio =
+    sessionReady &&
+    generatedConfig !== null &&
+    generationConfigsMatch(generatedConfig, currentConfig)
 
   const revokeBlobUrl = useCallback((url: string | null) => {
     if (url) {
@@ -227,17 +266,34 @@ export function MetronomeForm() {
     return () => revokeBlobUrl(blobUrlRef.current)
   }, [revokeBlobUrl])
 
+  useEffect(() => {
+    if (view !== 'session') return
+
+    const card = cardRef.current
+    if (!card) return
+
+    requestAnimationFrame(() => {
+      card.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    })
+  }, [view])
+
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
     setError(null)
+
+    const config = buildGenerationConfig(form)
+    if (config.bpm !== form.bpm) {
+      setForm((s) => ({ ...s, bpm: config.bpm }))
+    }
+
+    if (canReuseAudio) {
+      setView('session')
+      return
+    }
+
     setDownloadFilename(null)
     setFinaleStartTime(null)
     setLoading(true)
-
-    const bpm = clampBpmToInputLimits(form.bpm, form.bpmType)
-    if (bpm !== form.bpm) {
-      setForm((s) => ({ ...s, bpm }))
-    }
 
     const controller = new AbortController()
     const timeoutId = window.setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS)
@@ -247,12 +303,7 @@ export function MetronomeForm() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          bpm,
-          bpmType: form.bpmType,
-          countInBars: form.countInBars,
-          subdivision: form.subdivision,
-          accentFirst: form.accentFirst,
-          mechanicalTempos: form.mechanicalTempos,
+          ...config,
           sampleRate: DEFAULT_SAMPLE_RATE,
         }),
         signal: controller.signal,
@@ -274,13 +325,12 @@ export function MetronomeForm() {
         throw new Error('Réponse audio vide.')
       }
 
-      const sequenceConfig = {
-        bpm,
-        bpmType: form.bpmType,
-        countInBars: form.countInBars,
-        mechanicalTempos: form.mechanicalTempos,
-      }
-      const sequence = buildSequence(sequenceConfig)
+      const sequence = buildSequence({
+        bpm: config.bpm,
+        bpmType: config.bpmType,
+        countInBars: config.countInBars,
+        mechanicalTempos: config.mechanicalTempos,
+      })
 
       const nextUrl = URL.createObjectURL(blob)
       setBlobUrl((previous) => {
@@ -289,6 +339,7 @@ export function MetronomeForm() {
       })
       setDownloadFilename(buildMetronomeDownloadFilename(sequence))
       setFinaleStartTime(findFinaleStartSeconds(sequence))
+      setGeneratedConfig(config)
       setView('session')
     } catch (cause) {
       setView('settings')
@@ -309,7 +360,10 @@ export function MetronomeForm() {
 
   return (
     <div className="mx-auto w-full max-w-xl">
-      <div className="overflow-hidden rounded-2xl border border-[var(--metro-border)] bg-[var(--metro-panel)] shadow-[0_20px_60px_-20px_rgb(24_24_24/0.14)]">
+      <div
+        ref={cardRef}
+        className="scroll-mt-[calc(70px+1rem)] overflow-hidden rounded-2xl border border-[var(--metro-border)] bg-[var(--metro-panel)] shadow-[0_20px_60px_-20px_rgb(24_24_24/0.14)]"
+      >
         <header className="relative border-b border-[var(--metro-border)] px-6 py-6 text-center md:px-8 md:py-7">
           <div
             className="absolute inset-x-0 top-0 h-1 bg-[linear-gradient(90deg,transparent,var(--metro-brand),transparent)]"
@@ -326,12 +380,14 @@ export function MetronomeForm() {
           </h1>
         </header>
 
-        <div className="space-y-8 p-5 md:p-7">
+        <div className="space-y-5 p-5 md:space-y-7 md:p-7">
           <MetronomeTempoPath
             bpm={form.bpm}
             bpmType={form.bpmType}
             countInBars={form.countInBars}
             mechanicalTempos={form.mechanicalTempos}
+            isPlaying={playback.isPlaying}
+            currentTime={playback.currentTime}
           />
 
           {showSession ? (
@@ -340,6 +396,7 @@ export function MetronomeForm() {
                 src={blobUrl}
                 downloadFilename={downloadFilename}
                 finaleStartTime={finaleStartTime}
+                onPlaybackChange={setPlayback}
               />
               <button
                 type="button"
@@ -456,7 +513,7 @@ export function MetronomeForm() {
                       Génération en cours…
                     </>
                   ) : (
-                    'Lancer la génération'
+                    "Générer l'audio"
                   )}
                 </button>
               </form>
@@ -468,18 +525,6 @@ export function MetronomeForm() {
                 >
                   {error}
                 </p>
-              ) : null}
-
-              {sessionReady ? (
-                <div className="flex justify-center pt-1">
-                  <button
-                    type="button"
-                    onClick={() => setView('session')}
-                    className="font-metronome-mono text-[11px] tracking-[0.14em] text-[var(--metro-muted)] uppercase underline-offset-4 transition-colors hover:text-[var(--metro-text)] hover:underline"
-                  >
-                    Reprendre la lecture
-                  </button>
-                </div>
               ) : null}
             </>
           )}

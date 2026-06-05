@@ -1,11 +1,17 @@
 import { describe, expect, it } from 'vitest'
 
 import {
+  SILENCE_AT_START_S,
+  segmentDurationSeconds,
+} from '@/features/le-train-metronome/lib/audioGenerator'
+import {
   REFERENCE_BODY_SEQUENCE,
   REFERENCE_MAX_BPM,
   buildMetronomeDownloadFilename,
   buildSequence,
   buildTempoTableMilestones,
+  findCurrentTempoColumnIndex,
+  findCurrentTempoRampDirection,
   peakBpmFromSequence,
   roundBpm,
   scaleRatio,
@@ -152,6 +158,71 @@ describe('sequenceBuilder', () => {
     }
 
     expect(mismatches).toEqual([])
+  })
+
+  it('maps playback time to the active tempo-table column', () => {
+    const config = {
+      bpm: 92,
+      bpmType: 'max' as const,
+      countInBars: 0,
+      mechanicalTempos: false,
+    }
+    const sequence = buildSequence(config)
+
+    const segmentStartTimes = sequence.reduce<number[]>((starts, segment, index) => {
+      const previous =
+        index === 0
+          ? SILENCE_AT_START_S
+          : starts[index - 1] + segmentDurationSeconds(sequence[index - 1])
+      starts.push(previous)
+      return starts
+    }, [])
+
+    expect(findCurrentTempoColumnIndex(config, SILENCE_AT_START_S)).toBe(0)
+    expect(findCurrentTempoColumnIndex(config, segmentStartTimes[1]!)).toBe(0)
+    expect(findCurrentTempoColumnIndex(config, segmentStartTimes[2]!)).toBe(1)
+    expect(findCurrentTempoColumnIndex(config, segmentStartTimes[3]!)).toBe(1)
+    expect(findCurrentTempoColumnIndex(config, segmentStartTimes[4]!)).toBe(2)
+    expect(findCurrentTempoColumnIndex(config, segmentStartTimes[11]!)).toBe(5)
+    expect(findCurrentTempoColumnIndex(config, segmentStartTimes[12]!)).toBe(6)
+    expect(findCurrentTempoColumnIndex(config, segmentStartTimes[14]!)).toBe(7)
+    expect(findCurrentTempoColumnIndex(config, segmentStartTimes[15]!)).toBe(8)
+  })
+
+  it('detects crescendo and decrescendo segments during playback', () => {
+    const config = {
+      bpm: 92,
+      bpmType: 'max' as const,
+      countInBars: 0,
+      mechanicalTempos: false,
+    }
+    const sequence = buildSequence(config)
+
+    const segmentStartTimes = sequence.reduce<number[]>((starts, segment, index) => {
+      const previous =
+        index === 0
+          ? SILENCE_AT_START_S
+          : starts[index - 1] + segmentDurationSeconds(sequence[index - 1])
+      starts.push(previous)
+      return starts
+    }, [])
+
+    expect(findCurrentTempoRampDirection(config, segmentStartTimes[0]!)).toBeNull()
+    expect(findCurrentTempoRampDirection(config, segmentStartTimes[1]!)).toBe('up')
+    expect(findCurrentTempoRampDirection(config, segmentStartTimes[2]!)).toBeNull()
+    expect(findCurrentTempoRampDirection(config, segmentStartTimes[11]!)).toBe('down')
+    expect(findCurrentTempoRampDirection(config, segmentStartTimes[12]!)).toBe('down')
+  })
+
+  it('highlights the first tempo column during count-in', () => {
+    const config = {
+      bpm: 92,
+      bpmType: 'max' as const,
+      countInBars: 4,
+      mechanicalTempos: false,
+    }
+
+    expect(findCurrentTempoColumnIndex(config, SILENCE_AT_START_S + 0.5)).toBe(0)
   })
 
   it('rounds scaled tempos to integers', () => {

@@ -6,11 +6,17 @@ import { cn } from '@/lib/cn'
 
 import { FeatureIcon } from './FeatureIcon'
 
+type PlaybackState = {
+  isPlaying: boolean
+  currentTime: number
+}
+
 type MetronomePlayerProps = {
   src: string
   downloadFilename: string
   /** Playback time (s) when the slow finale begins — status switches to “Arrivée en gare…”. */
   finaleStartTime: number
+  onPlaybackChange?: (state: PlaybackState) => void
 }
 
 function formatTime(seconds: number): string {
@@ -40,7 +46,12 @@ function MeterBars({ active }: { active: boolean }) {
   )
 }
 
-export function MetronomePlayer({ src, downloadFilename, finaleStartTime }: MetronomePlayerProps) {
+export function MetronomePlayer({
+  src,
+  downloadFilename,
+  finaleStartTime,
+  onPlaybackChange,
+}: MetronomePlayerProps) {
   const audioRef = useRef<HTMLAudioElement>(null)
   const seekTrackRef = useRef<HTMLButtonElement>(null)
   const [isPlaying, setIsPlaying] = useState(false)
@@ -48,6 +59,13 @@ export function MetronomePlayer({ src, downloadFilename, finaleStartTime }: Metr
   const [isScrubbing, setIsScrubbing] = useState(false)
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
+
+  const emitPlaybackChange = useCallback(
+    (next: PlaybackState) => {
+      onPlaybackChange?.(next)
+    },
+    [onPlaybackChange],
+  )
 
   useEffect(() => {
     const audio = audioRef.current
@@ -57,8 +75,9 @@ export function MetronomePlayer({ src, downloadFilename, finaleStartTime }: Metr
     setIsReady(false)
     setCurrentTime(0)
     setDuration(0)
+    emitPlaybackChange({ isPlaying: false, currentTime: 0 })
     audio.load()
-  }, [src])
+  }, [emitPlaybackChange, src])
 
   useEffect(() => {
     const audio = audioRef.current
@@ -68,11 +87,26 @@ export function MetronomePlayer({ src, downloadFilename, finaleStartTime }: Metr
       setDuration(audio.duration)
       setIsReady(Number.isFinite(audio.duration) && audio.duration > 0)
     }
-    const onTimeUpdate = () => setCurrentTime(audio.currentTime)
-    const onSeeked = () => setCurrentTime(audio.currentTime)
-    const onPlay = () => setIsPlaying(true)
-    const onPause = () => setIsPlaying(false)
-    const onEnded = () => setIsPlaying(false)
+    const onTimeUpdate = () => {
+      setCurrentTime(audio.currentTime)
+      emitPlaybackChange({ isPlaying: !audio.paused, currentTime: audio.currentTime })
+    }
+    const onSeeked = () => {
+      setCurrentTime(audio.currentTime)
+      emitPlaybackChange({ isPlaying: !audio.paused, currentTime: audio.currentTime })
+    }
+    const onPlay = () => {
+      setIsPlaying(true)
+      emitPlaybackChange({ isPlaying: true, currentTime: audio.currentTime })
+    }
+    const onPause = () => {
+      setIsPlaying(false)
+      emitPlaybackChange({ isPlaying: false, currentTime: audio.currentTime })
+    }
+    const onEnded = () => {
+      setIsPlaying(false)
+      emitPlaybackChange({ isPlaying: false, currentTime: audio.currentTime })
+    }
 
     audio.addEventListener('loadedmetadata', syncDuration)
     audio.addEventListener('durationchange', syncDuration)
@@ -91,7 +125,7 @@ export function MetronomePlayer({ src, downloadFilename, finaleStartTime }: Metr
       audio.removeEventListener('pause', onPause)
       audio.removeEventListener('ended', onEnded)
     }
-  }, [src])
+  }, [emitPlaybackChange, src])
 
   const clampTime = useCallback((time: number, audio: HTMLAudioElement) => {
     if (!Number.isFinite(audio.duration) || audio.duration <= 0) return 0
@@ -123,7 +157,8 @@ export function MetronomePlayer({ src, downloadFilename, finaleStartTime }: Metr
     audio.currentTime = 0
     setCurrentTime(0)
     setIsPlaying(false)
-  }, [isReady])
+    emitPlaybackChange({ isPlaying: false, currentTime: 0 })
+  }, [emitPlaybackChange, isReady])
 
   const seek = useCallback(
     (clientX: number, rect: DOMRect) => {

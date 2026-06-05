@@ -1,3 +1,4 @@
+import { SILENCE_AT_START_S, segmentDurationSeconds } from './audioGenerator'
 import { applyMechanicalTemposToSequence } from './mechanicalTempos'
 import type { BpmType, MetronomeSequenceConfig, SequenceSegment } from './types'
 
@@ -100,4 +101,79 @@ export function buildTempoTableMilestones(config: MetronomeSequenceConfig): numb
   const displayBody = buildSequence(config).slice(config.countInBars > 0 ? 1 : 0)
 
   return TEMPO_TABLE_ANCHORS.map(({ segmentIndex, field }) => displayBody[segmentIndex][field])
+}
+
+function findDisplaySegmentIndex(
+  sequence: SequenceSegment[],
+  countInBars: number,
+  currentTime: number,
+): number {
+  if (currentTime < SILENCE_AT_START_S) {
+    return countInBars > 0 ? -1 : 0
+  }
+
+  let elapsed = SILENCE_AT_START_S
+
+  for (let segmentIndex = 0; segmentIndex < sequence.length; segmentIndex++) {
+    const segmentEnd = elapsed + segmentDurationSeconds(sequence[segmentIndex])
+    if (currentTime < segmentEnd) {
+      return countInBars > 0 ? segmentIndex - 1 : segmentIndex
+    }
+    elapsed = segmentEnd
+  }
+
+  const lastDisplayIndex = countInBars > 0 ? sequence.length - 2 : sequence.length - 1
+  return Math.max(0, lastDisplayIndex)
+}
+
+function anchorActivationSegmentIndex(anchor: TempoTableAnchor): number {
+  // Speed changes complete at segment end — highlight advances once the target tempo is reached.
+  return anchor.field === 'bpmStart' ? anchor.segmentIndex : anchor.segmentIndex + 1
+}
+
+/** Maps playback time to the highlighted tempo-table column (0-based). */
+export function findCurrentTempoColumnIndex(
+  config: MetronomeSequenceConfig,
+  currentTime: number,
+): number {
+  const sequence = buildSequence(config)
+  const displaySegmentIndex = findDisplaySegmentIndex(sequence, config.countInBars, currentTime)
+
+  if (displaySegmentIndex < 0) {
+    return 0
+  }
+
+  let columnIndex = 0
+
+  for (let index = 0; index < TEMPO_TABLE_ANCHORS.length; index++) {
+    if (displaySegmentIndex >= anchorActivationSegmentIndex(TEMPO_TABLE_ANCHORS[index])) {
+      columnIndex = index
+    }
+  }
+
+  return columnIndex
+}
+
+export type TempoRampDirection = 'up' | 'down'
+
+/** Returns the active crescendo/decrescendo during playback, if any. */
+export function findCurrentTempoRampDirection(
+  config: MetronomeSequenceConfig,
+  currentTime: number,
+): TempoRampDirection | null {
+  const sequence = buildSequence(config)
+  const displaySegmentIndex = findDisplaySegmentIndex(sequence, config.countInBars, currentTime)
+
+  if (displaySegmentIndex < 0) {
+    return null
+  }
+
+  const displayBody = sequence.slice(config.countInBars > 0 ? 1 : 0)
+  const segment = displayBody[displaySegmentIndex]
+
+  if (!segment || segment.bpmStart === segment.bpmEnd) {
+    return null
+  }
+
+  return segment.bpmEnd > segment.bpmStart ? 'up' : 'down'
 }
