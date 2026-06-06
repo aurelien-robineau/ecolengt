@@ -21,7 +21,7 @@ export function StudentProfile({ student }: StudentProfileProps) {
 
       {student.quote ? (
         <blockquote className={cn(stackBlockClassName, 'max-w-2xl border-l-2 border-brand pl-6')}>
-          <FormattedParagraph className="type-lead font-serif italic text-foreground-muted">
+          <FormattedParagraph className="font-serif text-[1.2rem] leading-normal italic text-foreground-muted sm:text-[1.4rem]">
             {`« ${student.quote} »`}
           </FormattedParagraph>
         </blockquote>

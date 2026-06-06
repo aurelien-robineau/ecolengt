@@ -28,6 +28,10 @@ type GalleryProps = {
   singleImageClassName?: string
   /** Eager-load the first image (above-the-fold galleries). */
   priorityFirstImage?: boolean
+  /** Show one preview with lightbox instead of a grid (all breakpoints). */
+  previewOnly?: boolean
+  /** Extra classes on the preview wrapper (e.g. desktop max-width). */
+  previewWrapperClassName?: string
 }
 
 const layoutByColumns = {
@@ -151,6 +155,8 @@ export function Gallery({
   singleFigureClassName = 'max-w-3xl',
   singleImageClassName = 'max-h-[min(85dvh,56rem)]',
   priorityFirstImage = false,
+  previewOnly = false,
+  previewWrapperClassName,
 }: GalleryProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
   const { containerRef, shouldLoad } = useGalleryInView(priorityFirstImage)
@@ -164,6 +170,7 @@ export function Gallery({
   const layout = layoutByColumns[columns]
   const isSingleNatural = naturalSingle && items.length === 1
   const collapseOnMobile = items.length > MOBILE_GALLERY_COLLAPSE_ABOVE
+  const showPreviewOnly = previewOnly && items.length > 1
 
   if (isSingleNatural) {
     const item = items[0]
@@ -216,59 +223,63 @@ export function Gallery({
   return (
     <>
       <div ref={containerRef}>
-        {collapseOnMobile ? (
-          <div className="bleed-x-sm md:hidden">
-            <GalleryMobilePreview
-              items={items}
-              shouldLoad={shouldLoad}
-              priorityFirstImage={priorityFirstImage}
-              onOpen={setOpenIndex}
-            />
+        {collapseOnMobile || showPreviewOnly ? (
+          <div className={cn('bleed-x-sm', !showPreviewOnly && 'md:hidden')}>
+            <div className={previewWrapperClassName}>
+              <GalleryMobilePreview
+                items={items}
+                shouldLoad={shouldLoad}
+                priorityFirstImage={priorityFirstImage}
+                onOpen={setOpenIndex}
+              />
+            </div>
           </div>
         ) : null}
 
-        <div
-          className={cn(
-            'bleed-x-sm flex flex-wrap justify-center gap-0.5',
-            collapseOnMobile && 'hidden md:flex',
-          )}
-        >
-          {items.map((item, index) => {
-            const isPriorityImage = priorityFirstImage && index === 0
+        {!showPreviewOnly ? (
+          <div
+            className={cn(
+              'bleed-x-sm flex flex-wrap justify-center gap-0.5',
+              collapseOnMobile && 'hidden md:flex',
+            )}
+          >
+            {items.map((item, index) => {
+              const isPriorityImage = priorityFirstImage && index === 0
 
-            return (
-              <figure
-                key={`${item.image.src}-${index}`}
-                className={cn(
-                  'group media-ratio-gallery relative overflow-hidden bg-surface-elevated',
-                  layout.itemClassName,
-                )}
-              >
-                {shouldLoad || isPriorityImage ? (
-                  <>
-                    <CmsImage
-                      image={item.image}
-                      fill
-                      className="transition-transform duration-500 group-hover:scale-[1.03]"
-                      sizes={layout.imageSizes}
-                      priority={isPriorityImage}
-                      loading={isPriorityImage ? 'eager' : 'lazy'}
-                      fetchPriority={isPriorityImage ? 'high' : 'low'}
-                    />
-                    <button
-                      type="button"
-                      className="absolute inset-0 z-10 cursor-zoom-in focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
-                      onClick={() => setOpenIndex(index)}
-                      aria-label={`Agrandir la photo${item.image.alt ? ` : ${item.image.alt}` : ''}`}
-                    />
-                  </>
-                ) : (
-                  <div className="media-ratio-gallery w-full" aria-hidden />
-                )}
-              </figure>
-            )
-          })}
-        </div>
+              return (
+                <figure
+                  key={`${item.image.src}-${index}`}
+                  className={cn(
+                    'group media-ratio-gallery relative overflow-hidden bg-surface-elevated',
+                    layout.itemClassName,
+                  )}
+                >
+                  {shouldLoad || isPriorityImage ? (
+                    <>
+                      <CmsImage
+                        image={item.image}
+                        fill
+                        className="transition-transform duration-500 group-hover:scale-[1.03]"
+                        sizes={layout.imageSizes}
+                        priority={isPriorityImage}
+                        loading={isPriorityImage ? 'eager' : 'lazy'}
+                        fetchPriority={isPriorityImage ? 'high' : 'low'}
+                      />
+                      <button
+                        type="button"
+                        className="absolute inset-0 z-10 cursor-zoom-in focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+                        onClick={() => setOpenIndex(index)}
+                        aria-label={`Agrandir la photo${item.image.alt ? ` : ${item.image.alt}` : ''}`}
+                      />
+                    </>
+                  ) : (
+                    <div className="media-ratio-gallery w-full" aria-hidden />
+                  )}
+                </figure>
+              )
+            })}
+          </div>
+        ) : null}
       </div>
       {openIndex !== null ? (
         <ImageLightbox
