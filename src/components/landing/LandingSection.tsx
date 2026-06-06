@@ -5,6 +5,12 @@ import { Gallery } from '@/components/ui/Gallery'
 import { Reveal } from '@/components/ui/Reveal'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import { cn } from '@/lib/cn'
+import {
+  cardTitleClassName,
+  stackBlockClassName,
+  stackSectionClassName,
+  stackTitleClassName,
+} from '@/lib/ui/typography'
 import type { LandingSection as LandingSectionData } from '@/lib/content/types'
 
 type LandingSectionProps = {
@@ -33,7 +39,9 @@ export function LandingSection({ section }: LandingSectionProps) {
           {description ? (
             <div
               className={cn(
-                hasItems || hasHighlight ? 'mb-20 max-w-3xl' : hasGallery && 'mb-12 max-w-xl',
+                hasItems || hasHighlight
+                  ? stackBlockClassName
+                  : hasGallery && stackSectionClassName,
               )}
             >
               <CmsRichText data={description} />
@@ -41,12 +49,15 @@ export function LandingSection({ section }: LandingSectionProps) {
           ) : null}
 
           {hasItems ? (
-            <div className="mb-16 grid gap-px bg-border lg:grid-cols-2">
+            <div
+              className={cn('bleed-x-sm grid gap-px bg-border lg:grid-cols-2', stackBlockClassName)}
+            >
               {items.map((item, index) => (
-                <article key={`${item.title}-${index}`} className="bg-surface-card p-8">
-                  <h3 className="mb-4 font-serif text-xl font-normal text-foreground">
-                    {item.title}
-                  </h3>
+                <article
+                  key={`${item.title}-${index}`}
+                  className="bg-surface-card card-pad shadow-subtle"
+                >
+                  <h3 className={cn(cardTitleClassName, stackTitleClassName)}>{item.title}</h3>
                   <CmsRichText data={item.description} />
                 </article>
               ))}
@@ -56,13 +67,11 @@ export function LandingSection({ section }: LandingSectionProps) {
           {hasHighlight ? (
             <div
               className={cn(
-                'border border-brand-border bg-brand-dim p-8 md:p-12',
-                hasGallery && 'mb-12',
+                'callout-surface bleed-x-sm bg-brand-dim card-pad-lg',
+                hasGallery && stackSectionClassName,
               )}
             >
-              <h3 className="mb-4 font-serif text-[1.375rem] font-normal text-foreground">
-                {highlight.title}
-              </h3>
+              <h3 className={cn(cardTitleClassName, stackTitleClassName)}>{highlight.title}</h3>
               <CmsRichText data={highlight.description} />
               {highlight.button ? (
                 <div className="mt-8">

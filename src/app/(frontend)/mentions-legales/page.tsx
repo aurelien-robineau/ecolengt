@@ -43,7 +43,7 @@ export default async function LegalNoticePage() {
             className="mb-3"
           />
           {legalNotice.lastUpdatedAt ? (
-            <p className="text-sm text-foreground-muted">
+            <p className="type-body text-foreground-muted">
               Dernière mise à jour le {formatLegalNoticeLastUpdated(legalNotice.lastUpdatedAt)}
             </p>
           ) : null}

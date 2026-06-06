@@ -13,7 +13,7 @@ export function NewsUpcomingAlert({ alert }: NewsUpcomingAlertProps) {
 
   return (
     <aside
-      className="mb-12 border border-brand-border bg-brand-dim p-8 md:p-10"
+      className="callout-surface bleed-x-sm mb-12 bg-brand-dim card-pad-lg"
       aria-label="Événements à venir"
     >
       <CmsRichText data={alert} className="w-full max-w-none" />

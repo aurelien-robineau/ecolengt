@@ -1,21 +1,62 @@
-/** Body copy — larger on small screens for readability. */
-export const bodyTextClassName =
-  'text-base leading-[1.75] text-foreground-muted md:text-sm md:leading-[1.65]'
+/**
+ * Readable type scale — 16px body minimum, clear hierarchy, WCAG-friendly colors.
+ * Brand yellow is reserved for backgrounds & dark-surface accents, never body text on white.
+ */
 
-/** Small section labels (Téléphone, E-mail, etc.). */
-export const sectionLabelClassName =
-  'text-xs font-medium tracking-[0.2em] text-foreground uppercase md:text-[11px]'
+/** Default paragraph — 16px, relaxed leading, muted but high-contrast gray. */
+export const bodyTextClassName = 'type-body text-start text-foreground-muted'
 
-/** Major section headings within a page (Accès, Réseaux sociaux, etc.). */
+/** Intro / lead paragraph — 18px, sits between body and section titles. */
+export const leadTextClassName = 'type-lead text-foreground-muted'
+
+/** Section eyebrow on light backgrounds — small caps, dark gray (not yellow). */
+export const sectionLabelClassName = 'type-eyebrow'
+
+/** Section eyebrow on dark backgrounds (footer) — brand yellow is readable here. */
+export const sectionLabelInverseClassName = 'type-eyebrow-inverse'
+
+/** Page-level section heading (h2). */
 export const pageSectionTitleClassName =
-  'font-serif text-[clamp(1.375rem,2.5vw,1.875rem)] font-light leading-[1.15] text-foreground'
+  'type-section-title text-start text-[clamp(1.5rem,3vw,2rem)]'
+
+/** Card / block title (h3). */
+export const cardTitleClassName = 'type-card-title'
 
 /** Contact values on the contact page (phone, email, address). */
 export const contactValueClassName =
   'font-sans text-lg leading-snug font-normal text-foreground md:text-xl lg:text-lg'
 
-export const contactLinkValueClassName = `${contactValueClassName} block no-underline transition-colors hover:text-brand`
+export const contactLinkValueClassName = `${contactValueClassName} no-underline transition-colors duration-150 hover:text-foreground`
 
-/** Optional label above a phone or email on the contact page. */
+/** Inline label before a phone or email when both appear on one line. */
 export const contactItemLabelClassName =
-  'mb-1 block text-[10px] font-medium tracking-[0.18em] text-foreground-subtle uppercase md:text-[11px]'
+  'text-xs font-semibold tracking-[var(--tracking-widest)] text-foreground-subtle uppercase'
+
+/** Inline label variant for dark footer surfaces. */
+export const contactItemLabelInverseClassName =
+  'text-xs font-semibold tracking-[var(--tracking-widest)] text-foreground-inverse-muted uppercase'
+
+/** Footer / dark surface — Téléphone, E-mail group headings under Contact. */
+export const contactGroupLabelInverseClassName =
+  'text-xs font-semibold tracking-[var(--tracking-widest)] text-foreground-inverse uppercase'
+
+/** Vertical rhythm — 12px below eyebrows / surtitles. */
+export const stackEyebrowClassName = 'mb-3'
+
+/** Vertical rhythm — 16px below card titles and in-callout labels. */
+export const stackTitleClassName = 'mb-4'
+
+/** Vertical rhythm — 48px below section headers or page h2 blocks. */
+export const stackSectionClassName = 'mb-12'
+
+/** Vertical rhythm — 64px between major content blocks. */
+export const stackBlockClassName = 'mb-16'
+
+/** Vertical rhythm — 24px below footer column headings. */
+export const stackColumnLabelClassName = 'mb-6'
+
+/** Stacked links or contact lines — 16px between items. */
+export const stackListClassName = 'space-y-4'
+
+/** Default content grid gap — 32px, 48px from lg. */
+export const gridGapClassName = 'gap-8 lg:gap-12'

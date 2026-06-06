@@ -5,11 +5,15 @@ import { AddressContent } from '@/components/ui/AddressContent'
 import type { SiteSettingsData } from '@/lib/content/types'
 import { cn } from '@/lib/cn'
 import { hasMapCoordinates } from '@/lib/maps/hasMapCoordinates'
+import { ContactChannelItem } from '@/components/contact/ContactChannelItem'
 import {
   contactItemLabelClassName,
   contactLinkValueClassName,
   contactValueClassName,
   sectionLabelClassName,
+  stackBlockClassName,
+  stackTitleClassName,
+  gridGapClassName,
 } from '@/lib/ui/typography'
 
 type ContactLocationProps = {
@@ -27,7 +31,7 @@ function ContactInfoBlock({ label, children, className }: ContactInfoBlockProps)
     <div
       className={cn('border-b border-brand-border/50 py-6 last:border-b-0 last:pb-0', className)}
     >
-      <h2 className={cn(sectionLabelClassName, 'mb-4')}>{label}</h2>
+      <h2 className={cn(sectionLabelClassName, stackTitleClassName)}>{label}</h2>
       {children}
     </div>
   )
@@ -40,21 +44,24 @@ export function ContactLocation({ site }: ContactLocationProps) {
   return (
     <div
       className={cn(
-        'mb-16 grid gap-10',
-        hasMap && 'lg:grid-cols-[minmax(0,20rem)_1fr] lg:gap-12 lg:items-start',
+        stackBlockClassName,
+        'grid',
+        gridGapClassName,
+        hasMap && 'lg:grid-cols-[minmax(0,20rem)_1fr] lg:items-start',
       )}
     >
-      <aside className="border border-brand-border bg-brand-dim p-6 md:p-8">
+      <aside className="callout-surface bleed-x-sm bg-brand-dim card-pad">
         <ContactInfoBlock label="Téléphone" className="pt-0">
           <ul className="list-none space-y-4">
             {site.contact.phones.map((phone) => (
               <li key={phone.href}>
-                {phone.label ? (
-                  <span className={contactItemLabelClassName}>{phone.label}</span>
-                ) : null}
-                <a href={phone.href} className={contactLinkValueClassName}>
-                  {phone.display}
-                </a>
+                <ContactChannelItem
+                  href={phone.href}
+                  display={phone.display}
+                  label={phone.label}
+                  linkClassName={contactLinkValueClassName}
+                  labelClassName={contactItemLabelClassName}
+                />
               </li>
             ))}
           </ul>
@@ -64,12 +71,13 @@ export function ContactLocation({ site }: ContactLocationProps) {
           <ul className="list-none space-y-4">
             {site.contact.emails.map((email) => (
               <li key={email.href}>
-                {email.label ? (
-                  <span className={contactItemLabelClassName}>{email.label}</span>
-                ) : null}
-                <a href={email.href} className={contactLinkValueClassName}>
-                  {email.display}
-                </a>
+                <ContactChannelItem
+                  href={email.href}
+                  display={email.display}
+                  label={email.label}
+                  linkClassName={contactLinkValueClassName}
+                  labelClassName={contactItemLabelClassName}
+                />
               </li>
             ))}
           </ul>
@@ -94,7 +102,6 @@ export function ContactLocation({ site }: ContactLocationProps) {
           latitude={address.mapLatitude!}
           longitude={address.mapLongitude!}
           googleMapsUrl={address.mapsUrl || undefined}
-          embedClassName="lg:min-h-[28rem]"
         />
       ) : null}
     </div>

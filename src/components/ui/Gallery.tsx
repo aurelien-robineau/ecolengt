@@ -106,7 +106,13 @@ export function Gallery({
 
     return (
       <>
-        <figure className={cn('mb-12', singleFigureClassName)}>
+        <figure
+          className={cn(
+            'mb-12',
+            singleFigureClassName === 'max-w-3xl' && 'bleed-x-sm',
+            singleFigureClassName,
+          )}
+        >
           {singleLightbox ? (
             <button
               type="button"
@@ -133,7 +139,7 @@ export function Gallery({
 
   return (
     <>
-      <div ref={containerRef} className="flex flex-wrap justify-center gap-0.5">
+      <div ref={containerRef} className="bleed-x-sm flex flex-wrap justify-center gap-0.5">
         {items.map((item, index) => {
           const isPriorityImage = priorityFirstImage && index === 0
 
@@ -141,7 +147,7 @@ export function Gallery({
             <figure
               key={`${item.image.src}-${index}`}
               className={cn(
-                'group relative overflow-hidden bg-surface-elevated',
+                'group media-ratio-gallery relative overflow-hidden bg-surface-elevated',
                 layout.itemClassName,
               )}
             >
@@ -149,7 +155,8 @@ export function Gallery({
                 <>
                   <CmsImage
                     image={item.image}
-                    className="h-auto w-full transition-transform duration-500 group-hover:scale-[1.03]"
+                    fill
+                    className="transition-transform duration-500 group-hover:scale-[1.03]"
                     sizes={layout.imageSizes}
                     priority={isPriorityImage}
                     loading={isPriorityImage ? 'eager' : 'lazy'}
@@ -163,7 +170,7 @@ export function Gallery({
                   />
                 </>
               ) : (
-                <div className="min-h-48 w-full" aria-hidden />
+                <div className="media-ratio-gallery w-full" aria-hidden />
               )}
             </figure>
           )

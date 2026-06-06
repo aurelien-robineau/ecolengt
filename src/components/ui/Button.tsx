@@ -13,13 +13,13 @@ type ButtonProps = {
 }
 
 const base =
-  'inline-flex h-10 box-border items-center justify-center no-underline leading-none transition-colors'
+  'inline-flex min-h-11 box-border items-center justify-center rounded-md no-underline text-base font-medium leading-none tracking-[var(--tracking-wide)] transition-[color,background-color,border-color,box-shadow] duration-150'
 
 const variants = {
   primary:
-    'border border-transparent bg-brand px-9 text-xs font-medium tracking-[0.15em] text-foreground uppercase hover:bg-brand-hover',
+    'border border-transparent bg-brand px-6 text-foreground uppercase hover:bg-brand-hover hover:shadow-subtle sm:px-8',
   ghost:
-    'border border-brand-border px-5 text-[11px] tracking-[0.12em] text-foreground-muted uppercase hover:border-foreground hover:text-foreground',
+    'border border-brand-border px-5 text-foreground-muted uppercase hover:border-foreground hover:text-foreground',
 } as const
 
 export function Button({ href, children, variant = 'primary', className, onClick }: ButtonProps) {

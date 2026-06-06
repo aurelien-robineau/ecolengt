@@ -1,7 +1,9 @@
 import { CmsImage } from '@/components/cms/CmsImage'
 import { Button } from '@/components/ui/Button'
 import { Container } from '@/components/ui/Container'
+import { cn } from '@/lib/cn'
 import { formatFoundedSince } from '@/lib/content'
+import { sectionLabelClassName } from '@/lib/ui/typography'
 import type { LandingPageData, SiteSettingsData } from '@/lib/content/types'
 
 type HeroSectionProps = {
@@ -39,24 +41,24 @@ export function HeroSection({ hero, city, foundedYear }: HeroSectionProps) {
       ) : null}
 
       <Container className="relative">
-        <p className="animate-fade-up mb-6 flex items-center gap-4 font-serif text-lg text-foreground-muted italic md:text-xl">
-          <span className="block h-px w-10 bg-foreground-muted" aria-hidden />
+        <p className="animate-fade-up type-lead mb-6 flex items-center gap-4 font-serif italic text-foreground-muted">
+          <span className="block h-px w-10 bg-foreground-subtle" aria-hidden />
           {hero.tagline}
         </p>
 
-        <h1 className="animate-fade-up-delay-1 mb-3 font-serif leading-[1.05] font-light text-foreground">
-          <span className="block max-md:whitespace-nowrap max-md:text-[clamp(2.25rem,9vw,3rem)] md:text-[clamp(3.25rem,7vw,6rem)]">
+        <h1 className="animate-fade-up-delay-1 type-display mb-3 text-foreground">
+          <span className="block max-md:whitespace-nowrap max-md:text-[clamp(2.25rem,9vw,3rem)] md:text-[clamp(3rem,7vw,5.5rem)]">
             {hero.name}
           </span>
-          <em className="block text-foreground-muted max-md:whitespace-nowrap max-md:text-[clamp(2rem,8vw,2.625rem)] md:text-[clamp(3.25rem,7vw,6rem)]">
+          <em className="block font-normal text-foreground-muted max-md:whitespace-nowrap max-md:text-[clamp(1.75rem,6.5vw,2.5rem)] md:text-[clamp(2rem,4.5vw,3.5rem)]">
             {hero.subtitle}
           </em>
         </h1>
 
         {cityLabel || founded ? (
-          <p className="animate-fade-up-delay-2 mb-12 text-[13px] tracking-[0.2em] text-foreground-subtle uppercase">
+          <p className={cn('animate-fade-up-delay-2 mb-12', sectionLabelClassName)}>
             {cityLabel}
-            {cityLabel && founded ? <span className="mx-3 opacity-50">·</span> : null}
+            {cityLabel && founded ? <span className="mx-3 text-foreground-subtle">·</span> : null}
             {founded}
           </p>
         ) : (

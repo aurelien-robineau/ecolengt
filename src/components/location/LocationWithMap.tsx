@@ -9,6 +9,8 @@ import {
   contactLinkValueClassName,
   contactValueClassName,
   sectionLabelClassName,
+  stackTitleClassName,
+  gridGapClassName,
 } from '@/lib/ui/typography'
 
 type LocationWithMapProps = {
@@ -38,16 +40,17 @@ export function LocationWithMap({
   return (
     <div
       className={cn(
-        'grid gap-10',
-        hasMap && hasAside && 'lg:grid-cols-[minmax(0,20rem)_1fr] lg:gap-12 lg:items-start',
+        'grid',
+        gridGapClassName,
+        hasMap && hasAside && 'lg:grid-cols-[minmax(0,20rem)_1fr] lg:items-start',
         className,
       )}
     >
       {hasAside ? (
-        <aside className="border border-brand-border bg-brand-dim p-6 md:p-8">
+        <aside className="callout-surface bleed-x-sm bg-brand-dim card-pad">
           {hasAddress ? (
             <>
-              <h3 className={cn(sectionLabelClassName, 'mb-4')}>Adresse</h3>
+              <h3 className={cn(sectionLabelClassName, stackTitleClassName)}>Adresse</h3>
               <AddressContent
                 street={address.street}
                 streetLine2={address.streetLine2}
@@ -62,7 +65,9 @@ export function LocationWithMap({
           {hasDirections ? (
             <div className={cn(hasAddress && 'mt-8 border-t border-brand-border/50 pt-8')}>
               {hasAddress ? (
-                <h3 className={cn(sectionLabelClassName, 'mb-4')}>Comment s’y rendre</h3>
+                <h3 className={cn(sectionLabelClassName, stackTitleClassName)}>
+                  Comment s’y rendre
+                </h3>
               ) : null}
               <CmsRichText data={directions} />
             </div>

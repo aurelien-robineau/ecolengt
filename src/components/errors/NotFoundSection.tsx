@@ -16,28 +16,28 @@ export function NotFoundSection({ site }: NotFoundSectionProps) {
       />
 
       <Container className="relative text-center">
-        <p className="animate-fade-up mb-4 font-serif text-[clamp(5rem,18vw,9rem)] leading-none font-light text-brand">
+        <p className="animate-fade-up type-display mb-4 text-[clamp(5rem,18vw,9rem)] text-foreground">
           404
         </p>
 
-        <h1 className="animate-fade-up-delay-1 mb-4 font-serif text-[clamp(1.75rem,4vw,2.75rem)] leading-[1.15] font-light text-foreground">
+        <h1 className="type-section-title animate-fade-up-delay-1 mb-4 text-[clamp(1.75rem,4vw,2.75rem)] text-balance">
           Page introuvable
         </h1>
 
-        <p className="animate-fade-up-delay-2 mx-auto mb-10 max-w-md text-sm leading-[1.9] text-foreground-muted lg:max-w-none lg:whitespace-nowrap">
+        <p className="type-body animate-fade-up-delay-2 mx-auto mb-10 max-w-md text-foreground-muted">
           La page que vous cherchez n’existe pas, a été déplacée ou l’adresse est incorrecte.
         </p>
 
-        <div className="animate-fade-up-delay-3 flex flex-wrap items-center justify-center gap-4">
-          <Button href={routes.home}>Retour à l’accueil</Button>
-          <Button href={routes.contact} variant="ghost" className="px-9 text-xs tracking-[0.15em]">
+        <div className="animate-fade-up-delay-3 mx-auto grid w-full max-w-xs gap-4 sm:max-w-sm">
+          <Button href={routes.home} className="w-full">
+            Retour à l’accueil
+          </Button>
+          <Button href={routes.contact} variant="ghost" className="w-full">
             Nous contacter
           </Button>
         </div>
 
-        <p className="animate-fade-up-delay-3 mt-16 text-xs tracking-[0.2em] text-foreground-subtle uppercase">
-          {site.name}
-        </p>
+        <p className="animate-fade-up-delay-3 type-eyebrow mt-16">{site.name}</p>
       </Container>
     </section>
   )

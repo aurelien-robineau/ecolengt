@@ -1,5 +1,9 @@
 import { cn } from '@/lib/cn'
-import { sectionLabelClassName } from '@/lib/ui/typography'
+import {
+  sectionLabelClassName,
+  stackEyebrowClassName,
+  stackSectionClassName,
+} from '@/lib/ui/typography'
 
 type SectionHeaderProps = {
   label?: string
@@ -10,16 +14,14 @@ type SectionHeaderProps = {
 }
 
 const titleClassName =
-  'font-serif text-[clamp(1.625rem,3vw,2.375rem)] leading-[1.15] font-light text-balance text-foreground'
+  'type-section-title text-start text-[clamp(1.75rem,3.5vw,2.5rem)] text-balance'
 
 export function SectionHeader({ label, title, titleAs = 'h2', className }: SectionHeaderProps) {
   const TitleTag = titleAs
 
   return (
-    <header className={cn('mb-12', className)}>
-      {label ? (
-        <p className={cn('mb-3 tracking-[0.22em]', sectionLabelClassName)}>{label}</p>
-      ) : null}
+    <header className={cn(stackSectionClassName, 'text-start', className)}>
+      {label ? <p className={cn(stackEyebrowClassName, sectionLabelClassName)}>{label}</p> : null}
       <TitleTag className={titleClassName}>{title}</TitleTag>
     </header>
   )

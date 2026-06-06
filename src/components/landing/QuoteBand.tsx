@@ -12,9 +12,9 @@ const portraitFrameClassName =
 
 export function QuoteBand({ quote }: QuoteBandProps) {
   return (
-    <section className="bg-brand py-14 md:py-20">
+    <section className="bg-brand py-16 md:py-20">
       <Container>
-        <div className="mx-auto grid max-w-4xl items-center gap-8 md:gap-12 lg:grid-cols-[minmax(0,14rem)_1fr] lg:gap-16">
+        <div className="grid max-w-2xl items-center gap-8 md:gap-12 lg:max-w-4xl lg:grid-cols-[minmax(0,14rem)_1fr] lg:gap-16">
           <div className={portraitFrameClassName}>
             {quote.portrait ? (
               <CmsImage
@@ -28,11 +28,11 @@ export function QuoteBand({ quote }: QuoteBandProps) {
             )}
           </div>
 
-          <blockquote className="text-center lg:text-left">
-            <p className="font-serif text-[clamp(1.375rem,3vw,2rem)] leading-relaxed font-light text-foreground italic">
+          <blockquote className="text-start">
+            <p className="type-section-title text-[clamp(1.375rem,3vw,2rem)] text-foreground italic">
               « {quote.text} »
             </p>
-            <cite className="mt-6 block text-xs tracking-[0.15em] text-foreground/45 uppercase not-italic">
+            <cite className="mt-6 block text-xs tracking-[var(--tracking-widest)] text-foreground-subtle uppercase not-italic">
               — {quote.cite}
             </cite>
           </blockquote>

@@ -26,13 +26,8 @@ export function LocationMap({
     : undefined
 
   return (
-    <div className="flex flex-col">
-      <div
-        className={cn(
-          'relative aspect-4/3 w-full overflow-hidden bg-surface-muted lg:aspect-auto lg:min-h-112',
-          embedClassName,
-        )}
-      >
+    <div className="bleed-x-sm flex flex-col">
+      <div className={cn('map-embed', embedClassName)}>
         {googleMapsUrl ? (
           <ExternalLink
             href={googleMapsUrl}

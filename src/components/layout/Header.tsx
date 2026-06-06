@@ -48,7 +48,7 @@ function getNavDisplayLabel(
 function navLinkClassName(isActive: boolean, variant: 'desktop' | 'mobile'): string {
   if (variant === 'desktop') {
     return cn(
-      'relative inline-flex items-center whitespace-nowrap py-1 text-[10px] tracking-[0.08em] uppercase no-underline transition-colors xl:text-[11px] xl:tracking-[0.1em]',
+      'relative inline-flex items-center whitespace-nowrap py-1 text-xs font-medium tracking-[var(--tracking-wide)] uppercase no-underline transition-colors duration-150 xl:text-sm xl:tracking-[var(--tracking-widest)]',
       'after:absolute after:inset-x-0 after:-bottom-px after:h-0.5 after:transition-colors',
       isActive
         ? 'text-foreground after:bg-brand'
@@ -61,7 +61,7 @@ function navLinkClassName(isActive: boolean, variant: 'desktop' | 'mobile'): str
     'block -mx-8 border-l-[3px] px-8 py-3.5 font-serif text-[1.625rem] leading-snug no-underline transition-[color,background-color,border-color]',
     isActive
       ? 'border-brand bg-brand-dim font-normal text-foreground'
-      : 'border-transparent font-light text-foreground-muted active:bg-surface-muted hover:bg-surface-muted/70 hover:text-foreground',
+      : 'border-transparent font-normal text-foreground-muted active:bg-surface-muted hover:bg-surface-muted/70 hover:text-foreground',
   )
 }
 
@@ -216,7 +216,7 @@ export function Header({ site }: HeaderProps) {
       <header
         className={cn(
           'fixed inset-x-0 top-0 z-100 transition-[background,box-shadow] duration-400',
-          (scrolled || menuOpen) && 'border-b border-border shadow-sm',
+          (scrolled || menuOpen) && 'border-b border-border shadow-subtle',
           menuOpen ? 'bg-surface' : scrolled && 'bg-surface/97 backdrop-blur-sm',
         )}
       >
@@ -231,7 +231,7 @@ export function Header({ site }: HeaderProps) {
             className="hidden min-w-0 flex-1 justify-center lg:flex"
             aria-label="Navigation principale"
           >
-            <ul className="flex list-none items-center gap-x-3.5 xl:gap-x-5 2xl:gap-x-6">
+            <ul className="flex list-none items-center gap-x-2.5 xl:gap-x-5 2xl:gap-x-6">
               {site.navigation.map((item) => {
                 const isActive = isNavItemActive(pathname, item.href)
                 const displayLabel = getNavDisplayLabel(item, 'desktop')
@@ -258,7 +258,7 @@ export function Header({ site }: HeaderProps) {
             <button
               ref={menuButtonRef}
               type="button"
-              className="inline-flex h-10 w-10 items-center justify-center border border-border text-foreground-muted transition-colors hover:border-foreground hover:text-foreground lg:hidden"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-border text-foreground-muted transition-[color,border-color] duration-150 hover:border-foreground hover:text-foreground lg:hidden"
               aria-expanded={menuOpen}
               aria-controls="mobile-nav"
               aria-label={menuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}

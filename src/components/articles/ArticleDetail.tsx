@@ -11,23 +11,23 @@ export function ArticleDetail({ article }: ArticleDetailProps) {
   return (
     <article className="py-(--spacing-section-mobile) pt-28 md:py-(--spacing-section)">
       <Container>
-        <h1 className="mb-8 font-serif text-[clamp(1.75rem,4vw,2.75rem)] leading-[1.1] font-light text-foreground md:mb-10">
+        <h1 className="type-section-title mb-8 text-[clamp(1.75rem,4vw,2.75rem)] text-foreground">
           {article.title}
         </h1>
 
         {article.image ? (
-          <div className="relative mb-8 aspect-16/10 w-full overflow-hidden bg-foreground/5 md:mb-10 md:aspect-12/5">
+          <div className="bleed-x-sm media-ratio-hero relative mb-8 w-full overflow-hidden bg-foreground/5">
             <CmsImage
               image={article.image}
               fill
-              sizes="(max-width: 1140px) 100vw, 1140px"
+              sizes="(max-width: 1280px) 100vw, 1280px"
               priority
               fetchPriority="high"
             />
           </div>
         ) : null}
 
-        <div className="border-t border-foreground/10 pt-10">
+        <div className="border-t border-foreground/10 pt-12">
           <CmsRichText data={article.content} />
         </div>
       </Container>
