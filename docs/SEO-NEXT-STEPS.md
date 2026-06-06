@@ -128,6 +128,25 @@ Voir aussi [DEPLOYMENT.md](./DEPLOYMENT.md) pour le détail des variables d’en
 
 ---
 
+## 2.5 Vérifier le domaine sur Resend (e-mail — hors SEO, mais obligatoire)
+
+**Ce n’est pas une action SEO** : Resend sert à envoyer les e-mails transactionnels du site (au minimum la **réinitialisation de mot de passe** de l’admin Payload). Sans domaine vérifié, ces e-mails peuvent être refusés ou finir en spam.
+
+**À faire avant ou au moment de la mise en production** :
+
+1. Compte [Resend](https://resend.com) → **Domains** → ajouter le **même domaine public** que le site (ex. `ecolengt.fr` ou `ecolengt.com`, selon votre `EMAIL_FROM_ADDRESS`).
+2. Copier les enregistrements DNS demandés par Resend (SPF, DKIM, etc.) chez votre registrar / hébergeur DNS — comme pour Vercel, souvent au même endroit que les enregistrements du site.
+3. Attendre la validation dans le tableau de bord Resend (quelques minutes à quelques heures).
+4. Dans **Vercel** → **Environment Variables** (Production) :
+   - `RESEND_API_KEY` — clé API Resend ;
+   - `EMAIL_FROM_ADDRESS` — adresse **@votre-domaine-vérifié** (ex. `no-reply@ecolengt.com`, voir `.env.example`) ;
+   - `EMAIL_FROM_NAME` — libellé affiché (ex. « École de Batterie NGT »).
+5. Redéployez, puis testez : admin Payload → mot de passe oublié → l’e-mail doit arriver depuis votre domaine.
+
+Tant que le domaine n’est pas vérifié sur Resend, considérez la **récupération de compte admin** comme non fiable en production — indépendamment du référencement.
+
+---
+
 ## 3. Nom de domaine et redirections (www / sans www)
 
 1. Le domaine custom est ajouté dans Vercel (**Domains**) — en remplacement de l’ancien pointage DNS.
@@ -262,10 +281,11 @@ Cela renforce la confiance des moteurs et des LLM qui croisent plusieurs sources
 1. `site:votre-domaine.fr` + `site:stagedebatterie.com` + navigation manuelle + Wayback Machine → liste courte des URLs à préserver
 2. Tableau **ancienne → nouvelle** URL (domaine principal + stagedebatterie.com) + redirections 301 + redéploiement
 3. Domaine principal sur Vercel + **redirection stagedebatterie.com → `/stages-intensifs`** + `NEXT_PUBLIC_SERVER_URL` + redirection www / sans www
-4. Bascule DNS / coupure de l’ancien hébergement
-5. Vérifier adresses / contacts dans Payload
-6. Search Console : sitemap + surveillance des 404
-7. Rich Results Test sur la home + test de quelques anciennes URLs
-8. Contenu éditorial (stages, actualités) sur le long terme
+4. **Resend** : vérifier le domaine (DNS) + `RESEND_API_KEY` / `EMAIL_FROM_*` sur Vercel (section 2.5 — hors SEO, obligatoire pour les e-mails admin)
+5. Bascule DNS / coupure de l’ancien hébergement
+6. Vérifier adresses / contacts dans Payload
+7. Search Console : sitemap + surveillance des 404
+8. Rich Results Test sur la home + test de quelques anciennes URLs
+9. Contenu éditorial (stages, actualités) sur le long terme
 
 Des questions, des URLs anciennes à mapper, ou un domaine définitif à intégrer dans `llms.txt` ? Transmettez le tableau de redirections au développeur et mettez à jour `public/llms.txt` / les variables Vercel en conséquence.
