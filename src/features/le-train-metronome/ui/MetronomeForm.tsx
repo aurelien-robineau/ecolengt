@@ -338,7 +338,7 @@ export function MetronomeForm() {
         return nextUrl
       })
       setDownloadFilename(buildMetronomeDownloadFilename(sequence))
-      setFinaleStartTime(findFinaleStartSeconds(sequence))
+      setFinaleStartTime(findFinaleStartSeconds(sequence, config.subdivision))
       setGeneratedConfig(config)
       setView('session')
     } catch (cause) {
@@ -357,6 +357,8 @@ export function MetronomeForm() {
       setLoading(false)
     }
   }
+
+  const tempoPathConfig = showSession && generatedConfig ? generatedConfig : currentConfig
 
   return (
     <div className="mx-auto w-full max-w-xl">
@@ -382,10 +384,11 @@ export function MetronomeForm() {
 
         <div className="space-y-5 p-5 md:space-y-7 md:p-7">
           <MetronomeTempoPath
-            bpm={form.bpm}
-            bpmType={form.bpmType}
-            countInBars={form.countInBars}
-            mechanicalTempos={form.mechanicalTempos}
+            bpm={tempoPathConfig.bpm}
+            bpmType={tempoPathConfig.bpmType}
+            countInBars={tempoPathConfig.countInBars}
+            mechanicalTempos={tempoPathConfig.mechanicalTempos}
+            subdivision={tempoPathConfig.subdivision}
             isPlaying={playback.isPlaying}
             currentTime={playback.currentTime}
           />

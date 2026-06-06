@@ -1,4 +1,8 @@
-import { SILENCE_AT_START_S, segmentDurationSeconds } from './audioGenerator'
+import {
+  DEFAULT_SAMPLE_RATE,
+  SILENCE_AT_START_S,
+  segmentDownbeatStartTimesSeconds,
+} from './audioGenerator'
 import { applyMechanicalTemposToSequence } from './mechanicalTempos'
 import type { BpmType, MetronomeSequenceConfig, SequenceSegment } from './types'
 
@@ -103,27 +107,43 @@ export function buildTempoTableMilestones(config: MetronomeSequenceConfig): numb
   return TEMPO_TABLE_ANCHORS.map(({ segmentIndex, field }) => displayBody[segmentIndex][field])
 }
 
+function findSequenceSegmentIndex(
+  sequence: SequenceSegment[],
+  currentTime: number,
+  subdivision: number,
+  sampleRate: number = DEFAULT_SAMPLE_RATE,
+): number {
+  const boundaries = segmentDownbeatStartTimesSeconds(sequence, subdivision, sampleRate)
+
+  for (let segmentIndex = 0; segmentIndex < sequence.length; segmentIndex++) {
+    const segmentStart = boundaries[segmentIndex]!
+    const segmentEnd = boundaries[segmentIndex + 1]!
+    if (currentTime >= segmentStart && currentTime < segmentEnd) {
+      return segmentIndex
+    }
+  }
+
+  return Math.max(0, sequence.length - 1)
+}
+
 function findDisplaySegmentIndex(
   sequence: SequenceSegment[],
   countInBars: number,
   currentTime: number,
+  subdivision: number,
+  sampleRate: number = DEFAULT_SAMPLE_RATE,
 ): number {
   if (currentTime < SILENCE_AT_START_S) {
     return countInBars > 0 ? -1 : 0
   }
 
-  let elapsed = SILENCE_AT_START_S
+  const segmentIndex = findSequenceSegmentIndex(sequence, currentTime, subdivision, sampleRate)
 
-  for (let segmentIndex = 0; segmentIndex < sequence.length; segmentIndex++) {
-    const segmentEnd = elapsed + segmentDurationSeconds(sequence[segmentIndex])
-    if (currentTime < segmentEnd) {
-      return countInBars > 0 ? segmentIndex - 1 : segmentIndex
-    }
-    elapsed = segmentEnd
+  if (countInBars > 0) {
+    return segmentIndex === 0 ? -1 : segmentIndex - 1
   }
 
-  const lastDisplayIndex = countInBars > 0 ? sequence.length - 2 : sequence.length - 1
-  return Math.max(0, lastDisplayIndex)
+  return segmentIndex
 }
 
 function anchorActivationSegmentIndex(anchor: TempoTableAnchor): number {
@@ -135,9 +155,17 @@ function anchorActivationSegmentIndex(anchor: TempoTableAnchor): number {
 export function findCurrentTempoColumnIndex(
   config: MetronomeSequenceConfig,
   currentTime: number,
+  subdivision: number = 1,
+  sampleRate: number = DEFAULT_SAMPLE_RATE,
 ): number {
   const sequence = buildSequence(config)
-  const displaySegmentIndex = findDisplaySegmentIndex(sequence, config.countInBars, currentTime)
+  const displaySegmentIndex = findDisplaySegmentIndex(
+    sequence,
+    config.countInBars,
+    currentTime,
+    subdivision,
+    sampleRate,
+  )
 
   if (displaySegmentIndex < 0) {
     return 0
@@ -160,9 +188,17 @@ export type TempoRampDirection = 'up' | 'down'
 export function findCurrentTempoRampDirection(
   config: MetronomeSequenceConfig,
   currentTime: number,
+  subdivision: number = 1,
+  sampleRate: number = DEFAULT_SAMPLE_RATE,
 ): TempoRampDirection | null {
   const sequence = buildSequence(config)
-  const displaySegmentIndex = findDisplaySegmentIndex(sequence, config.countInBars, currentTime)
+  const displaySegmentIndex = findDisplaySegmentIndex(
+    sequence,
+    config.countInBars,
+    currentTime,
+    subdivision,
+    sampleRate,
+  )
 
   if (displaySegmentIndex < 0) {
     return null

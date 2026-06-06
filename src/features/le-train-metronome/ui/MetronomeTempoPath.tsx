@@ -19,6 +19,7 @@ type MetronomeTempoPathProps = {
   bpmType: BpmType
   countInBars: number
   mechanicalTempos: boolean
+  subdivision?: number
   isPlaying?: boolean
   currentTime?: number
 }
@@ -54,6 +55,7 @@ export function MetronomeTempoPath({
   bpmType,
   countInBars,
   mechanicalTempos,
+  subdivision = 1,
   isPlaying = false,
   currentTime = 0,
 }: MetronomeTempoPathProps) {
@@ -71,13 +73,13 @@ export function MetronomeTempoPath({
 
   const activeColumnIndex = useMemo(() => {
     if (!isPlaying) return null
-    return findCurrentTempoColumnIndex(sequenceConfig, currentTime)
-  }, [currentTime, isPlaying, sequenceConfig])
+    return findCurrentTempoColumnIndex(sequenceConfig, currentTime, subdivision)
+  }, [currentTime, isPlaying, sequenceConfig, subdivision])
 
   const rampDirection = useMemo(() => {
     if (!isPlaying) return null
-    return findCurrentTempoRampDirection(sequenceConfig, currentTime)
-  }, [currentTime, isPlaying, sequenceConfig])
+    return findCurrentTempoRampDirection(sequenceConfig, currentTime, subdivision)
+  }, [currentTime, isPlaying, sequenceConfig, subdivision])
 
   const columnCount = referenceMilestones.length
   const columnWidth = 100 / columnCount

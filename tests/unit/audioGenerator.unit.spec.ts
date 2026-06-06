@@ -9,6 +9,7 @@ import {
   findFinaleStartSegmentIndex,
   generateWavBuffer,
   parseWavHeader,
+  segmentDownbeatStartTimesSeconds,
   sequenceDurationSeconds,
 } from '@/features/le-train-metronome/lib/audioGenerator'
 import { buildSequence } from '@/features/le-train-metronome/lib/sequenceBuilder'
@@ -105,7 +106,7 @@ describe('audioGenerator', () => {
     const wav = generateWavBuffer(sequence, 1, false, DEFAULT_SAMPLE_RATE)
     const header = parseWavHeader(wav)
     const durationSeconds = header.dataSize / (DEFAULT_SAMPLE_RATE * 2)
-    const finaleStart = findFinaleStartSeconds(sequence)
+    const finaleStart = findFinaleStartSeconds(sequence, 1, DEFAULT_SAMPLE_RATE)
 
     expect(finaleStart).toBeGreaterThan(0)
     expect(finaleStart).toBeLessThan(durationSeconds)
@@ -124,6 +125,24 @@ describe('audioGenerator', () => {
     const actual = downbeatOnsetsSeconds(sequence, subdivision, DEFAULT_SAMPLE_RATE)
 
     expect(actual).toEqual(expected)
+  })
+
+  it('segment downbeat starts match the first click of each segment in the WAV', () => {
+    const sequence = buildSequence({
+      bpm: 92,
+      bpmType: 'max',
+      countInBars: 4,
+      mechanicalTempos: false,
+    })
+    const subdivision = 2
+    const starts = segmentDownbeatStartTimesSeconds(sequence, subdivision, DEFAULT_SAMPLE_RATE)
+    const onsets = downbeatOnsetsSeconds(sequence, subdivision, DEFAULT_SAMPLE_RATE)
+
+    let onsetCursor = 0
+    for (let segmentIndex = 0; segmentIndex < sequence.length; segmentIndex++) {
+      expect(starts[segmentIndex]).toBeCloseTo(onsets[onsetCursor]!, 6)
+      onsetCursor += sequence[segmentIndex]!.bars * 2
+    }
   })
 
   it('WAV duration matches the analytical sequence duration', () => {

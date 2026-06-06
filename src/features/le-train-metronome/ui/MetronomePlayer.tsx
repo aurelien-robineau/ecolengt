@@ -87,11 +87,7 @@ export function MetronomePlayer({
       setDuration(audio.duration)
       setIsReady(Number.isFinite(audio.duration) && audio.duration > 0)
     }
-    const onTimeUpdate = () => {
-      setCurrentTime(audio.currentTime)
-      emitPlaybackChange({ isPlaying: !audio.paused, currentTime: audio.currentTime })
-    }
-    const onSeeked = () => {
+    const syncCurrentTime = () => {
       setCurrentTime(audio.currentTime)
       emitPlaybackChange({ isPlaying: !audio.paused, currentTime: audio.currentTime })
     }
@@ -110,8 +106,8 @@ export function MetronomePlayer({
 
     audio.addEventListener('loadedmetadata', syncDuration)
     audio.addEventListener('durationchange', syncDuration)
-    audio.addEventListener('timeupdate', onTimeUpdate)
-    audio.addEventListener('seeked', onSeeked)
+    audio.addEventListener('timeupdate', syncCurrentTime)
+    audio.addEventListener('seeked', syncCurrentTime)
     audio.addEventListener('play', onPlay)
     audio.addEventListener('pause', onPause)
     audio.addEventListener('ended', onEnded)
@@ -119,13 +115,29 @@ export function MetronomePlayer({
     return () => {
       audio.removeEventListener('loadedmetadata', syncDuration)
       audio.removeEventListener('durationchange', syncDuration)
-      audio.removeEventListener('timeupdate', onTimeUpdate)
-      audio.removeEventListener('seeked', onSeeked)
+      audio.removeEventListener('timeupdate', syncCurrentTime)
+      audio.removeEventListener('seeked', syncCurrentTime)
       audio.removeEventListener('play', onPlay)
       audio.removeEventListener('pause', onPause)
       audio.removeEventListener('ended', onEnded)
     }
   }, [emitPlaybackChange, src])
+
+  useEffect(() => {
+    const audio = audioRef.current
+    if (!audio || !isPlaying) return
+
+    let frameId = 0
+    const tick = () => {
+      const time = audio.currentTime
+      setCurrentTime(time)
+      emitPlaybackChange({ isPlaying: true, currentTime: time })
+      frameId = requestAnimationFrame(tick)
+    }
+
+    frameId = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(frameId)
+  }, [emitPlaybackChange, isPlaying, src])
 
   const clampTime = useCallback((time: number, audio: HTMLAudioElement) => {
     if (!Number.isFinite(audio.duration) || audio.duration <= 0) return 0

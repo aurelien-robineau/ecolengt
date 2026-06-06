@@ -1,8 +1,9 @@
 import { describe, expect, it } from 'vitest'
 
 import {
+  DEFAULT_SAMPLE_RATE,
   SILENCE_AT_START_S,
-  segmentDurationSeconds,
+  segmentDownbeatStartTimesSeconds,
 } from '@/features/le-train-metronome/lib/audioGenerator'
 import {
   REFERENCE_BODY_SEQUENCE,
@@ -169,14 +170,7 @@ describe('sequenceBuilder', () => {
     }
     const sequence = buildSequence(config)
 
-    const segmentStartTimes = sequence.reduce<number[]>((starts, segment, index) => {
-      const previous =
-        index === 0
-          ? SILENCE_AT_START_S
-          : starts[index - 1] + segmentDurationSeconds(sequence[index - 1])
-      starts.push(previous)
-      return starts
-    }, [])
+    const segmentStartTimes = segmentDownbeatStartTimesSeconds(sequence, 1, DEFAULT_SAMPLE_RATE)
 
     expect(findCurrentTempoColumnIndex(config, SILENCE_AT_START_S)).toBe(0)
     expect(findCurrentTempoColumnIndex(config, segmentStartTimes[1]!)).toBe(0)
@@ -198,14 +192,7 @@ describe('sequenceBuilder', () => {
     }
     const sequence = buildSequence(config)
 
-    const segmentStartTimes = sequence.reduce<number[]>((starts, segment, index) => {
-      const previous =
-        index === 0
-          ? SILENCE_AT_START_S
-          : starts[index - 1] + segmentDurationSeconds(sequence[index - 1])
-      starts.push(previous)
-      return starts
-    }, [])
+    const segmentStartTimes = segmentDownbeatStartTimesSeconds(sequence, 1, DEFAULT_SAMPLE_RATE)
 
     expect(findCurrentTempoRampDirection(config, segmentStartTimes[0]!)).toBeNull()
     expect(findCurrentTempoRampDirection(config, segmentStartTimes[1]!)).toBe('up')

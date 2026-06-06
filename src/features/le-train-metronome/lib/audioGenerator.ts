@@ -59,14 +59,50 @@ export function findFinaleStartSegmentIndex(sequence: SequenceSegment[]): number
   return Math.max(0, sequence.length - 1)
 }
 
-/** Wall-clock offset (s) at the first click of the finale segment — matches WAV timeline. */
-export function findFinaleStartSeconds(sequence: SequenceSegment[]): number {
-  const finaleIndex = findFinaleStartSegmentIndex(sequence)
-  let seconds = SILENCE_AT_START_S
-  for (let i = 0; i < finaleIndex; i++) {
-    seconds += segmentDurationSeconds(sequence[i])
+/**
+ * Wall-clock downbeat onsets (s) for each segment boundary — matches WAV click placement
+ * (float timeline + rounded sample index, same model as `generateWavBuffer`).
+ * Returns `sequence.length + 1` entries: segment starts plus final end time.
+ */
+export function segmentDownbeatStartTimesSeconds(
+  sequence: SequenceSegment[],
+  subdivision: number,
+  sampleRate: number = DEFAULT_SAMPLE_RATE,
+): number[] {
+  const starts: number[] = []
+  let positionSamples = SILENCE_AT_START_S * sampleRate
+
+  for (const segment of sequence) {
+    starts.push(Math.round(positionSamples) / sampleRate)
+
+    const totalBeats = segment.bars * BEATS_PER_BAR
+    for (let beatIdx = 0; beatIdx < totalBeats; beatIdx++) {
+      const beatDuration = beatDurationSeconds(
+        beatIdx,
+        totalBeats,
+        segment.bpmStart,
+        segment.bpmEnd,
+      )
+      const stepDuration = beatDuration / subdivision
+
+      for (let subIdx = 0; subIdx < subdivision; subIdx++) {
+        positionSamples += stepDuration * sampleRate
+      }
+    }
   }
-  return seconds
+
+  starts.push(Math.round(positionSamples) / sampleRate)
+  return starts
+}
+
+/** Wall-clock offset (s) at the first click of the finale segment — matches WAV timeline. */
+export function findFinaleStartSeconds(
+  sequence: SequenceSegment[],
+  subdivision: number = 1,
+  sampleRate: number = DEFAULT_SAMPLE_RATE,
+): number {
+  const finaleIndex = findFinaleStartSegmentIndex(sequence)
+  return segmentDownbeatStartTimesSeconds(sequence, subdivision, sampleRate)[finaleIndex]!
 }
 
 function precomputeClick(freqHz: number, sampleRate: number): Int16Array {
