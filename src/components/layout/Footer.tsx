@@ -131,7 +131,7 @@ export function Footer({ site }: FooterProps) {
 
           <div>
             <h2 className={cn(sectionLabelInverseClassName, stackColumnLabelClassName)}>
-              Ressources
+              Ressources pédagogiques
             </h2>
             <Link href={routes.leTrainMetronome} className={footerLinkClassName}>
               Le Train – Métronome
