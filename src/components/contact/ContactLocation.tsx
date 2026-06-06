@@ -1,6 +1,5 @@
 import type { ReactNode } from 'react'
 
-import { ExternalLink } from '@/lib/a11y/externalLink'
 import { LocationMap } from '@/components/location/LocationMap'
 import { AddressContent } from '@/components/ui/AddressContent'
 import type { SiteSettingsData } from '@/lib/content/types'
@@ -12,7 +11,6 @@ import {
   contactLinkValueClassName,
   contactValueClassName,
   sectionLabelClassName,
-  stackBlockClassName,
   stackTitleClassName,
   gridGapClassName,
 } from '@/lib/ui/typography'
@@ -45,7 +43,6 @@ export function ContactLocation({ site }: ContactLocationProps) {
   return (
     <div
       className={cn(
-        stackBlockClassName,
         'grid',
         gridGapClassName,
         hasMap && 'lg:grid-cols-[minmax(0,20rem)_1fr] lg:items-start',
@@ -95,23 +92,6 @@ export function ContactLocation({ site }: ContactLocationProps) {
             linkClassName={contactLinkValueClassName}
           />
         </ContactInfoBlock>
-
-        {site.social.instagram || site.social.facebook ? (
-          <ContactInfoBlock label="Réseaux sociaux">
-            <div className="space-y-4">
-              {site.social.instagram ? (
-                <ExternalLink href={site.social.instagram} className={contactLinkValueClassName}>
-                  Instagram
-                </ExternalLink>
-              ) : null}
-              {site.social.facebook ? (
-                <ExternalLink href={site.social.facebook} className={contactLinkValueClassName}>
-                  Facebook
-                </ExternalLink>
-              ) : null}
-            </div>
-          </ContactInfoBlock>
-        ) : null}
       </aside>
 
       {hasMap ? (

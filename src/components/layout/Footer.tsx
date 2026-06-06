@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-import { ExternalLink } from '@/lib/a11y/externalLink'
+import { SocialLinks } from '@/components/social/SocialLinks'
 import { cn } from '@/lib/cn'
 import { resolveHashHref } from '@/lib/resolveHashHref'
 import { ContactChannelItem } from '@/components/contact/ContactChannelItem'
@@ -143,18 +143,7 @@ export function Footer({ site }: FooterProps) {
               <h2 className={cn(sectionLabelInverseClassName, stackColumnLabelClassName)}>
                 Réseaux sociaux
               </h2>
-              <div className={stackListClassName}>
-                {site.social.instagram && (
-                  <ExternalLink href={site.social.instagram} className={footerLinkClassName}>
-                    Instagram
-                  </ExternalLink>
-                )}
-                {site.social.facebook && (
-                  <ExternalLink href={site.social.facebook} className={footerLinkClassName}>
-                    Facebook
-                  </ExternalLink>
-                )}
-              </div>
+              <SocialLinks site={site} variant="footer" />
             </div>
           )}
         </div>
