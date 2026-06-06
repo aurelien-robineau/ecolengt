@@ -2,6 +2,7 @@ import Link from 'next/link'
 
 import { ExternalLink } from '@/lib/a11y/externalLink'
 import { cn } from '@/lib/cn'
+import { resolveHashHref } from '@/lib/resolveHashHref'
 import { ContactChannelItem } from '@/components/contact/ContactChannelItem'
 import { AddressContent } from '@/components/ui/AddressContent'
 import { Container } from '@/components/ui/Container'
@@ -22,8 +23,12 @@ type FooterProps = {
   site: SiteSettingsData
 }
 
+const footerLinkClassName =
+  'block text-base leading-normal text-foreground-inverse-muted no-underline transition-colors duration-150 hover:text-foreground-inverse'
+
 export function Footer({ site }: FooterProps) {
   const year = new Date().getFullYear()
+  const hasContactInNav = site.navigation.some((item) => item.href === routes.contact)
 
   return (
     <footer className="bg-foreground py-20 text-foreground-inverse-muted">
@@ -34,7 +39,10 @@ export function Footer({ site }: FooterProps) {
         </div>
 
         <div
-          className={cn(stackBlockClassName, 'grid gap-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-16')}
+          className={cn(
+            stackBlockClassName,
+            'grid gap-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 xl:gap-16',
+          )}
         >
           <div>
             <h2 className={cn(sectionLabelInverseClassName, stackColumnLabelClassName)}>Adresse</h2>
@@ -99,12 +107,33 @@ export function Footer({ site }: FooterProps) {
 
           <div>
             <h2 className={cn(sectionLabelInverseClassName, stackColumnLabelClassName)}>
+              Navigation
+            </h2>
+            <nav aria-label="Pages du site">
+              <ul className={cn(stackListClassName, 'list-none')}>
+                {site.navigation.map((item) => (
+                  <li key={item.href}>
+                    <a href={resolveHashHref(item.href)} className={footerLinkClassName}>
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+                {!hasContactInNav ? (
+                  <li>
+                    <Link href={routes.contact} className={footerLinkClassName}>
+                      Contact
+                    </Link>
+                  </li>
+                ) : null}
+              </ul>
+            </nav>
+          </div>
+
+          <div>
+            <h2 className={cn(sectionLabelInverseClassName, stackColumnLabelClassName)}>
               Ressources
             </h2>
-            <Link
-              href={routes.leTrainMetronome}
-              className="block text-base leading-normal text-foreground-inverse-muted no-underline transition-colors duration-150 hover:text-foreground-inverse"
-            >
+            <Link href={routes.leTrainMetronome} className={footerLinkClassName}>
               Le Train – Métronome
             </Link>
           </div>
@@ -116,18 +145,12 @@ export function Footer({ site }: FooterProps) {
               </h2>
               <div className={stackListClassName}>
                 {site.social.instagram && (
-                  <ExternalLink
-                    href={site.social.instagram}
-                    className="block text-base leading-normal text-foreground-inverse-muted no-underline transition-colors duration-150 hover:text-foreground-inverse"
-                  >
+                  <ExternalLink href={site.social.instagram} className={footerLinkClassName}>
                     Instagram
                   </ExternalLink>
                 )}
                 {site.social.facebook && (
-                  <ExternalLink
-                    href={site.social.facebook}
-                    className="block text-base leading-normal text-foreground-inverse-muted no-underline transition-colors duration-150 hover:text-foreground-inverse"
-                  >
+                  <ExternalLink href={site.social.facebook} className={footerLinkClassName}>
                     Facebook
                   </ExternalLink>
                 )}

@@ -2,10 +2,18 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react'
 
+import { Icon } from '@/components/icons/Icon'
 import { CmsImage } from '@/components/cms/CmsImage'
 import { ImageLightbox, type LightboxSlide } from '@/components/ui/ImageLightbox'
 import type { GalleryItem } from '@/lib/content/types'
 import { cn } from '@/lib/cn'
+
+/** Galleries with more than this many photos collapse to one preview on mobile. */
+const MOBILE_GALLERY_COLLAPSE_ABOVE = 3
+
+function formatPhotoCount(count: number): string {
+  return count === 1 ? '1 photo' : `${count} photos`
+}
 
 type GalleryProps = {
   items: GalleryItem[]
@@ -68,6 +76,73 @@ function useGalleryInView(loadImmediately = false) {
   return { containerRef, shouldLoad }
 }
 
+type GalleryMobilePreviewProps = {
+  items: GalleryItem[]
+  shouldLoad: boolean
+  priorityFirstImage: boolean
+  onOpen: (index: number) => void
+}
+
+function GalleryMobilePreview({
+  items,
+  shouldLoad,
+  priorityFirstImage,
+  onOpen,
+}: GalleryMobilePreviewProps) {
+  const item = items[0]
+  const photoCount = items.length
+  const photoCountLabel = formatPhotoCount(photoCount)
+
+  return (
+    <figure className="media-ratio-gallery relative overflow-hidden bg-surface-elevated">
+      {shouldLoad || priorityFirstImage ? (
+        <>
+          <CmsImage
+            image={item.image}
+            fill
+            className="object-cover"
+            sizes="100vw"
+            priority={priorityFirstImage}
+            loading={priorityFirstImage ? 'eager' : 'lazy'}
+            fetchPriority={priorityFirstImage ? 'high' : 'low'}
+          />
+          <button
+            type="button"
+            className="absolute inset-0 z-10 flex cursor-zoom-in flex-col justify-end focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+            onClick={() => onOpen(0)}
+            aria-label={`Ouvrir le diaporama : ${photoCountLabel}`}
+          >
+            <span
+              className="pointer-events-none absolute top-3 right-3 inline-flex min-h-8 items-center gap-1.5 rounded-md border border-white/25 bg-foreground/80 px-2.5 text-xs font-medium tracking-[var(--tracking-wide)] text-foreground-inverse uppercase shadow-subtle backdrop-blur-sm"
+              aria-hidden
+            >
+              <span className="relative inline-flex h-3.5 w-4 shrink-0">
+                <span className="absolute top-0 right-0 h-2.5 w-3 rounded-[2px] border border-white/50 bg-white/25" />
+                <span className="absolute bottom-0 left-0 h-2.5 w-3 rounded-[2px] border border-white/70 bg-white/40" />
+              </span>
+              {photoCountLabel}
+            </span>
+
+            <span
+              className="pointer-events-none flex w-full items-center justify-between gap-3 bg-linear-to-t from-foreground/85 via-foreground/55 to-transparent px-4 pt-12 pb-4"
+              aria-hidden
+            >
+              <span className="text-left text-sm font-medium tracking-[var(--tracking-wide)] text-foreground-inverse uppercase">
+                Parcourir la galerie
+              </span>
+              <span className="inline-flex size-9 shrink-0 items-center justify-center rounded-full border border-white/30 bg-white/15 text-foreground-inverse">
+                <Icon name="chevronRight" className="size-4" />
+              </span>
+            </span>
+          </button>
+        </>
+      ) : (
+        <div className="media-ratio-gallery w-full" aria-hidden />
+      )}
+    </figure>
+  )
+}
+
 export function Gallery({
   items,
   columns = 2,
@@ -88,6 +163,7 @@ export function Gallery({
 
   const layout = layoutByColumns[columns]
   const isSingleNatural = naturalSingle && items.length === 1
+  const collapseOnMobile = items.length > MOBILE_GALLERY_COLLAPSE_ABOVE
 
   if (isSingleNatural) {
     const item = items[0]
@@ -139,42 +215,60 @@ export function Gallery({
 
   return (
     <>
-      <div ref={containerRef} className="bleed-x-sm flex flex-wrap justify-center gap-0.5">
-        {items.map((item, index) => {
-          const isPriorityImage = priorityFirstImage && index === 0
+      <div ref={containerRef}>
+        {collapseOnMobile ? (
+          <div className="bleed-x-sm md:hidden">
+            <GalleryMobilePreview
+              items={items}
+              shouldLoad={shouldLoad}
+              priorityFirstImage={priorityFirstImage}
+              onOpen={setOpenIndex}
+            />
+          </div>
+        ) : null}
 
-          return (
-            <figure
-              key={`${item.image.src}-${index}`}
-              className={cn(
-                'group media-ratio-gallery relative overflow-hidden bg-surface-elevated',
-                layout.itemClassName,
-              )}
-            >
-              {shouldLoad || isPriorityImage ? (
-                <>
-                  <CmsImage
-                    image={item.image}
-                    fill
-                    className="transition-transform duration-500 group-hover:scale-[1.03]"
-                    sizes={layout.imageSizes}
-                    priority={isPriorityImage}
-                    loading={isPriorityImage ? 'eager' : 'lazy'}
-                    fetchPriority={isPriorityImage ? 'high' : 'low'}
-                  />
-                  <button
-                    type="button"
-                    className="absolute inset-0 z-10 cursor-zoom-in focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
-                    onClick={() => setOpenIndex(index)}
-                    aria-label={`Agrandir la photo${item.image.alt ? ` : ${item.image.alt}` : ''}`}
-                  />
-                </>
-              ) : (
-                <div className="media-ratio-gallery w-full" aria-hidden />
-              )}
-            </figure>
-          )
-        })}
+        <div
+          className={cn(
+            'bleed-x-sm flex flex-wrap justify-center gap-0.5',
+            collapseOnMobile && 'hidden md:flex',
+          )}
+        >
+          {items.map((item, index) => {
+            const isPriorityImage = priorityFirstImage && index === 0
+
+            return (
+              <figure
+                key={`${item.image.src}-${index}`}
+                className={cn(
+                  'group media-ratio-gallery relative overflow-hidden bg-surface-elevated',
+                  layout.itemClassName,
+                )}
+              >
+                {shouldLoad || isPriorityImage ? (
+                  <>
+                    <CmsImage
+                      image={item.image}
+                      fill
+                      className="transition-transform duration-500 group-hover:scale-[1.03]"
+                      sizes={layout.imageSizes}
+                      priority={isPriorityImage}
+                      loading={isPriorityImage ? 'eager' : 'lazy'}
+                      fetchPriority={isPriorityImage ? 'high' : 'low'}
+                    />
+                    <button
+                      type="button"
+                      className="absolute inset-0 z-10 cursor-zoom-in focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+                      onClick={() => setOpenIndex(index)}
+                      aria-label={`Agrandir la photo${item.image.alt ? ` : ${item.image.alt}` : ''}`}
+                    />
+                  </>
+                ) : (
+                  <div className="media-ratio-gallery w-full" aria-hidden />
+                )}
+              </figure>
+            )
+          })}
+        </div>
       </div>
       {openIndex !== null ? (
         <ImageLightbox

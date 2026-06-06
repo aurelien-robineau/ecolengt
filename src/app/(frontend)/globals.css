@@ -182,6 +182,9 @@
    */
   .bleed-x-sm {
     margin-inline: -2rem;
+    /* Pair with negative margins: explicit w-full blocks bleed (width stays content-box only). */
+    width: calc(100% + 4rem);
+    max-width: 100vw;
   }
 
   .card-pad {
@@ -202,6 +205,8 @@
   @media (min-width: 48rem) {
     .bleed-x-sm {
       margin-inline: 0;
+      width: auto;
+      max-width: none;
     }
 
     .card-pad {
@@ -225,9 +230,9 @@
     aspect-ratio: var(--media-ratio-feature);
   }
 
-  /* Article hero: 16/10 mobile, 12/5 from md */
+  /* Article hero: 4/3 mobile (less crop), 12/5 from md */
   .media-ratio-hero {
-    aspect-ratio: var(--media-ratio-feature);
+    aspect-ratio: var(--media-ratio-gallery);
   }
 
   .map-embed {

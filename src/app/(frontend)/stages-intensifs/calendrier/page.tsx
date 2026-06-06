@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 
 import { CmsRichText } from '@/components/cms/CmsRichText'
+import { IntensiveCoursesCalendarPageActions } from '@/components/intensive-courses/IntensiveCoursesCalendarPageActions'
 import { IntensiveCoursesCalendarSchoolYears } from '@/components/intensive-courses/IntensiveCoursesCalendarSchoolYears'
 import { Container } from '@/components/ui/Container'
 import { SectionHeader } from '@/components/ui/SectionHeader'
@@ -39,6 +40,8 @@ export default async function StagesIntensifsCalendarPage() {
             <CmsRichText data={intensiveCoursesCalendar.intro} />
           </div>
         ) : null}
+
+        <IntensiveCoursesCalendarPageActions />
         <IntensiveCoursesCalendarSchoolYears schoolYears={intensiveCoursesCalendar.schoolYears} />
       </Container>
     </section>

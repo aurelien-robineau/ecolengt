@@ -35,13 +35,14 @@ export default async function StagesIntensifsPage() {
     <section className="bg-surface py-(--spacing-section-mobile) pt-28 md:py-(--spacing-section)">
       <Container>
         <SectionHeader label={site.name} title="Stages intensifs" titleAs="h1" />
-        <IntensiveCoursesPageActions />
 
         {hasIntro ? (
           <div className="mb-12 max-w-xl">
             <CmsRichText data={intensiveCourses.intro} />
           </div>
         ) : null}
+
+        <IntensiveCoursesPageActions />
 
         <IntensiveCoursesBlocks blocks={intensiveCourses.blocks} />
 

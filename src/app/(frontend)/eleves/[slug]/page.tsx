@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 
 import { StudentProfile } from '@/components/students/StudentProfile'
 import { Container } from '@/components/ui/Container'
+import { PageBackNav } from '@/components/ui/PageBackNav'
 import { routes } from '@/config/routes'
 import { getStudentBySlug, getStudentSlugs } from '@/lib/content'
 import { getSiteSettings } from '@/lib/content'
@@ -45,6 +46,7 @@ export default async function StudentPage({ params }: StudentPageProps) {
   return (
     <section className="bg-surface py-(--spacing-section-mobile) pt-28 md:py-(--spacing-section)">
       <Container>
+        <PageBackNav href={routes.alumni} label="Anciens élèves" />
         <StudentProfile student={student} />
       </Container>
     </section>

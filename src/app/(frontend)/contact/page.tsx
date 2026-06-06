@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 
 import { CmsRichText } from '@/components/cms/CmsRichText'
 import { ContactAccessGallery } from '@/components/contact/ContactAccessGallery'
-import { ContactDetails } from '@/components/contact/ContactDetails'
 import { ContactLocation } from '@/components/contact/ContactLocation'
 import { Container } from '@/components/ui/Container'
 import { SectionHeader } from '@/components/ui/SectionHeader'
@@ -39,7 +38,6 @@ export default async function ContactPage() {
           directions={site.addressAccess.directions}
           items={site.addressAccess.gallery}
         />
-        <ContactDetails site={site} />
       </Container>
     </section>
   )

@@ -1,4 +1,5 @@
 import { CmsRichText } from '@/components/cms/CmsRichText'
+import { PricingPageActions } from '@/components/pricing/PricingPageActions'
 import { ScrollToHash } from '@/components/pricing/ScrollToHash'
 import { pricingIntensiveCoursesSectionId } from '@/config/pricingSections'
 import { hasLexicalContent } from '@/lib/content'
@@ -35,6 +36,8 @@ export function PricingPageContent({ pricing }: PricingPageContentProps) {
           </div>
         </section>
       ) : null}
+
+      {hasClasses || hasIntensiveCourses ? <PricingPageActions /> : null}
     </>
   )
 }
