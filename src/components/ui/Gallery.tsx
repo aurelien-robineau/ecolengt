@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react'
 
 import { Icon } from '@/components/icons/Icon'
 import { CmsImage } from '@/components/cms/CmsImage'
@@ -36,16 +36,51 @@ type GalleryProps = {
   bleed?: boolean
 }
 
-const layoutByColumns = {
-  2: {
-    itemClassName: 'w-full sm:w-[calc((100%-0.125rem)/2)]',
-    imageSizes: '(max-width: 640px) 100vw, 50vw',
-  },
-  3: {
-    itemClassName: 'w-full sm:w-[calc((100%-0.125rem)/2)] lg:w-[calc((100%-0.25rem)/3)]',
-    imageSizes: '(max-width: 500px) 100vw, (max-width: 768px) 50vw, 33vw',
-  },
-} as const
+const MD_MAX_MEDIA_QUERY = '(max-width: 767px)'
+
+/** Avoid mounting mobile-only preview on desktop — hidden images still trigger sizes warnings. */
+function useIsMaxMd() {
+  return useSyncExternalStore(
+    (onStoreChange) => {
+      const mq = window.matchMedia(MD_MAX_MEDIA_QUERY)
+      mq.addEventListener('change', onStoreChange)
+      return () => mq.removeEventListener('change', onStoreChange)
+    },
+    () => window.matchMedia(MD_MAX_MEDIA_QUERY).matches,
+    () => false,
+  )
+}
+
+function getLayoutByColumns(columns: 2 | 3, bleed: boolean) {
+  if (bleed) {
+    return columns === 2
+      ? {
+          itemClassName: 'w-full sm:w-[calc((100%-0.125rem)/2)]',
+          imageSizes: '(max-width: 640px) 100vw, 50vw',
+          previewSizes: '100vw',
+        }
+      : {
+          itemClassName: 'w-full sm:w-[calc((100%-0.125rem)/2)] lg:w-[calc((100%-0.25rem)/3)]',
+          imageSizes: '(max-width: 500px) 100vw, (max-width: 768px) 50vw, 33vw',
+          previewSizes: '100vw',
+        }
+  }
+
+  // Inside Container or card padding — images are narrower than the viewport.
+  return columns === 2
+    ? {
+        itemClassName: 'w-full sm:w-[calc((100%-0.125rem)/2)]',
+        imageSizes:
+          '(max-width: 640px) calc(100vw - 4rem), (max-width: 768px) calc((100vw - 4rem) / 2), min(36rem, 50vw)',
+        previewSizes: 'calc(100vw - 4rem)',
+      }
+    : {
+        itemClassName: 'w-full sm:w-[calc((100%-0.125rem)/2)] lg:w-[calc((100%-0.25rem)/3)]',
+        imageSizes:
+          '(max-width: 500px) calc(100vw - 4rem), (max-width: 768px) calc((100vw - 4rem) / 2), min(24rem, 33vw)',
+        previewSizes: 'calc(100vw - 4rem)',
+      }
+}
 
 function toSlides(items: GalleryItem[]): LightboxSlide[] {
   return items.map((item) => ({ image: item.image }))
@@ -86,6 +121,7 @@ type GalleryMobilePreviewProps = {
   items: GalleryItem[]
   shouldLoad: boolean
   priorityFirstImage: boolean
+  previewSizes: string
   onOpen: (index: number) => void
 }
 
@@ -93,6 +129,7 @@ function GalleryMobilePreview({
   items,
   shouldLoad,
   priorityFirstImage,
+  previewSizes,
   onOpen,
 }: GalleryMobilePreviewProps) {
   const item = items[0]
@@ -107,7 +144,7 @@ function GalleryMobilePreview({
             image={item.image}
             fill
             className="object-cover"
-            sizes="100vw"
+            sizes={previewSizes}
             priority={priorityFirstImage}
             loading={priorityFirstImage ? 'eager' : 'lazy'}
             fetchPriority={priorityFirstImage ? 'high' : 'low'}
@@ -163,6 +200,7 @@ export function Gallery({
 }: GalleryProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
   const { containerRef, shouldLoad } = useGalleryInView(priorityFirstImage)
+  const isMaxMd = useIsMaxMd()
 
   const slides = useMemo(() => toSlides(items), [items])
 
@@ -170,10 +208,11 @@ export function Gallery({
     return null
   }
 
-  const layout = layoutByColumns[columns]
+  const layout = getLayoutByColumns(columns, bleed)
   const isSingleNatural = naturalSingle && items.length === 1
   const collapseOnMobile = items.length > MOBILE_GALLERY_COLLAPSE_ABOVE
   const showPreviewOnly = previewOnly && items.length > 1
+  const showMobilePreview = showPreviewOnly || (collapseOnMobile && isMaxMd)
 
   if (isSingleNatural) {
     const item = items[0]
@@ -226,13 +265,14 @@ export function Gallery({
   return (
     <>
       <div ref={containerRef}>
-        {collapseOnMobile || showPreviewOnly ? (
+        {showMobilePreview ? (
           <div className={cn(bleed && 'bleed-x-sm', !showPreviewOnly && 'md:hidden')}>
             <div className={previewWrapperClassName}>
               <GalleryMobilePreview
                 items={items}
                 shouldLoad={shouldLoad}
                 priorityFirstImage={priorityFirstImage}
+                previewSizes={layout.previewSizes}
                 onOpen={setOpenIndex}
               />
             </div>
