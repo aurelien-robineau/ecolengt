@@ -11,6 +11,8 @@ type LocationMapProps = {
   googleMapsUrl?: string
   /** Classes for the iframe wrapper (aspect ratio / min-height). */
   embedClassName?: string
+  /** Break out of container padding on mobile. Defaults to true. */
+  bleed?: boolean
 }
 
 export function LocationMap({
@@ -19,6 +21,7 @@ export function LocationMap({
   longitude,
   googleMapsUrl,
   embedClassName,
+  bleed = true,
 }: LocationMapProps) {
   const embedSrc = buildOpenStreetMapEmbedUrl(latitude, longitude)
   const googleMapsLabel = googleMapsUrl
@@ -26,7 +29,7 @@ export function LocationMap({
     : undefined
 
   return (
-    <div className="bleed-x-sm flex flex-col">
+    <div className={cn('flex flex-col', bleed && 'bleed-x-sm')}>
       <div className={cn('map-embed', embedClassName)}>
         {googleMapsUrl ? (
           <ExternalLink

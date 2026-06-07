@@ -18,6 +18,10 @@ type LocationWithMapProps = {
   mapTitle: string
   directions?: CmsRichTextContent | null
   className?: string
+  /** Skip the yellow callout on the aside — use when the parent is already an access card. */
+  plainAside?: boolean
+  /** Pass through to LocationMap — disable bleed when nested inside a padded card. */
+  mapBleed?: boolean
 }
 
 export function LocationWithMap({
@@ -25,6 +29,8 @@ export function LocationWithMap({
   mapTitle,
   directions,
   className,
+  plainAside = false,
+  mapBleed = true,
 }: LocationWithMapProps) {
   const hasAddress = Boolean(
     address.street || address.streetLine2 || address.postalCode || address.city,
@@ -47,7 +53,12 @@ export function LocationWithMap({
       )}
     >
       {hasAside ? (
-        <aside className="callout-surface bleed-x-sm bg-brand-dim card-pad">
+        <aside
+          className={cn(
+            !plainAside && 'callout-surface bleed-x-sm bg-brand-dim card-pad',
+            plainAside && 'max-w-xl',
+          )}
+        >
           {hasAddress ? (
             <>
               <h3 className={cn(sectionLabelClassName, stackTitleClassName)}>Adresse</h3>
@@ -81,6 +92,7 @@ export function LocationWithMap({
           latitude={address.mapLatitude!}
           longitude={address.mapLongitude!}
           googleMapsUrl={address.mapsUrl || undefined}
+          bleed={mapBleed}
         />
       ) : null}
     </div>

@@ -4,7 +4,6 @@ import { hasLexicalContent } from '@/lib/content'
 import type { CmsRichTextContent, GalleryItem } from '@/lib/content/types'
 import { cn } from '@/lib/cn'
 import {
-  pageSectionTitleClassName,
   sectionLabelClassName,
   stackBlockClassName,
   stackTitleClassName,
@@ -25,8 +24,6 @@ export function ContactAccess({ directions, items }: ContactAccessProps) {
 
   return (
     <section className="mt-16 md:mt-20">
-      <h2 className={cn(pageSectionTitleClassName, stackBlockClassName)}>Accès</h2>
-
       {hasDirections ? (
         <div className={cn(hasGallery && stackBlockClassName)}>
           <h3 className={cn(sectionLabelClassName, stackTitleClassName)}>Comment s’y rendre</h3>

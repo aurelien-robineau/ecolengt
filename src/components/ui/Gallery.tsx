@@ -32,6 +32,8 @@ type GalleryProps = {
   previewOnly?: boolean
   /** Extra classes on the preview wrapper (e.g. desktop max-width). */
   previewWrapperClassName?: string
+  /** Break out of container padding on mobile. Defaults to true. */
+  bleed?: boolean
 }
 
 const layoutByColumns = {
@@ -157,6 +159,7 @@ export function Gallery({
   priorityFirstImage = false,
   previewOnly = false,
   previewWrapperClassName,
+  bleed = true,
 }: GalleryProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
   const { containerRef, shouldLoad } = useGalleryInView(priorityFirstImage)
@@ -192,7 +195,7 @@ export function Gallery({
         <figure
           className={cn(
             'mb-12',
-            singleFigureClassName === 'max-w-3xl' && 'bleed-x-sm',
+            bleed && singleFigureClassName === 'max-w-3xl' && 'bleed-x-sm',
             singleFigureClassName,
           )}
         >
@@ -224,7 +227,7 @@ export function Gallery({
     <>
       <div ref={containerRef}>
         {collapseOnMobile || showPreviewOnly ? (
-          <div className={cn('bleed-x-sm', !showPreviewOnly && 'md:hidden')}>
+          <div className={cn(bleed && 'bleed-x-sm', !showPreviewOnly && 'md:hidden')}>
             <div className={previewWrapperClassName}>
               <GalleryMobilePreview
                 items={items}
@@ -239,7 +242,8 @@ export function Gallery({
         {!showPreviewOnly ? (
           <div
             className={cn(
-              'bleed-x-sm flex flex-wrap justify-center gap-0.5',
+              bleed && 'bleed-x-sm',
+              'flex flex-wrap justify-center gap-0.5',
               collapseOnMobile && 'hidden md:flex',
             )}
           >

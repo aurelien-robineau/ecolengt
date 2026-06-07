@@ -1,9 +1,9 @@
+import { AccessSectionCard } from '@/components/location/AccessSectionCard'
 import { LocationWithMap } from '@/components/location/LocationWithMap'
 import { Gallery } from '@/components/ui/Gallery'
 import { hasLexicalContent } from '@/lib/content'
 import type { SiteAddressData, SiteMainAccessData } from '@/lib/content/types'
 import { hasMapCoordinates } from '@/lib/maps/hasMapCoordinates'
-import { pageSectionTitleClassName } from '@/lib/ui/typography'
 
 type IntensiveCoursesAccessProps = {
   siteName: string
@@ -28,17 +28,17 @@ export function IntensiveCoursesAccess({ siteName, address, access }: IntensiveC
   }
 
   return (
-    <section className="border-t border-border pt-16 md:pt-20">
-      <h2 className={`mb-10 ${pageSectionTitleClassName}`}>Accès</h2>
-
+    <AccessSectionCard>
       <LocationWithMap
         address={address}
         mapTitle={`Plan d’accès — ${siteName}`}
         directions={access.directions}
+        plainAside
+        mapBleed={false}
         className={hasGallery ? 'mb-12' : undefined}
       />
 
-      {hasGallery ? <Gallery items={access.gallery} columns={2} /> : null}
-    </section>
+      {hasGallery ? <Gallery items={access.gallery} columns={2} bleed={false} /> : null}
+    </AccessSectionCard>
   )
 }
