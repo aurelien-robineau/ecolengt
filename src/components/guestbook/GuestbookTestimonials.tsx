@@ -16,10 +16,10 @@ export function GuestbookTestimonials({ items }: GuestbookTestimonialsProps) {
   return (
     <section>
       <h2 className={cn(pageSectionTitleClassName, stackSectionClassName)}>Témoignages</h2>
-      <ul className="flex list-none flex-col gap-12 md:gap-16">
+      <ul className="flex list-none flex-col gap-8">
         {items.map((item, index) => (
           <li key={`${item.author}-${index}`}>
-            <blockquote className="max-w-3xl border-l-2 border-brand pl-6 md:pl-8">
+            <blockquote className="max-w-3xl rounded-r-xl border-l-4 border-brand bg-surface-card py-8 pl-6 pr-6 md:py-8 md:pl-8 md:pr-6">
               <CmsRichText data={item.content} />
               <footer className="mt-6 text-sm font-medium tracking-[var(--tracking-wide)] text-foreground-subtle uppercase">
                 —{' '}

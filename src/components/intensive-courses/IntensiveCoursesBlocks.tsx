@@ -7,6 +7,11 @@ type IntensiveCoursesBlocksProps = {
   blocks: IntensiveCoursesBlock[]
 }
 
+const cardSurfaceGridClassName =
+  'bleed-x-sm grid gap-px bg-border lg:grid-cols-2 lg:gap-4 lg:bg-transparent'
+
+const cardSurfaceItemClassName = 'card-surface'
+
 export function IntensiveCoursesBlocks({ blocks }: IntensiveCoursesBlocksProps) {
   if (!blocks.length) {
     return null
@@ -16,12 +21,13 @@ export function IntensiveCoursesBlocks({ blocks }: IntensiveCoursesBlocksProps) 
   const lastAlone = blocks.length % 2 === 1
 
   return (
-    <div className="bleed-x-sm grid gap-px bg-border lg:grid-cols-2">
+    <div className={cardSurfaceGridClassName}>
       {blocks.map((block, index) => (
         <article
           key={`${block.title}-${index}`}
           className={cn(
-            'bg-surface-card card-pad-lg',
+            cardSurfaceItemClassName,
+            'card-pad-lg',
             lastAlone && index === lastIndex && 'lg:col-span-2',
           )}
         >

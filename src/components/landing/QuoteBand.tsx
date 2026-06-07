@@ -15,19 +15,19 @@ const portraitBleedClassName = cn(
 
 export function QuoteBand({ quote }: QuoteBandProps) {
   return (
-    <section className="bg-brand max-lg:pt-0 pb-16 md:pb-20 lg:py-20">
+    <section className="bg-brand max-lg:pt-0 pb-16 md:pb-24 lg:py-24">
       <Container>
         {/*
          * Below lg: full-bleed portrait, quote in container below.
          * lg+: portrait column + quote (original desktop layout).
          */}
-        <div className="max-w-2xl lg:grid lg:max-w-4xl lg:grid-cols-[minmax(0,14rem)_1fr] lg:items-center lg:gap-16">
+        <div className="max-w-2xl lg:grid lg:max-w-4xl lg:grid-cols-[minmax(0,14rem)_1fr] lg:items-center lg:gap-16 xl:gap-20">
           <div
             className={cn(
-              'relative overflow-hidden bg-foreground/8',
+              'relative overflow-hidden bg-foreground/8 shadow-subtle',
               portraitBleedClassName,
-              'aspect-4/3 max-lg:mb-8',
-              'lg:aspect-4/5 lg:w-full lg:ring-1 lg:ring-foreground/10',
+              'aspect-4/3 max-lg:mb-10',
+              'lg:aspect-4/5 lg:w-full lg:rounded-xl lg:ring-1 lg:ring-foreground/10',
             )}
           >
             {quote.portrait ? (
@@ -42,11 +42,11 @@ export function QuoteBand({ quote }: QuoteBandProps) {
             )}
           </div>
 
-          <blockquote className="text-start">
-            <p className="type-section-title text-[clamp(1.375rem,3vw,2rem)] text-foreground italic">
+          <blockquote className="text-start lg:py-4">
+            <p className="type-section-title text-[clamp(1.375rem,3vw,2.125rem)] leading-snug text-foreground italic">
               « {quote.text} »
             </p>
-            <cite className="mt-6 block text-xs tracking-[var(--tracking-widest)] text-foreground-subtle uppercase not-italic">
+            <cite className="mt-8 block text-xs tracking-[var(--tracking-widest)] text-foreground-subtle uppercase not-italic">
               — {quote.cite}
             </cite>
           </blockquote>

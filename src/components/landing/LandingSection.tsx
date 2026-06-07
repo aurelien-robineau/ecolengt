@@ -15,9 +15,11 @@ import type { LandingSection as LandingSectionData } from '@/lib/content/types'
 
 type LandingSectionProps = {
   section: LandingSectionData
+  /** Alternates subtle background on plain sections for visual rhythm. */
+  alternate?: boolean
 }
 
-export function LandingSection({ section }: LandingSectionProps) {
+export function LandingSection({ section, alternate = false }: LandingSectionProps) {
   const { items, highlight, gallery, description } = section
   const hasItems = items.length > 0
   const hasHighlight = highlight !== null
@@ -29,7 +31,9 @@ export function LandingSection({ section }: LandingSectionProps) {
       id={section.id}
       className={cn(
         'py-(--spacing-section-mobile) md:py-(--spacing-section)',
-        isEmphasized && 'border-y border-border bg-surface-muted',
+        isEmphasized
+          ? 'border-y border-border bg-surface-muted'
+          : alternate && 'bg-surface-muted/50',
       )}
     >
       <Container>
@@ -50,13 +54,13 @@ export function LandingSection({ section }: LandingSectionProps) {
 
           {hasItems ? (
             <div
-              className={cn('bleed-x-sm grid gap-px bg-border lg:grid-cols-2', stackBlockClassName)}
+              className={cn(
+                'bleed-x-sm grid gap-px bg-border lg:grid-cols-2 lg:gap-4 lg:bg-transparent',
+                stackBlockClassName,
+              )}
             >
               {items.map((item, index) => (
-                <article
-                  key={`${item.title}-${index}`}
-                  className="bg-surface-card card-pad shadow-subtle"
-                >
+                <article key={`${item.title}-${index}`} className="card-surface card-pad">
                   <h3 className={cn(cardTitleClassName, stackTitleClassName)}>{item.title}</h3>
                   <CmsRichText data={item.description} />
                 </article>

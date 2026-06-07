@@ -18,7 +18,11 @@ export default async function HomePage() {
       <HeroSection hero={landing.hero} city={site.address.city} foundedYear={site.foundedYear} />
       <QuoteBand quote={landing.quote} />
       {landing.sections.map((section, index) => (
-        <LandingSection key={`${section.id}-${index}`} section={section} />
+        <LandingSection
+          key={`${section.id}-${index}`}
+          section={section}
+          alternate={index % 2 === 1}
+        />
       ))}
     </>
   )

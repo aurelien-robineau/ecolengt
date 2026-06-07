@@ -19,7 +19,7 @@ export function HeroSection({ hero, city, foundedYear }: HeroSectionProps) {
   return (
     <section
       id="home"
-      className="relative flex flex-col overflow-hidden bg-surface-muted pt-28 pb-12 md:min-h-screen md:justify-end md:pb-32"
+      className="relative flex flex-col overflow-hidden bg-surface-muted pt-28 pb-16 md:min-h-[92vh] md:justify-end md:pb-24 lg:pb-32"
     >
       {hero.backgroundImage ? (
         <div className="pointer-events-none absolute inset-0" aria-hidden>
@@ -41,12 +41,12 @@ export function HeroSection({ hero, city, foundedYear }: HeroSectionProps) {
       ) : null}
 
       <Container className="relative">
-        <p className="animate-fade-up type-lead mb-6 flex items-center gap-4 font-serif italic text-foreground-muted">
+        <p className="animate-fade-up type-lead mb-8 flex items-center gap-4 font-serif italic text-foreground-muted">
           <span className="block h-px w-10 bg-foreground-subtle" aria-hidden />
           {hero.tagline}
         </p>
 
-        <h1 className="animate-fade-up-delay-1 type-display mb-3 text-foreground">
+        <h1 className="animate-fade-up-delay-1 type-display mb-4 text-foreground">
           <span className="block max-md:whitespace-nowrap max-md:text-[clamp(2.25rem,9vw,3rem)] md:text-[clamp(3rem,7vw,5.5rem)]">
             {hero.name}
           </span>
@@ -56,13 +56,13 @@ export function HeroSection({ hero, city, foundedYear }: HeroSectionProps) {
         </h1>
 
         {cityLabel || founded ? (
-          <p className={cn('animate-fade-up-delay-2 mb-12', sectionLabelClassName)}>
+          <p className={cn('animate-fade-up-delay-2 mb-14', sectionLabelClassName)}>
             {cityLabel}
             {cityLabel && founded ? <span className="mx-3 text-foreground-subtle">·</span> : null}
             {founded}
           </p>
         ) : (
-          <div className="mb-12" />
+          <div className="mb-14" />
         )}
 
         {hero.cta && hero.ctaHref ? (
