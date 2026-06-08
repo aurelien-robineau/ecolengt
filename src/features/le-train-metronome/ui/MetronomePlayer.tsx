@@ -220,9 +220,9 @@ export function MetronomePlayer({
         onClick={stop}
         disabled={!canStop}
         aria-label="Arrêt — revenir au début"
-        className="absolute top-4 right-4 flex size-10 items-center justify-center rounded-full border border-[var(--metro-border)] bg-[var(--metro-panel)] text-[var(--metro-text)] shadow-sm transition-[transform,background-color] hover:bg-[var(--metro-brand-dim)] active:scale-95 disabled:cursor-not-allowed disabled:opacity-35 md:top-5 md:right-5"
+        className="absolute top-4 right-4 z-10 flex size-11 items-center justify-center rounded-full border border-[var(--metro-border)] bg-[var(--metro-panel)] text-[var(--metro-text)] shadow-sm transition-[transform,background-color] hover:bg-[var(--metro-brand-dim)] active:scale-95 disabled:cursor-not-allowed disabled:opacity-35 md:top-5 md:right-5 md:size-12"
       >
-        <FeatureIcon name="stop" className="size-4.5" />
+        <FeatureIcon name="stop" className="size-5 md:size-5.5" />
       </button>
 
       <div className="relative flex flex-col items-center gap-7 text-center">

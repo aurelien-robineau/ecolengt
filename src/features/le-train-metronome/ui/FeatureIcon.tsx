@@ -14,7 +14,7 @@ export function FeatureIcon({ name, className }: FeatureIconProps) {
   return (
     <span
       aria-hidden
-      className={cn('inline-block shrink-0 bg-current', className)}
+      className={cn('pointer-events-none inline-block shrink-0 bg-current', className)}
       style={{
         maskImage: `url(${src})`,
         WebkitMaskImage: `url(${src})`,
