@@ -14,7 +14,7 @@ const staticCardClassName =
 const linkedCardClassName = cn(staticCardClassName, 'group block no-underline')
 
 const linkedNameClassName =
-  'decoration-brand decoration-2 underline-offset-[0.2em] no-underline group-hover:underline'
+  'underline decoration-2 underline-offset-[0.2em] transition-colors duration-150 max-md:decoration-brand md:decoration-transparent md:group-hover:decoration-brand'
 
 function StudentCardContent({
   student,
