@@ -8,6 +8,9 @@ export const SILENCE_AT_START_S = 1.0
 const CLICK_DURATION_S = 0.03
 /** Float-scale Gaussian noise amplitude — matches Python `randn * 1e-5`. */
 const DITHER_AMPLITUDE = 1e-5
+/** Absolute int16 peak for the pre-roll keep-alive tone (~-42 dBFS). Applied after normalize. */
+const DEVICE_WAKE_UP_PEAK = 250
+const DEVICE_WAKE_UP_HZ = 30
 const FREQ_ACCENT_HZ = 2_000
 const FREQ_BEAT_HZ = 1_000
 const FREQ_SUBDIVISION_HZ = 800
@@ -188,6 +191,20 @@ function fillInaudibleDither(pcm: Int16Array): void {
   }
 }
 
+/**
+ * Low-level keep-alive in the pre-roll pad. External DACs and Bluetooth often treat
+ * near-silent dither as digital zero and miss the first click unless the output path
+ * is opened earlier. Applied after normalize so the level stays absolute.
+ */
+function mixDeviceWakeUpSignal(pcm: Int16Array, sampleRate: number): void {
+  const padEnd = Math.min(pcm.length, Math.ceil(SILENCE_AT_START_S * sampleRate))
+  for (let i = 0; i < padEnd; i++) {
+    const t = i / sampleRate
+    const tone = Math.sin(2 * Math.PI * DEVICE_WAKE_UP_HZ * t) * DEVICE_WAKE_UP_PEAK
+    pcm[i] = Math.max(-32_768, Math.min(32_767, Math.round(tone)))
+  }
+}
+
 function writeWavHeader(pcmByteLength: number, sampleRate: number): Buffer {
   const header = Buffer.alloc(44)
   header.write('RIFF', 0)
@@ -271,6 +288,7 @@ export function generateWavBuffer(
   )
   const trimmed = pcm.subarray(0, pcmLength)
   normalizePcm(trimmed)
+  mixDeviceWakeUpSignal(trimmed, sampleRate)
 
   const pcmBuffer = Buffer.from(trimmed.buffer, trimmed.byteOffset, trimmed.byteLength)
   const header = writeWavHeader(pcmBuffer.length, sampleRate)

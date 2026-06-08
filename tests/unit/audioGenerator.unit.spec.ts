@@ -72,7 +72,7 @@ describe('audioGenerator', () => {
     expect(nonZero).toBeGreaterThan(0)
   })
 
-  it('prepends one second of inaudible dither before the first click', () => {
+  it('prepends one second of keep-alive audio before the first click', () => {
     const wav = generateWavBuffer(shortSequence, 1, false, DEFAULT_SAMPLE_RATE)
     const pcm = wav.subarray(44)
     const padSamples = Math.floor(SILENCE_AT_START_S * DEFAULT_SAMPLE_RATE)
@@ -86,8 +86,9 @@ describe('audioGenerator', () => {
     }
 
     expect(nonZeroInPad).toBeGreaterThan(100)
-    expect(maxAbsInPad).toBeGreaterThan(0)
-    expect(maxAbsInPad).toBeLessThan(10)
+    // Strong enough to wake external outputs, still well below click level (~29k peak).
+    expect(maxAbsInPad).toBeGreaterThan(100)
+    expect(maxAbsInPad).toBeLessThan(500)
 
     const onsets = downbeatOnsetsSeconds(shortSequence, 1, DEFAULT_SAMPLE_RATE)
     expect(onsets[0]).toBeCloseTo(SILENCE_AT_START_S, 3)

@@ -4,6 +4,8 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { cn } from '@/lib/cn'
 
+import { clearAudioOutputPrime, primeAudioOutput } from '../lib/primeAudioOutput'
+
 import { FeatureIcon } from './FeatureIcon'
 
 type PlaybackState = {
@@ -76,6 +78,7 @@ export function MetronomePlayer({
     setCurrentTime(0)
     setDuration(0)
     emitPlaybackChange({ isPlaying: false, currentTime: 0 })
+    clearAudioOutputPrime(audio)
     audio.load()
   }, [emitPlaybackChange, src])
 
@@ -153,6 +156,9 @@ export function MetronomePlayer({
         audio.currentTime = clampTime(audio.currentTime, audio)
       }
       try {
+        if (audio.currentTime < 0.05) {
+          await primeAudioOutput(audio, src)
+        }
         await audio.play()
       } catch {
         setIsPlaying(false)
@@ -160,13 +166,14 @@ export function MetronomePlayer({
     } else {
       audio.pause()
     }
-  }, [clampTime, isReady])
+  }, [clampTime, isReady, src])
 
   const stop = useCallback(() => {
     const audio = audioRef.current
     if (!audio || !isReady) return
     audio.pause()
     audio.currentTime = 0
+    clearAudioOutputPrime(audio)
     setCurrentTime(0)
     setIsPlaying(false)
     emitPlaybackChange({ isPlaying: false, currentTime: 0 })
