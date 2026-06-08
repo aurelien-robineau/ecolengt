@@ -238,10 +238,6 @@
       border: 1px solid var(--color-brand-border);
       border-radius: var(--radius-xl);
     }
-
-    .map-embed {
-      border-radius: var(--radius-xl);
-    }
   }
 
   .media-ratio-gallery {
@@ -261,9 +257,16 @@
     position: relative;
     width: 100%;
     overflow: hidden;
-    border-radius: 0;
+    border-radius: var(--radius-xl);
     background-color: var(--color-surface-muted);
     aspect-ratio: var(--media-ratio-map);
+  }
+
+  /* Bleed maps only: square corners on mobile so the map stays flush with screen edges. */
+  @media (max-width: 47.999rem) {
+    .bleed-x-sm > .map-embed {
+      border-radius: 0;
+    }
   }
 
   @media (min-width: 48rem) {
