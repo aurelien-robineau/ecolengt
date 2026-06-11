@@ -65,3 +65,76 @@
     animation: none !important;
   }
 }
+
+/*
+ * -1px offset on 1px borders: 2px ring straddles the border line instead of
+ * sitting entirely inside it. z-index keeps shared edges visible in dense groups.
+ */
+.metronome-feature
+  :where(
+    button,
+    input:not(.sr-only),
+    select,
+    textarea,
+    [tabindex]:not([tabindex='-1'])
+  ):focus-visible {
+  outline: 2px solid var(--metro-brand);
+  outline-offset: -1px;
+  box-shadow: none;
+  position: relative;
+  z-index: 1;
+}
+
+/* Checkbox switches use sr-only inputs — show focus on the visible label instead. */
+.metronome-feature input.sr-only:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+.metronome-feature label:has(input:focus-visible) {
+  outline: 2px solid var(--metro-brand);
+  outline-offset: -1px;
+  box-shadow: none;
+  position: relative;
+  z-index: 1;
+}
+
+.metronome-feature
+  :where(
+    button[aria-pressed='true'],
+    button[aria-checked='true'],
+    button[type='submit']
+  ):focus-visible,
+.metronome-feature label:has(input:checked:focus-visible) {
+  outline-color: var(--metro-on-brand);
+}
+
+/* BPM +/- and Max./Départ: each cell owns a 1px border so focus sits on that edge. */
+.metronome-feature .bpm-segment-btn {
+  border: 1px solid var(--metro-border);
+}
+
+.metronome-feature .bpm-segment-row > .bpm-segment-btn + .bpm-segment-btn,
+.metronome-feature .bpm-segment-row > .bpm-segment-cell + .bpm-segment-btn,
+.metronome-feature .bpm-segment-row > .bpm-segment-btn + .bpm-segment-cell {
+  margin-left: -1px;
+}
+
+.metronome-feature .bpm-type-row {
+  margin-top: -1px;
+}
+
+.metronome-feature .bpm-type-row > .bpm-segment-btn + .bpm-segment-btn {
+  margin-left: -1px;
+}
+
+.metronome-feature .bpm-segment-btn:focus-visible {
+  outline: 2px solid var(--metro-brand);
+  outline-offset: -1px;
+  position: relative;
+  z-index: 1;
+}
+
+.metronome-feature .bpm-segment-btn[aria-pressed='true']:focus-visible {
+  outline-color: var(--metro-on-brand);
+}

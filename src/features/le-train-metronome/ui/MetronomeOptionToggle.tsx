@@ -35,8 +35,8 @@ export function MetronomeOptionToggle({
     <label
       htmlFor={id}
       className={cn(
-        'group flex cursor-pointer items-center gap-3 rounded-md border px-3.5 py-3 transition-[border-color,background-color]',
-        'sm:gap-4 sm:px-4 sm:py-3.5',
+        'group flex cursor-pointer items-center gap-3 rounded-md border py-3 pr-3.5 pl-5 transition-[border-color,background-color]',
+        'sm:gap-4 sm:py-3.5 sm:pr-4 sm:pl-6',
         checked
           ? 'border-[var(--metro-border-strong)] bg-[var(--metro-brand-dim)]'
           : 'border-[var(--metro-border)] bg-[var(--metro-panel)] hover:border-[var(--metro-border-strong)] hover:bg-[var(--metro-hover)]',

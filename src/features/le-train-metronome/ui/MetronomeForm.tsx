@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
+import { type KeyboardEvent, useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
 
 import { LE_TRAIN_METRONOME_API_PATH } from '../constants'
 import { clampBpmToInputLimits, getBpmInputLimits, stepBpm } from '../lib/bpmLimits'
@@ -96,8 +96,9 @@ function SectionLabel({ children, className }: { children: React.ReactNode; clas
 }
 
 const bpmStepButtonClass = cn(
-  'font-metronome-mono flex min-w-11 items-center justify-center px-2 py-3 text-xs font-medium tabular-nums transition-colors',
-  'border-[var(--metro-border)] bg-[var(--metro-panel)] text-[var(--metro-text)] hover:bg-[var(--metro-hover)]',
+  'bpm-segment-btn font-metronome-mono flex min-w-11 items-center justify-center px-2 py-3',
+  'text-xs font-medium tabular-nums transition-colors',
+  'bg-[var(--metro-panel)] text-[var(--metro-text)] hover:bg-[var(--metro-hover)]',
   'disabled:cursor-not-allowed disabled:opacity-35',
 )
 
@@ -148,34 +149,49 @@ function BpmInputWithType({
 }) {
   const { min, max } = getBpmInputLimits(bpmType)
 
+  const handleBpmSpinKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    const keyDelta: Record<string, number> = {
+      ArrowUp: 1,
+      ArrowRight: 1,
+      ArrowDown: -1,
+      ArrowLeft: -1,
+      PageUp: 5,
+      PageDown: -5,
+    }
+    const delta = keyDelta[event.key]
+    if (delta === undefined) return
+    event.preventDefault()
+    onBpmChange(stepBpm(bpm, delta, bpmType))
+  }
+
   return (
-    <div className="overflow-hidden rounded-md border border-[var(--metro-border)] bg-[var(--metro-panel-soft)]">
-      <div className="flex items-stretch">
-        <div className="flex border-r border-[var(--metro-border)]">
-          <BpmStepButton
-            label="Diminuer le tempo de 5 BPM"
-            delta={-5}
-            bpm={bpm}
-            bpmType={bpmType}
-            onBpmChange={onBpmChange}
-            className="border-r border-[var(--metro-border)]"
-          />
-          <BpmStepButton
-            label="Diminuer le tempo de 1 BPM"
-            delta={-1}
-            bpm={bpm}
-            bpmType={bpmType}
-            onBpmChange={onBpmChange}
-          />
-        </div>
+    <div className="rounded-md bg-[var(--metro-panel-soft)]">
+      <div className="bpm-segment-row flex items-stretch">
+        <BpmStepButton
+          label="Diminuer le tempo de 5 BPM"
+          delta={-5}
+          bpm={bpm}
+          bpmType={bpmType}
+          onBpmChange={onBpmChange}
+          className="rounded-tl-md"
+        />
+        <BpmStepButton
+          label="Diminuer le tempo de 1 BPM"
+          delta={-1}
+          bpm={bpm}
+          bpmType={bpmType}
+          onBpmChange={onBpmChange}
+        />
         <div
           id={`${formId}-bpm`}
           role="spinbutton"
+          tabIndex={0}
           aria-valuenow={bpm}
           aria-valuemin={min}
           aria-valuemax={max}
           aria-label="Tempo en BPM"
-          className="relative flex min-w-0 flex-1 flex-col items-center justify-center gap-1 px-4 py-4"
+          onKeyDown={handleBpmSpinKeyDown}
+          className="bpm-segment-cell relative flex min-w-0 flex-1 flex-col items-center justify-center gap-1 border border-[var(--metro-border)] px-4 py-4"
         >
           <span
             className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,var(--metro-brand-dim),transparent_70%)]"
@@ -188,29 +204,23 @@ function BpmInputWithType({
             BPM
           </span>
         </div>
-        <div className="flex border-l border-[var(--metro-border)]">
-          <BpmStepButton
-            label="Augmenter le tempo de 1 BPM"
-            delta={1}
-            bpm={bpm}
-            bpmType={bpmType}
-            onBpmChange={onBpmChange}
-            className="border-r border-[var(--metro-border)]"
-          />
-          <BpmStepButton
-            label="Augmenter le tempo de 5 BPM"
-            delta={5}
-            bpm={bpm}
-            bpmType={bpmType}
-            onBpmChange={onBpmChange}
-          />
-        </div>
+        <BpmStepButton
+          label="Augmenter le tempo de 1 BPM"
+          delta={1}
+          bpm={bpm}
+          bpmType={bpmType}
+          onBpmChange={onBpmChange}
+        />
+        <BpmStepButton
+          label="Augmenter le tempo de 5 BPM"
+          delta={5}
+          bpm={bpm}
+          bpmType={bpmType}
+          onBpmChange={onBpmChange}
+          className="rounded-tr-md"
+        />
       </div>
-      <div
-        className="flex border-t border-[var(--metro-border)]"
-        role="group"
-        aria-label="Interprétation du tempo"
-      >
+      <div className="bpm-type-row flex" role="group" aria-label="Interprétation du tempo">
         {(
           [
             { id: 'max' as const, label: 'Max.' },
@@ -223,11 +233,11 @@ function BpmInputWithType({
             onClick={() => onBpmTypeChange(option.id)}
             aria-pressed={bpmType === option.id}
             className={cn(
-              'font-metronome-mono flex-1 px-3 py-2.5 text-[10px] tracking-[0.1em] uppercase transition-colors',
+              'bpm-segment-btn font-metronome-mono flex-1 px-3 py-2.5 text-[10px] tracking-[0.1em] uppercase transition-colors',
               bpmType === option.id
                 ? 'bg-[var(--metro-brand)] font-medium text-[var(--metro-on-brand)]'
                 : 'text-[var(--metro-muted)] hover:bg-[var(--metro-brand-dim)] hover:text-[var(--metro-text)]',
-              index === 0 && 'border-r border-[var(--metro-border)]',
+              index === 0 ? 'rounded-bl-md' : 'rounded-br-md',
             )}
           >
             {option.label}
