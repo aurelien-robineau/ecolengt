@@ -215,8 +215,8 @@ export function Header({ site }: HeaderProps) {
     <>
       <header
         className={cn(
-          'fixed inset-x-0 top-0 z-100 transition-[background,border-color] duration-400',
-          (scrolled || menuOpen) && 'border-b border-border',
+          'fixed inset-x-0 top-0 z-100 border-b transition-[background-color,border-color,backdrop-filter] duration-400 ease-out',
+          scrolled || menuOpen ? 'border-border' : 'border-transparent',
           menuOpen ? 'bg-surface' : scrolled && 'bg-surface/97 backdrop-blur-sm',
         )}
       >
