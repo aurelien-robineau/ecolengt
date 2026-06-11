@@ -1,10 +1,9 @@
 import {
   ASSOCIATION_TOM_TOM,
-  DANTE_AGOSTINI_FOUNDER,
   DANTE_AGOSTINI_METHOD,
-  DANTE_AGOSTINI_NETWORK,
   DOCUMENT_TITLE_HOME,
   PACATOM,
+  SEO_INTENSIVE_DEPARTMENT,
   SEO_INTENSIVE_VENUE,
 } from '@/lib/seo/constants'
 import type { SiteSettingsData } from '@/lib/content/types'
@@ -30,8 +29,8 @@ export const seoCopy = {
 
     return {
       documentTitle: DOCUMENT_TITLE_HOME,
-      title: `École de batterie à ${city} — ${DANTE_AGOSTINI_NETWORK}`,
-      description: `${school} : école de batterie à ${city} et en ${pacaLabel} (Marseille, Bouches-du-Rhône, Aubagne, Salon-de-Provence…). Cours pour tous niveaux dès 6 ans, ${DANTE_AGOSTINI_METHOD}, réseau fondé par ${DANTE_AGOSTINI_FOUNDER}. Stages intensifs nationaux de batterie à ${intensiveCity(site)}. ${ASSOCIATION_TOM_TOM} et trio de batterie ${PACATOM}.`,
+      title: `École de batterie à ${city} — ${DANTE_AGOSTINI_METHOD}`,
+      description: `${school} : école de batterie à ${city} et en ${pacaLabel} (Marseille, Bouches-du-Rhône, Aubagne, Salon-de-Provence…). Cours pour tous niveaux dès 6 ans, enseignement exclusif selon la ${DANTE_AGOSTINI_METHOD}. Stages intensifs nationaux de batterie à ${intensiveCity(site)}. ${ASSOCIATION_TOM_TOM} et trio de batterie ${PACATOM}.`,
     }
   },
 
@@ -44,13 +43,13 @@ export const seoCopy = {
   stagesIntensifs: (site: SiteSettingsData) => ({
     documentTitle: 'Stages intensifs',
     title: `Stages intensifs de batterie — centre national ${intensiveCity(site)}`,
-    description: `Stages intensifs de batterie à ${intensiveCity(site)} (${SEO_INTENSIVE_VENUE}), centre national ${DANTE_AGOSTINI_NETWORK} fondé par ${DANTE_AGOSTINI_FOUNDER}. Sessions pour batteurs de toute la France — ${schoolLabel(site)}, école de batterie à ${cityLabel(site)}.`,
+    description: `Stages intensifs de batterie à ${intensiveCity(site)} (${SEO_INTENSIVE_VENUE}, ${SEO_INTENSIVE_DEPARTMENT}), au centre national de stages. Sessions pour batteurs de toute la France — ${schoolLabel(site)}, école de batterie à ${cityLabel(site)}, ${DANTE_AGOSTINI_METHOD}.`,
   }),
 
   stagesCalendrier: (site: SiteSettingsData) => ({
     documentTitle: 'Calendrier des stages intensifs',
     title: `Calendrier des stages intensifs de batterie — ${intensiveCity(site)}`,
-    description: `Dates et calendrier des stages intensifs de batterie à ${intensiveCity(site)}. Centre national ${DANTE_AGOSTINI_NETWORK} — réservez votre stage de batterie.`,
+    description: `Dates et calendrier des stages intensifs de batterie à ${intensiveCity(site)} (${SEO_INTENSIVE_DEPARTMENT}). Centre national de stages — réservez votre stage de batterie, ${DANTE_AGOSTINI_METHOD}.`,
   }),
 
   tarifs: (site: SiteSettingsData) => ({
@@ -62,7 +61,7 @@ export const seoCopy = {
   actualite: (site: SiteSettingsData) => ({
     documentTitle: 'Actualité',
     title: `Actualité — école de batterie ${cityLabel(site)}`,
-    description: `Actualités de ${schoolLabel(site)} : cours de batterie à ${cityLabel(site)}, stages intensifs, événements ${DANTE_AGOSTINI_NETWORK}.`,
+    description: `Actualités de ${schoolLabel(site)} : cours de batterie à ${cityLabel(site)}, stages intensifs et événements (${DANTE_AGOSTINI_METHOD}).`,
   }),
 
   livreDor: (site: SiteSettingsData) => ({
@@ -80,7 +79,7 @@ export const seoCopy = {
   tomTom: (site: SiteSettingsData) => ({
     documentTitle: 'Association Tom Tom',
     title: `Association Tom Tom et ${PACATOM} — batterie et examens NGT ${cityLabel(site)}`,
-    description: `${ASSOCIATION_TOM_TOM} : promotion de la batterie, examens publics NGT et actions culturelles à ${cityLabel(site)}. Trio de batterie ${PACATOM}. Liée à ${schoolLabel(site)} et au ${DANTE_AGOSTINI_NETWORK}.`,
+    description: `${ASSOCIATION_TOM_TOM} : promotion de la batterie, examens publics NGT et actions culturelles à ${cityLabel(site)}. Trio de batterie ${PACATOM}. Liée à ${schoolLabel(site)}, ${DANTE_AGOSTINI_METHOD}.`,
   }),
 
   leTrainMetronome: (site: SiteSettingsData) => ({

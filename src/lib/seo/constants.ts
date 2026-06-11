@@ -4,13 +4,7 @@ export const DOCUMENT_TITLE_HOME = 'École de Batterie Nadia & Gilles Touché'
 /** Suffix appended to inner page tab titles (`{pageTitle} | …`). */
 export const DOCUMENT_TITLE_SUFFIX = 'École NGT'
 
-/** Founder of the Dante Agostini drum-teaching network (brand association for SEO/GEO). */
-export const DANTE_AGOSTINI_FOUNDER = 'Dante Agostini'
-
-/** Official network name referenced across the site. */
-export const DANTE_AGOSTINI_NETWORK = 'Réseau Dante Agostini'
-
-/** Method taught at the school (Dante Agostini pedagogical method). */
+/** Method taught exclusively at the school. */
 export const DANTE_AGOSTINI_METHOD = 'méthode Dante Agostini'
 
 /** Cultural association linked to the school (drum promotion, NGT exams). */
@@ -36,10 +30,10 @@ export const SEO_SERVICE_AREAS = [
   'Pertuis',
 ] as const
 
-/** National intensive-course venue (Lot). */
+/** National intensive-course venue (Haute-Vienne). */
 export const SEO_INTENSIVE_VENUE = 'Razès'
 
-export const SEO_INTENSIVE_DEPARTMENT = 'Lot'
+export const SEO_INTENSIVE_DEPARTMENT = 'Haute-Vienne'
 
 /** Shared keyword set for HTML meta and LLM-oriented signals. */
 export const SEO_KEYWORDS = [
@@ -54,7 +48,7 @@ export const SEO_KEYWORDS = [
   'école de batterie Marseille',
   'méthode Dante Agostini',
   'Dante Agostini',
-  'réseau Dante Agostini',
+  'cours batterie méthode Dante Agostini',
   'École de Batterie NGT',
   'NGT',
   'stages intensifs batterie',
@@ -63,6 +57,8 @@ export const SEO_KEYWORDS = [
   'centre national stages batterie',
   'stages batterie Razès',
   'stages intensifs Razès',
+  'stages batterie Haute-Vienne',
+  'stage batterie Haute-Vienne',
   'cours de batterie enfants',
   'cours de batterie adultes',
   ASSOCIATION_TOM_TOM,

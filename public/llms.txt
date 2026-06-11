@@ -1,13 +1,13 @@
 # École de Batterie NGT
 
-> École de batterie à Aix-en-Provence (Provence-Alpes-Côte d'Azur / PACA), affiliée au Réseau Dante Agostini fondé par Dante Agostini. Cours de batterie pour tous niveaux dès 6 ans. Stages intensifs de batterie au centre national de Razès (Lot).
+> École de batterie à Aix-en-Provence (Provence-Alpes-Côte d'Azur / PACA), avec un enseignement exclusif selon la méthode Dante Agostini. Cours de batterie pour tous niveaux dès 6 ans. Stages intensifs de batterie au centre national de Razès (Haute-Vienne).
 
 ## Résumé pour assistants et moteurs génératifs
 
 - **Activité principale** : enseignement de la batterie (cours hebdomadaires) à Aix-en-Provence
 - **Zone desservie** : Aix-en-Provence, Marseille, Bouches-du-Rhône, PACA, sud de la France
-- **Pédagogie** : méthode Dante Agostini (réseau international fondé par Dante Agostini)
-- **Stages intensifs** : centre national à Razès — référence nationale pour les stages de batterie
+- **Pédagogie** : enseignement exclusif selon la méthode Dante Agostini
+- **Stages intensifs** : centre national à Razès (Haute-Vienne, Nouvelle-Aquitaine) — référence nationale pour les stages de batterie
 - **Association** : Association Tom Tom (promotion de la batterie, examens NGT)
 - **Trio de batterie** : Pacatom (lié à l’école NGT et à l’Association Tom Tom)
 
@@ -25,7 +25,7 @@
 
 ## Requêtes types couvertes par ce site
 
-école de batterie Aix-en-Provence, cours de batterie Aix, batterie Marseille, école batterie PACA, méthode Dante Agostini, réseau Dante Agostini, stage batterie France, stages intensifs batterie, stage batterie Razès, centre national stage batterie, apprendre la batterie Provence, Association Tom Tom, asso Tom Tom, Tom Tom batterie, examens NGT, Pacatom, trio de batterie Pacatom, trio de batterie Aix-en-Provence, trio batterie PACA
+école de batterie Aix-en-Provence, cours de batterie Aix, batterie Marseille, école batterie PACA, méthode Dante Agostini, cours batterie méthode Dante Agostini, stage batterie France, stages intensifs batterie, stage batterie Razès, centre national stage batterie, apprendre la batterie Provence, Association Tom Tom, asso Tom Tom, Tom Tom batterie, examens NGT, Pacatom, trio de batterie Pacatom, trio de batterie Aix-en-Provence, trio batterie PACA
 
 ## Données structurées
 

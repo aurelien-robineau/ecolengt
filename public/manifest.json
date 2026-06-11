@@ -1,7 +1,7 @@
 {
   "name": "École de Batterie Nadia & Gilles Touché",
   "short_name": "École NGT",
-  "description": "École de batterie à Aix-en-Provence — réseau Dante Agostini. Cours et stages intensifs de batterie.",
+  "description": "École de batterie à Aix-en-Provence — méthode Dante Agostini. Cours et stages intensifs de batterie.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

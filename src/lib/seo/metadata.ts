@@ -3,8 +3,7 @@ import type { Metadata } from 'next'
 import type { SiteSettingsData } from '@/lib/content/types'
 import {
   ASSOCIATION_TOM_TOM,
-  DANTE_AGOSTINI_FOUNDER,
-  DANTE_AGOSTINI_NETWORK,
+  DANTE_AGOSTINI_METHOD,
   DOCUMENT_TITLE_HOME,
   DOCUMENT_TITLE_SUFFIX,
   PACATOM,
@@ -45,7 +44,6 @@ export function buildSiteRootMetadata(site: SiteSettingsData): Metadata {
     },
     description,
     keywords: [...SEO_KEYWORDS],
-    authors: [{ name: DANTE_AGOSTINI_FOUNDER, url: 'https://www.danteagostini.com' }],
     creator: school,
     publisher: school,
     category: 'music education',
@@ -184,10 +182,10 @@ export function buildStudentMetadata(
   })
 }
 
-/** Visible in JSON-LD only — reinforces Dante Agostini association for crawlers and LLMs. */
-export function networkAssociationDescription(site: SiteSettingsData): string {
+/** Visible in JSON-LD only — school summary for crawlers and LLMs. */
+export function schoolSummaryDescription(site: SiteSettingsData): string {
   const school = site.name.trim() || 'École de Batterie NGT'
   const city = site.address.city.trim() || 'Aix-en-Provence'
 
-  return `${school} est une école de batterie affiliée au ${DANTE_AGOSTINI_NETWORK}, fondé par ${DANTE_AGOSTINI_FOUNDER}, à ${city} et en région PACA. Les stages intensifs de batterie se déroulent au centre national de ${site.intensiveCoursesAddress.city.trim() || 'Razès'}. ${ASSOCIATION_TOM_TOM} et trio de batterie ${PACATOM}.`
+  return `${school} est une école de batterie à ${city} et en région PACA, avec un enseignement exclusif selon la ${DANTE_AGOSTINI_METHOD}. Les stages intensifs de batterie se déroulent au centre national de ${site.intensiveCoursesAddress.city.trim() || 'Razès'}. ${ASSOCIATION_TOM_TOM} et trio de batterie ${PACATOM}.`
 }

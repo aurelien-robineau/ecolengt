@@ -206,7 +206,7 @@ Le fichier est servi à la racine : **`/llms.txt`**
 1. En production, ouvrez `https://VOTRE-DOMAINE/llms.txt` et vérifiez que le contenu est lisible.
 2. Si le nom de domaine ou les URLs importantes changent, mettez à jour `public/llms.txt` dans le repo (puis redéployez).
 
-Ce fichier aide les crawlers IA à résumer correctement : école à Aix, réseau Dante Agostini, stages à Razès. Après remplacement du site, les assistants mettront quelques semaines à refléter le nouveau contenu.
+Ce fichier aide les crawlers IA à résumer correctement : école à Aix, méthode Dante Agostini, stages à Razès. Après remplacement du site, les assistants mettront quelques semaines à refléter le nouveau contenu.
 
 ---
 
@@ -232,18 +232,19 @@ Ce fichier aide les crawlers IA à résumer correctement : école à Aix, résea
 Le code pose les bases ; le **positionnement** se joue aussi sur le contenu éditorial dans Payload :
 
 - **Actualités** : republiez ou créez des articles avec mots naturels (« stage », « examen NGT », « cours adultes », « Aix », etc.) ; les anciens articles **sans** redirection 301 vers un équivalent disparaîtront de l’index.
-- **Stages intensifs** : textes d’intro clairs (dates, public, lieu Razès, lien réseau Dante Agostini).
+- **Stages intensifs** : textes d’intro clairs (dates, public, lieu Razès, méthode Dante Agostini).
 - **Anciens élèves** : profils complétés (noms, métiers) — chaque fiche est dans le sitemap.
 
 Évitez le « keyword stuffing » dans les textes visibles : les meta descriptions le font déjà de façon ciblée.
 
 ---
 
-## 10. Réseau Dante Agostini (légitimité & cohérence)
+## 10. Méthode Dante Agostini (légitimité & cohérence)
 
-- Sur le site officiel du réseau, vérifiez que votre école est bien référencée avec la **bonne URL** (souvent déjà correcte si le domaine ne change pas — contrôlez après la bascule que le lien ne pointe pas vers une page supprimée).
+- L’école enseigne **exclusivement** la méthode Dante Agostini. Évitez toute formulation du type « affiliée au réseau » ou « membre du réseau Dante Agostini » sur le site, les réseaux sociaux et les annuaires.
+- Si l’école apparaît encore sur le site officiel du réseau avec une formulation obsolète, demandez la **mise à jour** de la fiche.
 - Remplacez les liens encore pointant vers **stagedebatterie.com** par **`https://VOTRE-DOMAINE/stages-intensifs`** (la redirection 301 couvre les anciens liens, mais un lien direct est préférable).
-- Gardez une formulation cohérente : « École de Batterie NGT », « méthode Dante Agostini », « stages à Razès ».
+- Gardez une formulation cohérente : « École de Batterie NGT », « enseignement selon la méthode Dante Agostini », « stages à Razès ».
 - Mettez à jour les profils **Google Business**, réseaux sociaux et annuaires locaux si l’URL de contact ou les horaires ont changé sur le nouveau site.
 
 Cela renforce la confiance des moteurs et des LLM qui croisent plusieurs sources.
@@ -262,7 +263,7 @@ Cela renforce la confiance des moteurs et des LLM qui croisent plusieurs sources
 ## Ce qui est déjà fait dans le code (pour référence)
 
 - Métadonnées (title, description, Open Graph, Twitter, canonical) par page
-- Mots-clés géographiques et Dante Agostini / Razès
+- Mots-clés géographiques, méthode Dante Agostini et Razès
 - JSON-LD global (`MusicSchool`, centre stages, `WebSite`)
 - `sitemap.xml` et `robots.txt` générés par Next.js
 - `public/llms.txt` pour le GEO

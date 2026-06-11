@@ -1,15 +1,13 @@
 import type { SiteAddressData, SiteSettingsData } from '@/lib/content/types'
 import {
   ASSOCIATION_TOM_TOM,
-  DANTE_AGOSTINI_FOUNDER,
   DANTE_AGOSTINI_METHOD,
-  DANTE_AGOSTINI_NETWORK,
   PACATOM,
   SEO_INTENSIVE_DEPARTMENT,
   SEO_INTENSIVE_VENUE,
   SEO_SERVICE_AREAS,
 } from '@/lib/seo/constants'
-import { networkAssociationDescription } from '@/lib/seo/metadata'
+import { schoolSummaryDescription } from '@/lib/seo/metadata'
 import { absoluteUrl } from '@/lib/seo/urls'
 import { routes } from '@/config/routes'
 
@@ -60,8 +58,6 @@ function musicSchoolNode(
       'Cours de batterie',
       'Stages intensifs de batterie',
       DANTE_AGOSTINI_METHOD,
-      DANTE_AGOSTINI_NETWORK,
-      DANTE_AGOSTINI_FOUNDER,
       'Examens NGT',
       ASSOCIATION_TOM_TOM,
       PACATOM,
@@ -77,7 +73,7 @@ export function buildSiteJsonLd(site: SiteSettingsData): JsonLdObject {
   const school = schoolName(site)
   const city = site.address.city.trim() || 'Aix-en-Provence'
   const intensiveCity = site.intensiveCoursesAddress.city.trim() || SEO_INTENSIVE_VENUE
-  const associationText = networkAssociationDescription(site)
+  const associationText = schoolSummaryDescription(site)
 
   const mainSchoolId = `${origin}#ecole-aix`
   const intensiveId = `${origin}#stages-razes`
@@ -98,14 +94,6 @@ export function buildSiteJsonLd(site: SiteSettingsData): JsonLdObject {
       ...(site.foundedYear ? { foundingDate: String(site.foundedYear) } : {}),
       ...(phones[0] ? { telephone: phones[0] } : {}),
       ...(emails[0] ? { email: emails[0] } : {}),
-      memberOf: {
-        '@type': 'Organization',
-        name: DANTE_AGOSTINI_NETWORK,
-        founder: {
-          '@type': 'Person',
-          name: DANTE_AGOSTINI_FOUNDER,
-        },
-      },
       sameAs: [site.social.instagram, site.social.facebook].filter(Boolean),
       subOrganization: { '@id': tomTomId },
     },
@@ -138,7 +126,7 @@ export function buildSiteJsonLd(site: SiteSettingsData): JsonLdObject {
   const intensiveCenter = musicSchoolNode(
     intensiveId,
     `${school} — stages intensifs de batterie (${intensiveCity})`,
-    `Centre national de stages intensifs de batterie du ${DANTE_AGOSTINI_NETWORK} à ${intensiveCity} (${SEO_INTENSIVE_VENUE}, ${SEO_INTENSIVE_DEPARTMENT}). Destination de référence en France pour les stages de batterie, méthode ${DANTE_AGOSTINI_FOUNDER}.`,
+    `Centre national de stages intensifs de batterie à ${intensiveCity} (${SEO_INTENSIVE_VENUE}, ${SEO_INTENSIVE_DEPARTMENT}). Destination de référence en France pour les stages de batterie, ${DANTE_AGOSTINI_METHOD}.`,
     site.intensiveCoursesAddress,
     absoluteUrl(routes.stagesIntensifs),
     {
