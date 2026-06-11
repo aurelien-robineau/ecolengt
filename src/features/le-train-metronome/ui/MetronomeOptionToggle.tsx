@@ -35,10 +35,10 @@ export function MetronomeOptionToggle({
     <label
       htmlFor={id}
       className={cn(
-        'group flex cursor-pointer items-center gap-3 rounded-xl border px-3.5 py-3 transition-[border-color,background-color,box-shadow]',
+        'group flex cursor-pointer items-center gap-3 rounded-md border px-3.5 py-3 transition-[border-color,background-color]',
         'sm:gap-4 sm:px-4 sm:py-3.5',
         checked
-          ? 'border-[var(--metro-border-strong)] bg-[var(--metro-brand-dim)] shadow-[inset_0_0_0_1px_var(--metro-brand-glow)]'
+          ? 'border-[var(--metro-border-strong)] bg-[var(--metro-brand-dim)]'
           : 'border-[var(--metro-border)] bg-[var(--metro-panel)] hover:border-[var(--metro-border-strong)] hover:bg-[var(--metro-hover)]',
       )}
     >
@@ -51,7 +51,7 @@ export function MetronomeOptionToggle({
       />
       <span
         className={cn(
-          'flex shrink-0 items-center justify-center rounded-lg border transition-colors',
+          'flex shrink-0 items-center justify-center rounded-sm border transition-colors',
           isAccentIcon ? 'size-9 p-0.5 sm:size-10 sm:p-1' : 'size-9 sm:size-10',
           checked
             ? 'border-[var(--metro-border-strong)] bg-[var(--metro-brand)] text-[var(--metro-on-brand)]'
@@ -85,7 +85,7 @@ export function MetronomeOptionToggle({
       >
         <span
           className={cn(
-            'absolute top-0.5 left-0.5 size-[1.125rem] rounded-full shadow-sm transition-transform',
+            'absolute top-0.5 left-0.5 size-[1.125rem] rounded-full transition-transform',
             checked ? 'translate-x-5 bg-[var(--metro-on-brand)]' : 'bg-[var(--metro-panel)]',
           )}
         />

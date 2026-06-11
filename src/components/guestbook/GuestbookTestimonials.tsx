@@ -19,7 +19,7 @@ export function GuestbookTestimonials({ items }: GuestbookTestimonialsProps) {
       <ul className="flex list-none flex-col gap-8">
         {items.map((item, index) => (
           <li key={`${item.author}-${index}`}>
-            <blockquote className="max-w-3xl rounded-r-xl border-l-4 border-brand bg-surface-card py-8 pl-6 pr-6 md:py-8 md:pl-8 md:pr-6">
+            <blockquote className="max-w-3xl rounded-r-md border-l border-brand bg-surface-card py-8 pl-6 pr-6 md:py-8 md:pl-8 md:pr-6">
               <CmsRichText data={item.content} />
               <footer className="mt-6 text-sm font-medium tracking-[var(--tracking-wide)] text-foreground-subtle uppercase">
                 —{' '}

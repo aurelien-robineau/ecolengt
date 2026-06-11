@@ -24,10 +24,10 @@ export function QuoteBand({ quote }: QuoteBandProps) {
         <div className="max-w-2xl lg:grid lg:max-w-4xl lg:grid-cols-[minmax(0,14rem)_1fr] lg:items-center lg:gap-16 xl:gap-20">
           <div
             className={cn(
-              'relative overflow-hidden bg-foreground/8 shadow-subtle',
+              'relative overflow-hidden bg-foreground/8',
               portraitBleedClassName,
               'aspect-4/3 max-lg:mb-10',
-              'lg:aspect-4/5 lg:w-full lg:rounded-xl lg:ring-1 lg:ring-foreground/10',
+              'lg:aspect-4/5 lg:w-full lg:rounded-md lg:border lg:border-foreground/10',
             )}
           >
             {quote.portrait ? (

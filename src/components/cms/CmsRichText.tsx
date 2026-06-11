@@ -17,7 +17,7 @@ const proseClassName = [
   '[&_p:last-child]:mb-0',
   '[&_strong]:font-semibold [&_strong]:text-foreground',
   '[&_em]:italic',
-  '[&_blockquote]:my-4 [&_blockquote]:border-l-2 [&_blockquote]:border-brand [&_blockquote]:pl-4 [&_blockquote]:text-foreground [&_blockquote]:italic',
+  '[&_blockquote]:my-4 [&_blockquote]:border-l [&_blockquote]:border-brand [&_blockquote]:pl-4 [&_blockquote]:text-foreground [&_blockquote]:italic',
   '[&_hr]:my-8 [&_hr]:border-0 [&_hr]:border-t [&_hr]:border-border',
   '[&_h3]:mt-8 [&_h3]:mb-3 [&_h3]:text-sm [&_h3]:font-semibold [&_h3]:tracking-[var(--tracking-widest)] [&_h3]:text-foreground [&_h3]:uppercase',
   '[&_h3:first-child]:mt-0',

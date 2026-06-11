@@ -16,7 +16,7 @@ export function ArticleCard({ article }: ArticleCardProps) {
     <article className="h-full">
       <Link
         href={article.pageHref}
-        className="group flex h-full flex-col overflow-hidden rounded-xl border border-border bg-surface-card shadow-subtle no-underline"
+        className="group flex h-full flex-col overflow-hidden rounded-md border border-border bg-surface-card no-underline"
         aria-label={articleLabel}
       >
         {article.image ? (

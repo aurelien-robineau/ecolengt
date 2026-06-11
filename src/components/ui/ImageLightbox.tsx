@@ -20,7 +20,7 @@ type ImageLightboxProps = {
 }
 
 const overlayButtonClassName =
-  'flex items-center justify-center rounded-full border border-white/25 bg-foreground/55 text-white shadow-subtle backdrop-blur-sm transition-colors hover:bg-foreground/75'
+  'flex items-center justify-center rounded-full border border-white/25 bg-foreground/55 text-white backdrop-blur-sm transition-colors hover:bg-foreground/75'
 
 const ZOOM_SCALE = 2
 const DOUBLE_TAP_MS = 320

@@ -58,7 +58,7 @@ function navLinkClassName(isActive: boolean, variant: 'desktop' | 'mobile'): str
 
   // Drawer nav: full-width rows, left accent on active — not underlines (inline-link pattern).
   return cn(
-    'block -mx-8 border-l-[3px] px-8 py-3.5 font-serif text-[1.625rem] leading-snug no-underline transition-[color,background-color,border-color]',
+    'block -mx-8 border-l px-8 py-3.5 font-serif text-[1.625rem] leading-snug no-underline transition-[color,background-color,border-color]',
     isActive
       ? 'border-brand bg-brand-dim font-normal text-foreground'
       : 'border-transparent font-normal text-foreground-muted active:bg-surface-muted hover:bg-surface-muted/70 hover:text-foreground',
@@ -169,7 +169,7 @@ export function Header({ site }: HeaderProps) {
               ref={mobileNavRef}
               id="mobile-nav"
               className={cn(
-                'fixed top-0 right-0 z-95 flex h-dvh w-[min(100%,20rem)] flex-col border-l border-border bg-surface px-8 pt-17.5 pb-10 shadow-xl transition-transform duration-300 ease-out lg:hidden',
+                'fixed top-0 right-0 z-95 flex h-dvh w-[min(100%,20rem)] flex-col border-l border-border bg-surface px-8 pt-17.5 pb-10 transition-transform duration-300 ease-out lg:hidden',
                 menuOpen ? 'translate-x-0' : 'pointer-events-none translate-x-full',
               )}
               aria-label="Navigation mobile"
@@ -215,8 +215,8 @@ export function Header({ site }: HeaderProps) {
     <>
       <header
         className={cn(
-          'fixed inset-x-0 top-0 z-100 transition-[background,box-shadow] duration-400',
-          (scrolled || menuOpen) && 'border-b border-border shadow-subtle',
+          'fixed inset-x-0 top-0 z-100 transition-[background,border-color] duration-400',
+          (scrolled || menuOpen) && 'border-b border-border',
           menuOpen ? 'bg-surface' : scrolled && 'bg-surface/97 backdrop-blur-sm',
         )}
       >
@@ -258,7 +258,7 @@ export function Header({ site }: HeaderProps) {
             <button
               ref={menuButtonRef}
               type="button"
-              className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-border text-foreground-muted transition-[color,border-color] duration-150 hover:border-foreground hover:text-foreground lg:hidden"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-sm border border-border text-foreground-muted transition-[color,border-color] duration-150 hover:border-foreground hover:text-foreground lg:hidden"
               aria-expanded={menuOpen}
               aria-controls="mobile-nav"
               aria-label={menuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}

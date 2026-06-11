@@ -56,7 +56,7 @@ function StudentPhotoFrame({
           aria-label={`Ouvrir le diaporama : ${photoCountLabel}`}
         >
           <span
-            className="pointer-events-none absolute top-3 right-3 inline-flex min-h-8 items-center gap-1.5 rounded-md border border-white/25 bg-foreground/80 px-2.5 text-xs font-medium tracking-[var(--tracking-wide)] text-foreground-inverse uppercase shadow-subtle backdrop-blur-sm"
+            className="pointer-events-none absolute top-3 right-3 inline-flex min-h-8 items-center gap-1.5 rounded-sm border border-white/25 bg-foreground/80 px-2.5 text-xs font-medium tracking-[var(--tracking-wide)] text-foreground-inverse uppercase backdrop-blur-sm"
             aria-hidden
           >
             <span className="relative inline-flex h-3.5 w-4 shrink-0">

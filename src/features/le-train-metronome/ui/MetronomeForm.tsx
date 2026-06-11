@@ -20,9 +20,9 @@ import { MetronomeTempoPath } from './MetronomeTempoPath'
 const REQUEST_TIMEOUT_MS = 55_000
 
 const fieldClass = cn(
-  'font-metronome-mono w-full rounded-lg border border-[var(--metro-border)] bg-[var(--metro-panel-soft)]',
-  'px-3 py-2.5 text-sm text-[var(--metro-text)] outline-none transition-[border-color,box-shadow]',
-  'focus:border-[var(--metro-border-strong)] focus:shadow-[0_0_0_3px_var(--metro-brand-dim)]',
+  'font-metronome-mono w-full rounded-sm border border-[var(--metro-border)] bg-[var(--metro-panel-soft)]',
+  'px-3 py-2.5 text-sm text-[var(--metro-text)] outline-none transition-[border-color]',
+  'focus:border-[var(--metro-border-strong)]',
 )
 
 type FormState = {
@@ -141,7 +141,7 @@ function BpmInputWithType({
   const { min, max } = getBpmInputLimits(bpmType)
 
   return (
-    <div className="overflow-hidden rounded-xl border border-[var(--metro-border)] bg-[var(--metro-panel-soft)]">
+    <div className="overflow-hidden rounded-md border border-[var(--metro-border)] bg-[var(--metro-panel-soft)]">
       <div className="flex items-stretch">
         <div className="flex border-r border-[var(--metro-border)]">
           <BpmStepButton
@@ -364,20 +364,16 @@ export function MetronomeForm() {
     <div className="mx-auto w-full max-w-xl">
       <div
         ref={cardRef}
-        className="scroll-mt-[calc(70px+1rem)] overflow-hidden rounded-2xl border border-[var(--metro-border)] bg-[var(--metro-panel)] shadow-[0_20px_60px_-20px_rgb(24_24_24/0.14)]"
+        className="scroll-mt-[calc(70px+1rem)] overflow-hidden rounded-md border border-[var(--metro-border)] bg-[var(--metro-panel)]"
       >
-        <header className="relative border-b border-[var(--metro-border)] px-6 py-6 text-center md:px-8 md:py-7">
-          <div
-            className="absolute inset-x-0 top-0 h-1 bg-[linear-gradient(90deg,transparent,var(--metro-brand),transparent)]"
-            aria-hidden
-          />
+        <header className="border-b border-[var(--metro-border)] px-6 py-6 text-center md:px-8 md:py-7">
           <p className="font-metronome-mono text-xs font-medium tracking-[0.18em] text-[var(--metro-text)] uppercase md:text-sm">
             Le Train — Dante Agostini
           </p>
           <p className="font-metronome-mono mt-1.5 text-[11px] tracking-[0.14em] text-[var(--metro-muted)] uppercase md:text-xs">
             Volume V · page 14
           </p>
-          <h1 className="font-metronome-display mt-3 text-2xl font-semibold tracking-tight text-[var(--metro-text)] md:text-[1.65rem]">
+          <h1 className="font-metronome-display mt-3 text-2xl font-medium tracking-tight text-[var(--metro-text)] md:text-[1.65rem]">
             Métronome
           </h1>
         </header>
@@ -405,8 +401,8 @@ export function MetronomeForm() {
                 type="button"
                 onClick={() => setView('settings')}
                 className={cn(
-                  'font-metronome-display flex h-12 w-full items-center justify-center rounded-xl border-2',
-                  'border-[var(--metro-border-strong)] bg-[var(--metro-panel)] text-sm font-semibold tracking-[0.1em]',
+                  'font-metronome-display flex h-12 w-full items-center justify-center rounded-md border',
+                  'border-[var(--metro-border)] bg-[var(--metro-panel)] text-sm font-medium tracking-[0.1em]',
                   'text-[var(--metro-text)] uppercase transition-[transform,background-color,border-color]',
                   'hover:border-[var(--metro-brand)] hover:bg-[var(--metro-brand-dim)] active:scale-[0.99]',
                 )}
@@ -500,11 +496,10 @@ export function MetronomeForm() {
                   type="submit"
                   disabled={loading}
                   className={cn(
-                    'font-metronome-display flex h-13 w-full items-center justify-center gap-2 rounded-xl border-0',
-                    'bg-[var(--metro-brand)] text-sm font-semibold tracking-[0.12em] text-[var(--metro-on-brand)] uppercase',
-                    'transition-[transform,box-shadow,background-color] hover:bg-[var(--metro-brand-hover)] active:scale-[0.99]',
+                    'font-metronome-display flex h-13 w-full items-center justify-center gap-2 rounded-md border-0',
+                    'bg-[var(--metro-brand)] text-sm font-medium tracking-[0.12em] text-[var(--metro-on-brand)] uppercase',
+                    'transition-[transform,background-color] hover:bg-[var(--metro-brand-hover)] active:scale-[0.99]',
                     'disabled:cursor-not-allowed disabled:opacity-55',
-                    !loading && 'metro-submit-glow',
                   )}
                 >
                   {loading ? (
@@ -524,7 +519,7 @@ export function MetronomeForm() {
               {error ? (
                 <p
                   role="alert"
-                  className="rounded-lg border border-red-200 bg-red-50 px-3 py-2.5 text-center text-sm text-red-700"
+                  className="rounded-sm border border-red-200 bg-red-50 px-3 py-2.5 text-center text-sm text-red-700"
                 >
                   {error}
                 </p>

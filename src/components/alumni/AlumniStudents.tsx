@@ -8,13 +8,12 @@ type AlumniStudentsProps = {
   students: AlumniStudent[]
 }
 
-const staticCardClassName =
-  'h-full rounded-xl border border-border bg-surface-card p-6 shadow-subtle md:p-8'
+const staticCardClassName = 'h-full rounded-md border border-border bg-surface-card p-6 md:p-8'
 
 const linkedCardClassName = cn(staticCardClassName, 'group block no-underline')
 
 const linkedNameClassName =
-  'underline decoration-2 underline-offset-[0.2em] transition-colors duration-150 max-md:decoration-brand md:decoration-transparent md:group-hover:decoration-brand'
+  'underline decoration-1 underline-offset-[0.2em] transition-colors duration-150 max-md:decoration-brand md:decoration-transparent md:group-hover:decoration-brand'
 
 function StudentCardContent({
   student,

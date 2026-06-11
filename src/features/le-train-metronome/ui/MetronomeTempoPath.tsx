@@ -45,7 +45,7 @@ function tempoCellClass({
     row === 'reference'
       ? 'text-xs text-[var(--metro-subtle)] md:px-1 md:text-sm'
       : 'text-sm font-medium text-[var(--metro-text)] md:px-1 md:text-base',
-    isPlaying && isActiveColumn && row === 'calculated' && 'font-semibold',
+    isPlaying && isActiveColumn && row === 'calculated' && 'font-medium text-[var(--metro-brand)]',
     isPlaying && isActiveColumn && row === 'reference' && 'font-medium text-[var(--metro-text)]',
   )
 }
@@ -86,7 +86,7 @@ export function MetronomeTempoPath({
 
   return (
     <div
-      className="relative overflow-visible rounded-xl border border-[var(--metro-border)] bg-[var(--metro-panel)] px-2.5 pt-3.5 pb-2 md:px-4 md:pt-4 md:pb-2.5"
+      className="relative overflow-visible rounded-md border border-[var(--metro-border)] bg-[var(--metro-panel)] px-2.5 pt-3.5 pb-2 md:px-4 md:pt-4 md:pb-2.5"
       aria-live="polite"
       aria-atomic="true"
     >
@@ -117,7 +117,7 @@ export function MetronomeTempoPath({
                   />
                 </div>
               ) : null}
-              <div className="absolute inset-0 rounded-lg border-2 border-[var(--metro-brand)]" />
+              <div className="absolute inset-0 rounded-sm border border-[var(--metro-brand)]" />
             </div>
           ) : null}
 

@@ -212,7 +212,7 @@ export function MetronomePlayer({
   const canStop = isReady && (isPlaying || currentTime > 0)
 
   return (
-    <div className="relative rounded-xl border border-[var(--metro-border)] bg-[var(--metro-panel)] px-5 py-7 md:px-8 md:py-9">
+    <div className="relative rounded-md border border-[var(--metro-border)] bg-[var(--metro-panel)] px-5 py-7 md:px-8 md:py-9">
       <audio ref={audioRef} src={src} preload="auto" className="sr-only" />
 
       <button
@@ -220,7 +220,7 @@ export function MetronomePlayer({
         onClick={stop}
         disabled={!canStop}
         aria-label="Arrêt — revenir au début"
-        className="absolute top-4 right-4 z-10 flex size-11 items-center justify-center rounded-full border border-[var(--metro-border)] bg-[var(--metro-panel)] text-[var(--metro-text)] shadow-sm transition-[transform,background-color] hover:bg-[var(--metro-brand-dim)] active:scale-95 disabled:cursor-not-allowed disabled:opacity-35 md:top-5 md:right-5 md:size-12"
+        className="absolute top-4 right-4 z-10 flex size-11 items-center justify-center rounded-full border border-[var(--metro-border)] bg-[var(--metro-panel)] text-[var(--metro-text)] transition-[transform,background-color] hover:bg-[var(--metro-brand-dim)] active:scale-95 disabled:cursor-not-allowed disabled:opacity-35 md:top-5 md:right-5 md:size-12"
       >
         <FeatureIcon name="stop" className="size-5 md:size-5.5" />
       </button>
@@ -239,11 +239,11 @@ export function MetronomePlayer({
             disabled={!isReady}
             aria-label={isPlaying ? 'Pause' : 'Lecture'}
             className={cn(
-              'relative z-10 flex size-22 items-center justify-center rounded-full border-2 transition-transform hover:scale-[1.03] active:scale-95',
+              'relative z-10 flex size-22 items-center justify-center rounded-full border transition-transform hover:scale-[1.03] active:scale-95',
               'disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:scale-100 md:size-26',
               isPlaying
-                ? 'border-[var(--metro-brand)] bg-[var(--metro-brand)] text-[var(--metro-on-brand)] metro-play-ring'
-                : 'border-[var(--metro-text)] bg-[var(--metro-text)] text-[var(--metro-panel)] shadow-[0_12px_32px_rgb(24_24_24/0.18)]',
+                ? 'border-[var(--metro-brand)] bg-[var(--metro-brand)] text-[var(--metro-on-brand)]'
+                : 'border-[var(--metro-text)] bg-[var(--metro-text)] text-[var(--metro-panel)]',
             )}
           >
             {isPlaying ? (
@@ -256,7 +256,7 @@ export function MetronomePlayer({
 
         <div className="w-full max-w-sm space-y-5">
           <div className="flex flex-col items-center gap-3">
-            <p className="font-metronome-display text-xl font-semibold tracking-tight text-[var(--metro-text)] md:text-2xl">
+            <p className="font-metronome-display text-xl font-medium tracking-tight text-[var(--metro-text)] md:text-2xl">
               {isPlaying
                 ? isFinale
                   ? 'Arrivée en gare…'
@@ -325,7 +325,7 @@ export function MetronomePlayer({
               />
               <span
                 className={cn(
-                  'absolute top-1/2 size-4 -translate-y-1/2 rounded-full border-2 border-[var(--metro-on-brand)] bg-[var(--metro-brand)] shadow-md',
+                  'absolute top-1/2 size-4 -translate-y-1/2 rounded-full border border-[var(--metro-on-brand)] bg-[var(--metro-brand)]',
                   isScrubbing
                     ? 'opacity-100'
                     : 'opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100',
