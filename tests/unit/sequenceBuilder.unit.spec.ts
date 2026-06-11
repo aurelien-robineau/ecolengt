@@ -11,6 +11,7 @@ import {
   buildMetronomeDownloadFilename,
   buildSequence,
   buildTempoTableMilestones,
+  defaultSequenceConfig,
   findCurrentTempoColumnIndex,
   findCurrentTempoRampDirection,
   peakBpmFromSequence,
@@ -20,23 +21,13 @@ import {
 
 describe('sequenceBuilder', () => {
   it('keeps reference peak at 92 BPM when bpmType is max and bpm is 92', () => {
-    const sequence = buildSequence({
-      bpm: 92,
-      bpmType: 'max',
-      countInBars: 4,
-      mechanicalTempos: false,
-    })
+    const sequence = buildSequence(defaultSequenceConfig({ bpm: 92, countInBars: 4 }))
     expect(peakBpmFromSequence(sequence)).toBe(REFERENCE_MAX_BPM)
     expect(sequence[0]).toEqual({ bars: 4, bpmStart: 72, bpmEnd: 72 })
   })
 
   it('scales peak proportionally for max BPM type', () => {
-    const sequence = buildSequence({
-      bpm: 110,
-      bpmType: 'max',
-      countInBars: 2,
-      mechanicalTempos: false,
-    })
+    const sequence = buildSequence(defaultSequenceConfig({ bpm: 110, countInBars: 2 }))
     const ratio = 110 / REFERENCE_MAX_BPM
     const mainBlock = sequence.find((s) => s.bars === 58)
     expect(mainBlock?.bpmStart).toBe(roundBpm(92 * ratio))
@@ -45,89 +36,50 @@ describe('sequenceBuilder', () => {
 
   it('anchors start BPM type to reference start tempo', () => {
     expect(scaleRatio(72, 'start')).toBe(1)
-    const sequence = buildSequence({
-      bpm: 72,
-      bpmType: 'start',
-      countInBars: 4,
-      mechanicalTempos: false,
-    })
+    const sequence = buildSequence(
+      defaultSequenceConfig({ bpm: 72, bpmType: 'start', countInBars: 4 }),
+    )
     expect(sequence[1]?.bpmStart).toBe(72)
     expect(peakBpmFromSequence(sequence)).toBe(REFERENCE_MAX_BPM)
   })
 
   it('prepends configurable count-in bars', () => {
-    const sequence = buildSequence({
-      bpm: 92,
-      bpmType: 'max',
-      countInBars: 2,
-      mechanicalTempos: false,
-    })
+    const sequence = buildSequence(defaultSequenceConfig({ bpm: 92, countInBars: 2 }))
     expect(sequence[0].bars).toBe(2)
     expect(sequence.length).toBe(REFERENCE_BODY_SEQUENCE.length + 1)
   })
 
   it('omits count-in when intro bars is 0', () => {
-    const sequence = buildSequence({
-      bpm: 92,
-      bpmType: 'max',
-      countInBars: 0,
-      mechanicalTempos: false,
-    })
+    const sequence = buildSequence(defaultSequenceConfig({ countInBars: 0 }))
     expect(sequence.length).toBe(REFERENCE_BODY_SEQUENCE.length)
     expect(sequence[0].bars).toBe(REFERENCE_BODY_SEQUENCE[0].bars)
   })
 
   it('builds the reference tempo table for max BPM 92', () => {
-    const tempos = buildTempoTableMilestones({
-      bpm: 92,
-      bpmType: 'max',
-      countInBars: 0,
-      mechanicalTempos: false,
-    })
+    const tempos = buildTempoTableMilestones(defaultSequenceConfig({ countInBars: 0 }))
     expect(tempos).toEqual([72, 76, 80, 84, 88, 92, 88, 72, 42])
   })
 
   it('scales the tempo table peak with max BPM type', () => {
-    const sequence = buildSequence({
-      bpm: 110,
-      bpmType: 'max',
-      countInBars: 4,
-      mechanicalTempos: false,
-    })
-    const tempos = buildTempoTableMilestones({
-      bpm: 110,
-      bpmType: 'max',
-      countInBars: 0,
-      mechanicalTempos: false,
-    })
+    const sequence = buildSequence(defaultSequenceConfig({ bpm: 110, countInBars: 4 }))
+    const tempos = buildTempoTableMilestones(defaultSequenceConfig({ bpm: 110, countInBars: 0 }))
 
     expect(tempos[tempos.length - 4]).toBe(110)
     expect(peakBpmFromSequence(sequence)).toBe(110)
   })
 
   it('builds download filename from count-in start and peak BPM', () => {
-    const sequence = buildSequence({
-      bpm: 92,
-      bpmType: 'max',
-      countInBars: 4,
-      mechanicalTempos: false,
-    })
+    const sequence = buildSequence(defaultSequenceConfig({ bpm: 92, countInBars: 4 }))
     expect(buildMetronomeDownloadFilename(sequence)).toBe('Le Train - Métronome de 72 à 92.wav')
   })
 
   it('builds the tempo table with fixed columns for mechanical max BPM 78', () => {
-    const reference = buildTempoTableMilestones({
-      bpm: REFERENCE_MAX_BPM,
-      bpmType: 'max',
-      countInBars: 0,
-      mechanicalTempos: false,
-    })
-    const scaled = buildTempoTableMilestones({
-      bpm: 78,
-      bpmType: 'max',
-      countInBars: 0,
-      mechanicalTempos: true,
-    })
+    const reference = buildTempoTableMilestones(
+      defaultSequenceConfig({ countInBars: 0, bpm: REFERENCE_MAX_BPM }),
+    )
+    const scaled = buildTempoTableMilestones(
+      defaultSequenceConfig({ bpm: 78, countInBars: 0, mechanicalTempos: true }),
+    )
 
     expect(reference).toEqual([72, 76, 80, 84, 88, 92, 88, 72, 42])
     expect(scaled.length).toBe(reference.length)
@@ -135,23 +87,17 @@ describe('sequenceBuilder', () => {
   })
 
   it('keeps tempo table column count aligned with reference across max BPM range', () => {
-    const referenceCount = buildTempoTableMilestones({
-      bpm: REFERENCE_MAX_BPM,
-      bpmType: 'max',
-      countInBars: 0,
-      mechanicalTempos: false,
-    }).length
+    const referenceCount = buildTempoTableMilestones(
+      defaultSequenceConfig({ countInBars: 0, bpm: REFERENCE_MAX_BPM }),
+    ).length
 
     const mismatches: Array<{ bpm: number; mechanical: boolean; count: number }> = []
 
     for (let bpm = 26; bpm <= 92; bpm++) {
       for (const mechanicalTempos of [false, true]) {
-        const count = buildTempoTableMilestones({
-          bpm,
-          bpmType: 'max',
-          countInBars: 0,
-          mechanicalTempos,
-        }).length
+        const count = buildTempoTableMilestones(
+          defaultSequenceConfig({ bpm, countInBars: 0, mechanicalTempos }),
+        ).length
         if (count !== referenceCount) {
           mismatches.push({ bpm, mechanical: mechanicalTempos, count })
         }
@@ -162,12 +108,7 @@ describe('sequenceBuilder', () => {
   })
 
   it('maps playback time to the active tempo-table column', () => {
-    const config = {
-      bpm: 92,
-      bpmType: 'max' as const,
-      countInBars: 0,
-      mechanicalTempos: false,
-    }
+    const config = defaultSequenceConfig({ countInBars: 0 })
     const sequence = buildSequence(config)
 
     const segmentStartTimes = segmentDownbeatStartTimesSeconds(sequence, 1, DEFAULT_SAMPLE_RATE)
@@ -184,12 +125,7 @@ describe('sequenceBuilder', () => {
   })
 
   it('detects crescendo and decrescendo segments during playback', () => {
-    const config = {
-      bpm: 92,
-      bpmType: 'max' as const,
-      countInBars: 0,
-      mechanicalTempos: false,
-    }
+    const config = defaultSequenceConfig({ countInBars: 0 })
     const sequence = buildSequence(config)
 
     const segmentStartTimes = segmentDownbeatStartTimesSeconds(sequence, 1, DEFAULT_SAMPLE_RATE)
@@ -202,23 +138,13 @@ describe('sequenceBuilder', () => {
   })
 
   it('highlights the first tempo column during count-in', () => {
-    const config = {
-      bpm: 92,
-      bpmType: 'max' as const,
-      countInBars: 4,
-      mechanicalTempos: false,
-    }
+    const config = defaultSequenceConfig({ countInBars: 4 })
 
     expect(findCurrentTempoColumnIndex(config, SILENCE_AT_START_S + 0.5)).toBe(0)
   })
 
   it('rounds scaled tempos to integers', () => {
-    const sequence = buildSequence({
-      bpm: 100,
-      bpmType: 'max',
-      countInBars: 4,
-      mechanicalTempos: false,
-    })
+    const sequence = buildSequence(defaultSequenceConfig({ bpm: 100, countInBars: 4 }))
     for (const segment of sequence) {
       expect(Number.isInteger(segment.bpmStart)).toBe(true)
       expect(Number.isInteger(segment.bpmEnd)).toBe(true)

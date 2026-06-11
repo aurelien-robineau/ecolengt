@@ -1,10 +1,20 @@
 import { getBpmInputLimits } from './bpmLimits'
 import { DEFAULT_SAMPLE_RATE } from './audioGenerator'
 import { MECHANICAL_METRONOME_MAX_BPM, MECHANICAL_METRONOME_MIN_BPM } from './mechanicalTempos'
+import { RAMP_CURVE_OPTIONS, type RampCurve } from './rampCurve'
 import { COUNT_IN_BAR_OPTIONS } from './types'
 import type { MetronomeConfig, MetronomeGeneratePayload } from './types'
+
 const MIN_SUBDIVISION = 1
 const MAX_SUBDIVISION = 8
+const VALID_CURVES = new Set(RAMP_CURVE_OPTIONS.map((option) => option.id))
+
+function parseRampCurve(raw: unknown): RampCurve | null {
+  if (typeof raw !== 'string' || !VALID_CURVES.has(raw as RampCurve)) {
+    return null
+  }
+  return raw as RampCurve
+}
 
 export function validateMetronomeConfig(body: unknown): MetronomeConfig | null {
   if (!body || typeof body !== 'object') return null
@@ -47,6 +57,13 @@ export function validateMetronomeConfig(body: unknown): MetronomeConfig | null {
     return null
   }
 
+  const rampCurve =
+    parseRampCurve(raw.rampCurve) ??
+    (raw.tempoTransition && typeof raw.tempoTransition === 'object'
+      ? parseRampCurve((raw.tempoTransition as Record<string, unknown>).curve)
+      : null) ??
+    'linear'
+
   return {
     bpm,
     bpmType,
@@ -54,6 +71,7 @@ export function validateMetronomeConfig(body: unknown): MetronomeConfig | null {
     subdivision,
     accentFirst,
     mechanicalTempos: mechanicalTempos === true,
+    rampCurve,
     sampleRate,
   }
 }

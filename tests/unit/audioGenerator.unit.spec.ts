@@ -4,6 +4,7 @@ import {
   DEFAULT_SAMPLE_RATE,
   SILENCE_AT_START_S,
   beatDurationSeconds,
+  computeRampBeatDurations,
   downbeatOnsetsSeconds,
   findFinaleStartSeconds,
   findFinaleStartSegmentIndex,
@@ -12,10 +13,13 @@ import {
   segmentDownbeatStartTimesSeconds,
   sequenceDurationSeconds,
 } from '@/features/le-train-metronome/lib/audioGenerator'
-import { buildSequence } from '@/features/le-train-metronome/lib/sequenceBuilder'
+import {
+  buildSequence,
+  defaultSequenceConfig,
+} from '@/features/le-train-metronome/lib/sequenceBuilder'
 import type { SequenceSegment } from '@/features/le-train-metronome/lib/types'
 
-/** Reference Python click placement: float timeline, rounded sample index. */
+/** Reference click placement: float timeline, rounded sample index. */
 function referenceDownbeatOnsetsSeconds(
   sequence: SequenceSegment[],
   subdivision: number,
@@ -25,14 +29,14 @@ function referenceDownbeatOnsetsSeconds(
   let positionSamples = SILENCE_AT_START_S * sampleRate
 
   for (const segment of sequence) {
-    const totalBeats = segment.bars * 2
-    for (let beatIdx = 0; beatIdx < totalBeats; beatIdx++) {
-      const beatDuration = beatDurationSeconds(
-        beatIdx,
-        totalBeats,
-        segment.bpmStart,
-        segment.bpmEnd,
-      )
+    const beatDurations = computeRampBeatDurations(
+      segment.bars * 2,
+      segment.bpmStart,
+      segment.bpmEnd,
+      segment.rampCurve ?? 'linear',
+    )
+
+    for (const beatDuration of beatDurations) {
       const stepDuration = beatDuration / subdivision
       for (let subIdx = 0; subIdx < subdivision; subIdx++) {
         if (subIdx === 0) {
@@ -95,14 +99,14 @@ describe('audioGenerator', () => {
   })
 
   it('finale starts at the ramp down to minimum tempo', () => {
-    const sequence = buildSequence({
-      bpm: 92,
-      bpmType: 'max',
-      countInBars: 4,
-      mechanicalTempos: false,
-    })
+    const sequence = buildSequence(defaultSequenceConfig({ bpm: 92, countInBars: 4 }))
     const index = findFinaleStartSegmentIndex(sequence)
-    expect(sequence[index]).toEqual({ bars: 8, bpmStart: 72, bpmEnd: 42 })
+    expect(sequence[index]).toEqual({
+      bars: 8,
+      bpmStart: 72,
+      bpmEnd: 42,
+      rampCurve: 'linear',
+    })
 
     const wav = generateWavBuffer(sequence, 1, false, DEFAULT_SAMPLE_RATE)
     const header = parseWavHeader(wav)
@@ -113,13 +117,8 @@ describe('audioGenerator', () => {
     expect(finaleStart).toBeLessThan(durationSeconds)
   })
 
-  it('matches Python duration-linear timing on every downbeat', () => {
-    const sequence = buildSequence({
-      bpm: 92,
-      bpmType: 'max',
-      countInBars: 4,
-      mechanicalTempos: false,
-    })
+  it('matches wall-clock Option A timing on every downbeat', () => {
+    const sequence = buildSequence(defaultSequenceConfig({ bpm: 92, countInBars: 4 }))
     const subdivision = 2
 
     const expected = referenceDownbeatOnsetsSeconds(sequence, subdivision, DEFAULT_SAMPLE_RATE)
@@ -129,12 +128,7 @@ describe('audioGenerator', () => {
   })
 
   it('segment downbeat starts match the first click of each segment in the WAV', () => {
-    const sequence = buildSequence({
-      bpm: 92,
-      bpmType: 'max',
-      countInBars: 4,
-      mechanicalTempos: false,
-    })
+    const sequence = buildSequence(defaultSequenceConfig({ bpm: 92, countInBars: 4 }))
     const subdivision = 2
     const starts = segmentDownbeatStartTimesSeconds(sequence, subdivision, DEFAULT_SAMPLE_RATE)
     const onsets = downbeatOnsetsSeconds(sequence, subdivision, DEFAULT_SAMPLE_RATE)
@@ -147,12 +141,7 @@ describe('audioGenerator', () => {
   })
 
   it('WAV duration matches the analytical sequence duration', () => {
-    const sequence = buildSequence({
-      bpm: 110,
-      bpmType: 'max',
-      countInBars: 4,
-      mechanicalTempos: false,
-    })
+    const sequence = buildSequence(defaultSequenceConfig({ bpm: 110, countInBars: 4 }))
     const wav = generateWavBuffer(sequence, 1, false, DEFAULT_SAMPLE_RATE)
     const header = parseWavHeader(wav)
     const wavDuration = header.dataSize / (DEFAULT_SAMPLE_RATE * 2)
@@ -162,12 +151,7 @@ describe('audioGenerator', () => {
   })
 
   it('generates a full Le Train session within a few seconds', () => {
-    const sequence = buildSequence({
-      bpm: 92,
-      bpmType: 'max',
-      countInBars: 4,
-      mechanicalTempos: false,
-    })
+    const sequence = buildSequence(defaultSequenceConfig({ bpm: 92, countInBars: 4 }))
     const start = performance.now()
     const wav = generateWavBuffer(sequence, 2, true, DEFAULT_SAMPLE_RATE)
     const elapsed = performance.now() - start

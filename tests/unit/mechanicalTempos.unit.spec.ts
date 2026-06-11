@@ -7,7 +7,10 @@ import {
   applyMechanicalTemposToSequence,
   snapToMechanicalMetronomeBpm,
 } from '@/features/le-train-metronome/lib/mechanicalTempos'
-import { buildSequence } from '@/features/le-train-metronome/lib/sequenceBuilder'
+import {
+  buildSequence,
+  defaultSequenceConfig,
+} from '@/features/le-train-metronome/lib/sequenceBuilder'
 
 describe('mechanicalTempos', () => {
   it('spans 10–240 with discrete markings', () => {
@@ -38,7 +41,7 @@ describe('mechanicalTempos', () => {
   })
 
   it('changes the tempo path versus integer rounding alone', () => {
-    const config = { bpm: 100, bpmType: 'max' as const, countInBars: 4 }
+    const config = defaultSequenceConfig({ bpm: 100, countInBars: 4 })
     const integerOnly = buildSequence({ ...config, mechanicalTempos: false })
     const mechanical = buildSequence({ ...config, mechanicalTempos: true })
 
@@ -46,12 +49,9 @@ describe('mechanicalTempos', () => {
   })
 
   it('keeps every snapped tempo on the mechanical scale', () => {
-    const sequence = buildSequence({
-      bpm: 95,
-      bpmType: 'max',
-      countInBars: 4,
-      mechanicalTempos: true,
-    })
+    const sequence = buildSequence(
+      defaultSequenceConfig({ bpm: 95, countInBars: 4, mechanicalTempos: true }),
+    )
     const marks = new Set<number>(MECHANICAL_METRONOME_BPMS)
 
     for (const segment of sequence) {
@@ -61,14 +61,11 @@ describe('mechanicalTempos', () => {
   })
 
   it('does not alter the sequence when mechanical snapping is disabled', () => {
-    const free = buildSequence({ bpm: 95, bpmType: 'max', countInBars: 4, mechanicalTempos: false })
+    const free = buildSequence(defaultSequenceConfig({ bpm: 95, countInBars: 4 }))
     const snapped = applyMechanicalTemposToSequence(free)
-    const withFlag = buildSequence({
-      bpm: 95,
-      bpmType: 'max',
-      countInBars: 4,
-      mechanicalTempos: true,
-    })
+    const withFlag = buildSequence(
+      defaultSequenceConfig({ bpm: 95, countInBars: 4, mechanicalTempos: true }),
+    )
 
     expect(withFlag).toEqual(snapped)
   })

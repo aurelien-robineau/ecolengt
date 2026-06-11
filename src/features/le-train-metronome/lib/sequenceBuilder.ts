@@ -4,6 +4,7 @@ import {
   segmentDownbeatStartTimesSeconds,
 } from './audioGenerator'
 import { applyMechanicalTemposToSequence } from './mechanicalTempos'
+import type { RampCurve } from './rampCurve'
 import type { BpmType, MetronomeSequenceConfig, SequenceSegment } from './types'
 
 /** Canonical workout body (count-in is prepended separately). */
@@ -39,14 +40,23 @@ export function scaleRatio(bpm: number, bpmType: BpmType): number {
   return bpm / anchor
 }
 
+function applyRampCurveToBody(body: SequenceSegment[], curve: RampCurve): SequenceSegment[] {
+  return body.map((segment) =>
+    segment.bpmStart !== segment.bpmEnd ? { ...segment, rampCurve: curve } : segment,
+  )
+}
+
 export function buildSequence(config: MetronomeSequenceConfig): SequenceSegment[] {
   const ratio = scaleRatio(config.bpm, config.bpmType)
 
-  const body = REFERENCE_BODY_SEQUENCE.map((segment) => ({
-    bars: segment.bars,
-    bpmStart: roundBpm(segment.bpmStart * ratio),
-    bpmEnd: roundBpm(segment.bpmEnd * ratio),
-  }))
+  const body = applyRampCurveToBody(
+    REFERENCE_BODY_SEQUENCE.map((segment) => ({
+      bars: segment.bars,
+      bpmStart: roundBpm(segment.bpmStart * ratio),
+      bpmEnd: roundBpm(segment.bpmEnd * ratio),
+    })),
+    config.rampCurve,
+  )
 
   const sequence =
     config.countInBars > 0
@@ -61,6 +71,18 @@ export function buildSequence(config: MetronomeSequenceConfig): SequenceSegment[
       : body
 
   return config.mechanicalTempos ? applyMechanicalTemposToSequence(sequence) : sequence
+}
+
+export function defaultSequenceConfig(
+  overrides: Partial<MetronomeSequenceConfig> = {},
+): MetronomeSequenceConfig {
+  return {
+    bpm: overrides.bpm ?? REFERENCE_MAX_BPM,
+    bpmType: overrides.bpmType ?? 'max',
+    countInBars: overrides.countInBars ?? 4,
+    mechanicalTempos: overrides.mechanicalTempos ?? false,
+    rampCurve: overrides.rampCurve ?? 'linear',
+  }
 }
 
 export function peakBpmFromSequence(sequence: SequenceSegment[]): number {

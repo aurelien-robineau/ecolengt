@@ -1,7 +1,11 @@
+import type { RampCurve } from './rampCurve'
+
 export type SequenceSegment = {
   bars: number
   bpmStart: number
   bpmEnd: number
+  /** Easing curve for ramps (bpmStart ≠ bpmEnd). Defaults to linear. */
+  rampCurve?: RampCurve
 }
 
 export type BpmType = 'start' | 'max'
@@ -28,12 +32,14 @@ export type MetronomeConfig = {
   accentFirst: boolean
   /** Snap every segment tempo to the nearest mechanical metronome marking (10–240). */
   mechanicalTempos: boolean
+  /** Easing curve applied to every tempo ramp in the workout sequence. */
+  rampCurve: RampCurve
   sampleRate?: number
 }
 
 export type MetronomeSequenceConfig = Pick<
   MetronomeConfig,
-  'bpm' | 'bpmType' | 'countInBars' | 'mechanicalTempos'
+  'bpm' | 'bpmType' | 'countInBars' | 'mechanicalTempos' | 'rampCurve'
 >
 
 export type MetronomeGeneratePayload = {

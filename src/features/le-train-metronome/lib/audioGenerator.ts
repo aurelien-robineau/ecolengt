@@ -1,3 +1,4 @@
+import { applyRampCurve, type RampCurve } from './rampCurve'
 import type { SequenceSegment } from './types'
 
 export const DEFAULT_SAMPLE_RATE = 22_050
@@ -20,26 +21,130 @@ type ClickStep = {
   durationSeconds: number
 }
 
-/** Duration-linear ramp: beat `beatIdx` of `totalBeats` in a segment (matches Python). */
+const RAMP_WALL_CLOCK_ITERATIONS = 12
+
+function interpolateBeatDuration(
+  x: number,
+  durationStart: number,
+  durationEnd: number,
+  curve: RampCurve,
+): number {
+  return durationStart + (durationEnd - durationStart) * applyRampCurve(x, curve)
+}
+
+/**
+ * Option A — beat durations from wall-clock progress x = t/D.
+ *
+ * Each interval k uses f(x) where x is elapsed segment time / total segment time,
+ * converged by fixed-point iteration so spacing matches Duration(t) = D_start + (D_end − D_start)·f(t/D).
+ */
+export function computeRampBeatDurations(
+  totalBeats: number,
+  bpmStart: number,
+  bpmEnd: number,
+  curve: RampCurve = 'linear',
+): number[] {
+  if (totalBeats <= 0) return []
+
+  const durationStart = 60 / bpmStart
+  const durationEnd = 60 / bpmEnd
+
+  if (bpmStart === bpmEnd) {
+    return Array.from({ length: totalBeats }, () => durationStart)
+  }
+
+  if (totalBeats === 1) {
+    return [durationStart]
+  }
+
+  const interpolate = (x: number) => interpolateBeatDuration(x, durationStart, durationEnd, curve)
+
+  let durations = Array.from({ length: totalBeats }, (_, beatIdx) =>
+    interpolate(beatIdx / (totalBeats - 1)),
+  )
+
+  for (let iter = 0; iter < RAMP_WALL_CLOCK_ITERATIONS; iter++) {
+    const totalDuration = durations.reduce((sum, duration) => sum + duration, 0)
+    let elapsed = 0
+    const next: number[] = []
+
+    for (let beatIdx = 0; beatIdx < totalBeats; beatIdx++) {
+      const x = totalDuration > 0 ? elapsed / totalDuration : 0
+      const duration = interpolate(x)
+      next.push(duration)
+      elapsed += duration
+    }
+
+    durations = next
+  }
+
+  return durations
+}
+
+/** Instantaneous BPM at normalized wall-clock progress x ∈ [0, 1] (Option A). */
+export function bpmAtRampProgress(
+  x: number,
+  bpmStart: number,
+  bpmEnd: number,
+  curve: RampCurve = 'linear',
+): number {
+  const duration = interpolateBeatDuration(x, 60 / bpmStart, 60 / bpmEnd, curve)
+  return 60 / duration
+}
+
+/** Duration in seconds for one beat of a ramp segment. */
 export function beatDurationSeconds(
   beatIdx: number,
   totalBeats: number,
   bpmStart: number,
   bpmEnd: number,
+  curve: RampCurve = 'linear',
 ): number {
-  const durationStart = 60 / bpmStart
-  const durationEnd = 60 / bpmEnd
-  const progress = totalBeats > 0 ? beatIdx / totalBeats : 0
-  return durationStart + (durationEnd - durationStart) * progress
+  const durations = computeRampBeatDurations(totalBeats, bpmStart, bpmEnd, curve)
+  return durations[beatIdx] ?? durations[durations.length - 1] ?? 60 / bpmStart
+}
+
+function segmentRampCurve(segment: SequenceSegment): RampCurve {
+  return segment.rampCurve ?? 'linear'
 }
 
 export function segmentDurationSeconds(segment: SequenceSegment): number {
-  const totalBeats = segment.bars * BEATS_PER_BAR
-  let total = 0
-  for (let beatIdx = 0; beatIdx < totalBeats; beatIdx++) {
-    total += beatDurationSeconds(beatIdx, totalBeats, segment.bpmStart, segment.bpmEnd)
+  const durations = computeRampBeatDurations(
+    segment.bars * BEATS_PER_BAR,
+    segment.bpmStart,
+    segment.bpmEnd,
+    segmentRampCurve(segment),
+  )
+  return durations.reduce((sum, duration) => sum + duration, 0)
+}
+
+/** Finds the bar count whose ramp duration is closest to (but not exceeding) the target. */
+export function barsForTargetDurationSeconds(
+  durationSeconds: number,
+  bpmStart: number,
+  bpmEnd: number,
+  curve: RampCurve,
+): number {
+  if (durationSeconds <= 0) return 1
+
+  let low = 1
+  let high = 2
+
+  while (
+    segmentDurationSeconds({ bars: high, bpmStart, bpmEnd, rampCurve: curve }) <= durationSeconds
+  ) {
+    high *= 2
+    if (high > 10_000) break
   }
-  return total
+
+  while (low < high) {
+    const mid = Math.ceil((low + high) / 2)
+    const dur = segmentDurationSeconds({ bars: mid, bpmStart, bpmEnd, rampCurve: curve })
+    if (dur <= durationSeconds) low = mid
+    else high = mid - 1
+  }
+
+  return Math.max(1, low)
 }
 
 export function sequenceDurationSeconds(sequence: SequenceSegment[]): number {
@@ -78,14 +183,14 @@ export function segmentDownbeatStartTimesSeconds(
   for (const segment of sequence) {
     starts.push(Math.round(positionSamples) / sampleRate)
 
-    const totalBeats = segment.bars * BEATS_PER_BAR
-    for (let beatIdx = 0; beatIdx < totalBeats; beatIdx++) {
-      const beatDuration = beatDurationSeconds(
-        beatIdx,
-        totalBeats,
-        segment.bpmStart,
-        segment.bpmEnd,
-      )
+    const beatDurations = computeRampBeatDurations(
+      segment.bars * BEATS_PER_BAR,
+      segment.bpmStart,
+      segment.bpmEnd,
+      segmentRampCurve(segment),
+    )
+
+    for (const beatDuration of beatDurations) {
       const stepDuration = beatDuration / subdivision
 
       for (let subIdx = 0; subIdx < subdivision; subIdx++) {
@@ -128,16 +233,15 @@ function buildClickSteps(
   const steps: ClickStep[] = []
 
   for (const segment of sequence) {
-    const totalBeats = segment.bars * BEATS_PER_BAR
+    const beatDurations = computeRampBeatDurations(
+      segment.bars * BEATS_PER_BAR,
+      segment.bpmStart,
+      segment.bpmEnd,
+      segmentRampCurve(segment),
+    )
 
-    for (let beatIdx = 0; beatIdx < totalBeats; beatIdx++) {
-      const beatDuration = beatDurationSeconds(
-        beatIdx,
-        totalBeats,
-        segment.bpmStart,
-        segment.bpmEnd,
-      )
-      const stepDuration = beatDuration / subdivision
+    for (let beatIdx = 0; beatIdx < beatDurations.length; beatIdx++) {
+      const stepDuration = beatDurations[beatIdx]! / subdivision
 
       for (let subIdx = 0; subIdx < subdivision; subIdx++) {
         let accent: ClickStep['accent'] = 'subdivision'

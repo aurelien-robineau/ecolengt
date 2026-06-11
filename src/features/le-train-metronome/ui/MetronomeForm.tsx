@@ -6,6 +6,7 @@ import { LE_TRAIN_METRONOME_API_PATH } from '../constants'
 import { clampBpmToInputLimits, getBpmInputLimits, stepBpm } from '../lib/bpmLimits'
 import { DEFAULT_SAMPLE_RATE, findFinaleStartSeconds } from '../lib/audioGenerator'
 import { buildMetronomeDownloadFilename, buildSequence } from '../lib/sequenceBuilder'
+import type { RampCurve } from '../lib/rampCurve'
 import {
   COUNT_IN_BAR_OPTIONS,
   DEFAULT_COUNT_IN_BARS,
@@ -16,6 +17,7 @@ import { cn } from '@/lib/cn'
 import { MetronomeOptionToggle } from './MetronomeOptionToggle'
 import { MetronomePlayer } from './MetronomePlayer'
 import { MetronomeTempoPath } from './MetronomeTempoPath'
+import { MetronomeTempoTransition } from './MetronomeTempoTransition'
 
 const REQUEST_TIMEOUT_MS = 55_000
 
@@ -32,6 +34,7 @@ type FormState = {
   accentFirst: boolean
   mechanicalTempos: boolean
   countInBars: number
+  rampCurve: RampCurve
 }
 
 const defaultForm: FormState = {
@@ -41,6 +44,7 @@ const defaultForm: FormState = {
   accentFirst: false,
   mechanicalTempos: false,
   countInBars: DEFAULT_COUNT_IN_BARS,
+  rampCurve: 'linear',
 }
 
 type GeneratedAudioConfig = {
@@ -50,16 +54,19 @@ type GeneratedAudioConfig = {
   subdivision: number
   accentFirst: boolean
   mechanicalTempos: boolean
+  rampCurve: RampCurve
 }
 
 function buildGenerationConfig(form: FormState): GeneratedAudioConfig {
+  const bpm = clampBpmToInputLimits(form.bpm, form.bpmType)
   return {
-    bpm: clampBpmToInputLimits(form.bpm, form.bpmType),
+    bpm,
     bpmType: form.bpmType,
     countInBars: form.countInBars,
     subdivision: form.subdivision,
     accentFirst: form.accentFirst,
     mechanicalTempos: form.mechanicalTempos,
+    rampCurve: form.rampCurve,
   }
 }
 
@@ -70,7 +77,8 @@ function generationConfigsMatch(a: GeneratedAudioConfig, b: GeneratedAudioConfig
     a.countInBars === b.countInBars &&
     a.subdivision === b.subdivision &&
     a.accentFirst === b.accentFirst &&
-    a.mechanicalTempos === b.mechanicalTempos
+    a.mechanicalTempos === b.mechanicalTempos &&
+    a.rampCurve === b.rampCurve
   )
 }
 
@@ -330,6 +338,7 @@ export function MetronomeForm() {
         bpmType: config.bpmType,
         countInBars: config.countInBars,
         mechanicalTempos: config.mechanicalTempos,
+        rampCurve: config.rampCurve,
       })
 
       const nextUrl = URL.createObjectURL(blob)
@@ -384,6 +393,7 @@ export function MetronomeForm() {
             bpmType={tempoPathConfig.bpmType}
             countInBars={tempoPathConfig.countInBars}
             mechanicalTempos={tempoPathConfig.mechanicalTempos}
+            rampCurve={tempoPathConfig.rampCurve}
             subdivision={tempoPathConfig.subdivision}
             isPlaying={playback.isPlaying}
             currentTime={playback.currentTime}
@@ -428,6 +438,9 @@ export function MetronomeForm() {
                       }))
                     }
                   />
+                </div>
+
+                <div className="space-y-3">
                   <MetronomeOptionToggle
                     id={`${formId}-mechanical`}
                     icon="mechanical"
@@ -439,6 +452,11 @@ export function MetronomeForm() {
                     <span className="hidden sm:inline">Tempos métronome mécanique</span>
                   </MetronomeOptionToggle>
                 </div>
+
+                <MetronomeTempoTransition
+                  curve={form.rampCurve}
+                  onChange={(rampCurve) => setForm((s) => ({ ...s, rampCurve }))}
+                />
 
                 <div className="grid gap-5 sm:grid-cols-2">
                   <div className="space-y-2">

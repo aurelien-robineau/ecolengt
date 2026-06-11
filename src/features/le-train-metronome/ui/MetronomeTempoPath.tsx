@@ -11,6 +11,7 @@ import {
   formatTempoBpm,
   REFERENCE_MAX_BPM,
 } from '../lib/sequenceBuilder'
+import type { RampCurve } from '../lib/rampCurve'
 import type { BpmType, MetronomeSequenceConfig } from '../lib/types'
 import { FeatureIcon } from './FeatureIcon'
 
@@ -19,6 +20,7 @@ type MetronomeTempoPathProps = {
   bpmType: BpmType
   countInBars: number
   mechanicalTempos: boolean
+  rampCurve: RampCurve
   subdivision?: number
   isPlaying?: boolean
   currentTime?: number
@@ -29,6 +31,7 @@ const REFERENCE_TEMPO_CONFIG: MetronomeSequenceConfig = {
   bpmType: 'max',
   countInBars: 0,
   mechanicalTempos: false,
+  rampCurve: 'linear',
 }
 
 function tempoCellClass({
@@ -55,13 +58,14 @@ export function MetronomeTempoPath({
   bpmType,
   countInBars,
   mechanicalTempos,
+  rampCurve,
   subdivision = 1,
   isPlaying = false,
   currentTime = 0,
 }: MetronomeTempoPathProps) {
   const sequenceConfig = useMemo(
-    () => ({ bpm, bpmType, countInBars, mechanicalTempos }),
-    [bpm, bpmType, countInBars, mechanicalTempos],
+    () => ({ bpm, bpmType, countInBars, mechanicalTempos, rampCurve }),
+    [bpm, bpmType, countInBars, mechanicalTempos, rampCurve],
   )
 
   const referenceMilestones = useMemo(() => buildTempoTableMilestones(REFERENCE_TEMPO_CONFIG), [])
