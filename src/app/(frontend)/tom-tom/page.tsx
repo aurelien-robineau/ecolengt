@@ -6,6 +6,7 @@ import { Container } from '@/components/ui/Container'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import { routes } from '@/config/routes'
 import { getSiteSettings, getTomTomPage } from '@/lib/content'
+import { ASSOCIATION_TOM_TOM, PACATOM, SEO_KEYWORDS } from '@/lib/seo/constants'
 import { buildPageMetadata } from '@/lib/seo/metadata'
 import { seoCopy } from '@/lib/seo/copy'
 
@@ -19,6 +20,14 @@ export async function generateMetadata(): Promise<Metadata> {
     pageTitle: documentTitle,
     seoTitle: title,
     description,
+    keywords: [
+      ...SEO_KEYWORDS,
+      ASSOCIATION_TOM_TOM,
+      PACATOM,
+      'trio de batterie',
+      'examens NGT',
+      'promotion batterie',
+    ],
   })
 }
 

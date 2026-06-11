@@ -1,8 +1,10 @@
 import type { SiteAddressData, SiteSettingsData } from '@/lib/content/types'
 import {
+  ASSOCIATION_TOM_TOM,
   DANTE_AGOSTINI_FOUNDER,
   DANTE_AGOSTINI_METHOD,
   DANTE_AGOSTINI_NETWORK,
+  PACATOM,
   SEO_INTENSIVE_DEPARTMENT,
   SEO_INTENSIVE_VENUE,
   SEO_SERVICE_AREAS,
@@ -61,6 +63,9 @@ function musicSchoolNode(
       DANTE_AGOSTINI_NETWORK,
       DANTE_AGOSTINI_FOUNDER,
       'Examens NGT',
+      ASSOCIATION_TOM_TOM,
+      PACATOM,
+      'Trio de batterie',
     ],
     inLanguage: 'fr-FR',
     ...extra,
@@ -76,6 +81,8 @@ export function buildSiteJsonLd(site: SiteSettingsData): JsonLdObject {
 
   const mainSchoolId = `${origin}#ecole-aix`
   const intensiveId = `${origin}#stages-razes`
+  const tomTomId = `${origin}#association-tom-tom`
+  const pacatomId = `${origin}#pacatom`
   const websiteId = `${origin}#website`
 
   const phones = site.contact.phones.map((p) => p.display)
@@ -100,8 +107,33 @@ export function buildSiteJsonLd(site: SiteSettingsData): JsonLdObject {
         },
       },
       sameAs: [site.social.instagram, site.social.facebook].filter(Boolean),
+      subOrganization: { '@id': tomTomId },
     },
   )
+
+  const tomTomAssociation: JsonLdObject = {
+    '@type': 'Organization',
+    '@id': tomTomId,
+    name: ASSOCIATION_TOM_TOM,
+    description: `Promotion de la batterie, examens publics NGT et actions culturelles à ${city}. Liée à ${school}.`,
+    url: absoluteUrl(routes.tomTom),
+    parentOrganization: { '@id': mainSchoolId },
+    areaServed: areaServedList(),
+    knowsAbout: ['Batterie', 'Examens NGT', PACATOM, 'Trio de batterie'],
+    inLanguage: 'fr-FR',
+  }
+
+  const pacatomTrio: JsonLdObject = {
+    '@type': 'MusicGroup',
+    '@id': pacatomId,
+    name: PACATOM,
+    genre: 'Batterie',
+    description: `Trio de batterie lié à ${school} et à ${ASSOCIATION_TOM_TOM} à ${city}.`,
+    url: absoluteUrl(routes.tomTom),
+    memberOf: { '@id': tomTomId },
+    areaServed: areaServedList(),
+    inLanguage: 'fr-FR',
+  }
 
   const intensiveCenter = musicSchoolNode(
     intensiveId,
@@ -146,6 +178,7 @@ export function buildSiteJsonLd(site: SiteSettingsData): JsonLdObject {
       { name: 'Contact', url: absoluteUrl(routes.contact) },
       { name: 'Tarifs', url: absoluteUrl(routes.pricing) },
       { name: 'Actualité', url: absoluteUrl(routes.news) },
+      { name: ASSOCIATION_TOM_TOM, url: absoluteUrl(routes.tomTom) },
     ].map((item, index) => ({
       '@type': 'ListItem',
       position: index + 1,
@@ -155,6 +188,6 @@ export function buildSiteJsonLd(site: SiteSettingsData): JsonLdObject {
 
   return {
     '@context': 'https://schema.org',
-    '@graph': [mainSchool, intensiveCenter, website, navigation],
+    '@graph': [mainSchool, intensiveCenter, tomTomAssociation, pacatomTrio, website, navigation],
   }
 }

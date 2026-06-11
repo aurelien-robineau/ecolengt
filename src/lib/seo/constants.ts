@@ -13,6 +13,12 @@ export const DANTE_AGOSTINI_NETWORK = 'Réseau Dante Agostini'
 /** Method taught at the school (Dante Agostini pedagogical method). */
 export const DANTE_AGOSTINI_METHOD = 'méthode Dante Agostini'
 
+/** Cultural association linked to the school (drum promotion, NGT exams). */
+export const ASSOCIATION_TOM_TOM = 'Association Tom Tom'
+
+/** Drum trio linked to the school and Association Tom Tom. */
+export const PACATOM = 'Pacatom'
+
 /**
  * Geographic areas served — used in meta descriptions and structured data
  * (natural language, no UI impact).
@@ -59,6 +65,15 @@ export const SEO_KEYWORDS = [
   'stages intensifs Razès',
   'cours de batterie enfants',
   'cours de batterie adultes',
+  ASSOCIATION_TOM_TOM,
+  'asso Tom Tom',
+  'Tom Tom batterie',
+  'examens NGT',
+  PACATOM,
+  'trio de batterie Pacatom',
+  'trio de batterie',
+  'trio batterie Aix-en-Provence',
+  'trio batterie PACA',
 ] as const
 
 export const SEO_DEFAULT_OG_IMAGE_PATH = '/brand/logo.svg'

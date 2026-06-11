@@ -1,8 +1,10 @@
 import {
+  ASSOCIATION_TOM_TOM,
   DANTE_AGOSTINI_FOUNDER,
   DANTE_AGOSTINI_METHOD,
   DANTE_AGOSTINI_NETWORK,
   DOCUMENT_TITLE_HOME,
+  PACATOM,
   SEO_INTENSIVE_VENUE,
 } from '@/lib/seo/constants'
 import type { SiteSettingsData } from '@/lib/content/types'
@@ -29,7 +31,7 @@ export const seoCopy = {
     return {
       documentTitle: DOCUMENT_TITLE_HOME,
       title: `École de batterie à ${city} — ${DANTE_AGOSTINI_NETWORK}`,
-      description: `${school} : école de batterie à ${city} et en ${pacaLabel} (Marseille, Bouches-du-Rhône, Aubagne, Salon-de-Provence…). Cours pour tous niveaux dès 6 ans, ${DANTE_AGOSTINI_METHOD}, réseau fondé par ${DANTE_AGOSTINI_FOUNDER}. Stages intensifs nationaux de batterie à ${intensiveCity(site)}.`,
+      description: `${school} : école de batterie à ${city} et en ${pacaLabel} (Marseille, Bouches-du-Rhône, Aubagne, Salon-de-Provence…). Cours pour tous niveaux dès 6 ans, ${DANTE_AGOSTINI_METHOD}, réseau fondé par ${DANTE_AGOSTINI_FOUNDER}. Stages intensifs nationaux de batterie à ${intensiveCity(site)}. ${ASSOCIATION_TOM_TOM} et trio de batterie ${PACATOM}.`,
     }
   },
 
@@ -77,8 +79,8 @@ export const seoCopy = {
 
   tomTom: (site: SiteSettingsData) => ({
     documentTitle: 'Association Tom Tom',
-    title: `Association Tom Tom — batterie et examens NGT ${cityLabel(site)}`,
-    description: `Association Tom Tom : promotion de la batterie, examens publics NGT et actions culturelles à ${cityLabel(site)}. Liée à ${schoolLabel(site)} et au ${DANTE_AGOSTINI_NETWORK}.`,
+    title: `Association Tom Tom et ${PACATOM} — batterie et examens NGT ${cityLabel(site)}`,
+    description: `${ASSOCIATION_TOM_TOM} : promotion de la batterie, examens publics NGT et actions culturelles à ${cityLabel(site)}. Trio de batterie ${PACATOM}. Liée à ${schoolLabel(site)} et au ${DANTE_AGOSTINI_NETWORK}.`,
   }),
 
   leTrainMetronome: (site: SiteSettingsData) => ({
