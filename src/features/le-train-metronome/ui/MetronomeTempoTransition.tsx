@@ -33,7 +33,7 @@ export function MetronomeTempoTransition({ curve, onChange }: MetronomeTempoTran
         Courbe de changement de tempo
       </p>
       <div
-        className="grid grid-cols-3 gap-2"
+        className="grid grid-cols-2 gap-2 sm:grid-cols-4"
         role="radiogroup"
         aria-label="Courbe de changement de tempo"
       >

@@ -1,10 +1,12 @@
 /** Easing curve applied to normalized ramp progress (0 → 1). */
-export type RampCurve = 'linear' | 'ease-in' | 'ease-out'
+export type RampCurve = 'linear' | 'ease-in' | 'ease-out' | 'ease-in-out'
 
+/** Labels from Cakewalk SONAR (linéaire, courbe lente, courbe rapide) and Ableton Live (courbe en S). */
 export const RAMP_CURVE_OPTIONS: readonly { id: RampCurve; label: string }[] = [
   { id: 'linear', label: 'Linéaire' },
-  { id: 'ease-in', label: 'Ease-in' },
-  { id: 'ease-out', label: 'Ease-out' },
+  { id: 'ease-in', label: 'Courbe lente' },
+  { id: 'ease-out', label: 'Courbe rapide' },
+  { id: 'ease-in-out', label: 'Courbe en S' },
 ] as const
 
 /**
@@ -12,6 +14,7 @@ export const RAMP_CURVE_OPTIONS: readonly { id: RampCurve; label: string }[] = [
  * - linear: f(x) = x
  * - ease-in (regular cubic): f(x) = x³
  * - ease-out (inverse cubic): f(x) = 1 − (1 − x)³
+ * - ease-in-out (regular cubic): f(x) = 4x³ when x < ½, else 1 − (−2x + 2)³ / 2
  */
 export function applyRampCurve(progress: number, curve: RampCurve): number {
   const x = Math.max(0, Math.min(1, progress))
@@ -20,6 +23,8 @@ export function applyRampCurve(progress: number, curve: RampCurve): number {
       return x * x * x
     case 'ease-out':
       return 1 - (1 - x) ** 3
+    case 'ease-in-out':
+      return x < 0.5 ? 4 * x * x * x : 1 - (-2 * x + 2) ** 3 / 2
     default:
       return x
   }

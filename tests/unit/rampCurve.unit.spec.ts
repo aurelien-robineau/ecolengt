@@ -26,18 +26,24 @@ describe('rampCurve', () => {
     expect(easeOutMid).toBeCloseTo(0.875, 6)
   })
 
-  it('evaluates the three easing functions at the endpoints', () => {
-    expect(applyRampCurve(0, 'linear')).toBe(0)
-    expect(applyRampCurve(1, 'linear')).toBe(1)
-    expect(applyRampCurve(0, 'ease-in')).toBe(0)
-    expect(applyRampCurve(1, 'ease-in')).toBe(1)
-    expect(applyRampCurve(0, 'ease-out')).toBe(0)
-    expect(applyRampCurve(1, 'ease-out')).toBe(1)
+  it('evaluates the easing functions at the endpoints', () => {
+    for (const curve of ['linear', 'ease-in', 'ease-out', 'ease-in-out'] as const) {
+      expect(applyRampCurve(0, curve)).toBe(0)
+      expect(applyRampCurve(1, curve)).toBe(1)
+    }
   })
 
   it('ease-in starts flatter than linear and ease-out ends flatter than linear', () => {
     expect(applyRampCurve(0.5, 'ease-in')).toBeLessThan(0.5)
     expect(applyRampCurve(0.5, 'ease-out')).toBeGreaterThan(0.5)
+    expect(applyRampCurve(0.5, 'ease-in-out')).toBeCloseTo(0.5, 6)
+  })
+
+  it('draws an S-curve icon through the midpoint', () => {
+    expect(rampCurveSvgPath('ease-in-out')).toMatch(/^M 6\.00 34\.00/)
+    expect(rampCurveSvgPath('ease-in-out')).toMatch(/34\.00 6\.00$/)
+    expect(applyRampCurve(0.25, 'ease-in-out')).toBeLessThan(0.25)
+    expect(applyRampCurve(0.75, 'ease-in-out')).toBeGreaterThan(0.75)
   })
 
   it('uses Option A wall-clock progress for beat durations', () => {
