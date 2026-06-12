@@ -458,8 +458,7 @@ export function MetronomeForm() {
                     onChange={(mechanicalTempos) => setForm((s) => ({ ...s, mechanicalTempos }))}
                     description="Utiliser uniquement des tempos disponibles sur un métronome mécanique."
                   >
-                    <span className="sm:hidden">Tempos mécaniques</span>
-                    <span className="hidden sm:inline">Tempos métronome mécanique</span>
+                    <span className="sm:inline">Tempos mécaniques uniquement</span>
                   </MetronomeOptionToggle>
                 </div>
 
@@ -517,7 +516,7 @@ export function MetronomeForm() {
                   onChange={(accentFirst) => setForm((s) => ({ ...s, accentFirst }))}
                   description="Accentuer le premier temps de chaque mesure."
                 >
-                  Accent sur le 1<sup>er</sup> temps
+                  Accentuer le 1<sup>er</sup> temps
                 </MetronomeOptionToggle>
 
                 <button
