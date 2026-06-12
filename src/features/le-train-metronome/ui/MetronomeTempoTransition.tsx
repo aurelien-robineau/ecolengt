@@ -30,12 +30,12 @@ export function MetronomeTempoTransition({ curve, onChange }: MetronomeTempoTran
   return (
     <div className="space-y-2">
       <p className="font-metronome-mono text-center text-[10px] tracking-[0.22em] text-[var(--metro-muted)] uppercase">
-        Courbe d&apos;accélération
+        Courbe de changement de tempo
       </p>
       <div
         className="grid grid-cols-3 gap-2"
         role="radiogroup"
-        aria-label="Courbe de transition tempo"
+        aria-label="Courbe de changement de tempo"
       >
         {RAMP_CURVE_OPTIONS.map((option) => {
           const active = curve === option.id
