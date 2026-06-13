@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { externalLinkAriaLabel } from '@/lib/a11y/externalLink'
 import { cn } from '@/lib/cn'
 import type { SiteSettingsData } from '@/lib/content/types'
@@ -56,7 +57,7 @@ export function SocialLinks({ site, variant = 'contact', className }: SocialLink
             rel="noopener noreferrer"
             aria-label={externalLinkAriaLabel(network.label, network.href)}
           >
-            <img src={iconPaths[network.id]} alt="" width={20} height={20} className="size-5" />
+            <Image src={iconPaths[network.id]} alt="" width={20} height={20} className="size-5" />
           </a>
         </li>
       ))}
