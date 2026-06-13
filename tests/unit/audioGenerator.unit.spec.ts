@@ -3,7 +3,6 @@ import { describe, expect, it } from 'vitest'
 import {
   DEFAULT_SAMPLE_RATE,
   SILENCE_AT_START_S,
-  beatDurationSeconds,
   computeRampBeatDurations,
   downbeatOnsetsSeconds,
   findFinaleStartSeconds,
@@ -18,6 +17,10 @@ import {
   defaultSequenceConfig,
 } from '@/features/le-train-metronome/lib/sequenceBuilder'
 import type { SequenceSegment } from '@/features/le-train-metronome/lib/types'
+
+function readInt16LE(bytes: Uint8Array, byteOffset: number): number {
+  return new DataView(bytes.buffer, bytes.byteOffset + byteOffset, 2).getInt16(0, true)
+}
 
 /** Reference click placement: float timeline, rounded sample index. */
 function referenceDownbeatOnsetsSeconds(
@@ -71,7 +74,7 @@ describe('audioGenerator', () => {
     const pcm = wav.subarray(44)
     let nonZero = 0
     for (let i = 0; i < pcm.length; i += 2) {
-      if (pcm.readInt16LE(i) !== 0) nonZero++
+      if (readInt16LE(pcm, i) !== 0) nonZero++
     }
     expect(nonZero).toBeGreaterThan(0)
   })
@@ -84,7 +87,7 @@ describe('audioGenerator', () => {
     let maxAbsInPad = 0
     let nonZeroInPad = 0
     for (let i = 0; i < padSamples; i++) {
-      const sample = pcm.readInt16LE(i * 2)
+      const sample = readInt16LE(pcm, i * 2)
       if (sample !== 0) nonZeroInPad++
       maxAbsInPad = Math.max(maxAbsInPad, Math.abs(sample))
     }

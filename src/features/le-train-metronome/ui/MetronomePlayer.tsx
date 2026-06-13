@@ -345,7 +345,7 @@ export function MetronomePlayer({
             className="inline-flex items-center justify-center gap-2 font-metronome-mono text-[11px] tracking-[0.14em] text-[var(--metro-muted)] uppercase no-underline transition-colors hover:text-[var(--metro-brand)]"
           >
             <FeatureIcon name="download" className="size-4" />
-            Télécharger le fichier
+            Télécharger le fichier audio
           </a>
         </div>
       </div>

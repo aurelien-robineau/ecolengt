@@ -3,11 +3,11 @@ import type { SequenceSegment } from './types'
 
 export const DEFAULT_SAMPLE_RATE = 22_050
 export const BEATS_PER_BAR = 2
-/** Pad duration (seconds) before the first click — filled with inaudible dither (matches Python). */
+/** Pad duration (seconds) before the first click — filled with inaudible dither. */
 export const SILENCE_AT_START_S = 1.0
 
 const CLICK_DURATION_S = 0.03
-/** Float-scale Gaussian noise amplitude — matches Python `randn * 1e-5`. */
+/** Float-scale Gaussian noise amplitude (randn × 1e-5). */
 const DITHER_AMPLITUDE = 1e-5
 /** Absolute int16 peak for the pre-roll keep-alive tone (~-42 dBFS). Applied after normalize. */
 const DEVICE_WAKE_UP_PEAK = 250
@@ -260,7 +260,7 @@ function buildClickSteps(
   return steps
 }
 
-/** Downbeat onset times (s) using float timeline + rounded sample index (Python model). */
+/** Downbeat onset times (s) using float timeline + rounded sample index. */
 export function downbeatOnsetsSeconds(
   sequence: SequenceSegment[],
   subdivision: number,
@@ -288,7 +288,7 @@ function randomNormal(): number {
   return Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v)
 }
 
-/** Inaudible dither to keep sound devices active — matches Python `render_final_audio`. */
+/** Inaudible dither to keep sound devices active. */
 function fillInaudibleDither(pcm: Int16Array): void {
   for (let i = 0; i < pcm.length; i++) {
     pcm[i] = Math.round(randomNormal() * DITHER_AMPLITUDE * 32_767)
@@ -309,21 +309,30 @@ function mixDeviceWakeUpSignal(pcm: Int16Array, sampleRate: number): void {
   }
 }
 
-function writeWavHeader(pcmByteLength: number, sampleRate: number): Buffer {
-  const header = Buffer.alloc(44)
-  header.write('RIFF', 0)
-  header.writeUInt32LE(36 + pcmByteLength, 4)
-  header.write('WAVE', 8)
-  header.write('fmt ', 12)
-  header.writeUInt32LE(16, 16)
-  header.writeUInt16LE(1, 20)
-  header.writeUInt16LE(1, 22)
-  header.writeUInt32LE(sampleRate, 24)
-  header.writeUInt32LE(sampleRate * 2, 28)
-  header.writeUInt16LE(2, 32)
-  header.writeUInt16LE(16, 34)
-  header.write('data', 36)
-  header.writeUInt32LE(pcmByteLength, 40)
+function writeAscii(view: DataView, offset: number, text: string): void {
+  for (let i = 0; i < text.length; i++) {
+    view.setUint8(offset + i, text.charCodeAt(i))
+  }
+}
+
+function writeWavHeader(pcmByteLength: number, sampleRate: number): Uint8Array {
+  const header = new Uint8Array(44)
+  const view = new DataView(header.buffer)
+
+  writeAscii(view, 0, 'RIFF')
+  view.setUint32(4, 36 + pcmByteLength, true)
+  writeAscii(view, 8, 'WAVE')
+  writeAscii(view, 12, 'fmt ')
+  view.setUint32(16, 16, true)
+  view.setUint16(20, 1, true)
+  view.setUint16(22, 1, true)
+  view.setUint32(24, sampleRate, true)
+  view.setUint32(28, sampleRate * 2, true)
+  view.setUint16(32, 2, true)
+  view.setUint16(34, 16, true)
+  writeAscii(view, 36, 'data')
+  view.setUint32(40, pcmByteLength, true)
+
   return header
 }
 
@@ -356,14 +365,14 @@ export function totalPcmSamples(steps: ClickStep[], sampleRate: number): number 
 
 /**
  * Builds a mono 16-bit PCM WAV entirely in memory.
- * Click placement uses float timeline advancement (same model as metronome_generator.py).
+ * Click placement uses float timeline advancement with rounded sample indices.
  */
 export function generateWavBuffer(
   sequence: SequenceSegment[],
   subdivision: number,
   accentFirst: boolean,
   sampleRate: number = DEFAULT_SAMPLE_RATE,
-): Buffer {
+): Uint8Array {
   const steps = buildClickSteps(sequence, subdivision, accentFirst)
   const clicks = {
     accent: precomputeClick(FREQ_ACCENT_HZ, sampleRate),
@@ -394,12 +403,15 @@ export function generateWavBuffer(
   normalizePcm(trimmed)
   mixDeviceWakeUpSignal(trimmed, sampleRate)
 
-  const pcmBuffer = Buffer.from(trimmed.buffer, trimmed.byteOffset, trimmed.byteLength)
-  const header = writeWavHeader(pcmBuffer.length, sampleRate)
-  return Buffer.concat([header, pcmBuffer])
+  const pcmBytes = new Uint8Array(trimmed.buffer, trimmed.byteOffset, trimmed.byteLength)
+  const header = writeWavHeader(pcmBytes.length, sampleRate)
+  const wav = new Uint8Array(header.length + pcmBytes.length)
+  wav.set(header, 0)
+  wav.set(pcmBytes, header.length)
+  return wav
 }
 
-export function parseWavHeader(buffer: Buffer): {
+export function parseWavHeader(buffer: Uint8Array): {
   sampleRate: number
   channels: number
   bitsPerSample: number
@@ -408,13 +420,19 @@ export function parseWavHeader(buffer: Buffer): {
   if (buffer.length < 44) {
     throw new Error('WAV buffer too short')
   }
-  if (buffer.toString('ascii', 0, 4) !== 'RIFF' || buffer.toString('ascii', 8, 12) !== 'WAVE') {
+
+  const view = new DataView(buffer.buffer, buffer.byteOffset, buffer.byteLength)
+  const riff = String.fromCharCode(buffer[0]!, buffer[1]!, buffer[2]!, buffer[3]!)
+  const wave = String.fromCharCode(buffer[8]!, buffer[9]!, buffer[10]!, buffer[11]!)
+
+  if (riff !== 'RIFF' || wave !== 'WAVE') {
     throw new Error('Invalid WAV header')
   }
+
   return {
-    sampleRate: buffer.readUInt32LE(24),
-    channels: buffer.readUInt16LE(22),
-    bitsPerSample: buffer.readUInt16LE(34),
-    dataSize: buffer.readUInt32LE(40),
+    sampleRate: view.getUint32(24, true),
+    channels: view.getUint16(22, true),
+    bitsPerSample: view.getUint16(34, true),
+    dataSize: view.getUint32(40, true),
   }
 }

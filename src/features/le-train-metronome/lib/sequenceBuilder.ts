@@ -97,7 +97,7 @@ export function formatTempoBpm(bpm: number): string {
   return String(Math.round(bpm))
 }
 
-/** Matches `metronome_generator.py` export naming: count-in start → peak BPM. */
+/** Download filename: count-in start BPM → peak BPM. */
 export function buildMetronomeDownloadFilename(sequence: SequenceSegment[]): string {
   const bpmFirst = sequence[0]?.bpmStart ?? 0
   const bpmMax = peakBpmFromSequence(sequence)

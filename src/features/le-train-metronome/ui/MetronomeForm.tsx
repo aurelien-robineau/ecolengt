@@ -2,10 +2,8 @@
 
 import { type KeyboardEvent, useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
 
-import { LE_TRAIN_METRONOME_API_PATH } from '../constants'
 import { clampBpmToInputLimits, getBpmInputLimits, stepBpm } from '../lib/bpmLimits'
-import { DEFAULT_SAMPLE_RATE, findFinaleStartSeconds } from '../lib/audioGenerator'
-import { buildMetronomeDownloadFilename, buildSequence } from '../lib/sequenceBuilder'
+import { generateMetronomeAudio } from '../lib/generateMetronomeAudio'
 import type { RampCurve } from '../lib/rampCurve'
 import {
   COUNT_IN_BAR_OPTIONS,
@@ -18,8 +16,6 @@ import { MetronomeOptionToggle } from './MetronomeOptionToggle'
 import { MetronomePlayer } from './MetronomePlayer'
 import { MetronomeTempoPath } from './MetronomeTempoPath'
 import { MetronomeTempoTransition } from './MetronomeTempoTransition'
-
-const REQUEST_TIMEOUT_MS = 55_000
 
 const fieldClass = cn(
   'font-metronome-mono w-full rounded-sm border border-[var(--metro-border)] bg-[var(--metro-panel-soft)]',
@@ -313,66 +309,31 @@ export function MetronomeForm() {
     setFinaleStartTime(null)
     setLoading(true)
 
-    const controller = new AbortController()
-    const timeoutId = window.setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS)
-
     try {
-      const response = await fetch(LE_TRAIN_METRONOME_API_PATH, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...config,
-          sampleRate: DEFAULT_SAMPLE_RATE,
-        }),
-        signal: controller.signal,
-      })
+      await Promise.resolve()
 
-      if (!response.ok) {
-        let message = 'La génération a échoué.'
-        try {
-          const data = (await response.json()) as { error?: string }
-          if (data.error) message = data.error
-        } catch {
-          /* ignore */
-        }
-        throw new Error(message)
-      }
-
-      const blob = await response.blob()
+      const { blob, downloadFilename, finaleStartTime } = generateMetronomeAudio(config)
       if (!blob.size) {
-        throw new Error('Réponse audio vide.')
+        throw new Error('Fichier audio vide.')
       }
-
-      const sequence = buildSequence({
-        bpm: config.bpm,
-        bpmType: config.bpmType,
-        countInBars: config.countInBars,
-        mechanicalTempos: config.mechanicalTempos,
-        rampCurve: config.rampCurve,
-      })
 
       const nextUrl = URL.createObjectURL(blob)
       setBlobUrl((previous) => {
         revokeBlobUrl(previous)
         return nextUrl
       })
-      setDownloadFilename(buildMetronomeDownloadFilename(sequence))
-      setFinaleStartTime(findFinaleStartSeconds(sequence, config.subdivision))
+      setDownloadFilename(downloadFilename)
+      setFinaleStartTime(finaleStartTime)
       setGeneratedConfig(config)
       setView('session')
     } catch (cause) {
       setView('settings')
       if (cause instanceof Error) {
-        if (cause.name === 'AbortError') {
-          setError('Délai dépassé. Réduisez le tempo ou réessayez.')
-        } else {
-          setError(cause.message)
-        }
+        setError(cause.message)
       } else {
         setError('Une erreur inattendue est survenue.')
       }
     } finally {
-      window.clearTimeout(timeoutId)
       setLoading(false)
     }
   }
@@ -535,10 +496,10 @@ export function MetronomeForm() {
                         className="inline-block size-4 animate-spin rounded-full border-2 border-[var(--metro-on-brand)]/25 border-t-[var(--metro-on-brand)]"
                         aria-hidden
                       />
-                      Génération en cours…
+                      {"Génération de l'audio en cours…"}
                     </>
                   ) : (
-                    "Générer l'audio"
+                    "C'est parti !"
                   )}
                 </button>
               </form>

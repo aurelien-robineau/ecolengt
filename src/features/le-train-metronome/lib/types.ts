@@ -41,10 +41,3 @@ export type MetronomeSequenceConfig = Pick<
   MetronomeConfig,
   'bpm' | 'bpmType' | 'countInBars' | 'mechanicalTempos' | 'rampCurve'
 >
-
-export type MetronomeGeneratePayload = {
-  sequence: SequenceSegment[]
-  subdivision: number
-  accentFirst: boolean
-  sampleRate: number
-}
