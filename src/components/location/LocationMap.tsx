@@ -35,7 +35,7 @@ export function LocationMap({
           <ExternalLink
             href={googleMapsUrl}
             aria-label={googleMapsLabel}
-            className="absolute top-3 left-3 z-[1001] inline-flex items-center gap-2.5 rounded-sm border border-white/15 bg-foreground/90 px-3.5 py-2.5 text-sm font-medium text-surface backdrop-blur-sm transition-colors hover:bg-foreground"
+            className="absolute top-3 left-3 z-10 inline-flex items-center gap-2.5 rounded-sm border border-white/15 bg-foreground/90 px-3.5 py-2.5 text-sm font-medium text-surface backdrop-blur-sm transition-colors hover:bg-foreground"
           >
             <span>Ouvrir dans Google Maps</span>
             <Icon name="openInNew" className="size-4.5 shrink-0" />

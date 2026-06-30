@@ -256,6 +256,7 @@
 
   .map-embed {
     position: relative;
+    isolation: isolate;
     width: 100%;
     overflow: hidden;
     border-radius: var(--radius-md);
